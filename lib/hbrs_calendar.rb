@@ -8,7 +8,7 @@ require 'pathname'
 agent = Mechanize.new
 calendar = Icalendar::Calendar.new
 
-OUTPUT_FOLDER = Pathname('output')
+OUTPUT_FOLDER = Pathname('tmp')
 OUTPUT_FOLDER.mkdir unless OUTPUT_FOLDER.exist?
 OUTPUT_FILE = OUTPUT_FOLDER + 'hbrs_calendar.ical'
 NAME_PATTERN   = /(.*) \((.*)\)$/
