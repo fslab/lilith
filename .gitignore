@@ -1,6 +1,9 @@
 # RubyMine project (private parts)
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/lilith.iml
+.idea/dataSources.ids
+.idea/dataSources.xml
 
 # NetBeans project (private parts)
 nbproject/private
