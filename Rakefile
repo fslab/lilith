@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-HbrsCalendar::Application.load_tasks
+Lilith::Application.load_tasks
