@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DependencyValidationManager">
+    <scope name="Tests" pattern="file:app/spec//*" />
+    <scope name="Controllers" pattern="file:app/controllers//*" />
+    <scope name="Models" pattern="file:app/models//*" />
+    <scope name="Views" pattern="file:app/views//*" />
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+  </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Ruby SDK 1.9.2-p136" project-jdk-type="RUBY_SDK" />
 </project>
