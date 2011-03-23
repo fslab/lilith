@@ -8,7 +8,7 @@ nbproject/private
 # Rails files
 config/database.yml
 config/initializers/secret_token.rb
-db/*.sqlite
+db/*.sqlite3
 db/*_structure.sql
 db/schema.rb
 doc/api
