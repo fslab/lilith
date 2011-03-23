@@ -15,6 +15,7 @@ doc/api
 doc/app
 log
 tmp
+.bundle
 
 # Testing and coverage
 .rspec
