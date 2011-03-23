@@ -1,4 +1,13 @@
 Lilith::Application.routes.draw do
+
+  root :to => 'root#show'
+
+  scope ':locale' do
+    resources :semesters
+
+    root :to => 'root#show'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
