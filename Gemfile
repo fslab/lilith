@@ -7,6 +7,8 @@ gem 'rails', '3.0.4'
 
 gem 'pg'
 gem 'haml'
+gem 'mechanize'
+gem 'icalendar'
 
 group :development do
   gem 'rspec-rails'
