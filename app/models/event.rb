@@ -1,3 +1,4 @@
+# Possibly recurring event in a course
 class Event < ActiveRecord::Base
   has_many :event_tutor_associations, :dependent => :destroy
   has_many :tutors, :through => :event_tutor_associations
