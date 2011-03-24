@@ -1,3 +1,4 @@
+# One of the topics of a study unit
 class Course < ActiveRecord::Base
   belongs_to :plan
   has_many :events, :dependent => :destroy
