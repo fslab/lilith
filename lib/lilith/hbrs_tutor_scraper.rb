@@ -5,6 +5,7 @@ require 'pp'
 
 class Lilith::HbrsTutorScraper
 
+  attr_accessor :agent
   attr_accessor :title
   attr_accessor :forename
   attr_accessor :surname
@@ -18,14 +19,16 @@ class Lilith::HbrsTutorScraper
   def call
     page = @agent.get(@url)
     page.parser.xpath("//p/a[@href]").each do |link|
+
       if link['href'].include? "http\:\/\/"
-        puts link['href'] + " " + link.text
+        @profil_url = link['href']
      else
        if link['href'].include? "\.html"
-         puts "http://www.inf.h-bonn-rhein-sieg.de" + link['href'] + " " + link.text
+         @profil_url = "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
        end
      end
-     #@title.scan(/Prof\.|Dr\.\-Ing|Dr\./)
+
+      @title = link.text.scan(/Prof\.|Dr\.\-Ing|Dr\./)
     end
   end
 end
