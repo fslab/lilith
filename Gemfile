@@ -11,6 +11,7 @@ gem 'mechanize'
 gem 'icalendar'
 
 group :development do
+  gem 'wirble'
   gem 'rspec-rails'
   gem 'shoulda'
   gem 'factory_girl_rails'
