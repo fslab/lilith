@@ -27,3 +27,6 @@ coverage
 # Backup files (mostly Dia)
 doc/plan/*\~
 doc/plan/*.autosave
+
+# Netbeansquatsch
+nbproject

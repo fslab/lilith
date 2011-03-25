@@ -18,7 +18,6 @@ class Lilith::HbrsTutorScraper
   end
 
   def scrape_tutors
-    #TODO: RÜckgabewerte an Objekt binden und in Datenbank schreiben
     page = @agent.get(@url)
     page.parser.xpath(SECTION_LINK_PATTERN).each do |link|
 
