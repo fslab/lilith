@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'mechanize'
-require 'pp'
 
 class Lilith::HbrsTutorScraper
   SECTION_LINK_PATTERN = "//p/a[@href and not(@href='javascript:history.back()')]"
@@ -19,23 +18,23 @@ class Lilith::HbrsTutorScraper
   end
 
   def scrape_tutors
+    #TODO: RÜckgabewerte an Objekt binden und in Datenbank schreiben
     page = @agent.get(@url)
     page.parser.xpath(SECTION_LINK_PATTERN).each do |link|
 
-      title = split_up_title(link.text)
-      forename = split_up_forename(link.text)
-      surname = split_up_surname(link.text)
+      tutor.title = split_up_title(link.text)
+      tutor.forename = split_up_forename(link.text)
+      tutor.surname = split_up_surname(link.text)
       
       if link['href'].include? "http\:\/\/"
-        puts link['href']
-     else
+        tutor.website = link['href']
+      else
        if link['href'].include? "\.html"
-         puts "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
+         tutor.website = "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
        end
      end
-
-      
-    end
+     tutor.save!
+   end
   end
 
   #Titel
