@@ -57,6 +57,20 @@ class Lilith::HbrsEvaScraper
 
     study_units
   end
+  
+  def scrape_tutors
+    tutors = []
+
+    @agent.get(@url) do |page|
+      page.search("select[@name = 'identifier_dozent']/option").each do |option|
+        next if option['value'].blank?
+
+        tutors << Tutor.find_or_create_by_eva_id(option.inner_html)
+      end
+    end
+
+    tutors
+  end
 
   def scrape_courses(study_unit)
     courses = []

@@ -9,6 +9,7 @@ gem 'pg', '~> 0.10.1'
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'icalendar', '~> 1.1.6'
+gem 'amatch', '~> 0.2.5'
 
 group :development do
   gem 'wirble', '~> 0.1.3'
