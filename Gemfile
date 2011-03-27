@@ -5,16 +5,16 @@ gem 'rails', '3.0.4'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-gem 'haml'
-gem 'mechanize'
-gem 'icalendar'
+gem 'pg', '~> 0.10.1'
+gem 'haml', '~> 3.0.25'
+gem 'mechanize', '~> 1.0.0'
+gem 'icalendar', '~> 1.1.6'
 
 group :development do
-  gem 'wirble'
-  gem 'rspec-rails'
-  gem 'shoulda'
-  gem 'factory_girl_rails'
+  gem 'wirble', '~> 0.1.3'
+  gem 'rspec-rails', '~> 2.5.0'
+  gem 'shoulda', '~> 2.11.3'
+  gem 'machinist', '~> 2.0.0.beta2'
 end
 
 # Use unicorn as the web server

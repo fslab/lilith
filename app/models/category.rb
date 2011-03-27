@@ -1,7 +1,6 @@
-# A person who organizes an event
-class Tutor < ActiveRecord::Base
+class Category < ActiveRecord::Base
   has_many :event_associations,
-           :class_name => 'EventTutorAssociation',
+           :class_name => 'CategoryEventAssociation',
            :dependent => :destroy
   has_many :events, :through => :event_associations
 end
