@@ -1,10 +1,16 @@
 Lilith::Application.routes.draw do
 
+  resources :tutors
+
   root :to => 'root#show'
 
   scope ':locale' do
     resources :semesters
-
+    resources :study_units
+    resources :plans
+    resources :courses
+    resources :tutors
+    
     root :to => 'root#show'
   end
 

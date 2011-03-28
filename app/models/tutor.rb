@@ -5,3 +5,4 @@ class Tutor < ActiveRecord::Base
            :dependent => :destroy
   has_many :events, :through => :event_associations
 end
+

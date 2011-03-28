@@ -1,0 +1,8 @@
+%h1
+  = "#{@plan.study_unit.name} on #{@plan.created_at}"
+  
+%h2 Courses
+%ul
+- @plan.courses.each do |course|
+  %li
+    = course.name

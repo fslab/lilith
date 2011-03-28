@@ -1,0 +1,9 @@
+%h1
+  = @study_unit.name
+  
+%h2 Plans
+%ul
+- @study_unit.plans do |plan|
+  %li
+    = link_to plan.created_at, plan_path(plan)
+

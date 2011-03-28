@@ -1,0 +1,11 @@
+%h1
+  Semester
+  = @semester.name
+%h2 Study units
+- @semester.study_units.group_by(&:program).each do |program, study_units|
+  %p
+    = program
+  %ul
+    - study_units.each do |study_unit|
+      %li
+        = link_to "Abschnitt #{study_unit.position}", study_unit_path(study_unit)
