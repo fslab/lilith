@@ -7,16 +7,16 @@ require 'mechanize'
 
 class Lilith::HbrsEvaScraper
   SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
-  NAME_PATTERN            = /(.*) \((.*)\)$/
-  NAME_WITH_GROUP_PATTERN = /(.*) \((.*)\)$/
+  NAME_PATTERN            = /(.*) Gr\.(.*) \((.*)\)$|(.*) \((.*)\)$/
   PERIOD_PATTERN = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
   CATEGORY_TABLE = {
     'V' => 'Vorlesung',
     'Ü' => 'Übung',
-    'P' => 'Praktikum'
+    'P' => 'Praktikum',
+    'S' => 'Seminar'
   }
 
-  attr_accessor :agent, :semester
+  attr_accessor :agent, :url, :semester, :logger
 
   def initialize(options = {})
     @agent = options[:agent] || Mechanize.new
@@ -26,12 +26,16 @@ class Lilith::HbrsEvaScraper
       Date.parse('2011-01-01'),
       :summer
     )
+    @logger = options[:logger] || Rails.logger
   end
 
   def call
-    scrape_tutors
+    scrape_tutors.each do |tutor|
+      logger.debug "Scraped Tutor: #{tutor}"
+    end
   
     scrape_study_units.each do |study_unit|
+      logger.debug "Scraped StudyUnit: #{study_unit}"
       scrape_courses(study_unit.plans.create)
     end
 
@@ -95,17 +99,18 @@ class Lilith::HbrsEvaScraper
         raw_name       = row.search("td[@class = 'liste-veranstaltung']").inner_html
         raw_tutors     = row.search("td[@class = 'liste-wer']").inner_html
 
-        if NAME_WITH_GROUP_PATTERN =~ raw_name
+        NAME_PATTERN =~ raw_name
+
+        if $4 and $5
+          name = $4
+          raw_categories = $5
+        else
           name = $1
           raw_groups = $2
           raw_categories = $3
-        else
-          NAME_PATTERN =~ raw_name
-          name = $1
-          raw_categories = $2
         end
 
-        course = plan.courses.find_or_create_by_name(name)
+        course = plan.courses.find_or_create_by_name(name.strip)
         courses << course
         event = course.events.new
 
@@ -115,22 +120,20 @@ class Lilith::HbrsEvaScraper
 
         event.first_start = DateTime.parse("#{$1} #{raw_start_time}")
         event.first_end   = DateTime.parse("#{$1} #{raw_end_time}")
-
-        last_date        = Date.parse($2)
-        event.recurrence = $3
+        last_date   = Date.parse($2)
+        event.recurrence  = $3
 
         event.save!
 
-        #scrape_group_associations(event, raw_groups) if raw_groups
+        scrape_group_associations(event, raw_groups) if raw_groups
         #scrape_tutor_associations(event, raw_tutors)
-        #scrape_category_associations(event, raw_categories)
+        scrape_category_associations(event, raw_categories)
       end
     end
 
     courses
   end
 
-=begin
   def scrape_group_associations(event, raw_groups)
     group_associations = Set.new
 
@@ -140,13 +143,13 @@ class Lilith::HbrsEvaScraper
           min, max = summand.split(/\-/)
 
           (min..max).each do |group_symbol|
-            group_associations << event.group_associations.find_or_create(
-              :group => event.course.groups.find_or_create_by_name(group_symbol)
+            group_associations << event.group_associations.find_or_create_by_group_id(
+              event.course.groups.find_or_create_by_name(group_symbol.strip)
             )
           end
         else
-          group_associations << event.group_associations.find_or_create(
-            :group => event.course.group.find_or_create_by_name(summand)
+          group_associations << event.group_associations.find_or_create_by_group_id(
+            event.course.groups.find_or_create_by_name(summand.strip)
           )
         end
       end
@@ -154,6 +157,7 @@ class Lilith::HbrsEvaScraper
 
     group_associations
   end
+  
 
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new
@@ -167,16 +171,16 @@ class Lilith::HbrsEvaScraper
     tutor_associations
   end
 
-  def scrape_category_associations(raw_categories)
+  def scrape_category_associations(event, raw_categories)
     category_associations = Set.new
 
     raw_categories.gsub(/, /, '').chars.each do |symbol|
-      category_associations << event.category_associations.find_or_create(
-        :category => Category.find_or_create_by_eva_id(symbol.upcase)
+      category_associations << event.category_associations.find_or_create_by_category_id(
+        Category.find_or_create_by_eva_id(symbol.upcase)
       )
     end
 
     category_associations
   end
-=end
+
 end

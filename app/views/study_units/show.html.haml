@@ -3,7 +3,7 @@
   
 %h2 Plans
 %ul
-- @study_unit.plans do |plan|
+- @study_unit.plans.each do |plan|
   %li
     = link_to plan.created_at, plan_path(plan)
 

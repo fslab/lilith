@@ -2,7 +2,12 @@
   = "#{@plan.study_unit.name} on #{@plan.created_at}"
   
 %h2 Courses
-%ul
-- @plan.courses.each do |course|
-  %li
-    = course.name
+%ul.courses
+  - @plan.courses.order('name ASC').each do |course|
+    %li
+      = course.name
+      %ul.groups
+        - course.groups.order('name ASC').each do |group|
+          %li
+            Group 
+            = group.name
