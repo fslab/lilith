@@ -30,10 +30,37 @@ class Event < ActiveRecord::Base
   has_many :group_associations,
            :class_name => 'EventGroupAssociation',
            :dependent => :destroy
-  has_many :groups, :through => :event_group_associations
+  has_many :groups, :through => :group_associations
 
   has_many :category_associations,
            :class_name => 'CategoryEventAssociation',
            :dependent => :destroy
   has_many :categories, :through => :category_associations
+
+  def to_ical
+    ical_event = Icalendar::Event.new
+
+    ical_event.dtstart = first_start.to_datetime
+    ical_event.dtend   = first_end.to_datetime
+    ical_event.summary = "#{course.name} (#{categories.map{|category| category.name || category.eva_id}.join(', ')})"
+    ical_event.location   = "Hochschule Bonn-Rhein-Sieg, Raum: #{room}"
+    ical_event.categories = categories.map{|category| category.name || category.eva_id}
+
+    description = ""
+    description += "Veranstalter: #{tutors.map{|tutor| tutor.name || tutor.eva_id}.join(', ')}\n" unless tutors.empty?
+    description += "Gruppen: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
+
+    ical_event.description = description
+
+    /((?:u|g)KW) (.*)/ =~ recurrence
+
+    case $1
+    when 'uKW', 'gKW'
+      ical_event.recurrence_rules ["FREQ=WEEKLY;INTERVAL=2;UNTIL=#{self.until.strftime('%Y%m%d')}"]
+    else
+      ical_event.recurrence_rules ["FREQ=WEEKLY;UNTIL=#{self.until.strftime('%Y%m%d')}"]
+    end
+
+    ical_event
+  end
 end

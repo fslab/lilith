@@ -17,20 +17,28 @@
 %h1
   = @study_unit.name
 
-.courses
-  %h2 Courses
-  %ul
-    - @study_unit.courses.order('name ASC').each do |course|
-      %li
-        = course.name
-        %ul.groups
-          - course.groups.order('name ASC').each do |group|
-            %li
-              Group
-              = group.name
-.plans
-  %h2 Plans
-  %ul
-    - @study_unit.plans.each do |plan|
-      %li
-        = plan.created_at
+%form.plan{:action => plan_path}
+  %p
+    %label{:for => 'id'} Stand:
+    %select{:name => 'id'}
+      = options_from_collection_for_select @study_unit.plans.order('created_at DESC'), :id, :created_at
+  %p
+    %label{:for => 'format'} Format:
+    %select{:name => 'format'}
+      %option{:value => 'ical'} iCalendar
+      %option{:value => 'xml'} XML
+  = submit_tag 'Generate plan', :name => nil
+  .courses
+    %h2 Courses
+    %ul
+      - @study_unit.courses.order('name ASC').each do |course|
+        %li
+          = check_box_tag 'course_ids[]', course.id
+          = course.name
+          %ul.groups
+            - course.groups.order('name ASC').each do |group|
+              %li
+                = check_box_tag 'group_ids[]', group.id
+                Group
+                = group.name
+ 

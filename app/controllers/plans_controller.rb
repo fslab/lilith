@@ -19,6 +19,34 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 class PlansController < ApplicationController
   def show
-    @plan = Plan.find(params[:id])
+    if URI.parse(request.url).query =~ /[&\?]format=/
+      redirect_to plan_path(params)
+      return
+    end
+
+    Plan.find(params[:id])
+
+    @events = Set.new
+
+    elements = Set.new
+    elements += Group.find_all_by_id(params[:group_ids])
+    elements += Course.find_all_by_id(params[:course_ids])
+
+    elements.each do |element|
+      @events += element.events
+    end
+
+    respond_to do |format|
+      format.ical do
+        calendar = Icalendar::Calendar.new
+
+        @events.each do |event|
+          calendar.add(event.to_ical)
+        end
+
+        render :text => calendar.to_ical
+      end
+      format.xml { render :xml => @events.to_a }
+    end
   end
 end
