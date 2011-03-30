@@ -9,6 +9,7 @@ describe Event do
   it { should have_db_column(:updated_at).of_type(:datetime) }
 
   it { should belong_to(:course) }
+  it { should belong_to(:plan) }
   
   it { should have_many(:groups) }
   it { should have_many(:categories) }

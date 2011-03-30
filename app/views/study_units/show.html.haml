@@ -1,9 +1,20 @@
 %h1
   = @study_unit.name
-  
-%h2 Plans
-%ul
-- @study_unit.plans.each do |plan|
-  %li
-    = link_to plan.created_at, plan_path(plan)
 
+.courses
+  %h2 Courses
+  %ul
+    - @study_unit.courses.order('name ASC').each do |course|
+      %li
+        = course.name
+        %ul.groups
+          - course.groups.order('name ASC').each do |group|
+            %li
+              Group
+              = group.name
+.plans
+  %h2 Plans
+  %ul
+    - @study_unit.plans.each do |plan|
+      %li
+        = plan.created_at

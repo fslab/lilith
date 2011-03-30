@@ -36,7 +36,7 @@ class Lilith::HbrsEvaScraper
   
     scrape_study_units.each do |study_unit|
       logger.debug "Scraped StudyUnit: #{study_unit}"
-      scrape_courses(study_unit.plans.create)
+      scrape_courses(study_unit)
     end
 
     true
@@ -78,15 +78,17 @@ class Lilith::HbrsEvaScraper
     tutors
   end
 
-  def scrape_courses(plan)
+  def scrape_courses(study_unit)
     courses = []
+
+    plan = study_unit.plans.create!
 
     agent.get(@url) do |page|
       form = page.forms.first
       form['weeks'] = '12;13;14;15;16;17;18;19;20;21;22;23;24;25'
       form['days']  = '1-7'
       form['mode']  = 'table'
-      form['identifier_semester'] = plan.study_unit.eva_id
+      form['identifier_semester'] = study_unit.eva_id
       form['show_semester'] = 'Display timetable'
       form.submit.search('table/tr').each do |row|
         next if row.search("td[@class = 'header']").size > 0
@@ -110,10 +112,11 @@ class Lilith::HbrsEvaScraper
           raw_categories = $3
         end
 
-        course = plan.courses.find_or_create_by_name(name.strip)
+        course = study_unit.courses.find_or_create_by_name(name.strip)
         courses << course
-        event = course.events.new
+        event = plan.events.new
 
+        event.course = course
         event.room = raw_room
 
         PERIOD_PATTERN =~ raw_period
@@ -157,7 +160,7 @@ class Lilith::HbrsEvaScraper
 
     group_associations
   end
-  
+
 
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new
