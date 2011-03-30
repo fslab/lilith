@@ -30,3 +30,6 @@ doc/plan/*.autosave
 
 # Netbeansquatsch
 nbproject
+
+# SASS
+public/stylesheets/.sass-cache/
