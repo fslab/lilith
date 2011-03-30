@@ -25,7 +25,7 @@ require 'mechanize'
 
 class Lilith::HbrsEvaScraper
   SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
-  NAME_PATTERN            = /(.*) Gr\.(.*) \((.*)\)$|(.*) \((.*)\)$/
+  NAME_PATTERN            = /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/
   PERIOD_PATTERN = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
   CATEGORY_TABLE = {
     'V' => 'Vorlesung',
@@ -51,7 +51,7 @@ class Lilith::HbrsEvaScraper
     scrape_tutors.each do |tutor|
       logger.debug "Scraped Tutor: #{tutor}"
     end
-  
+
     scrape_study_units.each do |study_unit|
       logger.debug "Scraped StudyUnit: #{study_unit}"
       scrape_courses(study_unit)
@@ -68,11 +68,17 @@ class Lilith::HbrsEvaScraper
         next if option['value'].blank?
 
         study_unit = @semester.study_units.find_or_initialize_by_eva_id(option['value'])
-        
+
         SEMESTER_LABEL_PATTERN =~ option.inner_html
 
-        study_unit.program = $1
         study_unit.position = $2
+
+        program_name = $1
+        program_name.gsub!(/^B /, 'Bachelor ')
+        program_name.gsub!(/^M /, 'Master ')
+
+        study_unit.program = program_name
+
         study_unit.save!
 
         study_units << study_unit
@@ -81,7 +87,7 @@ class Lilith::HbrsEvaScraper
 
     study_units
   end
-  
+
   def scrape_tutors
     tutors = []
 
@@ -121,16 +127,20 @@ class Lilith::HbrsEvaScraper
 
         NAME_PATTERN =~ raw_name
 
-        if $4 and $5
-          name = $4
-          raw_categories = $5
+        if $5 and $6
+          name = $5
+          raw_categories = $6
         else
           name = $1
-          raw_groups = $2
-          raw_categories = $3
+          raw_groups = $2 || $3
+          raw_categories = $4
         end
 
-        course = study_unit.courses.find_or_create_by_name(name.strip)
+        # Remove leading and trailing spaces and remove double spaces
+        name.strip!
+        name.gsub!(/  +/, ' ')
+
+        course = study_unit.courses.find_or_create_by_name(name)
         courses << course
         event = plan.events.new
 
@@ -178,7 +188,6 @@ class Lilith::HbrsEvaScraper
 
     group_associations
   end
-
 
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new
