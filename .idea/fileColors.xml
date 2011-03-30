@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SharedFileColors">
-    <fileColor scope="Tests" color="45ffeb" />
+    <fileColor scope="Specs" color="d26bff" />
     <fileColor scope="Controllers" color="6968fe" />
     <fileColor scope="Models" color="18ff00" />
     <fileColor scope="Views" color="fe6805" />

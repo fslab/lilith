@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DependencyValidationManager">
-    <scope name="Tests" pattern="file:app/spec//*" />
+    <scope name="Specs" pattern="file:spec//*_spec.rb" />
     <scope name="Controllers" pattern="file:app/controllers//*" />
     <scope name="Models" pattern="file:app/models//*" />
     <scope name="Views" pattern="file:app/views//*" />
