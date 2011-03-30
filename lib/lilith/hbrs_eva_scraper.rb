@@ -1,4 +1,22 @@
 # encoding: UTF-8
+=begin
+Copyright Alexander E. Fischer <aef@raxys.net>, 2011
+
+This file is part of Lilith.
+
+Lilith is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Lilith is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
+=end
 
 require 'set'
 require 'uri'
@@ -7,7 +25,7 @@ require 'mechanize'
 
 class Lilith::HbrsEvaScraper
   SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
-  NAME_PATTERN            = /(.*) Gr\.(.*) \((.*)\)$|(.*) \((.*)\)$/
+  NAME_PATTERN            = /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/
   PERIOD_PATTERN = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
   CATEGORY_TABLE = {
     'V' => 'Vorlesung',
@@ -33,10 +51,10 @@ class Lilith::HbrsEvaScraper
     scrape_tutors.each do |tutor|
       logger.debug "Scraped Tutor: #{tutor}"
     end
-  
+
     scrape_study_units.each do |study_unit|
       logger.debug "Scraped StudyUnit: #{study_unit}"
-      scrape_courses(study_unit.plans.create)
+      scrape_courses(study_unit)
     end
 
     true
@@ -50,11 +68,17 @@ class Lilith::HbrsEvaScraper
         next if option['value'].blank?
 
         study_unit = @semester.study_units.find_or_initialize_by_eva_id(option['value'])
-        
+
         SEMESTER_LABEL_PATTERN =~ option.inner_html
 
-        study_unit.program = $1
         study_unit.position = $2
+
+        program_name = $1
+        program_name.gsub!(/^B /, 'Bachelor ')
+        program_name.gsub!(/^M /, 'Master ')
+
+        study_unit.program = program_name
+
         study_unit.save!
 
         study_units << study_unit
@@ -63,7 +87,7 @@ class Lilith::HbrsEvaScraper
 
     study_units
   end
-  
+
   def scrape_tutors
     tutors = []
 
@@ -78,15 +102,17 @@ class Lilith::HbrsEvaScraper
     tutors
   end
 
-  def scrape_courses(plan)
+  def scrape_courses(study_unit)
     courses = []
+
+    plan = study_unit.plans.create!
 
     agent.get(@url) do |page|
       form = page.forms.first
       form['weeks'] = '12;13;14;15;16;17;18;19;20;21;22;23;24;25'
       form['days']  = '1-7'
       form['mode']  = 'table'
-      form['identifier_semester'] = plan.study_unit.eva_id
+      form['identifier_semester'] = study_unit.eva_id
       form['show_semester'] = 'Display timetable'
       form.submit.search('table/tr').each do |row|
         next if row.search("td[@class = 'header']").size > 0
@@ -101,19 +127,24 @@ class Lilith::HbrsEvaScraper
 
         NAME_PATTERN =~ raw_name
 
-        if $4 and $5
-          name = $4
-          raw_categories = $5
+        if $5 and $6
+          name = $5
+          raw_categories = $6
         else
           name = $1
-          raw_groups = $2
-          raw_categories = $3
+          raw_groups = $2 || $3
+          raw_categories = $4
         end
 
-        course = plan.courses.find_or_create_by_name(name.strip)
-        courses << course
-        event = course.events.new
+        # Remove leading and trailing spaces and remove double spaces
+        name.strip!
+        name.gsub!(/  +/, ' ')
 
+        course = study_unit.courses.find_or_create_by_name(name)
+        courses << course
+        event = plan.events.new
+
+        event.course = course
         event.room = raw_room
 
         PERIOD_PATTERN =~ raw_period
@@ -157,7 +188,6 @@ class Lilith::HbrsEvaScraper
 
     group_associations
   end
-  
 
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new

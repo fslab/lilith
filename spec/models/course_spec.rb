@@ -17,18 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class RefineEventsColumns < ActiveRecord::Migration
-  def self.up
-    add_column :events, :first_start, :datetime
-    add_column :events, :first_end, :datetime
-    add_column :events, :until, :date
-    remove_column :events, :name
-  end
+require 'spec_helper'
 
-  def self.down
-    add_column :events, :name, :string
-    remove_column :events, :until
-    remove_column :events, :first_end
-    remove_column :events, :first_start
-  end
+describe Course do
+  it { should have_db_column(:name).of_type(:string) }
+  it { should have_db_column(:profile_url).of_type(:string) }
+  it { should have_db_column(:created_at).of_type(:datetime) }
+  it { should have_db_column(:updated_at).of_type(:datetime) }
+
+  it { should belong_to(:study_unit) }
+
+  it { should have_many(:events) }
 end

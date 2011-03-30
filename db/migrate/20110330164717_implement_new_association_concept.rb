@@ -17,18 +17,18 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class RefineEventsColumns < ActiveRecord::Migration
+class ImplementNewAssociationConcept < ActiveRecord::Migration
   def self.up
-    add_column :events, :first_start, :datetime
-    add_column :events, :first_end, :datetime
-    add_column :events, :until, :date
-    remove_column :events, :name
+    add_column :courses, :study_unit_id, :integer
+    remove_column :courses, :plan_id
+
+    add_column :events, :plan_id, :integer
   end
 
   def self.down
-    add_column :events, :name, :string
-    remove_column :events, :until
-    remove_column :events, :first_end
-    remove_column :events, :first_start
+    remove_column :events, :plan_id
+
+    add_column :courses, :plan_id, :integer
+    remove_column :courses, :study_unit_id
   end
 end
