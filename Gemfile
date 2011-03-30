@@ -10,11 +10,14 @@ gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'icalendar', '~> 1.1.6'
 gem 'amatch', '~> 0.2.5'
+gem 'rspec-rails', '~> 2.5.0', :groups => [:development, :test]
 
 group :development do
   gem 'wirble', '~> 0.1.3'
-  gem 'rspec-rails', '~> 2.5.0'
-  gem 'shoulda', '~> 2.11.3'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 1.0.0.beta2'
   gem 'machinist', '~> 2.0.0.beta2'
 end
 
