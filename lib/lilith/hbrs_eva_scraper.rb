@@ -22,8 +22,8 @@ class Lilith::HbrsEvaScraper
     @agent = options[:agent] || Mechanize.new
     @url   = URI.parse(options[:url] || 'https://eva2.inf.h-brs.de/stundenplan/')
     #TODO: Dynamically find the correct values
-    @semester = options[:semester] || Semester.find_or_create_by_begin_year_and_season(
-      Date.parse('2011-01-01'),
+    @semester = options[:semester] || Semester.find_or_create_by_start_year_and_season(
+      2011,
       :summer
     )
     @logger = options[:logger] || Rails.logger
@@ -120,7 +120,7 @@ class Lilith::HbrsEvaScraper
 
         event.first_start = DateTime.parse("#{$1} #{raw_start_time}")
         event.first_end   = DateTime.parse("#{$1} #{raw_end_time}")
-        last_date   = Date.parse($2)
+        event.until       = Date.parse($2)
         event.recurrence  = $3
 
         event.save!

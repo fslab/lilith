@@ -9,6 +9,6 @@ require 'machinist/active_record'
 #   end
 
 Semester.blueprint do
-  begin_year { Date.parse('2011-01-01') }
+  start_year { 2011 }
   season     { :summer }
 end

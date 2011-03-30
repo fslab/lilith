@@ -3,13 +3,11 @@ class Semester < ActiveRecord::Base
   has_many :study_units, :dependent => :destroy
   
   def name
-    year = begin_year.year
-  
     case season.to_sym
     when :winter
-      "WS #{year}/#{year + 1}"
+      "WS #{start_year}/#{start_year + 1}"
     when :summer
-      "SS #{year}"
+      "SS #{start_year}"
     end
   end
 end
