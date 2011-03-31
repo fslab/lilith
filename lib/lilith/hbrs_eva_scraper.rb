@@ -105,7 +105,7 @@ class Lilith::HbrsEvaScraper
   def scrape_courses(study_unit)
     courses = []
 
-    plan = study_unit.plans.create!
+    schedule = study_unit.schedules.create!
 
     agent.get(@url) do |page|
       form = page.forms.first
@@ -142,7 +142,7 @@ class Lilith::HbrsEvaScraper
 
         course = study_unit.courses.find_or_create_by_name(name)
         courses << course
-        event = plan.events.new
+        event = schedule.events.new
 
         event.course = course
         event.room = raw_room

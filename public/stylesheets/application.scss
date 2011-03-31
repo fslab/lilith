@@ -4,6 +4,8 @@ body {
   margin-left: auto;
   margin-right: auto;
   color: black;
+  background-image: url("../images/background.png");
+
   a:link { 
     text-decoration: none;
     color: #0099FF;
@@ -37,7 +39,7 @@ body {
   -moz-border-radius:5px 5px 0px 0px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 15px;
-  background-color: #0099FF;
+  background-color: rgba(0,0,0,0.3);
   border: 1px solid black;
   padding: 5px 0px 0px 20px;
   text-align: left; 
@@ -73,7 +75,7 @@ body {
   -moz-border-radius:0px 0px 5px 5px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
-  background-color: #0099FF;
+  background-color: rgba(0,0,0,0.3);
   border: 1px solid black;
   padding: 5px 0px 5px 20px;
   text-align: left; 

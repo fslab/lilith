@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class PlansController < ApplicationController
-  def show
-    @plan = Plan.find(params[:id])
-  end
+# Collection of scheduled events of a study unit at a specific point in time
+class Schedule < ActiveRecord::Base
+  belongs_to :study_unit
+  has_many :events, :dependent => :destroy
 end
