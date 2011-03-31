@@ -11,12 +11,6 @@ body {
     color: #0099FF;
     font-weight: bold;
   }
-  
-  a:link { 
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold;
-  }
   a:visited { 
     text-decoration: none;
     color: #0099FF;
@@ -52,6 +46,28 @@ body {
     font-weight: bold;
     line-height: 0;
   }
+  
+  a:link { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  a:visited { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  a:hover { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  a:active { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
 }
 
 #main {
@@ -77,8 +93,30 @@ body {
   font-size: 12px;
   background-color: rgba(0,0,0,0.3);
   border: 1px solid black;
-  padding: 5px 0px 5px 20px;
-  text-align: left; 
+  padding: 5px 5px 5px 20px;
+  text-align: right ; 
   color: white;
-  height: 5px;
+  height: 15px;
+  
+  a:link { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  a:visited { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  a:hover { 
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold;
+  }
+  a:active { 
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold;
+  }
 }

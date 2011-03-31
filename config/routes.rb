@@ -20,7 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 Lilith::Application.routes.draw do
 
   resources :tutors
-
+  match '/impressum' => 'impressum#show'
   root :to => 'root#show'
 
   scope ':locale' do
@@ -32,6 +32,7 @@ Lilith::Application.routes.draw do
     
     root :to => 'root#show'
   end
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -89,4 +90,6 @@ Lilith::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+  
+
 end

@@ -9,10 +9,6 @@ body {
     text-decoration: none;
     color: #0099FF;
     font-weight: bold; }
-  body a:link {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold; }
   body a:visited {
     text-decoration: none;
     color: #0099FF;
@@ -41,6 +37,22 @@ body {
     font-size: 25px;
     font-weight: bold;
     line-height: 0; }
+  #header a:link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
+  #header a:visited {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
+  #header a:hover {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
+  #header a:active {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
 
 #main {
   font-family: Verdana, Geneva, sans-serif;
@@ -62,7 +74,23 @@ body {
   font-size: 12px;
   background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid black;
-  padding: 5px 0px 5px 20px;
-  text-align: left;
+  padding: 5px 5px 5px 20px;
+  text-align: right;
   color: white;
-  height: 5px; }
+  height: 15px; }
+  #footer a:link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
+  #footer a:visited {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
+  #footer a:hover {
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold; }
+  #footer a:active {
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold; }
