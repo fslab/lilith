@@ -26,7 +26,7 @@ Lilith::Application.routes.draw do
   scope ':locale' do
     resources :semesters
     resources :study_units
-    resources :plans
+    resources :schedules
     resources :courses
     resources :tutors
     

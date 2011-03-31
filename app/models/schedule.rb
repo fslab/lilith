@@ -17,13 +17,8 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'spec_helper'
-
-describe Plan do
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
-
-  it { should belong_to(:study_unit) }
-
-  it { should have_many(:events) }
+# Collection of scheduled events of a study unit at a specific point in time
+class Schedule < ActiveRecord::Base
+  belongs_to :study_unit
+  has_many :events, :dependent => :destroy
 end

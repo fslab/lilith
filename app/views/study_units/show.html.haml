@@ -17,17 +17,17 @@
 %h1
   = @study_unit.name
 
-%form.plan{:action => plan_path}
+%form{:action => schedule_path}
   %p
     %label{:for => 'id'} Stand:
     %select{:name => 'id'}
-      = options_from_collection_for_select @study_unit.plans.order('created_at DESC'), :id, :created_at
+      = options_from_collection_for_select @study_unit.schedules.order('created_at DESC'), :id, :created_at
   %p
     %label{:for => 'format'} Format:
     %select{:name => 'format'}
       %option{:value => 'ical'} iCalendar
       %option{:value => 'xml'} XML
-  = submit_tag 'Generate plan', :name => nil
+  = submit_tag 'Generate schedule', :name => nil
   .courses
     %h2 Courses
     %ul

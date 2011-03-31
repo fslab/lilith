@@ -20,7 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # Possibly recurring event in a course
 class Event < ActiveRecord::Base
   belongs_to :course
-  belongs_to :plan
+  belongs_to :schedule
 
   has_many :tutor_associations,
            :class_name => 'EventTutorAssociation',

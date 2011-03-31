@@ -21,7 +21,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class StudyUnit < ActiveRecord::Base
   belongs_to :semester
   has_many :courses, :dependent => :destroy
-  has_many :plans, :dependent => :destroy
+  has_many :schedules, :dependent => :destroy
   
   def name
     "#{program} #{position}"

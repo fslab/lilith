@@ -17,14 +17,14 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class PlansController < ApplicationController
+class SchedulesController < ApplicationController
   def show
     if URI.parse(request.url).query =~ /[&\?]format=/
-      redirect_to plan_path(params)
+      redirect_to schedule_path(params)
       return
     end
 
-    Plan.find(params[:id])
+    Schedule.find(params[:id])
 
     @events = Set.new
 
