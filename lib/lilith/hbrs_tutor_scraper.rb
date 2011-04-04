@@ -28,7 +28,7 @@ class Lilith::HbrsTutorScraper
   
   def initialize (options = {})
     @agent = options[:agent] || Mechanize.new
-    @url = options[:url] || "https://www.inf.h-bonn-rhein-sieg.de/Personen/ProfessorInnen.html"
+    @url = options[:url] || "https://www.inf.h-bonn-rhein-sieg.de/Personen/Professorinnen+und+Professoren.html"
   end
 
   def call
