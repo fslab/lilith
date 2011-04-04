@@ -5,26 +5,12 @@ body {
   margin-right: auto;
   color: black;
   background-image: url("../images/background.png"); }
-  body a:link {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold; }
-  body a:link {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold; }
-  body a:visited {
+  body a:link, body a:visited, body a:hover, body a:active {
     text-decoration: none;
     color: #0099FF;
     font-weight: bold; }
   body a:hover {
-    text-decoration: none;
-    color: black;
-    font-weight: bold; }
-  body a:active {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold; }
+    color: black; }
 
 #header {
   -moz-border-radius: 5px 5px 0px 0px;
@@ -41,6 +27,9 @@ body {
     font-size: 25px;
     font-weight: bold;
     line-height: 0; }
+  #header a:link, #header a:visited, #header a:hover, #header a:active {
+    text-decoration: none;
+    color: #fff; }
 
 #main {
   font-family: Verdana, Geneva, sans-serif;
@@ -59,10 +48,16 @@ body {
 #footer {
   -moz-border-radius: 0px 0px 5px 5px;
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
+  text-align: center;
   background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid black;
   padding: 5px 0px 5px 20px;
-  text-align: left;
   color: white;
-  height: 5px; }
+  height: 12px; }
+  #footer a:link, #footer a:visited, #footer a:hover, #footer a:active {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: bold; }
+  #footer a:hover {
+    color: #fff; }

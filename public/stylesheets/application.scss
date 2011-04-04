@@ -6,32 +6,14 @@ body {
   color: black;
   background-image: url("../images/background.png");
 
-  a:link { 
+  a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: #0099FF;
     font-weight: bold;
   }
-  
-  a:link { 
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold;
-  }
-  a:visited { 
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold;
-  }
-  
-  a:hover { 
-    text-decoration: none;
+
+  a:hover {
     color: black;
-    font-weight: bold;
-  }
-  a:active { 
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold;
   }
 }
 
@@ -52,6 +34,11 @@ body {
     font-weight: bold;
     line-height: 0;
   }
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #fff;
+  }
 }
 
 #main {
@@ -69,16 +56,28 @@ body {
   h2 {
     line-height: 0.5;
   }
+
 }
 
 #footer {
   -moz-border-radius:0px 0px 5px 5px;
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
+  text-align: center;
   background-color: rgba(0,0,0,0.3);
   border: 1px solid black;
   padding: 5px 0px 5px 20px;
-  text-align: left; 
   color: white;
-  height: 5px;
+  height: 12px;
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: #fff;
+  }
+
 }

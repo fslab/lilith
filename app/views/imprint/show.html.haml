@@ -1,0 +1,19 @@
+%h1~ t('imprint.heading')
+
+.operator
+  %h2~ t('imprint.operator')
+  %p
+    = t('imprint.operator_text',
+      :sub_organization_link => link_to( t('imprint.sub_organization_link'), 'https://fslab.de/'),
+      :organization_link     => link_to( t('imprint.organization_link'), 'http://www.hochschule-bonn-rhein-sieg.de/')).html_safe
+
+.software
+  %h2~ t('imprint.software')
+  %p
+    = t('imprint.software_text',
+      :ruby_link    => link_to( t('imprint.ruby_link'), 'http://www.ruby-lang.org/'),
+      :rails_link   => link_to( t('imprint.rails_link'), 'http://rubyonrails.org/'),
+      :project_link => link_to( t('imprint.project_link'), 'https://fslab.de/redmine/projects/lilith')).html_safe
+  %p~ "Copyright #{link_to 'Alexander E. Fischer', 'http://aef.name/'}, 2011".html_safe
+  %p~ t('imprint.license_text')
+  %p~ t('imprint.warranty_text')

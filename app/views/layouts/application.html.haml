@@ -24,8 +24,10 @@
           :type => 'text/css'}
   %body
     #header
-      %h1 Lilith
+      %a{:href => root_path}
+        %h1 Lilith
       plan your schedule, really
     #main
       = yield
     #footer
+      = link_to t('imprint.name'), imprint_path

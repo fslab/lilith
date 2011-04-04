@@ -24,6 +24,7 @@ Lilith::Application.routes.draw do
   root :to => 'root#show'
 
   scope ':locale' do
+    resource :imprint, :only => :show, :controller => :imprint
     resources :semesters
     resources :study_units
     resources :schedules

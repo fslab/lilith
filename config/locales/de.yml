@@ -17,3 +17,17 @@
 
 de:
   hello: "Testtest"
+  imprint:
+    name: Impressum
+    heading: Impressum
+    operator: Betreiber
+    operator_text: Lilith wird betrieben vom %{sub_organization_link} der %{organization_link}.
+    software: Programm
+    software_text: Lilith wurde mit der %{ruby_link} unter Zuhilfenahme des %{rails_link} erstellt. Das Lilith project wird %{project_link} verwaltet.
+    ruby_link: Programmiersprache Ruby
+    rails_link: Rails Web-Frameworks
+    project_link: hier
+    organization_link: Hochschule Bonn-Rhein-Sieg
+    sub_organization_link: Free Software Lab
+    license_text: Lilith ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
+    warranty_text: Lilith wird in der Hoffnung verbreitet, dass es nützlich ist, allerdings OHNE JEDE GARANTIE; auch ohne die implizierte Garantie für GEBRAUCHSTAUGLICHKEIT oder die TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK.

@@ -17,3 +17,17 @@
 
 en:
   hello: "Goodbye sweet prince"
+  imprint:
+    name: Imprint
+    heading: Imprint
+    operator: Operator
+    operator_text: Lilith is operated by the %{sub_organization_link} of %{organization_link}.
+    software: Software
+    software_text: Lilith is written in the %{ruby_link} using the %{rails_link}. The Lilith project is managed %{project_link}.
+    ruby_link: Ruby programming language
+    rails_link: Rails web framework
+    project_link: here
+    organization_link: Hochschule Bonn-Rhein-Sieg
+    sub_organization_link: Free Software Lab
+    license_text: Lilith is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+    warranty_text: Lilith is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
