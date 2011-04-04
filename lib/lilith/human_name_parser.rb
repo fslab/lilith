@@ -18,15 +18,20 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+# Takes a human name and splits it into title, forename, middlenames and surname
 class Lilith::HumanNameParser
   STATES = [:title, :forename, :middlename, :surname].freeze
 
   attr_accessor :debug
 
+  # Creates a parser object for a given name
   def initialize(name)
-    @words = name.chomp.strip.split(/ /)
+    raise ArgumentError, 'A name must be given' unless name
+
+    @words = name.to_s.chomp.strip.split(/ /)
   end
 
+  # Parses the name and returns a hash with name components
   def parse
     @result = {}
     @states = STATES.each
