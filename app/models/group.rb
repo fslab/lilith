@@ -19,6 +19,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # One partition of the participants of a course
 class Group < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   belongs_to :course
 
   has_many :event_associations,

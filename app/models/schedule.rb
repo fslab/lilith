@@ -19,6 +19,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Collection of scheduled events of a study unit at a specific point in time
 class Schedule < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   belongs_to :study_unit
   has_many :events, :dependent => :destroy
 end

@@ -19,6 +19,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Possibly recurring event in a course
 class Event < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   belongs_to :course
   belongs_to :schedule
 

@@ -18,12 +18,16 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 class SchedulesController < ApplicationController
-  def show
-    if URI.parse(request.url).query =~ /[&\?]format=/
-      redirect_to schedule_path(params)
-      return
-    end
+  def index
+    redirect_to schedule_path(
+      params[:schedule_id],
+      :format     => params[:format],
+      :course_ids => params[:course_ids],
+      :group_ids  => params[:group_ids]
+    )
+  end
 
+  def show
     Schedule.find(params[:id])
 
     @events = Set.new

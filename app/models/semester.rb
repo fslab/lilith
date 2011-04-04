@@ -18,6 +18,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 # One of two periods in a year in which study units occur
 class Semester < ActiveRecord::Base
+  include Lilith::UUIDHelper
+  
   has_many :study_units, :dependent => :destroy
   
   def name

@@ -17,9 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'lilith/hbrs_eva_scraper'
-require 'lilith/hbrs_tutor_scraper'
-
 module Lilith
   module_function
 

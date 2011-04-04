@@ -18,6 +18,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 class CategoryEventAssociation < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   belongs_to :category
   belongs_to :event
 end

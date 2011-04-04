@@ -29,6 +29,7 @@ gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'icalendar', '~> 1.1.6'
 gem 'amatch', '~> 0.2.5'
+gem 'uuidtools', '~> 2.1.2'
 gem 'rspec-rails', '~> 2.5.0', :groups => [:development, :test]
 
 group :development do

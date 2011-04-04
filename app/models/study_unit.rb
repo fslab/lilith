@@ -19,6 +19,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # One of the scheduled partitions of a study program
 class StudyUnit < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   belongs_to :semester
   has_many :courses, :dependent => :destroy
   has_many :schedules, :dependent => :destroy

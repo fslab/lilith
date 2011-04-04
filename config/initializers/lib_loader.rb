@@ -17,9 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class EventTutorAssociation < ActiveRecord::Base
-  include Lilith::UUIDHelper
-
-  belongs_to :event
-  belongs_to :tutor
+# Require all file in lib/lilith
+Pathname.glob(Rails.root + 'lib' + 'lilith' + '*.rb').each do |lib|
+  require "lilith/#{lib.basename}"
 end

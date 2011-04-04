@@ -17,10 +17,10 @@
 %h1
   = @study_unit.name
 
-%form{:action => schedule_path}
+%form{:action => schedules_path}
   %p
-    %label{:for => 'id'} Stand:
-    %select{:name => 'id'}
+    %label{:for => 'schedule_id'} Stand:
+    %select{:name => 'schedule_id'}
       = options_from_collection_for_select @study_unit.schedules.order('created_at DESC'), :id, :created_at
   %p
     %label{:for => 'format'} Format:

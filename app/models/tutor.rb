@@ -19,6 +19,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # A person who organizes an event
 class Tutor < ActiveRecord::Base
+  include Lilith::UUIDHelper
+
   has_many :event_associations,
            :class_name => 'EventTutorAssociation',
            :dependent => :destroy
