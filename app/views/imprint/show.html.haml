@@ -6,6 +6,32 @@
     = t('imprint.operator_text',
       :sub_organization_link => link_to( t('imprint.sub_organization_link'), 'https://fslab.de/'),
       :organization_link     => link_to( t('imprint.organization_link'), 'http://www.hochschule-bonn-rhein-sieg.de/')).html_safe
+  %address
+    Free Software Lab
+    %br
+    Hochschule Bonn-Rhein-Sieg
+    %br
+    Grantham-Allee 20
+    %br
+    53757 Sankt Augustin (Germany)
+  %ul.telephone
+    %li
+      %span.name Tel:
+      %span.country_code +49
+      %span.area_code 2241
+      %span.local_code 865
+      %span.direct_code - 0
+    %li
+      %span.name Fax:
+      %span.country_code +49
+      %span.area_code 2241
+      %span.local_code 865
+      %span.direct_code - 609
+
+  %p
+    = t('imprint.contact_person') + ": "
+    %a{:href => 'http://www.google.com/recaptcha/mailhide/d?k=01O3WAS6-mQKhrJjNuG3rzVg==&c=zdlvvp6VBpQ8htIwhSUj6o97OX9iJxFtJgXjs3jOrX_MpFG_Qn29N6z5Mnee8umQ'}
+      Daniel Meißner
 
 .software
   %h2~ t('imprint.software')

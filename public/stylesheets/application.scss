@@ -12,7 +12,7 @@ body {
     font-weight: bold;
   }
 
-  a:hover {
+  a:hover { 
     color: black;
   }
 }
@@ -38,6 +38,12 @@ body {
   a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: #fff;
+  }
+
+  a:hover { 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
   }
 }
 
@@ -79,5 +85,36 @@ body {
   a:hover {
     color: #fff;
   }
+}
 
+#imprint {
+    #main {
+        .telephone {
+            padding: 0;
+
+            li {
+                list-style: none;
+            }
+
+            .name {
+                display: inline-block;
+                width: 30px;
+            }
+
+            .country_code {
+                display: inline-block;
+                width: 30px;
+            }
+
+            .area_code {
+                display: inline-block;
+                width: 35px;
+            }
+
+            .local_code {
+                display: inline-block;
+                width: 25px;
+            }
+        }
+    }
 }

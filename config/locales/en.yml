@@ -16,12 +16,12 @@
 # along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 en:
-  hello: "Goodbye sweet prince"
   imprint:
     name: Imprint
     heading: Imprint
     operator: Operator
     operator_text: Lilith is operated by the %{sub_organization_link} of %{organization_link}.
+    contact_person: Contact person
     software: Software
     software_text: Lilith is written in the %{ruby_link} using the %{rails_link}. The Lilith project is managed %{project_link}.
     ruby_link: Ruby programming language

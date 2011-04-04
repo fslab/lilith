@@ -30,6 +30,10 @@ body {
   #header a:link, #header a:visited, #header a:hover, #header a:active {
     text-decoration: none;
     color: #fff; }
+  #header a:hover {
+    text-decoration: none;
+    color: white;
+    font-weight: bold; }
 
 #main {
   font-family: Verdana, Geneva, sans-serif;
@@ -61,3 +65,20 @@ body {
     font-weight: bold; }
   #footer a:hover {
     color: #fff; }
+
+#imprint #main .telephone {
+  padding: 0; }
+  #imprint #main .telephone li {
+    list-style: none; }
+  #imprint #main .telephone .name {
+    display: inline-block;
+    width: 30px; }
+  #imprint #main .telephone .country_code {
+    display: inline-block;
+    width: 30px; }
+  #imprint #main .telephone .area_code {
+    display: inline-block;
+    width: 35px; }
+  #imprint #main .telephone .local_code {
+    display: inline-block;
+    width: 25px; }
