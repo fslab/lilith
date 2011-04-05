@@ -24,6 +24,8 @@ class StudyUnitsController < ApplicationController
   end
   
   def show
+    @section = :study_unit
+
     @study_unit = StudyUnit.find(params[:id])
   end
 end
