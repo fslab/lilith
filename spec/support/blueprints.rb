@@ -20,3 +20,18 @@ Tutor.blueprint do
   surname    { 'Ravenhurst' }
   eva_id     { 'ravenhurst' }
 end
+
+Course.blueprint do
+  name { 'Humanoide Metaphysik I' }
+end
+
+Group.blueprint do
+  course { Course.make! }
+  name   { 3 }
+end
+
+Event.blueprint do
+  course      { Course.make! }
+  first_start { Date.parse('2011-05-23 17:00')}
+  first_end   { Date.parse('2011-05-23 17:45')}
+end

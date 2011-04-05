@@ -26,10 +26,10 @@ class Group < ActiveRecord::Base
   has_many :event_associations,
            :class_name => 'EventGroupAssociation',
            :dependent => :destroy
-  has_many :events, :through => :event_associations
-
-  # All events, compatible interface for Course#exclusive_events
-  def exclusive_events
-    events
+  has_many :events, :through => :event_associations do
+    # All events, compatible interface for Course#events#exclusive
+    def exclusive
+      self
+    end
   end
 end

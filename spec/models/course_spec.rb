@@ -28,4 +28,20 @@ describe Course do
   it { should belong_to(:study_unit) }
 
   it { should have_many(:events) }
+
+  context "#exclusive_events" do
+    it "should only deliver events which aren't associated with a group" do
+      group  = Group.make!
+      course = group.course
+
+      lone_event  = Event.make!(:course => course)
+      group_event = Event.make!(:course => course)
+
+      group_event.group_associations.create!(:group_id => group)
+
+      result = course.events.exclusive
+      result.should include(lone_event)
+      result.should_not include(group_event)
+    end
+  end
 end

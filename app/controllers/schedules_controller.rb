@@ -37,7 +37,7 @@ class SchedulesController < ApplicationController
     elements += Course.find_all_by_id(params[:course_ids])
 
     elements.each do |element|
-      @events += element.exclusive_events
+      @events += element.events.exclusive
     end
 
     respond_to do |format|
