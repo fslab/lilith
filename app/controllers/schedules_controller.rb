@@ -18,8 +18,11 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 class SchedulesController < ApplicationController
+  before_filter :set_semester
+
   def index
-    redirect_to schedule_path(
+    redirect_to semester_schedule_path(
+      @semester.token,
       params[:schedule_id],
       :format     => params[:format],
       :course_ids => params[:course_ids],
@@ -58,7 +61,27 @@ class SchedulesController < ApplicationController
     @section = :schedule
 
     @semester = Semester.first # FIXME: Should be handled through URL
-    @schedules   = @semester.schedules
+    @schedules   = @semester.schedules.order('created_at')
     @study_units = @semester.study_units.order('program ASC, position ASC')
+  end
+
+  protected
+
+  def set_semester
+    UUIDTools::UUID.parse(params[:semester_id])
+    @semester = Semester.find(params[:semester_id])
+  rescue ArgumentError
+    /(\d+)([ws])/ =~ params[:semester_id]
+
+    case $2
+    when 'w'
+      season = :winter
+    when 's'
+      season = :summer
+    else
+      raise ArgumentError, 'Invalid semester season'
+    end
+
+    @semester = Semester.find_by_start_year_and_season($1.to_i, season)
   end
 end

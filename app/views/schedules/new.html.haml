@@ -16,7 +16,7 @@
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 %h2~ t('schedules.schedule_composition')
 
-%form{:action => schedules_path}
+%form{:action => semester_schedules_path(@semester.token)}
   %p
     %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
     %select{:name => 'schedule_id'}
