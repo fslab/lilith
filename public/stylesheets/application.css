@@ -35,13 +35,31 @@ body {
     color: white;
     font-weight: bold; }
 
+#menu {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  background-color: white;
+  margin-top: 0em;
+  border: 1px solid black;
+  border-top: 0px solid black;
+  border-right: 1px solid black;
+  border-bottom: 0px solid black;
+  border-left: 1px solid black;
+  padding: 5px 20px 5px 5px;
+  text-align: right;
+  vertical-align: middle; }
+
 #main {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
   background-color: white;
   margin-top: 0em;
   border: 1px solid black;
-  padding: 20px 20px 20px 20px;
+  border-top: 0px solid black;
+  border-right: 1px solid black;
+  border-bottom: 0px solid black;
+  border-left: 1px solid black;
+  padding: 10px 20px 10px 20px;
   text-align: left;
   vertical-align: middle; }
   #main h1 {
