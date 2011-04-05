@@ -43,11 +43,11 @@ class Lilith::HbrsEvaScraper
 
   def call
     scrape_tutors.each do |tutor|
-      logger.debug "Scraped Tutor: #{tutor}"
+      logger.debug "Scraped Tutor: #{tutor.inspect}"
     end
 
     scrape_study_units.each do |study_unit|
-      logger.debug "Scraped StudyUnit: #{study_unit}"
+      logger.debug "Scraped StudyUnit: #{study_unit.inspect}"
       scrape_courses(study_unit)
     end
 
@@ -151,7 +151,7 @@ class Lilith::HbrsEvaScraper
         event.save!
 
         scrape_group_associations(event, raw_groups) if raw_groups
-        #scrape_tutor_associations(event, raw_tutors)
+        scrape_tutor_associations(event, raw_tutors)
         scrape_category_associations(event, raw_categories)
       end
     end
@@ -186,10 +186,18 @@ class Lilith::HbrsEvaScraper
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new
 
+    logger.debug "Scraping Tutor associations from '#{raw_tutors}' for event #{event.inspect}"
+
     raw_tutors.split(/,/).each do |tutor|
-      tutors << event.tutor_associations.find_or_create(
-        :tutor => Tutor.find_or_create_by_eva_id(person.strip)
-      )
+      tutor = Tutor.find_or_create_by_eva_id(tutor.strip)
+
+      logger.debug "Tutor object for eva_id '#{tutor}' is #{tutor.inspect}"
+
+      tutor_association = event.tutor_associations.find_or_create_by_tutor_id(tutor)
+
+      logger.debug "EventTutorAssociation created: #{tutor_association.inspect}"
+
+      tutor_associations << tutor_association
     end
 
     tutor_associations

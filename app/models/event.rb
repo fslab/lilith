@@ -49,7 +49,7 @@ class Event < ActiveRecord::Base
     ical_event.categories = categories.map{|category| category.name || category.eva_id}
 
     description = ""
-    description += "Veranstalter: #{tutors.map{|tutor| tutor.name || tutor.eva_id}.join(', ')}\n" unless tutors.empty?
+    description += "Tutoren: #{tutors.map(&:name).join(', ')}\n" unless tutors.empty?
     description += "Gruppen: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
 
     ical_event.description = description
