@@ -118,3 +118,29 @@ body {
         }
     }
 }
+
+#study_unit {
+    ul {
+        padding: 0;
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul.events {
+            padding-left: 35px;
+        }
+    }
+
+    .courses, .groups {
+        li {
+            list-style: none;
+        }
+    }
+
+    .events {
+        li {
+            list-style: circle;
+        }
+    }
+}
