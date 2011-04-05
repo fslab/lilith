@@ -27,6 +27,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 Category.create!(:eva_id => 'V', :name => 'Vorlesung')
-Category.create!(:eva_id => 'Ü', :name => 'Übungen')
+Category.create!(:eva_id => 'Ü', :name => 'Übung')
 Category.create!(:eva_id => 'P', :name => 'Praktikum')
 Category.create!(:eva_id => 'S', :name => 'Seminar')
