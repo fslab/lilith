@@ -42,15 +42,19 @@ class Lilith::HbrsEvaScraper
   end
 
   def call
-    scrape_tutors.each do |tutor|
-      logger.debug "Scraped Tutor: #{tutor.inspect}"
-    end
+    ActiveRecord::Base.transaction do
+      scrape_tutors.each do |tutor|
+        logger.debug "Scraped Tutor: #{tutor.inspect}"
+      end
 
-    scrape_study_units.each do |study_unit|
-      logger.debug "Scraped StudyUnit: #{study_unit.inspect}"
-      scrape_courses(study_unit)
-    end
+      schedule = @semester.schedules.create!
 
+      scrape_study_units.each do |study_unit|
+        logger.debug "Scraped StudyUnit: #{study_unit.inspect}"
+        scrape_courses(study_unit, schedule)
+      end
+    end
+    
     true
   end
 
@@ -96,10 +100,8 @@ class Lilith::HbrsEvaScraper
     tutors
   end
 
-  def scrape_courses(study_unit)
+  def scrape_courses(study_unit, schedule)
     courses = []
-
-    schedule = study_unit.schedules.create!
 
     agent.get(@url) do |page|
       form = page.forms.first
