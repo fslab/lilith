@@ -20,11 +20,18 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 module Lilith
   module_function
 
+  # Scrapes the main data source: Eva² of Hochschule Bonn-Rhein-Sieg
+  #
+  # For console debug output use
+  #
+  #   Lilith.scrape_eva(:logger => Logger.new(STDOUT))
   def scrape_eva(*args)
     HbrsEvaScraper.new(*args).call
   end
 
+  # Scrapes the tutor list of Hochschule Bonn-Rhein-Sieg and merges
+  # the results with the existing objects in database
   def scrape_tutors(*args)
-    HbrsTutorsScraper.new(*args).call
+    HbrsTutorScraper.new(*args).call
   end
 end
