@@ -26,7 +26,7 @@ Lilith::Application.routes.draw do
     resource :imprint, :only => :show, :controller => :imprint
     resources :semesters
     resources :study_units
-    resources :schedules, :only => [:show, :index]
+    resources :schedules, :only => [:show, :index, :new]
     resources :courses
     resources :tutors
     

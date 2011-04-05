@@ -1,0 +1,43 @@
+-#Copyright Alexander E. Fischer <aef@raxys.net>, 2011
+-#
+-# This file is part of Lilith.
+-#
+-# Lilith is free software: you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation, either version 3 of the License, or
+-# (at your option) any later version.
+-#
+-# Lilith is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
+%h2 Schedule composition
+
+%form{:action => schedules_path}
+  %p
+    %label{:for => 'schedule_id'} Stand:
+    %select{:name => 'schedule_id'}
+      = options_from_collection_for_select @schedules, :id, :created_at
+  %p
+    %label{:for => 'format'} Format:
+    %select{:name => 'format'}
+      %option{:value => 'ical'} iCalendar
+      %option{:value => 'xml'} XML
+  = submit_tag 'Generate schedule', :name => nil
+
+  -# Generate navigation index
+  .navigation
+    %h3 Navigation
+    %ol
+      - @study_units.group_by(&:program).each do |program, study_units|
+        %li
+          %span.program~ program
+          - study_units.each do |study_unit|
+            %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+
+  -# Generate sections
+  - @study_units.each do |study_unit|
+    = render study_unit

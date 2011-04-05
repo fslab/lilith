@@ -14,20 +14,18 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-!!! 5
-
-%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'}
-  %head
-    %title Lilith
-    %link{:rel => 'stylesheet',
-          :href => '/stylesheets/application.css',
-          :type => 'text/css'}
-  %body{:id => @section}
-    #header
-      %a{:href => root_path, :name => 'top'}
-        %h1 Lilith
-      plan your schedule, really
-    #main
-      = yield
-    #footer
-      = link_to t('imprint.name'), imprint_path
+.study_unit{:id => study_unit.id}
+  %h3
+    %a{:name => study_unit.name}~ study_unit.name
+  %a{:href => '#top'} ⇧ Back to top
+  %ul.courses
+    - study_unit.courses.order('name ASC').each do |course|
+      %li
+        = check_box_tag 'course_ids[]', course.id
+        = course.name
+        %ul.groups
+          - course.groups.order('name ASC').each do |group|
+            %li
+              = check_box_tag 'group_ids[]', group.id
+              Group
+              = group.name

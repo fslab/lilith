@@ -53,4 +53,12 @@ class SchedulesController < ApplicationController
       format.xml { render :xml => @events.to_a }
     end
   end
+
+  def new
+    @section = :schedule
+
+    @semester = Semester.first # FIXME: Should be handled through URL
+    @schedules   = @semester.schedules
+    @study_units = @semester.study_units.order('program ASC, position ASC')
+  end
 end
