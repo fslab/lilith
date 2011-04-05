@@ -23,8 +23,28 @@ class Semester < ActiveRecord::Base
   has_many :study_units, :dependent => :destroy
   has_many :schedules, :dependent => :destroy
 
+  # Finds a Semester by either be it's UUID or the token
+  def self.find(primary)
+    UUIDTools::UUID.parse(primary)
+    super
+  rescue ArgumentError
+    /(\d+)([ws])/ =~ primary
+
+    case $2
+    when 'w'
+      season = :winter
+    when 's'
+      season = :summer
+    else
+      raise ArgumentError, 'Invalid semester season'
+    end
+
+    @semester = find_by_start_year_and_season($1.to_i, season)
+  end
+
+  # Finds the latest Semester object
   def self.latest
-    Semester.order('start_year ASC, season ASC').first
+    Semester.order('start_year DESC, season ASC').first
   end
 
   def name

@@ -18,6 +18,9 @@
 en:
   meta:
     name: English
+  menu:
+    submit: Switch
+    semester: Semester
   imprint:
     name: Imprint
     heading: Imprint

@@ -48,6 +48,10 @@ body {
   padding: 5px 20px 5px 5px;
   text-align: right;
   vertical-align: middle; }
+  #menu form {
+    display: inline; }
+  #menu span.language {
+    margin-left: 25px; }
 
 #main {
   font-family: Verdana, Geneva, sans-serif;

@@ -18,6 +18,9 @@
 de:
   meta:
     name: Deutsch
+  menu:
+    submit: Wechseln
+    semester: Semester
   imprint:
     name: Impressum
     heading: Impressum

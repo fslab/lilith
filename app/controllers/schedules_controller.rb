@@ -60,7 +60,6 @@ class SchedulesController < ApplicationController
   def new
     @section = :schedule
 
-    @semester = Semester.first # FIXME: Should be handled through URL
     @schedules   = @semester.schedules.order('created_at')
     @study_units = @semester.study_units.order('program ASC, position ASC')
   end
@@ -68,20 +67,6 @@ class SchedulesController < ApplicationController
   protected
 
   def set_semester
-    UUIDTools::UUID.parse(params[:semester_id])
     @semester = Semester.find(params[:semester_id])
-  rescue ArgumentError
-    /(\d+)([ws])/ =~ params[:semester_id]
-
-    case $2
-    when 'w'
-      season = :winter
-    when 's'
-      season = :summer
-    else
-      raise ArgumentError, 'Invalid semester season'
-    end
-
-    @semester = Semester.find_by_start_year_and_season($1.to_i, season)
   end
 end
