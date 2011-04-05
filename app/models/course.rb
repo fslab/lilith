@@ -25,10 +25,10 @@ class Course < ActiveRecord::Base
   
   has_many :events, :dependent => :destroy do
     # All events which do not also belong to a group
-    def exclusive
-      self - self.joins(:group_associations)
+    def exclusive(schedule)
+      self.where(:schedule_id => schedule) - self.where(:schedule_id => schedule).joins(:group_associations)
     end
   end
-  
+
   has_many :groups, :dependent => :destroy
 end

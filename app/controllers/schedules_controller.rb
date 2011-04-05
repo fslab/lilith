@@ -28,7 +28,7 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    Schedule.find(params[:id])
+    @schedule = Schedule.find(params[:id])
 
     @events = Set.new
 
@@ -37,7 +37,7 @@ class SchedulesController < ApplicationController
     elements += Course.find_all_by_id(params[:course_ids])
 
     elements.each do |element|
-      @events += element.events.exclusive
+      @events += element.events.exclusive(@schedule)
     end
 
     respond_to do |format|

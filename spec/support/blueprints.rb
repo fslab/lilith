@@ -21,6 +21,10 @@ Tutor.blueprint do
   eva_id     { 'ravenhurst' }
 end
 
+Schedule.blueprint do
+  created_at { Date.parse('2011-03-02') }
+end
+
 Course.blueprint do
   name { 'Humanoide Metaphysik I' }
 end
@@ -31,6 +35,7 @@ Group.blueprint do
 end
 
 Event.blueprint do
+  schedule    { Schedule.make! }
   course      { Course.make! }
   first_start { Date.parse('2011-05-23 17:00')}
   first_end   { Date.parse('2011-05-23 17:45')}
