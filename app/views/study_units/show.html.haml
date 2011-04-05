@@ -21,7 +21,7 @@
   %p
     %label{:for => 'schedule_id'} Stand:
     %select{:name => 'schedule_id'}
-      = options_from_collection_for_select @study_unit.schedules.order('created_at DESC'), :id, :created_at
+      = options_from_collection_for_select @schedules, :id, :created_at
   %p
     %label{:for => 'format'} Format:
     %select{:name => 'format'}

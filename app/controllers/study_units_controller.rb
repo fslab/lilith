@@ -26,6 +26,7 @@ class StudyUnitsController < ApplicationController
   def show
     @section = :study_unit
 
+    @schedules = Schedule.order('created_at DESC')
     @study_unit = StudyUnit.find(params[:id])
   end
 end
