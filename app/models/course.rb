@@ -24,4 +24,9 @@ class Course < ActiveRecord::Base
   belongs_to :study_unit
   has_many :events, :dependent => :destroy
   has_many :groups, :dependent => :destroy
+
+  # All events which do not also belong to a group
+  def exclusive_events
+    events - events.joins(:group_associations)
+  end
 end

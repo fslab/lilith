@@ -27,4 +27,9 @@ class Group < ActiveRecord::Base
            :class_name => 'EventGroupAssociation',
            :dependent => :destroy
   has_many :events, :through => :event_associations
+
+  # All events, compatible interface for Course#exclusive_events
+  def exclusive_events
+    events
+  end
 end
