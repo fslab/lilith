@@ -14,23 +14,23 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-%h2 Schedule composition
+%h2~ t('schedules.schedule_composition')
 
 %form{:action => schedules_path}
   %p
-    %label{:for => 'schedule_id'} Stand:
+    %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
     %select{:name => 'schedule_id'}
       = options_from_collection_for_select @schedules, :id, :created_at
   %p
-    %label{:for => 'format'} Format:
+    %label{:for => 'format'}~ t('schedules.format') + ': '
     %select{:name => 'format'}
       %option{:value => 'ical'} iCalendar
       %option{:value => 'xml'} XML
-  = submit_tag 'Generate schedule', :name => nil
+  = submit_tag t('schedules.generate'), :name => nil
 
   -# Generate navigation index
   .navigation
-    %h3 Navigation
+    %h3~ t('schedules.navigation')
     %ol
       - @study_units.group_by(&:program).each do |program, study_units|
         %li

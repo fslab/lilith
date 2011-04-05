@@ -31,3 +31,10 @@ de:
     sub_organization_link: Free Software Lab
     license_text: Lilith ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
     warranty_text: Lilith wird in der Hoffnung verbreitet, dass es nützlich ist, allerdings OHNE JEDE GARANTIE; auch ohne die implizierte Garantie für GEBRAUCHSTAUGLICHKEIT oder die TAUGLICHKEIT FÜR EINEN BESTIMMTEN ZWECK.
+  schedules:
+    schedule_composition: Stundenplan zusammenstellen
+    actuality: Stand
+    format: Format
+    generate: Stundenplan generieren
+    navigation: Navigation
+    back_to_top: Zurück nach oben
