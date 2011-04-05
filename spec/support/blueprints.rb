@@ -12,3 +12,11 @@ Semester.blueprint do
   start_year { 2011 }
   season     { :summer }
 end
+
+Tutor.blueprint do
+  title      { 'Lord' }
+  forename   { 'Omar' }
+  middlename { 'Kayyam' }
+  surname    { 'Ravenhurst' }
+  eva_id     { 'ravenhurst' }
+end

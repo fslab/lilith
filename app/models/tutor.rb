@@ -25,5 +25,26 @@ class Tutor < ActiveRecord::Base
            :class_name => 'EventTutorAssociation',
            :dependent => :destroy
   has_many :events, :through => :event_associations
+
+  # The full name of the tutor if available, otherwise the eva_id
+  def name
+    if surname
+      name = surname
+
+      if forename
+        if middlename
+          name = "#{forename} #{middlename} #{name}"
+        else
+          name = "#{forename} #{name}"
+        end
+      end
+
+      name = "#{title} #{name}" if title
+
+      name
+    else
+      eva_id
+    end
+  end
 end
 
