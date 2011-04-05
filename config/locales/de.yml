@@ -16,6 +16,9 @@
 # along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 de:
+  meta:
+    name: Deutsch
+    
   imprint:
     name: Impressum
     heading: Impressum

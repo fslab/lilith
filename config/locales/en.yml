@@ -16,6 +16,9 @@
 # along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 en:
+  meta:
+    name: English
+
   imprint:
     name: Imprint
     heading: Imprint

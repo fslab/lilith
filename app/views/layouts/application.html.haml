@@ -27,6 +27,9 @@
       %a{:href => root_path}
         %h1 Lilith
       plan your schedule, really
+    #menu
+      = link_to t(('meta.name'), :locale => 'de'), :locale => 'de'
+      = link_to t(('meta.name'), :locale => 'en'), :locale => 'en'
     #main
       = yield
     #footer
