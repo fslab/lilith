@@ -21,6 +21,7 @@ class Semester < ActiveRecord::Base
   include Lilith::UUIDHelper
   
   has_many :study_units, :dependent => :destroy
+  has_many :schedules, :dependent => :destroy
   
   def name
     case season.to_sym

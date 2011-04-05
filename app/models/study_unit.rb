@@ -23,8 +23,7 @@ class StudyUnit < ActiveRecord::Base
 
   belongs_to :semester
   has_many :courses, :dependent => :destroy
-  has_many :schedules, :dependent => :destroy
-  
+
   def name
     "#{program} #{position}"
   end
