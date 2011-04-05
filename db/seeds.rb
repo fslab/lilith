@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -24,3 +25,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+Category.create!(:eva_id => 'V', :name => 'Vorlesung')
+Category.create!(:eva_id => 'Ü', :name => 'Übungen')
+Category.create!(:eva_id => 'P', :name => 'Praktikum')
+Category.create!(:eva_id => 'S', :name => 'Seminar')

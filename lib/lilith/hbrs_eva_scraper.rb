@@ -27,12 +27,6 @@ class Lilith::HbrsEvaScraper
   SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
   NAME_PATTERN            = /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/
   PERIOD_PATTERN = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
-  CATEGORY_TABLE = {
-    'V' => 'Vorlesung',
-    'Ü' => 'Übung',
-    'P' => 'Praktikum',
-    'S' => 'Seminar'
-  }
 
   attr_accessor :agent, :url, :semester, :logger
 
