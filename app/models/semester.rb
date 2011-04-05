@@ -21,13 +21,27 @@ class Semester < ActiveRecord::Base
   include Lilith::UUIDHelper
   
   has_many :study_units, :dependent => :destroy
-  
+  has_many :schedules, :dependent => :destroy
+
+  def self.latest
+    Semester.order('start_year ASC, season ASC').first
+  end
+
   def name
     case season.to_sym
     when :winter
       "WS #{start_year}/#{start_year + 1}"
     when :summer
       "SS #{start_year}"
+    end
+  end
+
+  def token
+    case season.to_sym
+    when :winter
+      "#{start_year}w"
+    when :summer
+      "#{start_year}s"
     end
   end
 end

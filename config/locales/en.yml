@@ -18,7 +18,6 @@
 en:
   meta:
     name: English
-
   imprint:
     name: Imprint
     heading: Imprint
@@ -34,3 +33,10 @@ en:
     sub_organization_link: Free Software Lab
     license_text: Lilith is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
     warranty_text: Lilith is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+  schedules:
+    schedule_composition: Schedule composition
+    actuality: Actuality
+    format: Format
+    generate: Generate schedule
+    navigation: Navigation
+    back_to_top: Back to top

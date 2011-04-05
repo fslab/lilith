@@ -138,7 +138,11 @@ body {
     }
 }
 
-#study_unit {
+#schedule {
+    ol {
+        padding: 0;
+    }
+
     ul {
         padding: 0;
 
@@ -153,5 +157,10 @@ body {
 
     li {
         list-style: none;
+    }
+
+    span.program {
+        display: inline-block;
+        width: 100px;
     }
 }

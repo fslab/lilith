@@ -101,11 +101,16 @@ body {
     display: inline-block;
     width: 25px; }
 
-#study_unit ul {
+#schedule ol {
   padding: 0; }
-  #study_unit ul ul {
+#schedule ul {
+  padding: 0; }
+  #schedule ul ul {
     padding-left: 20px; }
-  #study_unit ul ul.events {
+  #schedule ul ul.events {
     padding-left: 35px; }
-#study_unit li {
+#schedule li {
   list-style: none; }
+#schedule span.program {
+  display: inline-block;
+  width: 100px; }

@@ -19,6 +19,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 class RootController < ApplicationController
   def show
-    redirect_to(semesters_path)
+    redirect_to(new_semester_schedule_path(Semester.latest.token))
   end
 end

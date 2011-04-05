@@ -26,4 +26,5 @@ describe Semester do
   it { should have_db_column(:updated_at).of_type(:datetime) }
   
   it { should have_many(:study_units) }
+  it { should have_many(:schedules) }
 end

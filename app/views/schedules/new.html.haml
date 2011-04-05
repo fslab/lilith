@@ -14,31 +14,30 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-%h1
-  = @study_unit.name
+%h2~ t('schedules.schedule_composition')
 
-%form{:action => schedules_path}
+%form{:action => semester_schedules_path(@semester.token)}
   %p
-    %label{:for => 'schedule_id'} Stand:
+    %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
     %select{:name => 'schedule_id'}
-      = options_from_collection_for_select @study_unit.schedules.order('created_at DESC'), :id, :created_at
+      = options_from_collection_for_select @schedules, :id, :created_at
   %p
-    %label{:for => 'format'} Format:
+    %label{:for => 'format'}~ t('schedules.format') + ': '
     %select{:name => 'format'}
       %option{:value => 'ical'} iCalendar
       %option{:value => 'xml'} XML
-  = submit_tag 'Generate schedule', :name => nil
-  .courses
-    %h2 Courses
-    %ul
-      - @study_unit.courses.order('name ASC').each do |course|
+  = submit_tag t('schedules.generate'), :name => nil
+
+  -# Generate navigation index
+  .navigation
+    %h3~ t('schedules.navigation')
+    %ol
+      - @study_units.group_by(&:program).each do |program, study_units|
         %li
-          = check_box_tag 'course_ids[]', course.id
-          = course.name
-          %ul.groups
-            - course.groups.order('name ASC').each do |group|
-              %li
-                = check_box_tag 'group_ids[]', group.id
-                Group
-                = group.name
- 
+          %span.program~ program
+          - study_units.each do |study_unit|
+            %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+
+  -# Generate sections
+  - @study_units.each do |study_unit|
+    = render study_unit

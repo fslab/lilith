@@ -21,6 +21,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class Schedule < ActiveRecord::Base
   include Lilith::UUIDHelper
 
-  belongs_to :study_unit
+  belongs_to :semester
   has_many :events, :dependent => :destroy
 end

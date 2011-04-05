@@ -29,5 +29,4 @@ describe StudyUnit do
   it { should belong_to(:semester) }
 
   it { should have_many(:courses) }
-  it { should have_many(:schedules) }
 end
