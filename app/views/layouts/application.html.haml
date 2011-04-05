@@ -28,8 +28,8 @@
         %h1 Lilith
       plan your schedule, really
     #menu
-      = link_to t(('meta.name'), :locale => 'de'), :locale => 'de'
-      = link_to t(('meta.name'), :locale => 'en'), :locale => 'en'
+      %a{:href => url_for(:locale => :de)}~ t(('meta.name'), :locale => :de)
+      %a{:href => url_for(:locale => :en)}~ t(('meta.name'), :locale => :en)
     #main
       = yield
     #footer
