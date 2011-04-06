@@ -21,13 +21,52 @@ class Semester < ActiveRecord::Base
   include Lilith::UUIDHelper
   
   has_many :study_units, :dependent => :destroy
-  
+  has_many :schedules, :dependent => :destroy
+
+  # Finds a Semester by either be it's UUID or the token
+  def self.find(*args)
+    UUIDTools::UUID.parse(args.first) if args.length == 1
+    super(*args)
+  rescue ArgumentError
+    /(\d+)([ws])/ =~ args.first
+
+    case $2
+    when 'w'
+      season = :winter
+    when 's'
+      season = :summer
+    else
+      raise ArgumentError, 'Invalid semester season'
+    end
+
+    @semester = find_by_start_year_and_season($1.to_i, season)
+  end
+
+  # Finds the latest Semester object
+  def self.latest
+    Semester.order('start_year DESC, season DESC').first
+  end
+
+  # Generates a name for the semester that is intended to be human readable
   def name
     case season.to_sym
     when :winter
       "WS #{start_year}/#{start_year + 1}"
     when :summer
       "SS #{start_year}"
+    end
+  end
+
+  # Generates a token consisting of the year and the lower case beginning
+  # letter of the season
+  #
+  # Examples: 2011s, 2012w, 2012s
+  def token
+    case season.to_sym
+    when :winter
+      "#{start_year}w"
+    when :summer
+      "#{start_year}s"
     end
   end
 end

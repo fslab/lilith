@@ -60,6 +60,14 @@ body {
   padding: 5px 20px 5px 5px;
   text-align: right; 
   vertical-align:middle;
+
+  form {
+    display: inline;
+  }
+
+  span.language {
+    margin-left: 25px;
+  }
 }
 
 #main {
@@ -138,7 +146,11 @@ body {
     }
 }
 
-#study_unit {
+#schedule {
+    ol {
+        padding: 0;
+    }
+
     ul {
         padding: 0;
 
@@ -153,5 +165,10 @@ body {
 
     li {
         list-style: none;
+    }
+
+    span.program {
+        display: inline-block;
+        width: 100px;
     }
 }
