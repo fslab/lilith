@@ -28,6 +28,7 @@ de:
     operator_text: Lilith wird betrieben vom %{sub_organization_link} der %{organization_link}.
     contact_person: Ansprechpartner
     software: Programm
+    version: Betriebene Version
     software_text: Lilith wurde mit der %{ruby_link} unter Zuhilfenahme des %{rails_link} erstellt. Das Lilith-Projekt wird %{project_link} verwaltet.
     ruby_link: Programmiersprache Ruby
     rails_link: Rails Web-Frameworks
