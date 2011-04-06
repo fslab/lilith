@@ -27,4 +27,63 @@ describe Semester do
   
   it { should have_many(:study_units) }
   it { should have_many(:schedules) }
+
+  context ".find" do
+    it "should find a semester by its UUID" do
+      semester = Semester.make!
+
+      Semester.find(semester.id).should == semester
+    end
+
+    it "should find a semester by its token" do
+      semester = Semester.make!
+
+      Semester.find(semester.token).should == semester
+    end
+  end
+
+  context ".latest" do
+    it "should find the latest semester based on season differences" do
+      Semester.make!(:start_year => 2011, :season => :summer)
+      winter_2011 = Semester.make!(:start_year => 2011, :season => :winter)
+
+      Semester.latest.should == winter_2011 
+    end
+
+    it "should find the latest semester based on start year differences" do
+      Semester.make!(:start_year => 2011, :season => :summer)
+      Semester.make!(:start_year => 2011, :season => :winter)
+      summer_2012 = Semester.make!(:start_year => 2012, :season => :summer)
+
+      Semester.latest.should == summer_2012
+    end
+  end
+
+  context "#name" do
+    it "should produce correct names for winter semesters" do
+      semester = Semester.make(:start_year => 2011, :season => :winter)
+
+      semester.name.should == "WS 2011/2012"
+    end
+
+    it "should produce correct names for summer semesters" do
+      semester = Semester.make(:start_year => 2012, :season => :summer)
+
+      semester.name.should == "SS 2012"
+    end
+  end
+
+  context "#token" do
+    it "should produce correct names for winter semesters" do
+      semester = Semester.make(:start_year => 2011, :season => :winter)
+
+      semester.token.should == "2011w"
+    end
+
+    it "should produce correct names for summer semesters" do
+      semester = Semester.make(:start_year => 2012, :season => :summer)
+
+      semester.token.should == "2012s"
+    end
+  end
 end

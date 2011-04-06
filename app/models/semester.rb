@@ -24,11 +24,11 @@ class Semester < ActiveRecord::Base
   has_many :schedules, :dependent => :destroy
 
   # Finds a Semester by either be it's UUID or the token
-  def self.find(primary)
-    UUIDTools::UUID.parse(primary)
-    super
+  def self.find(*args)
+    UUIDTools::UUID.parse(args.first) if args.length == 1
+    super(*args)
   rescue ArgumentError
-    /(\d+)([ws])/ =~ primary
+    /(\d+)([ws])/ =~ args.first
 
     case $2
     when 'w'
@@ -44,9 +44,10 @@ class Semester < ActiveRecord::Base
 
   # Finds the latest Semester object
   def self.latest
-    Semester.order('start_year DESC, season ASC').first
+    Semester.order('start_year DESC, season DESC').first
   end
 
+  # Generates a name for the semester that is intended to be human readable
   def name
     case season.to_sym
     when :winter
@@ -56,6 +57,10 @@ class Semester < ActiveRecord::Base
     end
   end
 
+  # Generates a token consisting of the year and the lower case beginning
+  # letter of the season
+  #
+  # Examples: 2011s, 2012w, 2012s
   def token
     case season.to_sym
     when :winter
