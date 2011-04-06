@@ -18,6 +18,9 @@
 en:
   meta:
     name: English
+  global:
+    ie_warning: You are using a browser that sucks. Go and install a %{browser_link} browser.
+    ie_warning_browser_link: real
   menu:
     submit: Switch
     semester: Semester

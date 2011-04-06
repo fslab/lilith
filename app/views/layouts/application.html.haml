@@ -24,9 +24,8 @@
   %body{:id => @body_id}
     - if request.headers['User-Agent'].include?('MSIE')
       #ie_warning
-        You are using a browser that sucks. Go and install a
-        %a{:href => 'http://mozilla.com/'} real
-        browser.
+        - browser_urls = ['http://mozilla.com/', 'http://www.google.com/chrome', 'http://www.opera.com/']
+        = (t('global.ie_warning', :browser_link => link_to(t('global.ie_warning_browser_link'), browser_urls.shuffle.first))).html_safe
     #container
       #header
         %a{:href => root_path, :name => 'top'}

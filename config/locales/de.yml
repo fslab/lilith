@@ -18,6 +18,9 @@
 de:
   meta:
     name: Deutsch
+  global:
+    ie_warning: Ihr Browser verdient seinen Namen nicht. Installieren Sie einen %{browser_link} Browser.
+    ie_warning_browser_link: richtigen
   menu:
     submit: Wechseln
     semester: Semester
