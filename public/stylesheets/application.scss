@@ -147,10 +147,6 @@ body {
 }
 
 #schedule {
-    ol {
-        padding: 0;
-    }
-
     ul {
         padding: 0;
 
@@ -161,14 +157,28 @@ body {
         ul.events {
             padding-left: 35px;
         }
+
+        li {
+            list-style: none;
+        }
     }
 
-    li {
-        list-style: none;
-    }
+    .navigation {
+        table {
+            border-spacing: 0;
 
-    span.program {
-        display: inline-block;
-        width: 100px;
+            tr:hover td {
+                background-color: #d8efff;
+            }
+
+            td.program {
+                padding-right: 20px;
+            }
+
+            td.units {
+                padding-right: 10px;
+            }
+        }
     }
 }
+

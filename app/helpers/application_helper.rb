@@ -18,4 +18,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 module ApplicationHelper
+  def set_body_id(body_id)
+    @body_id = body_id
+  end
 end

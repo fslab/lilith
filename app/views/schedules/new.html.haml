@@ -14,6 +14,7 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
+- set_body_id :schedule
 %h2~ t('schedules.schedule_composition')
 
 %form{:action => semester_schedules_path(@semester.token)}
@@ -31,12 +32,14 @@
   -# Generate navigation index
   .navigation
     %h3~ t('schedules.navigation')
-    %ol
+    %table
+      %tbody
       - @study_units.group_by(&:program).each do |program, study_units|
-        %li
-          %span.program~ program
-          - study_units.each do |study_unit|
-            %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+        %tr
+          %td.program~ program
+          %td.units
+            - study_units.each do |study_unit|
+              %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
 
   -# Generate sections
   - @study_units.each do |study_unit|

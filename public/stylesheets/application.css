@@ -105,16 +105,19 @@ body {
     display: inline-block;
     width: 25px; }
 
-#schedule ol {
-  padding: 0; }
 #schedule ul {
   padding: 0; }
   #schedule ul ul {
     padding-left: 20px; }
   #schedule ul ul.events {
     padding-left: 35px; }
-#schedule li {
-  list-style: none; }
-#schedule span.program {
-  display: inline-block;
-  width: 100px; }
+  #schedule ul li {
+    list-style: none; }
+#schedule .navigation table {
+  border-spacing: 0; }
+  #schedule .navigation table tr:hover td {
+    background-color: #d8efff; }
+  #schedule .navigation table td.program {
+    padding-right: 20px; }
+  #schedule .navigation table td.units {
+    padding-right: 10px; }
