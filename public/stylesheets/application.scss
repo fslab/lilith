@@ -1,10 +1,41 @@
-body {
-  width:600px;
-  text-align: center; 
-  margin-left: auto;
-  margin-right: auto;
+html, body {
+  padding: 0;
+  margin: 0;
   color: black;
   background-image: url("../images/background.png");
+}
+
+#ie_warning
+{
+  width: 100%;
+  height: 24px;
+  background-color: #ff1f1f;
+  color: white;
+  position: fixed;
+  z-index: 1000;
+  top: 0px;
+  padding-top: 2px;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: solid 1px black;
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: underline;
+    color: white;
+  }
+
+  a:hover {
+    color: black;
+  }
+}
+
+#container {
+  padding-top: 35px;
+  padding-bottom: 5px;
+  width:600px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 
   a:link, a:visited, a:hover, a:active {
     text-decoration: none;
@@ -12,7 +43,7 @@ body {
     font-weight: bold;
   }
 
-  a:hover { 
+  a:hover {
     color: black;
   }
 }
@@ -24,7 +55,7 @@ body {
   background-color: rgba(0,0,0,0.3);
   border: 1px solid black;
   padding: 5px 0px 0px 20px;
-  text-align: left; 
+  text-align: left;
   color: white;
   height: 55px;
   line-height: 0.5;
@@ -112,6 +143,13 @@ body {
   a:hover {
     color: #fff;
   }
+}
+
+#browser_warning {
+    background-color: white;
+    border: solid black 1px;
+    width: 100%;
+    min-width: 100%;
 }
 
 #imprint {

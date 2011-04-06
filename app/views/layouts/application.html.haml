@@ -22,26 +22,32 @@
     %title Lilith
     = stylesheet_link_tag('application')
   %body{:id => @body_id}
-    #header
-      %a{:href => root_path, :name => 'top'}
-        %h1 Lilith
-      plan your schedule, really
-    #menu
-      %form{:action => root_path}
-        %label{:for => :semester_id}~ t('menu.semester') + ': '
-        %select{:name => :semester_id}
-          = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
-        %input{:type => :submit, :value => t('menu.submit')}
-      %span.language
-        - I18n.available_locales.each do |locale|
-          %a{:href => url_for(:locale => locale)}~ t('meta.name', :locale => locale)
-    #main
-      = yield
-    #footer
-      Version:
-      %a{:href => 'http://semver.org/'}
-        = Lilith::VERSION
-      –
-      = link_to t('imprint.name'), imprint_path
-      –
-      © Alexander E. Fischer, 2011
+    - if request.headers['User-Agent'].include?('MSIE')
+      #ie_warning
+        You are using a browser that sucks. Go and install a
+        %a{:href => 'http://mozilla.com/'} real
+        browser.
+    #container
+      #header
+        %a{:href => root_path, :name => 'top'}
+          %h1 Lilith
+        plan your schedule, really
+      #menu
+        %form{:action => root_path}
+          %label{:for => :semester_id}~ t('menu.semester') + ': '
+          %select{:name => :semester_id}
+            = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
+          %input{:type => :submit, :value => t('menu.submit')}
+        %span.language
+          - I18n.available_locales.each do |locale|
+            %a{:href => url_for(:locale => locale)}~ t('meta.name', :locale => locale)
+      #main
+        = yield
+      #footer
+        Version:
+        %a{:href => 'http://semver.org/'}
+          = Lilith::VERSION
+        –
+        = link_to t('imprint.name'), imprint_path
+        –
+        © Alexander E. Fischer, 2011
