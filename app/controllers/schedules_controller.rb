@@ -58,8 +58,6 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @section = :schedule
-
     @schedules   = @semester.schedules.order('created_at')
     @study_units = @semester.study_units.order('program ASC, position ASC')
   end

@@ -21,11 +21,10 @@
   %ul.courses
     - study_unit.courses.order('name ASC').each do |course|
       %li
-        = check_box_tag 'course_ids[]', course.id
+        %input{:type => :checkbox, :name => 'course_ids[]', :value => course.id}
         = course.name
         %ul.groups
           - course.groups.order('name ASC').each do |group|
             %li
-              = check_box_tag 'group_ids[]', group.id
-              Group
-              = group.name
+              %input{:type => :checkbox, :name => 'group_ids[]', :value => group.id}
+              = "#{t('schedules.group')} #{group.name}"
