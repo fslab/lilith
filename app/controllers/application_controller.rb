@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
+  after_filter :set_mime_type
 
   protected
 
@@ -30,5 +31,12 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     {:locale => I18n.locale}
+  end
+
+  def set_mime_type
+    if response.content_type == 'text/html' and
+       not request.headers['User-Agent'].include?('MSIE')
+        response.content_type = 'application/xhtml+xml'
+    end
   end
 end
