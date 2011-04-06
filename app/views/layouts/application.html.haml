@@ -39,4 +39,10 @@
     #main
       = yield
     #footer
+      Version:
+      %a{:href => 'http://semver.org/'}
+        = Lilith::VERSION
+      –
       = link_to t('imprint.name'), imprint_path
+      –
+      © Alexander E. Fischer, 2011
