@@ -20,5 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 
+Haml::Template.options[:format] = :xhtml
+
 # Initialize the rails application
 Lilith::Application.initialize!

@@ -14,14 +14,13 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
+!!! XML
 !!! 5
 
 %html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'}
   %head
     %title Lilith
-    %link{:rel => 'stylesheet',
-          :href => '/stylesheets/application.css',
-          :type => 'text/css'}
+    = stylesheet_link_tag('application')
   %body{:id => @body_id}
     #header
       %a{:href => root_path, :name => 'top'}
