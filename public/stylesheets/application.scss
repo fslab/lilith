@@ -3,6 +3,10 @@ html, body {
   margin: 0;
   color: black;
   background-image: url("../images/background.png");
+
+  .clear {
+    float: clear;
+  }
 }
 
 #ie_warning
@@ -202,6 +206,7 @@ html, body {
     }
 
     .navigation {
+
         table {
             border-spacing: 0;
 
@@ -218,5 +223,13 @@ html, body {
             }
         }
     }
-}
 
+    .controls {
+        float: right;
+        text-align: right;
+
+        input, select {
+            width: 150px;
+        }
+    }
+}
