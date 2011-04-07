@@ -17,8 +17,9 @@
 !!! XML
 !!! 5
 
-%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'}
+%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => I18n.locale}
   %head
+    %meta{:charset => 'utf-8'}
     %title Lilith
     = stylesheet_link_tag('application')
   %body{:id => @body_id}
@@ -28,7 +29,7 @@
         = (t('global.ie_warning', :browser_link => link_to(t('global.ie_warning_browser_link'), browser_urls.shuffle.first))).html_safe
     #container
       #header
-        %a{:href => root_path, :name => 'top'}
+        %a{:href => root_path}
           %h1 Lilith
         plan your schedule, really
       #menu

@@ -16,8 +16,8 @@
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 .study_unit{:id => study_unit.id}
   %h3
-    %a{:name => study_unit.name}~ study_unit.name
-  %a{:href => '#top'}~ "⇧ #{t('schedules.back_to_top')}"
+    %a{:id => URI.escape(study_unit.name)}~ study_unit.name
+  %a{:href => '#header'}~ "⇧ #{t('schedules.back_to_top')}"
   %ul.courses
     - study_unit.courses.order('name ASC').each do |course|
       %li
