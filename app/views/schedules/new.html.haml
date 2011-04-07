@@ -24,11 +24,11 @@
   .controls
     %p
       %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
-      %select{:name => 'schedule_id'}
+      %select{:id => 'schedule_id', :name => 'schedule_id'}
         = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}, @schedules.first.id
     %p
       %label{:for => 'format'}~ t('schedules.format') + ': '
-      %select{:name => 'format'}
+      %select{:id => 'format', :name => 'format'}
         %option{:value => 'ical'} iCalendar
         %option{:value => 'xml'} XML
     = submit_tag t('schedules.generate'), :name => nil
@@ -42,7 +42,7 @@
             %td.program~ program
             %td.units
               - study_units.each do |study_unit|
-                %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+                %a{:href => "##{URI.escape(program)} #{study_unit.position}"}~ study_unit.position
 
   -# Generate sections
   .study_units
