@@ -32,7 +32,7 @@ en:
     contact_person: Contact person
     software: Software
     version: Running version
-    software_text: Lilith is written in the %{ruby_link} using the %{rails_link}. The Lilith project is managed %{project_link}.
+    software_text: Lilith is written in the %{ruby_link} using the %{rails_link}. Lilith's user interface is completely designed with XHTML5. The Lilith project is managed %{project_link}.
     ruby_link: Ruby programming language
     rails_link: Rails web framework
     project_link: here

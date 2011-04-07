@@ -32,7 +32,7 @@ de:
     contact_person: Ansprechpartner
     software: Programm
     version: Betriebene Version
-    software_text: Lilith wurde mit der %{ruby_link} unter Zuhilfenahme des %{rails_link} erstellt. Das Lilith-Projekt wird %{project_link} verwaltet.
+    software_text: Lilith wurde mit der %{ruby_link} unter Zuhilfenahme des %{rails_link} erstellt. Liliths Benutzeroberfläche ist komplett durch XHTML5 definiert. Das Lilith-Projekt wird %{project_link} verwaltet.
     ruby_link: Programmiersprache Ruby
     rails_link: Rails Web-Frameworks
     project_link: hier
