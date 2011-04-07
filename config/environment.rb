@@ -22,5 +22,7 @@ require File.expand_path('../application', __FILE__)
 
 Haml::Template.options[:format] = :xhtml
 
+Time.zone = 'Berlin'
+
 # Initialize the rails application
 Lilith::Application.initialize!

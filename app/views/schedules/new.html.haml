@@ -15,32 +15,36 @@
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 - set_body_id :schedule
+- now = Time.now
 %h2~ t('schedules.schedule_composition')
 
 %form{:action => semester_schedules_path(@semester.token)}
-  %p
-    %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
-    %select{:name => 'schedule_id'}
-      = options_from_collection_for_select @schedules, :id, :created_at
-  %p
-    %label{:for => 'format'}~ t('schedules.format') + ': '
-    %select{:name => 'format'}
-      %option{:value => 'ical'} iCalendar
-      %option{:value => 'xml'} XML
-  = submit_tag t('schedules.generate'), :name => nil
+  %h3~ t('schedules.navigation')
+
+  .controls
+    %p
+      %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
+      %select{:id => 'schedule_id', :name => 'schedule_id'}
+        = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}, @schedules.first.id
+    %p
+      %label{:for => 'format'}~ t('schedules.format') + ': '
+      %select{:id => 'format', :name => 'format'}
+        %option{:value => 'ical'} iCalendar
+        %option{:value => 'xml'} XML
+    = submit_tag t('schedules.generate'), :name => nil
 
   -# Generate navigation index
   .navigation
-    %h3~ t('schedules.navigation')
     %table
       %tbody
-      - @study_units.group_by(&:program).each do |program, study_units|
-        %tr
-          %td.program~ program
-          %td.units
-            - study_units.each do |study_unit|
-              %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+        - @study_units.group_by(&:program).each do |program, study_units|
+          %tr
+            %td.program~ program
+            %td.units
+              - study_units.each do |study_unit|
+                %a{:href => "##{URI.escape(study_unit.name)}"}~ study_unit.position
 
   -# Generate sections
-  - @study_units.each do |study_unit|
-    = render study_unit
+  .study_units
+    - @study_units.each do |study_unit|
+      = render study_unit

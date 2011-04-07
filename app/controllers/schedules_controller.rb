@@ -58,7 +58,7 @@ class SchedulesController < ApplicationController
   end
 
   def new
-    @schedules   = @semester.schedules.order('created_at')
+    @schedules   = @semester.schedules.order('created_at DESC')
     @study_units = @semester.study_units.order('program ASC, position ASC')
   end
 

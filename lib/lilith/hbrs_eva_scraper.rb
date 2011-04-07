@@ -24,6 +24,8 @@ require 'uri'
 require 'mechanize'
 
 class Lilith::HbrsEvaScraper
+  class TimeSyncError < RuntimeError; end
+  
   SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
   NAME_PATTERN            = /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/
   PERIOD_PATTERN = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
@@ -104,6 +106,16 @@ class Lilith::HbrsEvaScraper
     courses = []
 
     agent.get(@url) do |page|
+      # If time differs more than 5 minutes between document source and here, abort
+      local_time  = Time.now
+      remote_time = Time.parse(page.search("div[@class = 'eva-footer']/text()").last.to_s)
+
+      if (local_time - remote_time).abs > 5.minutes
+        raise TimeSyncError, "Scraping aborted. Local time: #{local_time}; Remote time: #{remote_time}"
+      end
+      logger.debug "Local time: #{local_time}"
+      logger.debug "Remote time: #{remote_time}"
+
       form = page.forms.first
       form['weeks'] = '12;13;14;15;16;17;18;19;20;21;22;23;24;25'
       form['days']  = '1-7'
@@ -145,8 +157,8 @@ class Lilith::HbrsEvaScraper
 
         PERIOD_PATTERN =~ raw_period
 
-        event.first_start = DateTime.parse("#{$1} #{raw_start_time}")
-        event.first_end   = DateTime.parse("#{$1} #{raw_end_time}")
+        event.first_start = Time.parse("#{$1} #{raw_start_time}")
+        event.first_end   = Time.parse("#{$1} #{raw_end_time}")
         event.until       = Date.parse($2)
         event.recurrence  = $3
 
@@ -159,6 +171,8 @@ class Lilith::HbrsEvaScraper
     end
 
     courses
+  rescue => exception
+    raise handle_exception(exception)
   end
 
   def scrape_group_associations(event, raw_groups)
@@ -217,4 +231,15 @@ class Lilith::HbrsEvaScraper
     category_associations
   end
 
+  protected
+  
+  def handle_exception(exception)
+    logger.error <<-EOS
+      #{exception.class} occured
+      #{exception.message}
+      #{exception.backtrace}
+    EOS
+
+    exception
+  end
 end

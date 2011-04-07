@@ -17,31 +17,37 @@
 !!! XML
 !!! 5
 
-%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'en'}
+%html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => I18n.locale}
   %head
+    %meta{:charset => 'utf-8'}
     %title Lilith
     = stylesheet_link_tag('application')
   %body{:id => @body_id}
-    #header
-      %a{:href => root_path, :name => 'top'}
-        %h1 Lilith
-      plan your schedule, really
-    #menu
-      %form{:action => root_path}
-        %label{:for => :semester_id}~ t('menu.semester') + ': '
-        %select{:name => :semester_id}
-          = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
-        %input{:type => :submit, :value => t('menu.submit')}
-      %span.language
-        - I18n.available_locales.each do |locale|
-          %a{:href => url_for(:locale => locale)}~ t('meta.name', :locale => locale)
-    #main
-      = yield
-    #footer
-      Version:
-      %a{:href => 'http://semver.org/'}
-        = Lilith::VERSION
-      –
-      = link_to t('imprint.name'), imprint_path
-      –
-      © Alexander E. Fischer, 2011
+    - if request.headers['User-Agent'].include?('MSIE')
+      #ie_warning
+        - browser_urls = ['http://mozilla.com/', 'http://www.google.com/chrome', 'http://www.opera.com/']
+        = (t('global.ie_warning', :browser_link => link_to(t('global.ie_warning_browser_link'), browser_urls.shuffle.first))).html_safe
+    #container
+      #header
+        %a{:href => root_path}
+          %h1 Lilith
+        plan your schedule, really
+      #menu
+        %form{:action => root_path}
+          %label{:for => :semester_id}~ t('menu.semester') + ': '
+          %select{:id => :semester_id, :name => :semester_id}
+            = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
+          %input{:type => :submit, :value => t('menu.submit')}
+        %span.language
+          - I18n.available_locales.each do |locale|
+            %a{:href => url_for(:locale => locale)}~ t('meta.name', :locale => locale)
+      #main
+        = yield
+      #footer
+        Version:
+        %a{:href => 'http://semver.org/'}
+          = Lilith::VERSION
+        –
+        = link_to t('imprint.name'), imprint_path
+        –
+        © Alexander E. Fischer, 2011
