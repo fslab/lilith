@@ -37,12 +37,12 @@
   .navigation
     %table
       %tbody
-      - @study_units.group_by(&:program).each do |program, study_units|
-        %tr
-          %td.program~ program
-          %td.units
-            - study_units.each do |study_unit|
-              %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
+        - @study_units.group_by(&:program).each do |program, study_units|
+          %tr
+            %td.program~ program
+            %td.units
+              - study_units.each do |study_unit|
+                %a{:href => "##{program} #{study_unit.position}"}~ study_unit.position
 
   -# Generate sections
   .study_units
