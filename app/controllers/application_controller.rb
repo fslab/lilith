@@ -21,12 +21,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_locale
+  before_filter :set_timezone
   after_filter :set_mime_type
 
   protected
 
   def set_locale
     I18n.locale = params[:locale]
+  end
+
+  def set_timezone
+    Time.zone = 'Berlin'
   end
 
   def default_url_options(options = {})
