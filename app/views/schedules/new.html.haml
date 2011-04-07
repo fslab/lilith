@@ -21,7 +21,7 @@
   %p
     %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
     %select{:name => 'schedule_id'}
-      = options_from_collection_for_select @schedules, :id, :created_at
+      = options_for_select @schedules.map{|schedule| [schedule.created_at, schedule.id]}, @schedules.first.id
   %p
     %label{:for => 'format'}~ t('schedules.format') + ': '
     %select{:name => 'format'}
