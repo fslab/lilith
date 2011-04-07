@@ -156,5 +156,5 @@ html, body {
 #schedule .controls {
   float: right;
   text-align: right; }
-  #schedule .controls input, #schedule .controls select {
+  #schedule .controls select {
     width: 150px; }
