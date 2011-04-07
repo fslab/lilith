@@ -24,14 +24,25 @@ module Lilith
   #
   # For console debug output use
   #
-  #   Lilith.scrape_eva(:logger => Logger.new(STDOUT))
-  def scrape_eva(*args)
-    HbrsEvaScraper.new(*args).call
+  #   Lilith.scrape_eva(:logger => :console)
+  def scrape_eva(options = {})
+    HbrsEvaScraper.new(scraper_options_helper(options)).call
   end
 
   # Scrapes the tutor list of Hochschule Bonn-Rhein-Sieg and merges
   # the results with the existing objects in database
-  def scrape_tutors(*args)
-    HbrsTutorScraper.new(*args).call
+  def scrape_tutors(options = {})
+    HbrsTutorScraper.new(scraper_options_helper(options)).call
+  end
+
+  # Translates options for a better interface
+  def scraper_options_helper(options)
+    result_options = options.dup
+
+    if options[:logger] == :console
+      result_options[:logger] = Logger.new(STDOUT)
+    end
+
+    result_options
   end
 end
