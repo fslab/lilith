@@ -29,7 +29,7 @@ class Group < ActiveRecord::Base
   has_many :events, :through => :event_associations do
     # All events, compatible interface for Course#events#exclusive
     def exclusive(schedule)
-      self.where(:schedule_id => schedule)
+      self.where(:schedule_id => schedule).all
     end
   end
 end
