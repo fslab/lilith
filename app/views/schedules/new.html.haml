@@ -41,7 +41,7 @@
             %td.program~ program
             %td.units
               - study_units.each do |study_unit|
-                %a{:href => "##{URI.escape(study_unit.name)}"}~ study_unit.position
+                %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}~ study_unit.position
 
   -# Generate sections
   .study_units
