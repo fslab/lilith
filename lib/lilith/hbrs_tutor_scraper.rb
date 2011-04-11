@@ -40,9 +40,12 @@ class Lilith::HbrsTutorScraper
     modified_tutors = []
     
     @url.each do |page|
+      # TODO: delete puts
+      puts page
+      
       page = @agent.get(page)
       page.search("//div[@id = 'inhalt']/p/*").each do |link|
-        next if link.text == '« Zurück'
+        next if link.text == '« Zurück' || link.text == 'E-Mail' || link.text == 'fb02.sekretariat@h-brs.de'
 
         parser = Lilith::HumanNameParser.new(link.text)
         tutor_info = parser.parse
