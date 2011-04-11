@@ -81,4 +81,17 @@ class Lilith::HbrsTutorScraper
     
     modified_tutors
   end
+  
+  def get_tutor_urls
+    links = Array.new
+    get_url = Mechanize.new
+    
+    page = get_url.get("http://www.inf.fh-bonn-rhein-sieg.de/personen.html")
+    
+    page.search("//*[@id='inhaltBreit']/p[2]/a").each do |link|
+      links << "https://www.inf.h-bonn-rhein-sieg.de" + link['href']
+    end
+    
+    links
+  end
 end
