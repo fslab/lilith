@@ -367,4 +367,76 @@ describe Lilith::Week do
       week.to_s.should == '50023-W03'
     end   
   end
+
+  context "#next" do
+    it "should return the next week" do
+      described_class.new(2011, 19).next.should == described_class.new(2011, 20)
+    end
+
+    it "should return the next week at the end of a year" do
+      described_class.new(2011, 52).next.should == described_class.new(2012, 1)
+    end
+
+    it "should return the next week one week before the end of a year with 53 weeks" do
+      described_class.new(2015, 52).next.should == described_class.new(2015, 53)
+    end
+
+    it "should return the next week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).next.should == described_class.new(2016, 1)
+    end
+  end
+  
+  context "#succ" do
+    it "should return the succ week" do
+      described_class.new(2011, 19).succ.should == described_class.new(2011, 20)
+    end
+
+    it "should return the succ week at the end of a year" do
+      described_class.new(2011, 52).succ.should == described_class.new(2012, 1)
+    end
+
+    it "should return the succ week one week before the end of a year with 53 weeks" do
+      described_class.new(2015, 52).succ.should == described_class.new(2015, 53)
+    end
+
+    it "should return the succ week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).succ.should == described_class.new(2016, 1)
+    end
+  end
+
+  context "#previous" do
+    it "should return the previous week" do
+      described_class.new(2011, 20).previous.should == described_class.new(2011, 19)
+    end
+
+    it "should return the previous week at the beginning of a year" do
+      described_class.new(2012, 1).previous.should == described_class.new(2011, 52)
+    end
+
+    it "should return the previous week at the beginning of a year after one with 53 weeks" do
+      described_class.new(2016, 1).previous.should == described_class.new(2015, 53)
+    end
+
+    it "should return the previous week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).previous.should == described_class.new(2015, 52)
+    end
+  end
+  
+  context "#pred" do
+    it "should return the pred week" do
+      described_class.new(2011, 20).pred.should == described_class.new(2011, 19)
+    end
+
+    it "should return the pred week at the beginning of a year" do
+      described_class.new(2012, 1).pred.should == described_class.new(2011, 52)
+    end
+
+    it "should return the pred week at the beginning of a year after one with 53 weeks" do
+      described_class.new(2016, 1).pred.should == described_class.new(2015, 53)
+    end
+
+    it "should return the pred week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).pred.should == described_class.new(2015, 52)
+    end
+  end
 end
