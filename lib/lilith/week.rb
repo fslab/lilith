@@ -25,6 +25,7 @@ class Lilith::Week
 
   attr_reader :year, :index
 
+  # Calculates the amount of weeks in a given year
   def self.weeks_in_year(year)
     date = Date.new(year, 12, 31)
 
@@ -130,7 +131,7 @@ class Lilith::Week
     end
   end
 
- alias succ next
+  alias succ next
 
   # Find the previous week
   def previous
@@ -143,5 +144,25 @@ class Lilith::Week
     end
   end
 
- alias pred previous
+  alias pred previous
+
+  # Returns a range of weeks beginning with self and ending with the first
+  # following week with the given index
+  def until_index(end_index)
+    if end_index <= index
+      self .. self.class.new(year + 1, end_index)
+    else
+      self .. self.class.new(year, end_index)
+    end
+  end
+
+  # States if the week's index is odd
+  def odd?
+    index.odd?
+  end
+
+  # States if the week's index is even
+  def even?
+    index.even?
+  end
 end
