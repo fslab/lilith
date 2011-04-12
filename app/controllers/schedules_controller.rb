@@ -45,13 +45,13 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       format.ical do
-        calendar = Icalendar::Calendar.new
+        calendar = RiCal::Component::Calendar.new
 
         @events.each do |event|
-          calendar.add(event.to_ical)
+          calendar.add_subcomponent(event.to_ical)
         end
 
-        render :text => calendar.to_ical
+        render :text => calendar
       end
       format.xml { render :xml => @events.to_a }
     end

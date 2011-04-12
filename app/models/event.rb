@@ -39,11 +39,34 @@ class Event < ActiveRecord::Base
            :dependent => :destroy
   has_many :categories, :through => :category_associations
 
-  def to_ical
-    ical_event = Icalendar::Event.new
+  has_many :week_associations,
+           :class_name => 'EventWeekAssociation',
+           :dependent => :destroy
+  has_many :weeks, :through => :week_associations
 
-    ical_event.dtstart = first_start.to_datetime
-    ical_event.dtend   = first_end.to_datetime
+  # Returns all occurences of this event as Date objects
+  def occurences
+    occurences = []
+
+    week_date = first_start.to_date
+
+    course.study_unit.semester.weeks.each do |semester_week|
+      if weeks.map(&:to_week).include?(semester_week)
+        occurences << week_date
+      end
+
+      week_date += 7
+    end
+
+    occurences
+  end
+
+  # Generates an iCalendar event
+  def to_ical
+    ical_event = RiCal::Component::Event.new
+
+    ical_event.dtstart = first_start
+    ical_event.dtend   = first_end
     ical_event.summary = "#{course.name} (#{categories.map{|category| category.name || category.eva_id}.join(', ')})"
     ical_event.location   = "Hochschule Bonn-Rhein-Sieg, Raum: #{room}"
     ical_event.categories = categories.map{|category| category.name || category.eva_id}
@@ -54,15 +77,24 @@ class Event < ActiveRecord::Base
 
     ical_event.description = description
 
-    /((?:u|g)KW) (.*)/ =~ recurrence
+    # If recurrence is needed, make event recurring each week and define exceptions
+    # This is needed because Evolution 2.30.3 still has problems interpreting rdate recurrence
+    if weeks.length > 1
+      week_date = first_start.to_date
+      exceptions = []
 
-    case $1
-    when 'uKW', 'gKW'
-      ical_event.recurrence_rules ["FREQ=WEEKLY;INTERVAL=2;UNTIL=#{self.until.strftime('%Y%m%d')}"]
-    else
-      ical_event.recurrence_rules ["FREQ=WEEKLY;UNTIL=#{self.until.strftime('%Y%m%d')}"]
+      course.study_unit.semester.weeks.each do |semester_week|
+        week_date += 7
+
+        unless weeks.map(&:to_week).include?(semester_week)
+          exceptions << week_date
+        end
+      end
+
+      ical_event.exdates = exceptions
+      ical_event.rrules = [{:freq => 'weekly', :until => self.until}]
     end
-
+    
     ical_event
   end
 end

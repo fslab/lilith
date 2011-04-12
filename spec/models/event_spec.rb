@@ -33,5 +33,5 @@ describe Event do
   it { should have_many(:groups) }
   it { should have_many(:categories) }
   it { should have_many(:tutors) }
-
+  it { should have_many(:weeks) }
 end

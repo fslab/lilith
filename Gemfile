@@ -27,7 +27,7 @@ gem 'rails', '3.0.6'
 gem 'pg', '~> 0.10.1'
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
-gem 'icalendar', '~> 1.1.6'
+gem 'ri_cal', '~> 0.8.8'
 gem 'amatch', '~> 0.2.5'
 gem 'uuidtools', '~> 2.1.2'
 gem 'rspec-rails', '~> 2.5.0', :groups => [:development, :test]
