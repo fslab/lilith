@@ -29,6 +29,14 @@ class Lilith::HumanNameParser
     raise ArgumentError, 'A name must be given' unless name
 
     @words = name.to_s.chomp.strip.split(/ /)
+    
+    # Delets all commas
+    # Thats necessary for Akademische Mitarbeiter
+    @words.each do |part|
+      if part.include?(',')
+        part.slice!(",")
+      end
+    end
   end
 
   # Parses the name and returns a hash with name components
@@ -52,6 +60,12 @@ class Lilith::HumanNameParser
           @state = @states.next
           debug "Progressing state to: #{@state}"
           break
+        when :wrong_place
+          debug "'#{word}' classified as #{@state}"
+          @words.unshift(word)
+          @state = @states.first
+          debug "Progressing state to: #{@state}"
+          break
         when false
           debug "'#{word}' is no #{@state}"
           @state = @states.next
@@ -61,7 +75,8 @@ class Lilith::HumanNameParser
     end
 
     @result.each do |part, words|
-      @result[part] = words.join(' ') if words
+      # TODO: delete puts
+      puts @result[part] = words.join(' ') if words
     end
   end
 
@@ -89,7 +104,11 @@ class Lilith::HumanNameParser
   end
    
   def surname(word)
-    :success_and_next
+    if word.include?('.')
+      :wrong_place
+    else
+      :success_and_next
+    end
   end
 
   def debug(text = nil)

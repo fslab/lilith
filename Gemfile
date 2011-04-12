@@ -31,7 +31,7 @@ gem 'ri_cal', '~> 0.8.8'
 gem 'amatch', '~> 0.2.5'
 gem 'uuidtools', '~> 2.1.2'
 gem 'rspec-rails', '~> 2.5.0', :groups => [:development, :test]
-
+gem 'whenever', '~> 0.6.7'
 group :development do
   gem 'wirble', '~> 0.1.3'
 end
