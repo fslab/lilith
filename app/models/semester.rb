@@ -69,4 +69,29 @@ class Semester < ActiveRecord::Base
       "#{start_year}s"
     end
   end
+
+  # Sets start week either by String or Lilith::Week
+  def start_week=(start_week)
+    write_attribute(:start_week, start_week.to_s)
+  end
+
+  # Returns the start week as Lilith::Week
+  def start_week
+    Lilith::Week.parse(read_attribute(:start_week))
+  end
+
+  # Sets end week either by String or Lilith::Week
+  def end_week=(end_week)
+    write_attribute(:end_week, end_week.to_s)
+  end
+
+  # Returns the end week as Lilith::Week
+  def end_week
+    Lilith::Week.parse(read_attribute(:end_week))
+  end
+
+  # Returns the range between start week and end week
+  def weeks
+    start_week .. end_week
+  end
 end
