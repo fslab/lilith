@@ -27,8 +27,15 @@ Schedule.blueprint do
   created_at { Date.parse('2011-03-02') }
 end
 
+StudyUnit.blueprint do
+  semester { Semester.make! }
+  program  { 'Master OTU' }
+  position { 2 }
+end
+
 Course.blueprint do
-  name { 'Humanoide Metaphysik I' }
+  study_unit { StudyUnit.make! }
+  name       { 'Humanoide Metaphysik I' }
 end
 
 Group.blueprint do

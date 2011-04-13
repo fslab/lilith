@@ -33,15 +33,13 @@ class Lilith::HbrsEvaScraper
   def self.parse_range(range)
     tokens = []
 
-    range.split(/[,;]/).each do |sub_range|
-      sub_range.split(/\+/).each do |summand|
-        if summand.include?('-')
-          min, max = summand.split(/\-/)
+    range.split(/[,;+]/).each do |sub_range|
+      if sub_range.include?('-')
+        min, max = sub_range.split(/\-/)
 
-          tokens << (min.strip..max.strip)
-        else
-          tokens << summand.strip
-        end
+        tokens << (min.strip..max.strip)
+      else
+        tokens << sub_range.strip
       end
     end
 
@@ -71,7 +69,7 @@ class Lilith::HbrsEvaScraper
       end
 
       # Select all weeks which are addressed by week_numbers
-      semester.weeks.select {|week| week_numbers.include?(week.index) }
+      semester.weeks.select {|week| week_numbers.include?(week.index) }.sort
     else
       semester.weeks.to_a
     end
@@ -265,27 +263,14 @@ class Lilith::HbrsEvaScraper
         event.course = course
         event.room = raw_room
 
-        original, start_date, end_date, recurrence_string = *PERIOD_PATTERN.match(raw_period)
+        original, start_date, end_date, raw_recurrence = *PERIOD_PATTERN.match(raw_period)
 
         event.first_start = Time.parse("#{start_date} #{raw_start_time}")
         event.first_end   = Time.parse("#{start_date} #{raw_end_time}")
         event.until       = Date.parse(end_date)
-
-        original, recurrence, week_range = */((?:u|g)KW) (.*)/.match(recurrence_string)
-
-        event.recurrence  = recurrence
         event.save!
 
-        weeks = self.class.parse_week_range(study_unit.semester, week_range)
-        weeks = weeks.select {|week| week.odd? }  if recurrence == 'uKW'
-        weeks = weeks.select {|week| week.even? } if recurrence == 'gKW'
-
-        weeks.each do |week|
-          event.week_associations.create!(
-            :week_id => ::Week.find_or_create_by_year_and_index(week.year, week.index)
-          )
-        end
-
+        scrape_week_associations(event, raw_recurrence)
         scrape_group_associations(event, raw_groups) if raw_groups
         scrape_tutor_associations(event, raw_tutors)
         scrape_category_associations(event, raw_categories)
@@ -297,6 +282,30 @@ class Lilith::HbrsEvaScraper
     raise handle_exception(exception)
   end
 
+  # Parses a raw recurrence string and sets week associations and recurrence
+  # attribute for the given event
+  #
+  # TODO: Carries no state, should become class method
+  def scrape_week_associations(event, raw_recurrence)
+    original, recurrence, week_range = */((?:u|g)KW)(?: (.*))?/.match(raw_recurrence)
+
+    weeks = self.class.parse_week_range(event.course.study_unit.semester, week_range)
+    weeks = weeks.select {|week| week.odd? }  if recurrence == 'uKW'
+    weeks = weeks.select {|week| week.even? } if recurrence == 'gKW'
+
+    event.recurrence = recurrence
+    event.save!
+
+    weeks.each do |week|
+      event.week_associations.create!(
+        :week_id => ::Week.find_or_create_by_year_and_index(week.year, week.index)
+      )
+    end
+  end
+
+  # Parses a raw groups string and sets group associations for the given event
+  #
+  # TODO: Carries no state, should become class method
   def scrape_group_associations(event, raw_groups)
     group_associations = Set.new
 
@@ -321,6 +330,9 @@ class Lilith::HbrsEvaScraper
     group_associations
   end
 
+  # Parses a raw tutors string and sets tutor associations for the given event
+  #
+  # TODO: Carries no state, should become class method
   def scrape_tutor_associations(event, raw_tutors)
     tutor_associations = Set.new
 
@@ -341,6 +353,10 @@ class Lilith::HbrsEvaScraper
     tutor_associations
   end
 
+  # Parses a raw categories string and sets category associations for the
+  # given event
+  #
+  # TODO: Carries no state, should become class method
   def scrape_category_associations(event, raw_categories)
     category_associations = Set.new
 
@@ -354,7 +370,8 @@ class Lilith::HbrsEvaScraper
   end
 
   protected
-  
+
+  # Relays the given exception to the configured logger
   def handle_exception(exception)
     logger.error <<-EOS
       #{exception.class} occured
