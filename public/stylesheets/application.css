@@ -40,6 +40,7 @@ html, body {
 
 #header {
   -moz-border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 15px;
   background-color: rgba(0, 0, 0, 0.3);
@@ -106,6 +107,7 @@ html, body {
 
 #footer {
   -moz-border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 10px;
   text-align: center;
