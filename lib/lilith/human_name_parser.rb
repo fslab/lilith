@@ -29,7 +29,7 @@ class Lilith::HumanNameParser
     raise ArgumentError, 'A name must be given' unless name
     
     # delete part of name after comma
-    name = name.gsub(/\,[^\/]*$/, "")
+    name = name.gsub(/, .*/, '')
     
     # splitt name into array
     @words = name.to_s.chomp.strip.split(/ /)

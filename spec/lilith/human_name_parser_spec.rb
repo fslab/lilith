@@ -28,7 +28,21 @@ describe Lilith::HumanNameParser do
     }.should raise_error(ArgumentError, 'A name must be given')
   end
 
-  it "should be able to split names into their components (1)" do
+  it "should be able to split 'Dipl.-Inf.Katharina Stollenwerk' into its components" do
+    parser = described_class.new('Dipl.-Inf.Katharina Stollenwerk')
+
+    result = parser.parse
+
+    result.should be_a(Hash)
+    result.keys.to_set.should == [:title, :forename, :surname].to_set
+
+    result[:title].should == 'Dipl.-Inf.'
+    result[:forename].should == 'Katharina'
+    result[:surname].should == 'Stollenwerk'
+
+  end
+
+  it "should be able to split 'Prof. Dr. Jochen M. A. von der Zwuckelheide' into its components" do
     parser = described_class.new('Prof. Dr. Jochen M. A. von der Zwuckelheide')
 
     result = parser.parse
@@ -42,7 +56,7 @@ describe Lilith::HumanNameParser do
     result[:surname].should == 'von der Zwuckelheide'
   end
 
-  it "should be able to split names into their components (2)" do
+  it "should be able to split 'Michaela Ulrike Shimshon-Buddelwasser' into its components" do
     parser = described_class.new('Michaela Ulrike Shimshon-Buddelwasser')
 
     result = parser.parse
