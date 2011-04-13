@@ -28,7 +28,7 @@
     %p
       %label{:for => 'format'}~ t('schedules.format') + ': '
       %select{:id => 'format', :name => 'format'}
-        %option{:value => 'ical'} iCalendar
+        %option{:value => 'ics'} iCalendar
         %option{:value => 'xml'} XML
     = submit_tag t('schedules.generate'), :name => nil
 
