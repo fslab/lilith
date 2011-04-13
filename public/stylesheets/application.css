@@ -44,11 +44,18 @@ html, body {
   font-size: 15px;
   background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid black;
-  padding: 5px 0px 0px 20px;
+  padding: 5px 5px 0px 20px;
   text-align: left;
   color: white;
   height: 55px;
   line-height: 0.5; }
+  #header #special_version_sign {
+    position: relative;
+    top: -70px;
+    left: 530px;
+    width: 70px;
+    height: 70px;
+    z-index: 1100; }
   #header h1 {
     font-size: 25px;
     font-weight: bold;
@@ -113,12 +120,6 @@ html, body {
     font-weight: bold; }
   #footer a:hover {
     color: #fff; }
-
-#browser_warning {
-  background-color: white;
-  border: solid black 1px;
-  width: 100%;
-  min-width: 100%; }
 
 #imprint #main .telephone {
   padding: 0; }

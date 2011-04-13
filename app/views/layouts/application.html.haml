@@ -32,6 +32,11 @@
         %a{:href => root_path}
           %h1 Lilith
         plan your schedule, really
+        #special_version_sign
+          - if Lilith::VERSION.include?('alpha')
+            %img{:src => '/images/star_alpha.png', :alt => 'α-test version'}
+          - elsif Lilith::VERSION.include?('beta')
+            %img{:src => '/images/star_beta.png', :alt => 'β-test version'}
       #menu
         %form{:action => root_path}
           %label{:for => :semester_id}~ t('menu.semester') + ': '
