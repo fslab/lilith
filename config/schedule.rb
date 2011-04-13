@@ -18,5 +18,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 every :hour do
-  runner 'Lilith::scrape_eva', :output => 'cron.log'
+  runner 'Lilith.scrape_eva'
+  runner 'Lilith.scrape_tutors'
 end
