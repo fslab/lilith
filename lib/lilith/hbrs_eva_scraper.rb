@@ -61,7 +61,6 @@ class Lilith::HbrsEvaScraper
 
       parse_range(week_range).each do |token|
         if token.is_a?(Range)
-          puts token.inspect
           week_numbers += (token.min.to_i..token.max.to_i).to_a
         else
           week_numbers << token.to_i
@@ -289,8 +288,6 @@ class Lilith::HbrsEvaScraper
   def scrape_week_associations(event, raw_recurrence)
     original, recurrence, week_range = */((?:u|g)?KW)(?: (.*))?/.match(raw_recurrence)
 
-    puts "#{raw_recurrence} => #{recurrence}, #{week_range}"
-    
     filtered_weeks = self.class.parse_week_range(event.course.study_unit.semester, week_range)
 
     if recurrence == 'uKW' or recurrence == 'gKW'
@@ -303,7 +300,6 @@ class Lilith::HbrsEvaScraper
     event.save!
 
     filtered_weeks.each do |week|
-      puts week
       event.week_associations.create!(
         :week_id => ::Week.find_or_create_by_year_and_index(week.year, week.index)
       )
@@ -367,10 +363,12 @@ class Lilith::HbrsEvaScraper
   def scrape_category_associations(event, raw_categories)
     category_associations = Set.new
 
-    raw_categories.gsub(/, /, '').chars.each do |symbol|
-      category_associations << event.category_associations.find_or_create_by_category_id(
-        Category.find_or_create_by_eva_id(symbol.upcase)
-      )
+    unless raw_categories == 'Projekt'
+      raw_categories.gsub(/[\/,]/, '').chars.each do |symbol|
+        category_associations << event.category_associations.find_or_create_by_category_id(
+          Category.find_or_create_by_eva_id(symbol.strip.upcase)
+        )
+      end
     end
 
     category_associations
