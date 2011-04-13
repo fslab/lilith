@@ -287,16 +287,23 @@ class Lilith::HbrsEvaScraper
   #
   # TODO: Carries no state, should become class method
   def scrape_week_associations(event, raw_recurrence)
-    original, recurrence, week_range = */((?:u|g)KW)(?: (.*))?/.match(raw_recurrence)
+    original, recurrence, week_range = */((?:u|g)?KW)(?: (.*))?/.match(raw_recurrence)
 
-    weeks = self.class.parse_week_range(event.course.study_unit.semester, week_range)
-    weeks = weeks.select {|week| week.odd? }  if recurrence == 'uKW'
-    weeks = weeks.select {|week| week.even? } if recurrence == 'gKW'
+    puts "#{raw_recurrence} => #{recurrence}, #{week_range}"
+    
+    filtered_weeks = self.class.parse_week_range(event.course.study_unit.semester, week_range)
 
-    event.recurrence = recurrence
+    if recurrence == 'uKW' or recurrence == 'gKW'
+      event.recurrence = recurrence
+      
+      filtered_weeks = filtered_weeks.select(&:odd?) if recurrence == 'uKW'
+      filtered_weeks = filtered_weeks.select(&:even?) if recurrence == 'gKW'
+    end
+
     event.save!
 
-    weeks.each do |week|
+    filtered_weeks.each do |week|
+      puts week
       event.week_associations.create!(
         :week_id => ::Week.find_or_create_by_year_and_index(week.year, week.index)
       )
