@@ -21,4 +21,8 @@ module ApplicationHelper
   def set_body_id(body_id)
     @body_id = body_id
   end
+
+  def body_id
+    @body_id ||= 'top'
+  end
 end
