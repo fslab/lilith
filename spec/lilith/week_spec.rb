@@ -20,6 +20,20 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Lilith::Week do
+  context ".weeks_in_year" do
+    it "should return the correct amount of weeks for years with 52 weeks" do
+      described_class.weeks_in_year(1985).should == 52
+      described_class.weeks_in_year(2002).should == 52
+      described_class.weeks_in_year(2024).should == 52
+    end
+
+    it "should return the correct amount of weeks for years with 53 weeks" do
+      described_class.weeks_in_year(1981).should == 53
+      described_class.weeks_in_year(2020).should == 53
+      described_class.weeks_in_year(2026).should == 53
+    end
+  end
+
   context ".today" do
     it "should find the current week" do
       week = described_class.today
@@ -366,5 +380,125 @@ describe Lilith::Week do
 
       week.to_s.should == '50023-W03'
     end   
+  end
+
+  context "#next" do
+    it "should return the next week" do
+      described_class.new(2011, 19).next.should == described_class.new(2011, 20)
+    end
+
+    it "should return the next week at the end of a year" do
+      described_class.new(2011, 52).next.should == described_class.new(2012, 1)
+    end
+
+    it "should return the next week one week before the end of a year with 53 weeks" do
+      described_class.new(2015, 52).next.should == described_class.new(2015, 53)
+    end
+
+    it "should return the next week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).next.should == described_class.new(2016, 1)
+    end
+  end
+  
+  context "#succ" do
+    it "should return the succ week" do
+      described_class.new(2011, 19).succ.should == described_class.new(2011, 20)
+    end
+
+    it "should return the succ week at the end of a year" do
+      described_class.new(2011, 52).succ.should == described_class.new(2012, 1)
+    end
+
+    it "should return the succ week one week before the end of a year with 53 weeks" do
+      described_class.new(2015, 52).succ.should == described_class.new(2015, 53)
+    end
+
+    it "should return the succ week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).succ.should == described_class.new(2016, 1)
+    end
+  end
+
+  context "#previous" do
+    it "should return the previous week" do
+      described_class.new(2011, 20).previous.should == described_class.new(2011, 19)
+    end
+
+    it "should return the previous week at the beginning of a year" do
+      described_class.new(2012, 1).previous.should == described_class.new(2011, 52)
+    end
+
+    it "should return the previous week at the beginning of a year after one with 53 weeks" do
+      described_class.new(2016, 1).previous.should == described_class.new(2015, 53)
+    end
+
+    it "should return the previous week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).previous.should == described_class.new(2015, 52)
+    end
+  end
+  
+  context "#pred" do
+    it "should return the pred week" do
+      described_class.new(2011, 20).pred.should == described_class.new(2011, 19)
+    end
+
+    it "should return the pred week at the beginning of a year" do
+      described_class.new(2012, 1).pred.should == described_class.new(2011, 52)
+    end
+
+    it "should return the pred week at the beginning of a year after one with 53 weeks" do
+      described_class.new(2016, 1).pred.should == described_class.new(2015, 53)
+    end
+
+    it "should return the pred week at the end of a year with 53 weeks" do
+      described_class.new(2015, 53).pred.should == described_class.new(2015, 52)
+    end
+  end
+
+  context "#until_index" do
+    it "should return a range ending in the current year if the given index is greater to the weeks index" do
+      week = described_class.new(2011, 13)
+
+      week.until_index(46).should == (week .. described_class.new(2011, 46))
+    end
+
+    it "should return a range ending in the next year if the given index is equal to the weeks index" do
+      week = described_class.new(2011, 13)
+
+      week.until_index(13).should == (week .. described_class.new(2012, 13))
+    end
+
+    it "should return a range ending in the next year if the given index is equal to the weeks index" do
+      week = described_class.new(2011, 13)
+
+      week.until_index(3).should == (week .. described_class.new(2012, 3))
+    end
+  end
+
+  context "#even?" do
+    it "should be true if the index is even" do
+      described_class.new(420, 6).should be_even
+      described_class.new(2011, 42).should be_even
+      described_class.new(25043, 28).should be_even
+    end
+
+    it "should be false if the index is odd" do
+      described_class.new(420, 7).should_not be_even
+      described_class.new(2011, 43).should_not be_even
+      described_class.new(25043, 29).should_not be_even
+    end
+  end
+
+  context "#odd?" do
+    it "should be true if the index is odd" do
+      described_class.new(420, 7).should be_odd
+      described_class.new(2011, 43).should be_odd
+      described_class.new(25043, 29).should be_odd
+    end
+
+    it "should be false if the index is even" do
+      described_class.new(420, 6).should_not be_odd
+      described_class.new(2011, 42).should_not be_odd
+      described_class.new(25043, 28).should_not be_odd
+    end
   end
 end

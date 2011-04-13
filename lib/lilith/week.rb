@@ -25,6 +25,15 @@ class Lilith::Week
 
   attr_reader :year, :index
 
+  # Calculates the amount of weeks in a given year
+  def self.weeks_in_year(year)
+    date = Date.new(year, 12, 31)
+
+    date = date - 7 if date.cweek == 1
+
+    date.cweek
+  end
+
   # Initializes the current week
   def self.today
     today = Date.today
@@ -69,7 +78,7 @@ class Lilith::Week
 
     if not (1..52).include?(@index)
       if @index == 53
-        if Date.parse("#{year}-12-31").cweek == 52
+        if self.class.weeks_in_year(year) == 52
           raise ArgumentError, "Index #{@index} is invalid. Year #{year} has only 52 weeks"
         end
       else
@@ -109,5 +118,51 @@ class Lilith::Week
 
     return index <=> other.index if year_comparison == 0
     return year_comparison
+  end
+
+  # Finds the following week
+  def next
+    if index < 52
+      self.class.new(year, index + 1)
+    elsif self.class.weeks_in_year(year) == 53 and index == 52
+      self.class.new(year, index + 1)
+    else
+      self.class.new(year + 1, 1)
+    end
+  end
+
+  alias succ next
+
+  # Find the previous week
+  def previous
+    if index > 1
+      self.class.new(year, index - 1)
+    elsif self.class.weeks_in_year(year - 1) == 53
+      self.class.new(year - 1, 53)
+    else
+      self.class.new(year - 1, 52)
+    end
+  end
+
+  alias pred previous
+
+  # Returns a range of weeks beginning with self and ending with the first
+  # following week with the given index
+  def until_index(end_index)
+    if end_index <= index
+      self .. self.class.new(year + 1, end_index)
+    else
+      self .. self.class.new(year, end_index)
+    end
+  end
+
+  # States if the week's index is odd
+  def odd?
+    index.odd?
+  end
+
+  # States if the week's index is even
+  def even?
+    index.even?
   end
 end

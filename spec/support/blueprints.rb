@@ -11,6 +11,8 @@ require 'machinist/active_record'
 Semester.blueprint do
   start_year { 2011 }
   season     { :summer }
+  start_week { Lilith::Week.new(2011, 50) }
+  end_week   { Lilith::Week.new(2012, 12) }
 end
 
 Tutor.blueprint do
@@ -25,8 +27,15 @@ Schedule.blueprint do
   created_at { Date.parse('2011-03-02') }
 end
 
+StudyUnit.blueprint do
+  semester { Semester.make! }
+  program  { 'Master OTU' }
+  position { 2 }
+end
+
 Course.blueprint do
-  name { 'Humanoide Metaphysik I' }
+  study_unit { StudyUnit.make! }
+  name       { 'Humanoide Metaphysik I' }
 end
 
 Group.blueprint do
@@ -39,4 +48,9 @@ Event.blueprint do
   course      { Course.make! }
   first_start { Date.parse('2011-05-23 17:00')}
   first_end   { Date.parse('2011-05-23 17:45')}
+end
+
+Week.blueprint do
+  index { 15 }
+  year  { 2011 }
 end

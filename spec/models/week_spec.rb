@@ -1,4 +1,4 @@
-=begin
+=begin encoding: UTF-8
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -17,21 +17,18 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'spec_helper'
-
-describe Event do
-  it { should have_db_column(:first_start).of_type(:datetime) }
-  it { should have_db_column(:first_end).of_type(:datetime) }
-  it { should have_db_column(:recurrence).of_type(:string) }
-  it { should have_db_column(:until).of_type(:date) }
+describe Week do
+  it { should have_db_column(:year).of_type(:integer) }
+  it { should have_db_column(:index).of_type(:integer) }
   it { should have_db_column(:created_at).of_type(:datetime) }
   it { should have_db_column(:updated_at).of_type(:datetime) }
 
-  it { should belong_to(:course) }
-  it { should belong_to(:schedule) }
-  
-  it { should have_many(:groups) }
-  it { should have_many(:categories) }
-  it { should have_many(:tutors) }
-  it { should have_many(:weeks) }
+  it { should have_many(:events) }
+
+  context "#to_week" do
+    it "should return the corresponding Lilith::Week object" do
+      week = described_class.make(:year => 2011, :index => 25).to_week
+      week.should == Lilith::Week.new(2011, 25)
+    end
+  end
 end

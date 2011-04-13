@@ -1,4 +1,4 @@
-=begin
+=begin encoding: UTF-8
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -17,21 +17,15 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-require 'spec_helper'
+class Week < ActiveRecord::Base
+  include Lilith::UUIDHelper
 
-describe Event do
-  it { should have_db_column(:first_start).of_type(:datetime) }
-  it { should have_db_column(:first_end).of_type(:datetime) }
-  it { should have_db_column(:recurrence).of_type(:string) }
-  it { should have_db_column(:until).of_type(:date) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+  has_many :event_associations,
+           :class_name => 'EventWeekAssociation',
+           :dependent => :destroy
+  has_many :events, :through => :event_associations
 
-  it { should belong_to(:course) }
-  it { should belong_to(:schedule) }
-  
-  it { should have_many(:groups) }
-  it { should have_many(:categories) }
-  it { should have_many(:tutors) }
-  it { should have_many(:weeks) }
+  def to_week
+    Lilith::Week.new(year, index)
+  end
 end
