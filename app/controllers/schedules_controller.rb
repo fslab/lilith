@@ -44,7 +44,7 @@ class SchedulesController < ApplicationController
     end
 
     respond_to do |format|
-      format.ical do
+      format.ics do
         calendar = RiCal::Component::Calendar.new
 
         @events.each do |event|

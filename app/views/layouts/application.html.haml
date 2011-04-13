@@ -22,7 +22,7 @@
     %meta{:charset => 'utf-8'}
     %title Lilith
     = stylesheet_link_tag('application')
-  %body{:id => @body_id}
+  %body{:id => body_id}
     - if request.headers['User-Agent'].include?('MSIE')
       #ie_warning
         - browser_urls = ['http://mozilla.com/', 'http://www.google.com/chrome', 'http://www.opera.com/']
