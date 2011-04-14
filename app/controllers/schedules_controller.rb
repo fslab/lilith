@@ -46,6 +46,7 @@ class SchedulesController < ApplicationController
     respond_to do |format|
       format.ics do
         calendar = RiCal::Component::Calendar.new
+        calendar.prodid = '-//de.fslab/NONSGML Lilith/EN'
 
         @events.each do |event|
           calendar.add_subcomponent(event.to_ical)

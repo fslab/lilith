@@ -77,7 +77,14 @@ class Lilith::HbrsEvaScraper
   attr_accessor :agent, :url, :semester, :logger
 
   def initialize(options = {})
-    @agent = options[:agent] || Mechanize.new
+    if options[:agent]
+      @agent = options[:agent]
+    else
+      @agent = Mechanize.new
+      original, library = */(.*) \(.*\)$/.match(@agent.user_agent)
+      @agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
+    end
+
     @url   = URI.parse(options[:url] || 'https://eva2.inf.h-brs.de/stundenplan/')
     @logger = options[:logger] || Rails.logger
   end

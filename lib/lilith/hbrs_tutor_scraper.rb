@@ -27,7 +27,14 @@ class Lilith::HbrsTutorScraper
   attr_accessor :agent
   
   def initialize (options = {})
-    @agent = options[:agent] || Mechanize.new
+    if options[:agent]
+      @agent = options[:agent]
+    else
+      @agent = Mechanize.new
+      original, library = */(.*) \(.*\)$/.match(@agent.user_agent)
+      @agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
+    end
+
     @urls = options[:url] || tutor_urls
   end
 
