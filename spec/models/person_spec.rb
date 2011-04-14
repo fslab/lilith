@@ -19,7 +19,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'spec_helper'
 
-describe Tutor do
+describe Person do
   it { should have_db_column(:title).of_type(:string) }
   it { should have_db_column(:forename).of_type(:string) }
   it { should have_db_column(:middlename).of_type(:string) }
@@ -33,73 +33,73 @@ describe Tutor do
 
   context "#name" do
     it "should display a correct name" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => 'Lord',
         :forename   => 'Omar',
         :middlename => 'Kayyam',
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Lord Omar Kayyam Ravenhurst'
+      @person.name.should == 'Lord Omar Kayyam Ravenhurst'
     end
 
     it "should display a correct name if no title is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => nil,
         :forename   => 'Omar',
         :middlename => 'Kayyam',
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Omar Kayyam Ravenhurst'
+      @person.name.should == 'Omar Kayyam Ravenhurst'
     end
 
     it "should display a correct name if no forename is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => 'Lord',
         :forename   => nil,
         :middlename => 'Kayyam',
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Lord Ravenhurst'
+      @person.name.should == 'Lord Ravenhurst'
     end
 
     it "should display a correct name if no middlename is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => 'Lord',
         :forename   => 'Omar',
         :middlename => nil,
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Lord Omar Ravenhurst'
+      @person.name.should == 'Lord Omar Ravenhurst'
     end
 
     it "should display a correct name if no forename and middlename is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => 'Lord',
         :forename   => nil,
         :middlename => nil,
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Lord Ravenhurst'
+      @person.name.should == 'Lord Ravenhurst'
     end
 
     it "should display a correct name if only surname is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => nil,
         :forename   => nil,
         :middlename => nil,
         :surname    => 'Ravenhurst'
       )
 
-      @tutor.name.should == 'Ravenhurst'
+      @person.name.should == 'Ravenhurst'
     end
 
     it "should display a correct name if only eva_id is set" do
-      @tutor = described_class.make(
+      @person = described_class.make(
         :title      => nil,
         :forename   => nil,
         :middlename => nil,
@@ -107,7 +107,7 @@ describe Tutor do
         :eva_id     => 'ravenhurst'
       )
 
-      @tutor.name.should == 'ravenhurst'
+      @person.name.should == 'ravenhurst'
     end
   end
 end

@@ -23,7 +23,7 @@ require 'mechanize'
 
 require 'lilith/human_name_parser'
 
-class Lilith::HbrsTutorScraper
+class Lilith::HbrsPeopleScraper
   attr_accessor :agent
   
   def initialize (options = {})
@@ -35,16 +35,18 @@ class Lilith::HbrsTutorScraper
       @agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
     end
 
-    @urls = options[:url] || tutor_urls
+    @urls = options[:url] || people_urls
   end
 
   def call
-    scrape_tutors
+    ActiveRecord::Base.transaction do
+      scrape_people
+    end
   end
 
-  def scrape_tutors
-    all_tutors = Tutor.all
-    modified_tutors = []
+  def scrape_people
+    all_people = Person.all
+    modified_people = []
     
     @urls.each do |page|
 
@@ -58,48 +60,48 @@ class Lilith::HbrsTutorScraper
                 /^writeEmail/ =~ link.text
 
         parser = Lilith::HumanNameParser.new(link.text)
-        tutor_info = parser.parse
+        person_info = parser.parse
 
-        if tutor_info[:surname]
+        if person_info[:surname]
 
           if link['href']
             if link['href'].include? "http\:\/\/"
-              tutor_info[:website] = link['href']
+              person_info[:website] = link['href']
             elsif link['href'].include? "\.html"
-              tutor_info[:website] = "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
+              person_info[:website] = "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
             end
           end
 
           matches = {}
 
-          remaining_tutors = all_tutors.dup
+          remaining_people = all_people.dup
 
-          while tutor = remaining_tutors.pop
-            string_comparator = Amatch::Sellers.new(tutor_info[:surname])
-            matches[string_comparator.match(tutor.eva_id)] = tutor
+          while person = remaining_people.pop
+            string_comparator = Amatch::Sellers.new(person_info[:surname])
+            matches[string_comparator.match(person.eva_id)] = person
           end
 
           if exact_match = matches[0.0]
-            exact_match.title       = tutor_info[:title]
-            exact_match.forename    = tutor_info[:forename]
-            exact_match.middlename  = tutor_info[:middlename]
-            exact_match.surname     = tutor_info[:surname]
-            exact_match.profile_url = tutor_info[:website]
+            exact_match.title       = person_info[:title]
+            exact_match.forename    = person_info[:forename]
+            exact_match.middlename  = person_info[:middlename]
+            exact_match.surname     = person_info[:surname]
+            exact_match.profile_url = person_info[:website]
             exact_match.save!
-            modified_tutors << exact_match
+            modified_people << exact_match
           else
-            puts "Surname: #{tutor_info[:surname]}"
-            matches.sort.each do |score, tutor|
-              puts "  #{score} - #{tutor.eva_id}"
+            puts "Surname: #{person_info[:surname]}"
+            matches.sort.each do |score, person|
+              puts "  #{score} - #{person.eva_id}"
             end
           end
         end
       end
     end
-    modified_tutors
+    modified_people
   end
   
-  def tutor_urls
+  def people_urls
     links = Array.new
 
     page = @agent.get("http://www.inf.fh-bonn-rhein-sieg.de/personen.html")

@@ -93,8 +93,8 @@ class Lilith::HbrsEvaScraper
     ActiveRecord::Base.transaction do
       semester = scrape_semester
 
-      scrape_tutors.each do |tutor|
-        logger.debug "Scraped Tutor: #{tutor.inspect}"
+      scrape_people.each do |person|
+        logger.debug "Scraped Person: #{person.inspect}"
       end
 
       schedule = semester.schedules.create!
@@ -202,18 +202,18 @@ class Lilith::HbrsEvaScraper
     study_units
   end
 
-  def scrape_tutors
-    tutors = []
+  def scrape_people
+    people = []
 
     @agent.get(@url) do |page|
       page.search("select[@name = 'identifier_dozent']/option").each do |option|
         next if option['value'].blank?
 
-        tutors << Tutor.find_or_create_by_eva_id(option.inner_html)
+        people << Person.find_or_create_by_eva_id(option.inner_html)
       end
     end
 
-    tutors
+    people
   end
 
   def scrape_courses(study_unit, schedule)
@@ -245,7 +245,7 @@ class Lilith::HbrsEvaScraper
         raw_period     = row.search("td[@class = 'liste-beginn']").inner_html
         raw_room       = row.search("td[@class = 'liste-raum']").inner_html
         raw_name       = row.search("td[@class = 'liste-veranstaltung']").inner_html
-        raw_tutors     = row.search("td[@class = 'liste-wer']").inner_html
+        raw_lecturers  = row.search("td[@class = 'liste-wer']").inner_html
 
         NAME_PATTERN =~ raw_name
 
@@ -278,7 +278,7 @@ class Lilith::HbrsEvaScraper
 
         scrape_week_associations(event, raw_recurrence)
         scrape_group_associations(event, raw_groups) if raw_groups
-        scrape_tutor_associations(event, raw_tutors)
+        scrape_lecturer_associations(event, raw_lecturers)
         scrape_category_associations(event, raw_categories)
       end
     end
@@ -340,27 +340,27 @@ class Lilith::HbrsEvaScraper
     group_associations
   end
 
-  # Parses a raw tutors string and sets tutor associations for the given event
+  # Parses a raw lecturers string and sets lecturer associations for the given event
   #
   # TODO: Carries no state, should become class method
-  def scrape_tutor_associations(event, raw_tutors)
-    tutor_associations = Set.new
+  def scrape_lecturer_associations(event, raw_lecturers)
+    lecturer_associations = Set.new
 
-    logger.debug "Scraping Tutor associations from '#{raw_tutors}' for event #{event.inspect}"
+    logger.debug "Scraping Person associations from '#{raw_lecturers}' for event #{event.inspect}"
 
-    raw_tutors.split(/,/).each do |tutor|
-      tutor = Tutor.find_or_create_by_eva_id(tutor.strip)
+    raw_lecturers.split(/,/).each do |lecturer|
+      lecturer = Person.find_or_create_by_eva_id(lecturer.strip)
 
-      logger.debug "Tutor object for eva_id '#{tutor}' is #{tutor.inspect}"
+      logger.debug "Person object for eva_id '#{lecturer}' is #{lecturer.inspect}"
 
-      tutor_association = event.tutor_associations.find_or_create_by_tutor_id(tutor)
+      lecturer_association = event.lecturer_associations.find_or_create_by_lecturer_id(lecturer)
 
-      logger.debug "EventTutorAssociation created: #{tutor_association.inspect}"
+      logger.debug "EventLecturerAssociation created: #{lecturer_association.inspect}"
 
-      tutor_associations << tutor_association
+      lecturer_associations << lecturer_association
     end
 
-    tutor_associations
+    lecturer_associations
   end
 
   # Parses a raw categories string and sets category associations for the

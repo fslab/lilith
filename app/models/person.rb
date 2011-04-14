@@ -18,15 +18,15 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 # A person who organizes an event
-class Tutor < ActiveRecord::Base
+class Person < ActiveRecord::Base
   include Lilith::UUIDHelper
 
   has_many :event_associations,
-           :class_name => 'EventTutorAssociation',
+           :class_name => 'EventLecturerAssociation',
            :dependent => :destroy
   has_many :events, :through => :event_associations
 
-  # The full name of the tutor if available, otherwise the eva_id
+  # The full name of the person if available, otherwise the eva_id
   def name
     if surname
       name = surname

@@ -17,9 +17,9 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-class EventTutorAssociation < ActiveRecord::Base
+class EventLecturerAssociation < ActiveRecord::Base
   include Lilith::UUIDHelper
 
   belongs_to :event
-  belongs_to :tutor
+  belongs_to :lecturer, :class_name => 'Person'
 end

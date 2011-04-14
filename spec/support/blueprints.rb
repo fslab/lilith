@@ -15,7 +15,7 @@ Semester.blueprint do
   end_week   { Lilith::Week.new(2012, 12) }
 end
 
-Tutor.blueprint do
+Person.blueprint do
   title      { 'Lord' }
   forename   { 'Omar' }
   middlename { 'Kayyam' }

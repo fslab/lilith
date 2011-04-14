@@ -29,10 +29,10 @@ module Lilith
     HbrsEvaScraper.new(scraper_options_helper(options)).call
   end
 
-  # Scrapes the tutor list of Hochschule Bonn-Rhein-Sieg and merges
+  # Scrapes the people list of Hochschule Bonn-Rhein-Sieg and merges
   # the results with the existing objects in database
-  def scrape_tutors(options = {})
-    HbrsTutorScraper.new(scraper_options_helper(options)).call
+  def scrape_people(options = {})
+    HbrsPeopleScraper.new(scraper_options_helper(options)).call
   end
 
   # Translates options for a better interface

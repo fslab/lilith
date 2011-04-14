@@ -24,10 +24,10 @@ class Event < ActiveRecord::Base
   belongs_to :course
   belongs_to :schedule
 
-  has_many :tutor_associations,
-           :class_name => 'EventTutorAssociation',
+  has_many :lecturer_associations,
+           :class_name => 'EventLecturerAssociation',
            :dependent => :destroy
-  has_many :tutors, :through => :tutor_associations
+  has_many :lecturers, :through => :lecturer_associations
 
   has_many :group_associations,
            :class_name => 'EventGroupAssociation',
@@ -72,7 +72,7 @@ class Event < ActiveRecord::Base
     ical_event.categories = categories.map{|category| category.name || category.eva_id}
 
     description = ""
-    description += "Tutoren: #{tutors.map(&:name).join(', ')}\n" unless tutors.empty?
+    description += "Dozenten: #{lecturers.map(&:name).join(', ')}\n" unless lecturers.empty?
     description += "Gruppen: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
 
     ical_event.description = description
