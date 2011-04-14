@@ -12,7 +12,6 @@ nbproject/private
 config/database.yml
 config/initializers/secret_token.rb
 db/*.sqlite3
-db/*_structure.sql
 db/schema.rb
 doc/api
 doc/app
