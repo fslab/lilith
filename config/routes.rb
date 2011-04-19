@@ -26,7 +26,12 @@ Lilith::Application.routes.draw do
     end
 
     resource :imprint, :only => :show, :controller => :imprint
-    resources :articles
+    
+    resources :articles do
+      member do
+        get :delete
+      end
+    end
     
     root :to => 'root#show'
   end

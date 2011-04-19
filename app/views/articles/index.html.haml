@@ -1,16 +1,5 @@
 %h2 Articles
-
-%table
-  %thead
-    %tr
-      %th Name
-      
-      %th Datum
-      
-  %tbody
-    - @articles.each do |article|
-      %tr
-        %td
-          = article.name
-        %td
-          = article.published_at
+%a{:href => new_article_path} create article
+%ol
+  = render @articles
+ 
