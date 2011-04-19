@@ -54,3 +54,8 @@ Week.blueprint do
   index { 15 }
   year  { 2011 }
 end
+
+Article.blueprint do
+  name { 'Test Article' }
+  body { 'This is a test body'}
+end
