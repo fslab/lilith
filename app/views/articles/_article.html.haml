@@ -1,0 +1,10 @@
+%li.article
+  %span.name~ article.name
+  %span.published_at~ article.published_at
+  .body~ article.body
+  
+  .options
+    %a{:href => article_path(article)} Show
+    %a{:href => edit_article_path(article)} Edit
+    %a{:href => delete_article_path(article)} Delete
+    
