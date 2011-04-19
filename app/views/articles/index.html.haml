@@ -1,0 +1,16 @@
+%h2 Articles
+
+%table
+  %thead
+    %tr
+      %th Name
+      
+      %th Datum
+      
+  %tbody
+    - @articles.each do |article|
+      %tr
+        %td
+          = article.name
+        %td
+          = article.published_at
