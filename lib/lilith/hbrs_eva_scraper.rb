@@ -22,13 +22,13 @@ require 'uri'
 
 require 'mechanize'
 
+# This class encapsulates the whole Eva² data acqusisition process
+#
+# TODO: Most of the instance methods do not use object state to be easier to
+#       test. Maybe it would be a good idea to refactor them into class methods
 class Lilith::HbrsEvaScraper
-  class TimeSyncError < StandardError; end
+  class Error < StandardError; end
   
-  SEMESTER_LABEL_PATTERN  = /^(.*) (\d+)$/
-  NAME_PATTERN            = /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/
-  PERIOD_PATTERN          = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/
-
   # Parse a range into a sequence of tokens
   def self.parse_range(range)
     tokens = []
@@ -61,7 +61,9 @@ class Lilith::HbrsEvaScraper
 
       parse_range(week_range).each do |token|
         if token.is_a?(Range)
-          week_numbers += (token.min.to_i..token.max.to_i).to_a
+          range = (token.min.to_i..token.max.to_i).to_a
+          raise Error 'Empty week range, possible parsing error' if range.empty?
+          week_numbers += range
         else
           week_numbers << token.to_i
         end
@@ -77,20 +79,28 @@ class Lilith::HbrsEvaScraper
   attr_accessor :agent, :url, :semester, :logger
 
   def initialize(options = {})
-    if options[:agent]
-      @agent = options[:agent]
-    else
-      @agent = Mechanize.new
-      original, library = */(.*) \(.*\)$/.match(@agent.user_agent)
-      @agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
-    end
-
+    @agent = options[:agent]
     @url   = URI.parse(options[:url] || 'https://eva2.inf.h-brs.de/stundenplan/')
     @logger = options[:logger] || Rails.logger
   end
 
+  def agent
+    @agent || Lilith.default_agent
+  end
+
   def call
     ActiveRecord::Base.transaction do
+      # If time differs more than 5 minutes between document source and here, abort
+      local_time  = Time.now
+      remote_time = Time.parse(menu_page.search("div[@class = 'eva-footer']/text()").last.to_s)
+
+      if (local_time - remote_time).abs > 5.minutes
+        raise Error, "Timing difference. Local time: #{local_time}; Remote time: #{remote_time}"
+      end
+      logger.debug "Local time: #{local_time}"
+      logger.debug "Remote time: #{remote_time}"
+
+      # Start scraping
       semester = scrape_semester
 
       scrape_people.each do |person|
@@ -106,192 +116,240 @@ class Lilith::HbrsEvaScraper
     end
     
     true
+  rescue Exception => exception
+    logger.error <<-EOS
+      #{exception.class} occured
+      #{exception.message}
+      #{exception.backtrace}
+    EOS
+
+    raise exception
+  end
+
+  # Fetches and caches the menu page
+  def menu_page
+    if @menu_page
+      logger.debug "Fetching menu page (cached)"
+      @menu_page
+    else
+      logger.debug "Fetching menu page"
+      @menu_page = agent.get(@url)
+    end
+  end
+
+  # Fetches and caches all week numbers for the current semester
+  def week_numbers
+    if @week_numbers
+      logger.debug "Fetching week numbers (cached)"
+      @week_numbers
+    else
+      logger.debug "Fetching week numbers"
+      @week_numbers = menu_page.search("select[@name = 'weeks']/option").first['value'].split(/;/)
+
+      raise Error, 'No week numbers found' if @week_numbers.empty?
+    end
+
+    @week_numbers
+  end
+
+  # Fetches and caches all study unit ids for the current semester
+  def study_units
+    if @study_units
+      logger.debug "Fetching study unit ids (cached)"
+      @study_units
+    else
+      logger.debug "Fetching study unit ids"
+
+      @study_units = {}
+
+      menu_page.search("select[@name = 'identifier_semester']/option").each do |option|
+        next if option['value'].blank?
+
+        @study_units[option.text] = option['value']
+      end
+
+      raise Error, 'No study units found' if @study_units.empty?
+    end
+
+    @study_units
+  end
+
+  # Fetches and caches the page of a specific study unit
+  def study_unit_page(study_unit_id)
+    @study_unit_page ||= {}
+
+    if @study_unit_page[study_unit_id]
+      logger.debug "Fetching study unit page for '#{study_unit_id}' (cached)"
+      @study_unit_page[study_unit_id]
+    else
+      logger.debug "Fetching study unit page for '#{study_unit_id}'"
+
+      form = menu_page.forms.first
+      form['weeks'] = week_numbers.join(';')
+      form['days']  = '1-7'
+      form['mode']  = 'table'
+      form['identifier_semester'] = study_unit_id
+      form['show_semester'] = 'Display timetable'
+
+      @study_unit_page[study_unit_id] = form.submit
+    end
   end
 
   # Detect the current semester and persist it in database if not already there.
   def scrape_semester
     logger.debug "Scraping semester"
-    semester = nil
+    logger.debug "Fetching study unit pages until semester can be scraped"
 
-    logger.debug "Fetching menu page"
-    
-    @agent.get(@url) do |page|
-      week_numbers_raw = page.search("select[@name = 'weeks']/option").first['value']
-      week_numbers     = week_numbers_raw.split(';')
+    match_result = nil
+    study_unit_id = nil
 
-      semester_raw = nil
-
-      logger.debug "Fetching first study unit page"
-
-      # Fetch the first study unit available and scrape the semester out of it
-      page.search("select[@name = 'identifier_semester']/option").each do |option|
-        unless option['value'].blank?
-          form = page.forms.first
-          form['weeks'] = week_numbers_raw
-          form['days']  = '1-7'
-          form['mode']  = 'table'
-          form['identifier_semester'] = option['value']
-          form['show_semester'] = 'Display timetable'
-          semester_raw = form.submit.search("//b[text() = 'Semester:']/following::text()[1]").text
-          break
-        end
-      end
-
-      original, season_raw, year_raw = */(Sommer|Winter)semester (\d+)/.match(semester_raw)
-
-      case season_raw
-      when 'Sommer'
-        season = :summer
-      when 'Winter'
-        season = :winter
-      end
-
-      year = year_raw.to_i
-
-      logger.debug "Found semester (Season: #{season}, Year: #{year})"
-
-      logger.debug "Finding or creating semester"
-
-      # Find or create the semester in database
-      semester = Semester.find_or_create_by_start_year_and_season(
-        year, season
+    study_units.each do |label, study_unit_id|
+      page = study_unit_page(study_unit_id)
+      break if match_result = /(Sommer|Winter)semester (\d+)/.match(
+        page.search("//b[text() = 'Semester:']/following::text()[1]").text
       )
-
-      # Detect the semester's week range and update the persisted object
-      start_week = Lilith::Week.new(year.to_i, week_numbers.first.to_i)
-      week_range = start_week.until_index(week_numbers.last.to_i)
-      end_week   = week_range.max
-
-      logger.debug "Updating week range (Start: #{start_week}, End: #{end_week})"
-
-      semester.start_week = start_week.to_s
-      semester.end_week   = end_week.to_s
-      semester.save!
-
-      logger.debug "Scraping semester finished"
     end
-    
+
+    if match_result
+      logger.debug "Scrapable semester found on page of study unit '#{study_unit_id}'"
+    else
+      raise Error, 'No Semester information found on any study unit page'
+    end
+
+    # Normalize raw data for database usage
+    original, season_raw, year_raw = *match_result
+
+    case season_raw
+    when 'Sommer'
+      season = :summer
+    when 'Winter'
+      season = :winter
+    end
+
+    year = year_raw.to_i
+
+    logger.debug "Found semester (Season: #{season}, Year: #{year})"
+
+    # Find or create the semester in database
+    semester = Semester.find_or_create_by_start_year_and_season(year, season)
+
+    # Detect the semester's week range and update the persisted object
+    start_week = Lilith::Week.new(year.to_i, week_numbers.first.to_i)
+    week_range = start_week.until_index(week_numbers.last.to_i)
+    end_week   = week_range.max
+
+    logger.debug "Updating week range (Start: #{start_week}, End: #{end_week})"
+
+    semester.start_week = start_week.to_s
+    semester.end_week   = end_week.to_s
+    semester.save!
+
+    logger.debug "Scraping semester finished"
+
     semester
   end
 
+  # Scrapes all study units
   def scrape_study_units(semester)
-    study_units = []
+    scraped_study_units = []
 
-    @agent.get(@url) do |page|
-      page.search("select[@name = 'identifier_semester']/option").each do |option|
-        next if option['value'].blank?
+    study_units.each do |label, id|
+      study_unit = semester.study_units.find_or_initialize_by_eva_id(id)
 
-        study_unit = semester.study_units.find_or_initialize_by_eva_id(option['value'])
+      original, program_name, study_unit.position = */^(.*) (\d+)$/.match(label)
 
-        SEMESTER_LABEL_PATTERN =~ option.inner_html
+      program_name.gsub!(/^B /, 'Bachelor ')
+      program_name.gsub!(/^M /, 'Master ')
 
-        study_unit.position = $2
+      study_unit.program = program_name
 
-        program_name = $1
-        program_name.gsub!(/^B /, 'Bachelor ')
-        program_name.gsub!(/^M /, 'Master ')
+      study_unit.save!
 
-        study_unit.program = program_name
-
-        study_unit.save!
-
-        study_units << study_unit
-      end
+      scraped_study_units << study_unit
     end
 
-    study_units
+    scraped_study_units
   end
 
+  # Scrapes all people by eva id
   def scrape_people
-    people = []
+    scraped_people = []
 
-    @agent.get(@url) do |page|
-      page.search("select[@name = 'identifier_dozent']/option").each do |option|
-        next if option['value'].blank?
+    menu_page.search("select[@name = 'identifier_dozent']/option").each do |option|
+      next if option['value'].blank?
 
-        people << Person.find_or_create_by_eva_id(option.inner_html)
-      end
+      scraped_people << Person.find_or_create_by_eva_id(option.inner_html)
     end
 
-    people
+    scraped_people
   end
 
+  # Scrapes all courses for a given study unit
   def scrape_courses(study_unit, schedule)
-    courses = []
+    scraped_courses = []
 
-    agent.get(@url) do |page|
-      # If time differs more than 5 minutes between document source and here, abort
-      local_time  = Time.now
-      remote_time = Time.parse(page.search("div[@class = 'eva-footer']/text()").last.to_s)
+    study_unit_page(study_unit.eva_id).search('table/tr').each do |row|
+      next if row.search("td[@class = 'header']").size > 0
 
-      if (local_time - remote_time).abs > 5.minutes
-        raise TimeSyncError, "Scraping aborted. Local time: #{local_time}; Remote time: #{remote_time}"
+      raw_data = {
+        :start_time => row.search("td[@class = 'liste-startzeit']").inner_html,
+        :end_time   => row.search("td[@class = 'liste-endzeit']").inner_html,
+        :period     => row.search("td[@class = 'liste-beginn']").inner_html,
+        :room       => row.search("td[@class = 'liste-raum']").inner_html,
+        :lecturers  => row.search("td[@class = 'liste-wer']").inner_html
+      }
+
+      /(.*) Gr(?:\.(.*)| ?([\dA-Z].*)) \((.*)\)$|(.*) \((.*)\)$/ =~ row.search("td[@class = 'liste-veranstaltung']").inner_html
+
+      if $5 and $6
+        name = $5
+        raw_data[:categories] = $6
+      else
+        name = $1
+        raw_data[:groups] = $2 || $3
+        raw_data[:categories] = $4
       end
-      logger.debug "Local time: #{local_time}"
-      logger.debug "Remote time: #{remote_time}"
 
-      form = page.forms.first
-      form['weeks'] = '12;13;14;15;16;17;18;19;20;21;22;23;24;25'
-      form['days']  = '1-7'
-      form['mode']  = 'table'
-      form['identifier_semester'] = study_unit.eva_id
-      form['show_semester'] = 'Display timetable'
-      form.submit.search('table/tr').each do |row|
-        next if row.search("td[@class = 'header']").size > 0
+      # Remove leading and trailing spaces and remove double spaces
+      name.strip!
+      name.gsub!(/  +/, ' ')
 
-        raw_weekday    = row.search("td[@class = 'liste-wochentag']").inner_html
-        raw_start_time = row.search("td[@class = 'liste-startzeit']").inner_html
-        raw_end_time   = row.search("td[@class = 'liste-endzeit']").inner_html
-        raw_period     = row.search("td[@class = 'liste-beginn']").inner_html
-        raw_room       = row.search("td[@class = 'liste-raum']").inner_html
-        raw_name       = row.search("td[@class = 'liste-veranstaltung']").inner_html
-        raw_lecturers  = row.search("td[@class = 'liste-wer']").inner_html
+      course = study_unit.courses.find_or_create_by_name(name)
+      scraped_courses << course
 
-        NAME_PATTERN =~ raw_name
-
-        if $5 and $6
-          name = $5
-          raw_categories = $6
-        else
-          name = $1
-          raw_groups = $2 || $3
-          raw_categories = $4
-        end
-
-        # Remove leading and trailing spaces and remove double spaces
-        name.strip!
-        name.gsub!(/  +/, ' ')
-
-        course = study_unit.courses.find_or_create_by_name(name)
-        courses << course
-        event = schedule.events.new
-
-        event.course = course
-        event.room = raw_room
-
-        original, start_date, end_date, raw_recurrence = *PERIOD_PATTERN.match(raw_period)
-
-        event.first_start = Time.parse("#{start_date} #{raw_start_time}")
-        event.first_end   = Time.parse("#{start_date} #{raw_end_time}")
-        event.until       = Date.parse(end_date)
-        event.save!
-
-        scrape_week_associations(event, raw_recurrence)
-        scrape_group_associations(event, raw_groups) if raw_groups
-        scrape_lecturer_associations(event, raw_lecturers)
-        scrape_category_associations(event, raw_categories)
-      end
+      scrape_event(course, schedule, raw_data)
     end
 
-    courses
-  rescue Exception => exception
-    raise handle_exception(exception)
+    scraped_courses
+  end
+
+  # Parses raw data values and builds an event object belonging to course and schedule
+  def scrape_event(course, schedule, raw_data)
+    unless (raw_data.keys - [:groups]).to_set == [:start_time, :end_time, :period, :room, :lecturers, :categories].to_set
+      raise ArgumentError, 'Raw data values do not match requirements' + " #{raw_data.inspect}"
+    end
+
+    event = schedule.events.new
+
+    event.course = course
+    event.room = raw_data[:room]
+
+    match_result = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/.match(raw_data[:period])
+    original, start_date, end_date, raw_recurrence = *match_result
+
+    event.first_start = Time.parse("#{start_date} #{raw_data[:start_time]}")
+    event.first_end   = Time.parse("#{start_date} #{raw_data[:end_time]}")
+    event.until       = Date.parse(end_date)
+    event.save!
+
+    scrape_week_associations(event, raw_recurrence)
+    scrape_group_associations(event, raw_data[:groups]) if raw_data[:groups]
+    scrape_lecturer_associations(event, raw_data[:lecturers])
+    scrape_category_associations(event, raw_data[:categories])
   end
 
   # Parses a raw recurrence string and sets week associations and recurrence
   # attribute for the given event
-  #
-  # TODO: Carries no state, should become class method
   def scrape_week_associations(event, raw_recurrence)
     original, recurrence, week_range = */((?:u|g)?KW)(?: (.*))?/.match(raw_recurrence)
 
@@ -314,41 +372,37 @@ class Lilith::HbrsEvaScraper
   end
 
   # Parses a raw groups string and sets group associations for the given event
-  #
-  # TODO: Carries no state, should become class method
   def scrape_group_associations(event, raw_groups)
+    groups = []
+
+    self.class.parse_range(raw_groups).map do |token|
+      if token.is_a?(Range)
+        range = (token.min..token.max).to_a
+        raise Error 'Empty group range, possible parsing error' if range.empty?
+        groups += range
+      else
+        groups << token
+      end
+    end
+
     group_associations = Set.new
 
-    raw_groups.split(/,/).each do |range|
-      range.split(/\+/).each do |summand|
-        if summand.include?('-')
-          min, max = summand.split(/\-/)
-
-          (min..max).each do |group_symbol|
-            group_associations << event.group_associations.find_or_create_by_group_id(
-              event.course.groups.find_or_create_by_name(group_symbol.strip)
-            )
-          end
-        else
-          group_associations << event.group_associations.find_or_create_by_group_id(
-            event.course.groups.find_or_create_by_name(summand.strip)
-          )
-        end
-      end
+    groups.each do |group|
+      group_associations << event.group_associations.find_or_create_by_group_id(
+        event.course.groups.find_or_create_by_name(group)
+      )
     end
 
     group_associations
   end
 
   # Parses a raw lecturers string and sets lecturer associations for the given event
-  #
-  # TODO: Carries no state, should become class method
   def scrape_lecturer_associations(event, raw_lecturers)
     lecturer_associations = Set.new
 
     logger.debug "Scraping Person associations from '#{raw_lecturers}' for event #{event.inspect}"
 
-    raw_lecturers.split(/,/).each do |lecturer|
+    raw_lecturers.split(/, /).each do |lecturer|
       lecturer = Person.find_or_create_by_eva_id(lecturer.strip)
 
       logger.debug "Person object for eva_id '#{lecturer}' is #{lecturer.inspect}"
@@ -365,8 +419,6 @@ class Lilith::HbrsEvaScraper
 
   # Parses a raw categories string and sets category associations for the
   # given event
-  #
-  # TODO: Carries no state, should become class method
   def scrape_category_associations(event, raw_categories)
     category_associations = Set.new
 
@@ -381,16 +433,4 @@ class Lilith::HbrsEvaScraper
     category_associations
   end
 
-  protected
-
-  # Relays the given exception to the configured logger
-  def handle_exception(exception)
-    logger.error <<-EOS
-      #{exception.class} occured
-      #{exception.message}
-      #{exception.backtrace}
-    EOS
-
-    exception
-  end
 end

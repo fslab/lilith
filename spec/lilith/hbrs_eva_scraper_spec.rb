@@ -1,4 +1,5 @@
-=begin encoding: UTF-8
+# encoding: UTF-8
+=begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -18,8 +19,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 require 'spec_helper'
-require 'lilith/hbrs_eva_scraper'
-require 'lilith/mock_agent'
 
 describe Lilith::HbrsEvaScraper do
   fixtures_dir =  Rails.root + 'spec' + 'fixtures'
@@ -27,16 +26,217 @@ describe Lilith::HbrsEvaScraper do
   PLAN_FILE = fixtures_dir + '2011-03-24_bcs4.html'
 
   before(:each) do
+    study_unit_page = Object.new
+    study_unit_page.stub(:search) {|*args| Nokogiri.parse(PLAN_FILE.read).search(*args) }
+    menu_page_form = {}
+    menu_page_form.stub(:submit) { study_unit_page }
+    menu_page = Object.new
+    menu_page.stub(:forms) { [menu_page_form] }
+    menu_page.stub(:search) {|*args| Nokogiri.parse(MENU_FILE.read).search(*args) }
+    agent = Object.new
+    agent.stub(:get) { menu_page }
+    
     @scraper = described_class.new(
-      :agent  => Lilith::MockAgent.new(:mock_document_file => MENU_FILE),
+      :agent  => agent,
       :logger => Logger.new(nil)
     )
   end
+
 
   it "should find 16 study units in the fixture file" do
     semester = Semester.make(:start_week => '2011-W12', :start_week => '2011-W25')
 
     @scraper.scrape_study_units(semester).should have(16).items
+  end
+
+
+  context "#menu_page" do
+    it "should return the correct page object" do
+      /Timetable/.should match(@scraper.menu_page.search('//h1').first.text)
+    end
+  end
+
+  context "#week_numbers" do
+    it "should contain all current week numbers" do
+      @scraper.week_numbers.should == (12..25).map(&:to_s)
+    end
+  end
+
+  context "#study_units" do
+    it "should contain all study units" do
+      @scraper.study_units.should == {
+        'B BIS 2' => 'BBIS2',
+        'B BIS 4' => 'BBIS4',
+        'B BIS 6' => '#SPLUS889420',
+        'B CS 2' => 'BCS2',
+        'B CS 4' => 'BCS4',
+        'B CS 6' => 'BCS6',
+        'B CS(TZ) 2' => '#SPLUS29CFBB',
+        'B CS(TZ) 4' => '#SPLUSEEF90F',
+        'B CS(TZ) 8' => '#SPLUS6F1449',
+        'M AS 1' => 'MAS1',
+        'M AS 2' => 'MAS2',
+        'M AS 3' => 'MAS3',
+        'M CS 1' => 'MCS1',
+        'M CS 2' => 'MCS2',
+        'M CS 3' => 'MCS3',
+        'M KSN 2' => '#SPLUS4222DA',
+      }
+    end
+  end
+
+  context "#study_unit_page" do
+    it "should return the correct page object" do
+      page = @scraper.study_unit_page('BCS4')
+
+      /Timetable of Semester B CS 4/.should match(page.search('//h1').first.text)
+    end
+  end
+
+  context "#scrape_semester" do
+    it "should persist the correct semester" do
+      semester = @scraper.scrape_semester
+      semester.start_year.should == 2011
+      semester.season.should == :summer
+    end
+
+    it "should correctly set the week range" do
+      semester = @scraper.scrape_semester
+      semester.start_week.should == Lilith::Week.new(2011, 12)
+      semester.end_week.should   == Lilith::Week.new(2011, 25)
+    end
+  end
+
+  context "#scrape_study_units" do
+    it "should perist all study units" do
+      study_units = @scraper.scrape_study_units(Semester.make!)
+      study_units.map{|study_unit| study_unit.attributes.slice('program', 'position')}.to_set.should == [
+        {'program' => 'Bachelor BIS', 'position' => 2},
+        {'program' => 'Bachelor BIS', 'position' => 4},
+        {'program' => 'Bachelor BIS', 'position' => 6},
+        {'program' => 'Bachelor CS', 'position' => 2},
+        {'program' => 'Bachelor CS', 'position' => 4},
+        {'program' => 'Bachelor CS', 'position' => 6},
+        {'program' => 'Bachelor CS(TZ)', 'position' => 2},
+        {'program' => 'Bachelor CS(TZ)', 'position' => 4},
+        {'program' => 'Bachelor CS(TZ)', 'position' => 8},
+        {'program' => 'Master AS', 'position' => 1},
+        {'program' => 'Master AS', 'position' => 2},
+        {'program' => 'Master AS', 'position' => 3},
+        {'program' => 'Master CS', 'position' => 1},
+        {'program' => 'Master CS', 'position' => 2},
+        {'program' => 'Master CS', 'position' => 3},
+        {'program' => 'Master KSN', 'position' => 2}
+      ].to_set
+    end
+  end
+
+  context "#scrape_group_associations" do
+    before(:each) do
+      @event = Event.make!
+    end
+
+    it "should be able to scrape '3'" do
+      @scraper.scrape_group_associations(@event, '3')
+
+      @event.groups.map(&:name).to_set.should == %w{3}.to_set
+    end
+
+    it "should be able to scrape ' 3 '" do
+      @scraper.scrape_group_associations(@event, ' 3 ')
+
+      @event.groups.map(&:name).to_set.should == %w{3}.to_set
+    end
+
+    it "should be able to scrape '3+TZ'" do
+      @scraper.scrape_group_associations(@event, '3+TZ')
+
+      @event.groups.map(&:name).to_set.should == %w{3 TZ}.to_set
+    end
+
+    it "should be able to scrape '1-3+TZ'" do
+      @scraper.scrape_group_associations(@event, '1-3+TZ')
+
+      @event.groups.map(&:name).to_set.should == %w{1 2 3 TZ}.to_set
+    end
+
+    it "should be able to scrape '4-7'" do
+      @scraper.scrape_group_associations(@event, '4-7')
+
+      @event.groups.map(&:name).to_set.should == %w{4 5 6 7}.to_set
+    end
+
+    it "should be able to scrape '3+4'" do
+      @scraper.scrape_group_associations(@event, '3+4')
+
+      @event.groups.map(&:name).to_set.should == %w{3 4}.to_set
+    end
+  end
+
+  context "#scrape_lecturer_associations" do
+    before(:each) do
+      @event = Event.make!
+    end
+
+    it "should be able to scrape a single lecturers" do
+      @scraper.scrape_lecturer_associations(@event, 'Richards')
+
+      @event.lecturers.map(&:eva_id).to_set.should == %w{Richards}.to_set
+    end
+
+    it "should be able to scrape multiple lecturers" do
+      @scraper.scrape_lecturer_associations(@event, 'von_der_Zwuckelheide, Yoko-Keil')
+
+      @event.lecturers.map(&:eva_id).to_set.should == %w{von_der_Zwuckelheide Yoko-Keil}.to_set
+    end
+
+    it "should be able to scrape a single lecturers with a comma in his id" do
+      @scraper.scrape_lecturer_associations(@event, 'Plan,K.')
+
+      @event.lecturers.map(&:eva_id).to_set.should == %w{Plan,K.}.to_set
+    end
+
+    it "should be able to scrape a single lecturers with a comma in his id out of multiple" do
+      @scraper.scrape_lecturer_associations(@event, 'Plan,K., Richards')
+
+      @event.lecturers.map(&:eva_id).to_set.should == %w{Plan,K. Richards}.to_set
+    end
+  end
+
+  context "#scrape_category_associations" do
+    before(:each) do
+      @event = Event.make!
+    end
+
+    it "should be able to scrape 'V'" do
+      @scraper.scrape_category_associations(@event, 'V')
+
+      @event.categories.map(&:eva_id).to_set.should == %w{V}.to_set
+    end
+
+    it "should be able to scrape 'Ü'" do
+      @scraper.scrape_category_associations(@event, 'Ü')
+
+      @event.categories.map(&:eva_id).to_set.should == %w{Ü}.to_set
+    end
+
+    it "should be able to scrape 'VÜP'" do
+      @scraper.scrape_category_associations(@event, 'VÜP')
+
+      @event.categories.map(&:eva_id).to_set.should == %w{V Ü P}.to_set
+    end
+
+    it "should be able to scrape 'Ü/P'" do
+      @scraper.scrape_category_associations(@event, 'Ü/P')
+
+      @event.categories.map(&:eva_id).to_set.should == %w{Ü P}.to_set
+    end
+
+    it "should not scrape 'Projekt'" do
+      @scraper.scrape_category_associations(@event, 'Projekt')
+
+      @event.categories.map(&:eva_id).to_set.should == [].to_set
+    end
   end
 
   context "#scrape_week_associations" do

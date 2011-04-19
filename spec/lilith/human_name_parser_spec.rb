@@ -19,7 +19,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 require 'spec_helper'
-require 'lilith/human_name_parser'
 
 describe Lilith::HumanNameParser do
   it "should require a name for initialization" do

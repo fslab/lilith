@@ -45,4 +45,20 @@ module Lilith
 
     result_options
   end
+
+  # Returns a default scraper agent
+  def default_agent
+    unless @default_agent
+      @default_agent = Mechanize.new
+      original, library = */(.*) \(.*\)$/.match(@default_agent.user_agent)
+      @default_agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
+    end
+
+    @default_agent
+  end
+
+  # Allows to set the default scraper agent
+  def default_agent=(default_agent)
+    @default_agent = default_agent
+  end
 end
