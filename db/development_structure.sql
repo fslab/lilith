@@ -16,6 +16,21 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: articles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE articles (
+    name character varying(255),
+    published_at timestamp without time zone,
+    abstract text,
+    body text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    id uuid NOT NULL
+);
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -209,6 +224,14 @@ CREATE TABLE weeks (
 
 
 --
+-- Name: articles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY articles
+    ADD CONSTRAINT articles_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -380,3 +403,5 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 --
 
 INSERT INTO schema_migrations (version) VALUES ('20110414204139');
+
+INSERT INTO schema_migrations (version) VALUES ('20110419103600');
