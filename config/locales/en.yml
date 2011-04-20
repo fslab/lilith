@@ -48,6 +48,20 @@ en:
     navigation: Navigation
     back_to_top: Back to top
     group: Group
+
+  article:
+    name: Article
+    heading: Article
+    create: create article
+    edit: edit
+    show: show
+    delete: delete
+    title: Title
+    abstract: Abstract
+    body: Body
+    text:
+      delete: Delete article?
+
   date:
     formats:
       default: "%Y-%m-%d"

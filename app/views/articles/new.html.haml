@@ -6,12 +6,15 @@
 
 - form_for(@article) do |f|
   %p
-    %label{:for => 'name'} Name
+    %label{:for => 'name'}~ t('article.title')
+    %br
     = f.text_field :name
   %p
-    %label{:for => 'abstract'} Abstract
+    %label{:for => 'abstract'}~ t('article.abstract')
+    %br
     = f.text_area :abstract
   %p
-    %label{:for => 'body'} Body
+    %label{:for => 'body'}~ t('article.body')
+    %br
     = f.text_area :body
-  = f.submit 'create'  
+  = f.submit t('article.create')

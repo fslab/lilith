@@ -48,6 +48,20 @@ de:
     navigation: Navigation
     back_to_top: Zurück nach oben
     group: Gruppe
+
+  article:
+    name: Artikel
+    heading: Artikel
+    create: erstelle Artikel
+    edit: bearbeiten
+    show: anschauen
+    delete: löschen
+    title: Titel
+    abstract: Zusammenfassung
+    body: Haupttext
+    text:
+      delete: Artikel wirklich löschen?
+
   date:
     formats:
       default: "%Y-%m-%d"

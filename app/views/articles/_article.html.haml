@@ -4,7 +4,7 @@
   .body~ article.body
   
   .options
-    %a{:href => article_path(article)} Show
-    %a{:href => edit_article_path(article)} Edit
-    %a{:href => delete_article_path(article)} Delete
+    %a{:href => article_path(article)}~ t('article.show')
+    %a{:href => edit_article_path(article)}~ t('article.edit')
+    %a{:href => delete_article_path(article)}~ t('article.delete')
     
