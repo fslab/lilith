@@ -1,0 +1,30 @@
+%h2
+  = @person.title
+  = @person.forename
+  = @person.middlename
+  = @person.surname
+
+- if @person.errors.any?
+  %ul
+    - @article.errors.each do |message|
+      %li
+        = message
+
+- form_for(@person, :url => person_path(@article), :method => 'PUT') do |f|
+  %p
+    %label{:for => 'eva_id'} EVA-ID
+    %br
+    = f.text_field :eva_id
+  %p
+    %label{:for => 'title'}~ t('person.title')
+    %br
+    = f.text_field :title
+  %p
+    %label{:for => 'forename'}~ t('person.forename')
+    %br
+    = f.text_field :forename
+  %p
+    %label{:for => 'surname'}~ t('person.surname')
+    %br
+    = f.text_field :surname
+  = f.submit t('person.edit')

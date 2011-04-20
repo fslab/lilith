@@ -65,6 +65,23 @@ de:
     text:
       delete: Artikel wirklich löschen?
 
+  person:
+    name: Person
+    heading: Person
+    create: erstelle Person
+    edit: bearbeiten
+    show: anschauen
+    delete: löschen
+    title: Titel
+    forename: Vorname
+    surename: Nachname
+    middlename: Mittelname
+    headline:
+      edit: Bearbeite Person
+      new: Erstelle eine neue Person
+    text:
+      delete: Person wirklich löschen?
+
   date:
     formats:
       default: "%Y-%m-%d"
