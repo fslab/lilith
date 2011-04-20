@@ -20,7 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'spec_helper'
 
-describe Lilith::Week do
+describe Aef::Week do
   context ".weeks_in_year" do
     it "should return the correct amount of weeks for years with 52 weeks" do
       described_class.weeks_in_year(1985).should == 52

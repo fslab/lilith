@@ -19,6 +19,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 require 'lilith'
+require 'aef/week'
 
 # Require all file in lib/lilith
 Pathname.glob(Rails.root + 'lib' + 'lilith' + '*.rb').each do |lib|

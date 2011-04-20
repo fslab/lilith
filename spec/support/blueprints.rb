@@ -31,8 +31,8 @@ require 'machinist/active_record'
 Semester.blueprint do
   start_year { 2011 }
   season     { :summer }
-  start_week { Lilith::Week.new(2011, 50) }
-  end_week   { Lilith::Week.new(2012, 12) }
+  start_week { Aef::Week.new(2011, 50) }
+  end_week   { Aef::Week.new(2012, 12) }
 end
 
 Person.blueprint do

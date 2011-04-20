@@ -24,4 +24,3 @@ class SemestersController < ApplicationController
     @semesters = Semester.all
   end
 end
-s

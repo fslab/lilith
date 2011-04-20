@@ -27,9 +27,9 @@ describe Week do
   it { should have_many(:events) }
 
   context "#to_week" do
-    it "should return the corresponding Lilith::Week object" do
+    it "should return the corresponding Aef::Week object" do
       week = described_class.make(:year => 2011, :index => 25).to_week
-      week.should == Lilith::Week.new(2011, 25)
+      week.should == Aef::Week.new(2011, 25)
     end
   end
 end

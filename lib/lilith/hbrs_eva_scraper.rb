@@ -235,7 +235,7 @@ class Lilith::HbrsEvaScraper
     semester = Semester.find_or_create_by_start_year_and_season(year, season)
 
     # Detect the semester's week range and update the persisted object
-    start_week = Lilith::Week.new(year.to_i, week_numbers.first.to_i)
+    start_week = Aef::Week.new(year.to_i, week_numbers.first.to_i)
     week_range = start_week.until_index(week_numbers.last.to_i)
     end_week   = week_range.max
 

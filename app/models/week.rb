@@ -28,6 +28,6 @@ class Week < ActiveRecord::Base
   has_many :events, :through => :event_associations
 
   def to_week
-    Lilith::Week.new(year, index)
+    Aef::Week.new(year, index)
   end
 end

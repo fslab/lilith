@@ -18,8 +18,12 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+module Aef
+  
+end
+
 # Immutable object representing a calendar week
-class Lilith::Week
+class Aef::Week
   include Comparable
 
   WEEK_PATTERN = /(0|-?\d+)-W(0[1-9]|(?:1|2|3|4)\d|5(?:0|1|2|3))/
