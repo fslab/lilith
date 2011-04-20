@@ -1,4 +1,5 @@
-=begin encoding: UTF-8
+# encoding: UTF-8
+=begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -20,13 +21,13 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'set'
 require 'uri'
 
-require 'mechanize'
-
-# This class encapsulates the whole Eva² data acqusisition process
+# This class encapsulates the whole event data acquisition from the public
+# interface of Eva² of Hoschschule Bonn-Rhein-Sieg
 #
 # TODO: Most of the instance methods do not use object state to be easier to
-#       test. Maybe it would be a good idea to refactor them into class methods
+# test. Maybe it would be a good idea to refactor them into class methods
 class Lilith::HbrsEvaScraper
+  # Errors specific to Lilith::HbrsEvaScraper
   class Error < StandardError; end
   
   # Parse a range into a sequence of tokens

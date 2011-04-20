@@ -20,6 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'uuidtools'
 
+# Mixin which enables ActiveRecord models to use UUID primary keys
 module Lilith::UUIDHelper
   def self.included(base)
     base.class_eval do

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+#
 # Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 #
 # This file is part of Lilith.

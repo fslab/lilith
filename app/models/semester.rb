@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -16,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
+
 # One of two periods in a year in which study units occur
 class Semester < ActiveRecord::Base
   include Lilith::UUIDHelper

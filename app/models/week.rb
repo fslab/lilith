@@ -1,4 +1,5 @@
-=begin encoding: UTF-8
+# encoding: UTF-8
+=begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -17,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+# A calendar week (according to ISO8601)
 class Week < ActiveRecord::Base
   include Lilith::UUIDHelper
 
