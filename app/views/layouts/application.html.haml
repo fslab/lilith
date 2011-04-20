@@ -35,7 +35,7 @@
         #special_version_sign
           - if Lilith::VERSION.include?('alpha')
             %img{:src => '/images/star_alpha.png', :alt => 'α-test version'}
-          - elsif Lilith::VERSION.include?('beta')
+          - elsif Lilith::VERSION.include?('beta') or Lilith::VERSION.starts_with?('0.')
             %img{:src => '/images/star_beta.png', :alt => 'β-test version'}
       #menu
         %form{:action => root_path}

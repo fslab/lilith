@@ -18,6 +18,11 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 module Lilith
+  # The versioning tries to follow semantic versioning
+  #
+  # See http://semver.org/
+  VERSION = '0.1.0'
+
   module_function
 
   # Scrapes the main data source: Eva² of Hochschule Bonn-Rhein-Sieg
