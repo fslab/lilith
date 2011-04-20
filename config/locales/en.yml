@@ -59,6 +59,9 @@ en:
     title: Title
     abstract: Abstract
     body: Body
+    headline:
+      edit: edit article
+      new: create new article
     text:
       delete: Delete article?
 

@@ -59,6 +59,9 @@ de:
     title: Titel
     abstract: Zusammenfassung
     body: Haupttext
+    headline:
+      edit: Bearbeite Artikel
+      new: Erstelle neuen Artikel
     text:
       delete: Artikel wirklich löschen?
 
