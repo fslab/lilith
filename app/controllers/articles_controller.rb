@@ -1,4 +1,4 @@
-class ArticlesController < ApplicationController
+class ArticlesController < AdminController
 
   before_filter :find_article, :only => [:show, :delete, :destroy, :edit, :update]
   

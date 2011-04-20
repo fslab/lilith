@@ -1,4 +1,4 @@
-class PersonsController < ApplicationController
+class PersonsController < AdminController
 
   before_filter :find_person, :only => [:show, :delete, :destroy, :edit, :update]
 
