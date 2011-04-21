@@ -4,6 +4,10 @@
 .idea/lilith.iml
 .idea/dataSources.ids
 .idea/dataSources.xml
+.idea/.generators
+.idea/.rakeTasks
+.idea/misc.xml
+.idea/modules.xml
 
 # NetBeans project (private parts)
 nbproject/private
@@ -13,6 +17,7 @@ config/database.yml
 config/initializers/secret_token.rb
 db/*.sqlite3
 db/schema.rb
+db/development_structure.sql
 doc/api
 doc/app
 log
@@ -31,4 +36,4 @@ doc/plan/*.autosave
 nbproject
 
 # SASS
-public/stylesheets/.sass-cache/
+*.sass-cache*
