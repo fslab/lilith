@@ -1,6 +1,6 @@
 class AddStickyToArticles < ActiveRecord::Migration
   def self.up
-    add_column :articles, :sticky, :boolean
+    add_column :articles, :sticky, :boolean, :default => false
   end
 
   def self.down
