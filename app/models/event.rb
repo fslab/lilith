@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
            :dependent => :destroy
   has_many :weeks, :through => :week_associations
 
-  # Returns all occurences of this event as Date objects
+  # Returns all occurences of this event as Aef::WeekDay objects
   def occurences
     occurence_weeks = weeks.map(&:to_week)
 
@@ -54,7 +54,7 @@ class Event < ActiveRecord::Base
     occurence_weeks.map!{|week| week.day(first_week_day.index) }
   end
 
-  # Returns all exceptions of this event as Date objects
+  # Returns all exceptions of this event as Aef::WeekDay objects
   def exceptions
     exception_weeks = course.study_unit.semester.weeks - weeks.map(&:to_week)
 
@@ -64,20 +64,18 @@ class Event < ActiveRecord::Base
   end
 
   # Generates an iCalendar event
-  #
-  # TODO: Translate with I18n
   def to_ical
     ical_event = RiCal::Component::Event.new
 
     ical_event.dtstart = first_start
     ical_event.dtend   = first_end
     ical_event.summary = "#{course.name} (#{categories.map{|category| category.name || category.eva_id}.join(', ')})"
-    ical_event.location   = "Hochschule Bonn-Rhein-Sieg, Raum: #{room}"
+    ical_event.location   = "Hochschule Bonn-Rhein-Sieg, #{I18n.t('schedules.room')}: #{room}"
     ical_event.categories = categories.map{|category| category.name || category.eva_id}
 
     description = ""
-    description += "Dozenten: #{lecturers.map(&:name).join(', ')}\n" unless lecturers.empty?
-    description += "Gruppen: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
+    description += "#{I18n.t('schedules.lecturers')}: #{lecturers.map(&:name).join(', ')}\n" unless lecturers.empty?
+    description += "#{I18n.t('schedules.groups')}: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
 
     ical_event.description = description
 

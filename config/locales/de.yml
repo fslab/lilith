@@ -48,6 +48,9 @@ de:
     navigation: Navigation
     back_to_top: Zurück nach oben
     group: Gruppe
+    groups: Gruppen
+    lecturers: Dozenten
+    room: Raum
   date:
     formats:
       default: "%Y-%m-%d"
