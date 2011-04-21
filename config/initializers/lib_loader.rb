@@ -20,6 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'lilith'
 require 'aef/week'
+require 'aef/week_day'
 
 # Require all file in lib/lilith
 Pathname.glob(Rails.root + 'lib' + 'lilith' + '*.rb').each do |lib|

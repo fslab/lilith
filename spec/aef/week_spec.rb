@@ -455,6 +455,16 @@ describe Aef::Week do
     end
   end
 
+  context "#day" do
+    it "should return a day by index" do
+      described_class.new(2011, 15).day(1).should == Aef::WeekDay.new(2011, 15, 1)
+    end
+
+    it "should return a day by symbol" do
+      described_class.new(2011, 15).day(:friday).should == Aef::WeekDay.new(2011, 15, 5)
+    end
+  end
+
   context "weekday methods" do
     before(:all) do
       @week = described_class.new(2011, 17)

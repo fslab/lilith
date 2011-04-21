@@ -81,14 +81,12 @@ class Event < ActiveRecord::Base
     # If recurrence is needed, make event recurring each week and define exceptions
     # This is needed because Evolution 2.30.3 still has problems interpreting rdate recurrence
     if weeks.length > 1
-      week_date = first_start.to_date
+      day_symbol = Aef::WeekDay.new(first_start).to_sym
       exceptions = []
 
       course.study_unit.semester.weeks.each do |semester_week|
-        week_date += 7
-
         unless weeks.map(&:to_week).include?(semester_week)
-          exceptions << week_date
+          exceptions << semester_week.day(day_symbol).to_date
         end
       end
 

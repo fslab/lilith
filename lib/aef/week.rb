@@ -234,4 +234,9 @@ class Aef::Week
   def days
     monday..sunday
   end
+
+  # Returns a WeekDay by given index or symbol
+  def day(index_or_symbol)
+    Aef::WeekDay.new(self, index_or_symbol)
+  end
 end
