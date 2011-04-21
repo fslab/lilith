@@ -22,7 +22,7 @@ class PeopleController < AdminController
 
   def update
     if @person.update_attributes(params[:person])
-      redirect_to persons_path
+      redirect_to people_path
     else
       render :action => 'edit'
     end
@@ -30,7 +30,7 @@ class PeopleController < AdminController
 
   def destroy
     @person.destroy
-    redirect_to persons_path
+    redirect_to people_path
   end
 
   def delete

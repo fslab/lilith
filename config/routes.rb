@@ -29,7 +29,7 @@ Lilith::Application.routes.draw do
     resource :imprint, :only => :show, :controller => :imprint
 
 
-    resources :persons do
+    resources :people do
       member do
         get :delete
       end
