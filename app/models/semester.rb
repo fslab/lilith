@@ -94,6 +94,6 @@ class Semester < ActiveRecord::Base
 
   # Returns the range between start week and end week
   def weeks
-    start_week .. end_week
+    (start_week..end_week).to_a
   end
 end

@@ -47,22 +47,25 @@ class Event < ActiveRecord::Base
 
   # Returns all occurences of this event as Date objects
   def occurences
-    occurences = []
+    occurence_weeks = weeks.map(&:to_week)
 
-    week_date = first_start.to_date
+    first_week_day = Aef::WeekDay.new(first_start)
+    
+    occurence_weeks.map!{|week| week.day(first_week_day.index) }
+  end
 
-    course.study_unit.semester.weeks.each do |semester_week|
-      if weeks.map(&:to_week).include?(semester_week)
-        occurences << week_date
-      end
+  # Returns all exceptions of this event as Date objects
+  def exceptions
+    exception_weeks = course.study_unit.semester.weeks - weeks.map(&:to_week)
 
-      week_date += 7
-    end
+    first_week_day = Aef::WeekDay.new(first_start)
 
-    occurences
+    exception_weeks.map!{|week| week.day(first_week_day.index) }
   end
 
   # Generates an iCalendar event
+  #
+  # TODO: Translate with I18n
   def to_ical
     ical_event = RiCal::Component::Event.new
 
@@ -81,16 +84,7 @@ class Event < ActiveRecord::Base
     # If recurrence is needed, make event recurring each week and define exceptions
     # This is needed because Evolution 2.30.3 still has problems interpreting rdate recurrence
     if weeks.length > 1
-      day_symbol = Aef::WeekDay.new(first_start).to_sym
-      exceptions = []
-
-      course.study_unit.semester.weeks.each do |semester_week|
-        unless weeks.map(&:to_week).include?(semester_week)
-          exceptions << semester_week.day(day_symbol).to_date
-        end
-      end
-
-      ical_event.exdates = exceptions
+      ical_event.exdates = exceptions.map(&:to_date)
       ical_event.rrules = [{:freq => 'weekly', :until => self.until}]
     end
     

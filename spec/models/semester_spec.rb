@@ -148,7 +148,7 @@ describe Semester do
     it "should respond with a range of weeks" do
       semester = Semester.make(:start_week => '2011-W50', :end_week => '2012-W10')
 
-      semester.weeks.should == (Aef::Week.new(2011, 50) .. Aef::Week.new(2012, 10))
+      semester.weeks.should == (Aef::Week.new(2011, 50) .. Aef::Week.new(2012, 10)).to_a
     end
   end
 end
