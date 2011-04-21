@@ -1,10 +1,10 @@
-class PersonsController < AdminController
+class PeopleController < AdminController
 
   before_filter :find_person, :only => [:show, :delete, :destroy, :edit, :update]
 
 
   def index
-    @persons = Person.order('surname DESC').all
+    @people = Person.order('surname DESC').all
   end
 
   def show
