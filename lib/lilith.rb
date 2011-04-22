@@ -70,4 +70,28 @@ module Lilith
   def default_agent=(default_agent)
     @default_agent = default_agent
   end
+
+  # Returns the correct type for foreign key database columns
+  def db_reference_type
+    case Rails.configuration.database_configuration[Rails.env]['adapter']
+    when 'postgresql'
+      'uuid'
+    when 'sqlite3'
+      'text'
+    when 'mysql'
+      'char(36)'
+    end
+  end
+
+  # Returns the correct type for primary key database columns
+  def db_primary_key_type(mode = nil)
+    case Rails.configuration.database_configuration[Rails.env]['adapter']
+    when 'postgresql'
+      'uuid PRIMARY KEY'
+    when 'sqlite3'
+      'text PRIMARY KEY'
+    when 'mysql'
+      'char(36) PRIMARY KEY'
+    end
+  end
 end

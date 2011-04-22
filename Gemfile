@@ -25,7 +25,10 @@ gem 'rails', '3.0.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 0.10.1'
+gem 'pg', '~> 0.10.1' # PostgreSQL is the recommended database system
+#gem 'sqlite3', '~> 1.3.3'
+#gem 'mysql', '~> 2.8.1'
+
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'ri_cal', '~> 0.8.8'
