@@ -59,6 +59,8 @@ en:
     title: Title
     abstract: Abstract
     body: Body
+    sticky: sticky
+    published_at: publish
     headline:
       edit: edit article
       new: create new article
