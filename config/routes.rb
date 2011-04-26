@@ -27,7 +27,7 @@ Lilith::Application.routes.draw do
 
 
     resource :imprint, :only => :show, :controller => :imprint
-
+    resource :dashboard, :only => :show, :controller => :dashboard
 
     resources :people do
       member do
