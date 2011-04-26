@@ -15,17 +15,18 @@ class ArticlesController < AdminController
   end
 
   def update
+    @publish
+    params[:article].delete(:published)
+
     if @article.update_attributes(params[:article])
       redirect_to articles_path
     else
       render :action => 'edit'
     end
-    
-    
   end  
 
   def delete
-        
+
   end
   
   def destroy

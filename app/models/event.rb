@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -44,21 +45,22 @@ class Event < ActiveRecord::Base
            :dependent => :destroy
   has_many :weeks, :through => :week_associations
 
-  # Returns all occurences of this event as Date objects
+  # Returns all occurences of this event as Aef::WeekDay objects
   def occurences
-    occurences = []
+    occurence_weeks = weeks.map(&:to_week)
 
-    week_date = first_start.to_date
+    first_week_day = Aef::WeekDay.new(first_start)
+    
+    occurence_weeks.map!{|week| week.day(first_week_day.index) }
+  end
 
-    course.study_unit.semester.weeks.each do |semester_week|
-      if weeks.map(&:to_week).include?(semester_week)
-        occurences << week_date
-      end
+  # Returns all exceptions of this event as Aef::WeekDay objects
+  def exceptions
+    exception_weeks = course.study_unit.semester.weeks - weeks.map(&:to_week)
 
-      week_date += 7
-    end
+    first_week_day = Aef::WeekDay.new(first_start)
 
-    occurences
+    exception_weeks.map!{|week| week.day(first_week_day.index) }
   end
 
   # Generates an iCalendar event
@@ -68,30 +70,19 @@ class Event < ActiveRecord::Base
     ical_event.dtstart = first_start
     ical_event.dtend   = first_end
     ical_event.summary = "#{course.name} (#{categories.map{|category| category.name || category.eva_id}.join(', ')})"
-    ical_event.location   = "Hochschule Bonn-Rhein-Sieg, Raum: #{room}"
+    ical_event.location   = "Hochschule Bonn-Rhein-Sieg, #{I18n.t('schedules.room')}: #{room}"
     ical_event.categories = categories.map{|category| category.name || category.eva_id}
 
     description = ""
-    description += "Dozenten: #{lecturers.map(&:name).join(', ')}\n" unless lecturers.empty?
-    description += "Gruppen: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
+    description += "#{I18n.t('schedules.lecturers')}: #{lecturers.map(&:name).join(', ')}\n" unless lecturers.empty?
+    description += "#{I18n.t('schedules.groups')}: #{groups.map(&:name).join(', ')}\n" unless groups.empty?
 
     ical_event.description = description
 
     # If recurrence is needed, make event recurring each week and define exceptions
     # This is needed because Evolution 2.30.3 still has problems interpreting rdate recurrence
     if weeks.length > 1
-      week_date = first_start.to_date
-      exceptions = []
-
-      course.study_unit.semester.weeks.each do |semester_week|
-        week_date += 7
-
-        unless weeks.map(&:to_week).include?(semester_week)
-          exceptions << week_date
-        end
-      end
-
-      ical_event.exdates = exceptions
+      ical_event.exdates = exceptions.map(&:to_date)
       ical_event.rrules = [{:freq => 'weekly', :until => self.until}]
     end
     

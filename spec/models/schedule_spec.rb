@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -20,9 +21,10 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Schedule do
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+  it { should have_db_column(:id) }
 
+  it_should_behave_like "a timestamped model"
+  
   it { should belong_to(:semester) }
 
   it { should have_many(:events) }

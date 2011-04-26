@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -17,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+# Controller giving access to Semester objects
 class SemestersController < ApplicationController
   def index
     @semesters = Semester.all

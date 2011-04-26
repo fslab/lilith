@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -20,14 +21,16 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Course do
+  it { should have_db_column(:id) }
   it { should have_db_column(:name).of_type(:string) }
   it { should have_db_column(:profile_url).of_type(:string) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+
+  it_should_behave_like "a timestamped model"
 
   it { should belong_to(:study_unit) }
 
   it { should have_many(:events) }
+  it { should have_many(:groups) }
 
   context "#exclusive_events" do
     it "should only deliver events which aren't associated with a group" do

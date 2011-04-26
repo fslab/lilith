@@ -1,4 +1,5 @@
-=begin encoding: UTF-8
+# encoding: UTF-8
+=begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -18,17 +19,19 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 describe Week do
+  it { should have_db_column(:id) }
   it { should have_db_column(:year).of_type(:integer) }
   it { should have_db_column(:index).of_type(:integer) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+  
+  it_should_behave_like "a timestamped model"
 
+  it { should have_many(:event_associations) }
   it { should have_many(:events) }
 
   context "#to_week" do
-    it "should return the corresponding Lilith::Week object" do
+    it "should return the corresponding Aef::Week object" do
       week = described_class.make(:year => 2011, :index => 25).to_week
-      week.should == Lilith::Week.new(2011, 25)
+      week.should == Aef::Week.new(2011, 25)
     end
   end
 end

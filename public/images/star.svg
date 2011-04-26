@@ -122,7 +122,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -151,18 +151,19 @@
        inkscape:export-filename="/home/dimedo/projects/lilith/public/images/star_alpha.png" />
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="290.00003"
-       y="352.64798"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="298.57147"
+       y="344.07654"
        id="text2839"
        inkscape:export-filename="/home/dimedo/projects/lilith/public/images/star_alpha.png"
        inkscape:export-xdpi="17.51"
-       inkscape:export-ydpi="17.51"><tspan
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2841"
-         x="290.00003"
-         y="352.64798"
-         style="font-size:240px">α</tspan></text>
+         x="298.57147"
+         y="344.07654"
+         style="font-size:240px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium Bold Italic">α</tspan></text>
     <path
        sodipodi:type="star"
        style="fill:url(#radialGradient2884);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -184,17 +185,18 @@
        inkscape:export-filename="/home/dimedo/projects/lilith/public/images/star_beta.png" />
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="296.34869"
-       y="850.68439"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="318.34869"
+       y="822.68439"
        id="text2839-9"
        inkscape:export-filename="/home/dimedo/projects/lilith/public/images/star_beta.png"
        inkscape:export-xdpi="17.51"
-       inkscape:export-ydpi="17.51"><tspan
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan2841-0"
-         x="296.34869"
-         y="850.68439"
-         style="font-size:240px">β</tspan></text>
+         x="318.34869"
+         y="822.68439"
+         style="font-size:240px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium Bold Italic"
+         id="tspan2834">β</tspan></text>
   </g>
 </svg>

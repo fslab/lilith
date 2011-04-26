@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -24,7 +25,10 @@ gem 'rails', '3.0.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 0.10.1'
+gem 'pg', '~> 0.10.1' # PostgreSQL is the recommended database system
+#gem 'sqlite3', '~> 1.3.3'
+#gem 'mysql', '~> 2.8.1'
+
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'ri_cal', '~> 0.8.8'
@@ -41,6 +45,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 1.0.0.beta2'
   gem 'machinist', '~> 2.0.0.beta2'
+  gem 'cover_me', '~> 1.0.0.rc6', :platforms => :ruby_19
 end
 
 # Use unicorn as the web server

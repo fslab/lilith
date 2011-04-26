@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -17,7 +18,15 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
+# Namespace for Lilith, the student information collection service
+#
+# Additionally this acts as a facade to make using the scraping engines easier
 module Lilith
+  # The versioning tries to follow semantic versioning
+  #
+  # See http://semver.org/
+  VERSION = '0.1.0'
+
   module_function
 
   # Scrapes the main data source: Eva² of Hochschule Bonn-Rhein-Sieg
@@ -44,5 +53,45 @@ module Lilith
     end
 
     result_options
+  end
+
+  # Returns a default scraper agent
+  def default_agent
+    unless @default_agent
+      @default_agent = Mechanize.new
+      original, library = */(.*) \(.*\)$/.match(@default_agent.user_agent)
+      @default_agent.user_agent = "Lilith/#{Lilith::VERSION} #{library} (https://www.fslab.de/redmine/projects/lilith/)"
+    end
+
+    @default_agent
+  end
+
+  # Allows to set the default scraper agent
+  def default_agent=(default_agent)
+    @default_agent = default_agent
+  end
+
+  # Returns the correct type for foreign key database columns
+  def db_reference_type
+    case Rails.configuration.database_configuration[Rails.env]['adapter']
+    when 'postgresql'
+      'uuid'
+    when 'sqlite3'
+      'text'
+    when 'mysql'
+      'char(36)'
+    end
+  end
+
+  # Returns the correct type for primary key database columns
+  def db_primary_key_type(mode = nil)
+    case Rails.configuration.database_configuration[Rails.env]['adapter']
+    when 'postgresql'
+      'uuid PRIMARY KEY'
+    when 'sqlite3'
+      'text PRIMARY KEY'
+    when 'mysql'
+      'char(36) PRIMARY KEY'
+    end
   end
 end

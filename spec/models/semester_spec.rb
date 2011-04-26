@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -20,10 +21,11 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Semester do
+  it { should have_db_column(:id) }
   it { should have_db_column(:season).of_type(:string) }
   it { should have_db_column(:start_year).of_type(:integer) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+
+  it_should_behave_like "a timestamped model"
   
   it { should have_many(:study_units) }
   it { should have_many(:schedules) }
@@ -88,10 +90,10 @@ describe Semester do
   end
 
   context "#start_week" do
-    it "should respond with correct Lilith::Week objects" do
+    it "should respond with correct Aef::Week objects" do
       semester = Semester.make(:start_week => '2011-W43')
 
-      semester.start_week.should == Lilith::Week.new(2011, 43)
+      semester.start_week.should == Aef::Week.new(2011, 43)
     end
 
     it "should be settable with a String" do
@@ -101,25 +103,25 @@ describe Semester do
       semester.save!
 
       semester = Semester.find(semester.id)
-      semester.start_week.should == Lilith::Week.new(2011, 43)
+      semester.start_week.should == Aef::Week.new(2011, 43)
     end
 
-    it "should be settable with a Lilith::Week object" do
+    it "should be settable with a Aef::Week object" do
       semester = Semester.make
 
-      semester.start_week = Lilith::Week.new(2011, 43)
+      semester.start_week = Aef::Week.new(2011, 43)
       semester.save!
 
       semester = Semester.find(semester.id)
-      semester.start_week.should == Lilith::Week.new(2011, 43)
+      semester.start_week.should == Aef::Week.new(2011, 43)
     end
   end
 
   context "#end_week" do
-    it "should respond with correct Lilith::Week objects" do
+    it "should respond with correct Aef::Week objects" do
       semester = Semester.make(:end_week => '2011-W43')
 
-      semester.end_week.should == Lilith::Week.new(2011, 43)
+      semester.end_week.should == Aef::Week.new(2011, 43)
     end
 
     it "should be settable with a String" do
@@ -129,17 +131,17 @@ describe Semester do
       semester.save!
 
       semester = Semester.find(semester.id)
-      semester.end_week.should == Lilith::Week.new(2011, 43)
+      semester.end_week.should == Aef::Week.new(2011, 43)
     end
 
-    it "should be settable with a Lilith::Week object" do
+    it "should be settable with a Aef::Week object" do
       semester = Semester.make
 
-      semester.end_week = Lilith::Week.new(2011, 43)
+      semester.end_week = Aef::Week.new(2011, 43)
       semester.save!
 
       semester = Semester.find(semester.id)
-      semester.end_week.should == Lilith::Week.new(2011, 43)
+      semester.end_week.should == Aef::Week.new(2011, 43)
     end
   end
 
@@ -147,7 +149,7 @@ describe Semester do
     it "should respond with a range of weeks" do
       semester = Semester.make(:start_week => '2011-W50', :end_week => '2012-W10')
 
-      semester.weeks.should == (Lilith::Week.new(2011, 50) .. Lilith::Week.new(2012, 10))
+      semester.weeks.should == (Aef::Week.new(2011, 50) .. Aef::Week.new(2012, 10)).to_a
     end
   end
 end

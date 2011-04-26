@@ -23,6 +23,8 @@ require 'mechanize'
 
 require 'lilith/human_name_parser'
 
+# This class encapsulates the people data aquisition from the public website of
+# Hochschule Bonn-Rhein-Sieg
 class Lilith::HbrsPeopleScraper
   attr_accessor :agent
   

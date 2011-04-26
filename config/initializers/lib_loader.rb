@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -16,6 +17,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
+
+require 'lilith'
+require 'aef/week'
+require 'aef/week_day'
 
 # Require all file in lib/lilith
 Pathname.glob(Rails.root + 'lib' + 'lilith' + '*.rb').each do |lib|

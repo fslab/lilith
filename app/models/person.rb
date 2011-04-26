@@ -1,3 +1,4 @@
+# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
@@ -17,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-# A person who organizes an event
+# A person, currently mostly people who organize events
 class Person < ActiveRecord::Base
   include Lilith::UUIDHelper
 

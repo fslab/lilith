@@ -1,4 +1,5 @@
-=begin encoding: UTF-8
+# encoding: UTF-8
+=begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 
 This file is part of Lilith.
@@ -17,13 +18,17 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-# Immutable object representing a calendar week
-class Lilith::Week
+require 'aef/week'
+
+module Aef
+  
+end
+
+# Immutable object representing a calendar week (according to ISO8601)
+class Aef::Week
   include Comparable
 
-  WEEK_PATTERN = /(0|-?\d+)-W(0[1-9]|(?:1|2|3|4)\d|5(?:0|1|2|3))/
-
-  attr_reader :year, :index
+  PARSE_PATTERN = /(0|-?\d+)-W(0[1-9]|(?:1|2|3|4)\d|5(?:0|1|2|3))/
 
   # Calculates the amount of weeks in a given year
   def self.weeks_in_year(year)
@@ -45,14 +50,15 @@ class Lilith::Week
     alias now today
   end
 
-  # Parses a the first week out a string
+  # Parses a the first week out of a string
   #
   # Looks for patterns like this:
   #
   #  2011-W03
   def self.parse(string)
-    if WEEK_PATTERN =~ string.to_s
-      new($1.to_i, $2.to_i)
+    if sub_matches = PARSE_PATTERN.match(string.to_s)
+      original, year, index = *sub_matches
+      new(year.to_i, index.to_i)
     else
       raise ArgumentError, 'No week found for parsing'
     end
@@ -62,18 +68,32 @@ class Lilith::Week
     alias [] new
   end
 
+  attr_reader :year, :index
+
   # Initializes a week object
   #
   # It either expects a year and a week index which support to_i
   # or a single argument which supports to_date
-  def initialize(*args)
-    if args.length == 2
-      @year  = args[0].to_i
-      @index = args[1].to_i
+  def initialize(*arguments)
+    case arguments.count
+    when 1
+      object = arguments.first
+      if [:year, :index].all?{|method| object.respond_to?(method) }
+        @year  = object.year.to_i
+        @index = object.index.to_i
+      elsif object.respond_to?(:to_date)
+        date = object.to_date
+        @year  = date.year
+        @index = date.cweek
+      else
+        raise ArgumentError, 'A single argument must either respond to year and index or to to_date'
+      end
+    when 2
+      year, index = *arguments
+      @year  = year.to_i
+      @index = index.to_i
     else
-      date = args[0].to_date
-      @year  = date.year
-      @index = date.cweek
+      raise ArgumentError, "wrong number of arguments (#{arguments.count} for 1..2)"
     end
 
     if not (1..52).include?(@index)
@@ -95,6 +115,10 @@ class Lilith::Week
   #  2012-W13
   def to_s
     "#{'%04i' % year}-W#{'%02i' % index}"
+  end
+
+  def to_week
+    self
   end
 
   # Equal if same week in the same year
@@ -164,5 +188,55 @@ class Lilith::Week
   # States if the week's index is even
   def even?
     index.even?
+  end
+
+  # Returns the weeks monday
+  def monday
+    Aef::WeekDay.new(self, :monday)
+  end
+
+  # Returns the weeks tuesday
+  def tuesday
+    Aef::WeekDay.new(self, :tuesday)
+  end
+
+  # Returns the weeks wednesday
+  def wednesday
+    Aef::WeekDay.new(self, :wednesday)
+  end
+
+  # Returns the weeks thursday
+  def thursday
+    Aef::WeekDay.new(self, :thursday)
+  end
+
+  # Returns the weeks friday
+  def friday
+    Aef::WeekDay.new(self, :friday)
+  end
+
+  # Returns the weeks saturday
+  def saturday
+    Aef::WeekDay.new(self, :saturday)
+  end
+
+  # Returns the weeks sunday
+  def sunday
+    Aef::WeekDay.new(self, :sunday)
+  end
+
+  # Returns the weeks saturday and sunday in an Array
+  def weekend
+    [saturday, sunday]
+  end
+
+  # Returns a range from monday to sunday
+  def days
+    monday..sunday
+  end
+
+  # Returns a WeekDay by given index or symbol
+  def day(index_or_symbol)
+    Aef::WeekDay.new(self, index_or_symbol)
   end
 end
