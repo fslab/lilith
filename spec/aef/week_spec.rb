@@ -20,6 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'spec_helper'
 require 'aef/week'
+require 'ostruct'
 
 describe Aef::Week do
   context ".weeks_in_year" do

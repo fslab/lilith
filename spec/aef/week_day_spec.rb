@@ -20,6 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'spec_helper'
 require 'aef/week_day'
+require 'ostruct'
 
 describe Aef::WeekDay do
   [:today, :now].each do |method|
