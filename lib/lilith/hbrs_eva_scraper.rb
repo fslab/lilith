@@ -112,7 +112,20 @@ class Lilith::HbrsEvaScraper
 
       scrape_study_units(semester).each do |study_unit|
         logger.debug "Scraped StudyUnit: #{study_unit.inspect}"
-        scrape_courses(study_unit, schedule)
+
+        scrape_courses(study_unit).each do |course, raw_events|
+
+          raw_events.each do |raw_event|
+
+            event = scrape_event(course, schedule, raw_event)
+
+            scrape_week_associations(event, raw_event[:recurrence])
+            scrape_group_associations(event, raw_event[:groups]) if raw_event[:groups]
+            scrape_lecturer_associations(event, raw_event[:lecturers])
+            scrape_category_associations(event, raw_event[:categories])
+
+          end
+        end
       end
     end
     
@@ -181,7 +194,6 @@ class Lilith::HbrsEvaScraper
 
     if @study_unit_page[study_unit_id]
       logger.debug "Fetching study unit page for '#{study_unit_id}' (cached)"
-      @study_unit_page[study_unit_id]
     else
       logger.debug "Fetching study unit page for '#{study_unit_id}'"
 
@@ -194,6 +206,8 @@ class Lilith::HbrsEvaScraper
 
       @study_unit_page[study_unit_id] = form.submit
     end
+
+    @study_unit_page[study_unit_id]
   end
 
   # Detect the current semester and persist it in database if not already there.
@@ -286,10 +300,15 @@ class Lilith::HbrsEvaScraper
   end
 
   # Scrapes all courses for a given study unit
-  def scrape_courses(study_unit, schedule)
-    scraped_courses = []
+  #
+  # Returns a hash with course objects as keys and arrays of raw event data as values
+  def scrape_courses(study_unit)
+    scraped_courses = {}
 
-    study_unit_page(study_unit.eva_id).search('table/tr').each do |row|
+    logger.debug study_unit.inspect 
+    logger.debug study_unit_page(study_unit.eva_id).inspect
+
+    study_unit_page(study_unit.eva_id).search('tr').each do |row|
       next if row.search("td[@class = 'header']").size > 0
 
       raw_data = {
@@ -316,37 +335,44 @@ class Lilith::HbrsEvaScraper
       name.gsub!(/  +/, ' ')
 
       course = study_unit.courses.find_or_create_by_name(name)
-      scraped_courses << course
 
-      scrape_event(course, schedule, raw_data)
+      scraped_courses[course] ||= []
+
+      if scraped_courses[course].empty?
+        logger.debug "New course found: #{course.name} (#{course.id})"
+      else
+        logger.debug "Course update found: #{course.name} (#{course.id})"
+      end
+
+      logger.debug "Adding raw data: #{raw_data}"
+      
+      scraped_courses[course] << raw_data
     end
 
     scraped_courses
   end
 
   # Parses raw data values and builds an event object belonging to course and schedule
+  #
+  # Attention: raw_data gets modified!
   def scrape_event(course, schedule, raw_data)
-    unless (raw_data.keys - [:groups]).to_set == [:start_time, :end_time, :period, :room, :lecturers, :categories].to_set
+    unless raw_data.keys.to_set.superset?([:start_time, :end_time, :period, :room].to_set)
       raise ArgumentError, 'Raw data values do not match requirements' + " #{raw_data.inspect}"
     end
 
     event = schedule.events.new
-
     event.course = course
-    event.room = raw_data[:room]
+    event.room   = raw_data[:room]
 
     match_result = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/.match(raw_data[:period])
-    original, start_date, end_date, raw_recurrence = *match_result
+    original, start_date, end_date, raw_data[:recurrence] = *match_result
 
     event.first_start = Time.parse("#{start_date} #{raw_data[:start_time]}")
     event.first_end   = Time.parse("#{start_date} #{raw_data[:end_time]}")
     event.until       = Date.parse(end_date)
     event.save!
 
-    scrape_week_associations(event, raw_recurrence)
-    scrape_group_associations(event, raw_data[:groups]) if raw_data[:groups]
-    scrape_lecturer_associations(event, raw_data[:lecturers])
-    scrape_category_associations(event, raw_data[:categories])
+    event
   end
 
   # Parses a raw recurrence string and sets week associations and recurrence
