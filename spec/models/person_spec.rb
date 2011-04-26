@@ -21,15 +21,17 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Person do
+  it { should have_db_column(:id) }
   it { should have_db_column(:title).of_type(:string) }
   it { should have_db_column(:forename).of_type(:string) }
   it { should have_db_column(:middlename).of_type(:string) }
   it { should have_db_column(:surname).of_type(:string) }
   it { should have_db_column(:eva_id).of_type(:string) }
   it { should have_db_column(:profile_url).of_type(:string) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
 
+  it_should_behave_like "a timestamped model"
+
+  #it { should have_many(:event_associations) } FIXME: Relabeled association not handled by Shoulda
   it { should have_many(:events) }
 
   context "#name" do

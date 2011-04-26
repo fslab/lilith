@@ -21,10 +21,12 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Category do
+  it { should have_db_column(:id) }
   it { should have_db_column(:name).of_type(:string) }
   it { should have_db_column(:eva_id).of_type(:string) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+
+  it_should_behave_like "a timestamped model"
 
   it { should have_many(:events) }
+  it { should have_many(:event_associations) }
 end

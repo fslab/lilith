@@ -21,20 +21,26 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 require 'spec_helper'
 
 describe Event do
+  it { should have_db_column(:id) }
   it { should have_db_column(:first_start).of_type(:datetime) }
   it { should have_db_column(:first_end).of_type(:datetime) }
   it { should have_db_column(:recurrence).of_type(:string) }
   it { should have_db_column(:until).of_type(:date) }
-  it { should have_db_column(:created_at).of_type(:datetime) }
-  it { should have_db_column(:updated_at).of_type(:datetime) }
+
+  it_should_behave_like "a timestamped model"
 
   it { should belong_to(:course) }
   it { should belong_to(:schedule) }
-  
+
+  it { should have_many(:group_associations) }
   it { should have_many(:groups) }
+  it { should have_many(:category_associations) }
   it { should have_many(:categories) }
+  it { should have_many(:lecturer_associations) }
   it { should have_many(:lecturers) }
+  it { should have_many(:week_associations) }
   it { should have_many(:weeks) }
+
 
   context "#occurences" do
     it "should report all occurences as week day objects" do
