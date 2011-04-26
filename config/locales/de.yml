@@ -62,6 +62,8 @@ de:
     title: Titel
     abstract: Zusammenfassung
     body: Haupttext
+    sticky: pinnen
+    published_at: veröffentlichen
     headline:
       edit: Bearbeite Artikel
       new: Erstelle neuen Artikel

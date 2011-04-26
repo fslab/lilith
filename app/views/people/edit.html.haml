@@ -23,6 +23,11 @@
     %label{:for => 'forename'}~ t('person.forename')
     %br
     = f.text_field :forename
+  - if !@person.middlename.to_s.empty?
+    %p
+      %label{:for => 'middlename'}~ t('person.middlename')
+      %br
+      = f.text_field :middlename
   %p
     %label{:for => 'surname'}~ t('person.surname')
     %br

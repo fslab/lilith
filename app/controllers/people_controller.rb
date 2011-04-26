@@ -1,10 +1,10 @@
-class PersonsController < AdminController
+class PeopleController < AdminController
 
   before_filter :find_person, :only => [:show, :delete, :destroy, :edit, :update]
 
 
   def index
-    @persons = Person.order('surname DESC').all
+    @people = Person.order('surname DESC').all
   end
 
   def show
@@ -22,7 +22,7 @@ class PersonsController < AdminController
 
   def update
     if @person.update_attributes(params[:person])
-      redirect_to persons_path
+      redirect_to people_path
     else
       render :action => 'edit'
     end
@@ -30,7 +30,7 @@ class PersonsController < AdminController
 
   def destroy
     @person.destroy
-    redirect_to persons_path
+    redirect_to people_path
   end
 
   def delete
