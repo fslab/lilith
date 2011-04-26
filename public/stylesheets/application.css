@@ -104,6 +104,8 @@ html, body {
     line-height: 0.5; }
   #main h2 {
     line-height: 0.5; }
+  #main #error {
+    background-color: #ff1f1f; }
 
 #footer {
   -moz-border-radius: 0px 0px 5px 5px;

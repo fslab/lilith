@@ -26,8 +26,22 @@ Lilith::Application.routes.draw do
       resources :schedules, :only => [:show, :index, :new]
     end
 
+
     resource :imprint, :only => :show, :controller => :imprint
-    
+
+
+    resources :persons do
+      member do
+        get :delete
+      end
+    end
+
+    resources :articles do
+      member do
+        get :delete
+      end
+    end
+
     root :to => 'root#show'
   end
   

@@ -1,0 +1,16 @@
+%li.person
+  - if person.surname.to_s.empty?
+    #error
+      %span.eva_id~ person.eva_id
+
+
+  %span.title~ person.title
+  %span.forename~ person.forename
+  %span.middlename~ person.middlename
+  %span.surname~ person.surname
+
+  .options
+    %a{:href => person_path(person)} show
+    %a{:href => edit_person_path(person)} edit
+    %a{:href => delete_person_path(person)} delete
+  %br

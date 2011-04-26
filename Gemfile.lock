@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    RedCloth (4.2.7)
     aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.6)
@@ -75,19 +76,19 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     ri_cal (0.8.8)
-    rspec (2.5.0)
-      rspec-core (~> 2.5.0)
-      rspec-expectations (~> 2.5.0)
-      rspec-mocks (~> 2.5.0)
-    rspec-core (2.5.1)
-    rspec-expectations (2.5.0)
+    rspec (2.6.0.rc2)
+      rspec-core (= 2.6.0.rc2)
+      rspec-expectations (= 2.6.0.rc2)
+      rspec-mocks (= 2.6.0.rc2)
+    rspec-core (2.6.0.rc2)
+    rspec-expectations (2.6.0.rc2)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.5.0)
-    rspec-rails (2.5.0)
+    rspec-mocks (2.6.0.rc2)
+    rspec-rails (2.6.0.rc2)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-      rspec (~> 2.5.0)
+      rspec (= 2.6.0.rc2)
     shoulda-matchers (1.0.0.beta2)
     thor (0.14.6)
     treetop (1.4.9)
@@ -104,6 +105,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth (~> 4.2.7)
   amatch (~> 0.2.5)
   cover_me (~> 1.0.0.rc6)
   haml (~> 3.0.25)
@@ -112,7 +114,7 @@ DEPENDENCIES
   pg (~> 0.10.1)
   rails (= 3.0.6)
   ri_cal (~> 0.8.8)
-  rspec-rails (~> 2.5.0)
+  rspec-rails (~> 2.6.0.rc2)
   shoulda-matchers (~> 1.0.0.beta2)
   uuidtools (~> 2.1.2)
   whenever (~> 0.6.7)

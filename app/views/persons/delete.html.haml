@@ -1,0 +1,16 @@
+%h2
+  - if @person.surname.to_s.empty?
+    = @person.eva_id
+  - else
+    = @person.title
+    = @person.forename
+    = @person.middlename
+    = @person.surname
+
+
+%form{:action => person_path(@person), :method => 'POST'}
+  %input{:type => 'hidden', :name => '_method', :value => 'DELETE'}
+
+  %p~ t('person.text.delete')
+
+  %input{:type => 'submit', :value => t('person.delete')}

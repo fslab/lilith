@@ -51,6 +51,40 @@ en:
     groups: Groups
     lecturers: Lecturers
     room: Room
+
+  article:
+    name: Article
+    heading: Article
+    create: create article
+    edit: edit
+    show: show
+    delete: delete
+    title: Title
+    abstract: Abstract
+    body: Body
+    headline:
+      edit: edit article
+      new: create new article
+    text:
+      delete: Delete article?
+
+  person:
+    name: Person
+    heading: Person
+    create: create person
+    edit: edit
+    show: show
+    delete: delete
+    title: title
+    forename: forename
+    surename: surname
+    middlename: middlename
+    headline:
+      edit: edit person
+      new: create person
+    text:
+      delete: Delete person?
+
   date:
     formats:
       default: "%Y-%m-%d"

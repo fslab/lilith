@@ -1,0 +1,7 @@
+%form{:action => article_path(@article), :method => 'POST'}
+  %input{:type => 'hidden', :name => '_method', :value => 'DELETE'}
+
+  %p
+    = t('article.text.delete')
+    
+  %input{:type => 'submit', :value => t('article.delete')}

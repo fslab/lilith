@@ -1,0 +1,6 @@
+- set_body_id :article
+%h2~ t('article.heading')
+%a{:href => new_article_path}~ t('article.create')
+%ol
+  = render @articles
+ 
