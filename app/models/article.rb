@@ -1,7 +1,23 @@
 class Article < ActiveRecord::Base
   include Lilith::UUIDHelper
 
-  puret :name, :body, :abstract
+#  def self.translates(*attributes)
+#    puret(*attributes)
+#
+#    TRANSLATED_ATTRIBUTES.each do |attribute|
+#      I18n.available_locales.each do |locale|
+#        define_method("#{attribute}_#{locale}=") do |name|
+#          puret_attributes[locale][attribute] = name
+#        end
+#
+#        define_method("#{attribute}_#{locale}") do
+#          puret_attributes[locale][attribute]
+#        end
+#      end
+#    end
+#  end
+
+  translates :name, :abstract, :body
 
   attr_accessor :published
 

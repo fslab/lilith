@@ -35,10 +35,10 @@ gem 'mechanize', '~> 1.0.0'
 gem 'ri_cal', '~> 0.8.8'
 gem 'amatch', '~> 0.2.5'
 gem 'uuidtools', '~> 2.1.2'
-gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 gem 'whenever', '~> 0.6.7'
 gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
-gem 'puret'
+gem 'globalize3', '~> 0.1.0.beta'
+gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 
 group :development do
   gem 'wirble', '~> 0.1.3'
