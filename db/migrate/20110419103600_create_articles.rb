@@ -1,19 +1,15 @@
 class CreateArticles < ActiveRecord::Migration
 
-  PRIMARY_KEY = 'UUID PRIMARY KEY'
-  REFERENCE   = 'UUID'
-
   def self.up
     create_table :articles, :id => false do |t|
+      t.column :id, Lilith.db_primary_key_type(:for_migration)
       t.string :name
       t.datetime :published_at
       t.text :abstract
       t.text :body
       t.timestamps
     end    
-    
-    add_column :articles, :id, PRIMARY_KEY
-  
+
   end
     
   def self.down

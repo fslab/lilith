@@ -19,6 +19,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 source 'http://rubygems.org'
+source 'http://gemcutter.org'
 
 gem 'rails', '3.0.6'
 
@@ -37,6 +38,7 @@ gem 'uuidtools', '~> 2.1.2'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 gem 'whenever', '~> 0.6.7'
 gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
+gem 'puret'
 
 group :development do
   gem 'wirble', '~> 0.1.3'
