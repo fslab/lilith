@@ -1,6 +1,8 @@
 class Article < ActiveRecord::Base
   include Lilith::UUIDHelper
 
+  puret :name, :body, :abstract
+
   attr_accessor :published
 
   before_save :set_published_at
