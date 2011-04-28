@@ -15,8 +15,7 @@ class ArticlesController < AdminController
   end
 
   def update
-    @publish
-    params[:article].delete(:published)
+    @article.published = params[:article][:published] ? true : false
 
     if @article.update_attributes(params[:article])
       redirect_to articles_path
