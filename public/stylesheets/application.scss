@@ -284,7 +284,13 @@ input[type=text]:hover, textarea:hover {
                     color: #000;
                 }
 
+                display: inline-block;
                 margin: 0;
+            }
+
+            .published_at, .author {
+                margin-left: 5px;
+                float: right;
             }
 
             padding: 5px;

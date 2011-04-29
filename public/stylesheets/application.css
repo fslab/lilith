@@ -195,8 +195,12 @@ input[type=text]:hover, textarea:hover {
     -moz-border-radius: 5px;
     border-radius: 5px; }
     #dashboard ol li h3 {
+      display: inline-block;
       margin: 0; }
       #dashboard ol li h3 a:link, #dashboard ol li h3 a:visited, #dashboard ol li h3 a:hover, #dashboard ol li h3 a:active {
         color: #000; }
+    #dashboard ol li .published_at, #dashboard ol li .author {
+      margin-left: 5px;
+      float: right; }
 #dashboard .sticky_articles li {
   background-color: #9ed8ff; }

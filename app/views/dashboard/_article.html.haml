@@ -1,6 +1,10 @@
 %li
   %h3
     %a{:href => article_path(article)}~ article.name
+  %span.author
+    = t('dashboard.by') + ' Administrator'
+  %span.published_at
+    = localize article.published_at
   - if article.abstract.blank?
     = textilize article.body
   - else

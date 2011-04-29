@@ -88,7 +88,9 @@ en:
       delete: Delete person?
 
   dashboard:
+    heading: Dashboard
     read_full_version: Read the full article...
+    by: by
 
   date:
     formats:
