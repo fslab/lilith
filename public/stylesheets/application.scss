@@ -22,10 +22,6 @@ img {
     border: none;
 }
 
-.center {
-    text-align: center;
-}
-
 input[type=text]:focus, textarea:focus,
 input[type=text]:hover, textarea:hover {
     background-color: #d6eeff;
@@ -127,6 +123,7 @@ input[type=text]:hover, textarea:hover {
   padding: 8px 10px 5px 10px;
   text-align: right; 
   vertical-align:middle;
+  height: 20px;
 
   form.semester {
     display: inline-block;
@@ -137,6 +134,10 @@ input[type=text]:hover, textarea:hover {
     display: inline-block;
     margin: 0 40px 0 0;
     float: left;
+
+    a {
+        margin-right: 3px;
+    }
   }
 
   span.language {

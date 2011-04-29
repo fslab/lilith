@@ -22,7 +22,6 @@
 %html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => I18n.locale}
   %head
     %meta{:charset => 'utf-8'}
-    %base{:href => root_url}
     %title Lilith
     = stylesheet_link_tag('application')
   %body{:id => body_id}
@@ -37,18 +36,13 @@
         plan your schedule, really
         #special_version_sign
           - if Lilith::VERSION.include?('alpha')
-            %img{:src => '/images/star_alpha.png', :alt => 'α-test version'}
+            %img{:src => '/images/star_alpha.png', :alt => 'αlpha'}
           - elsif Lilith::VERSION.include?('beta') or Lilith::VERSION.starts_with?('0.')
-            %img{:src => '/images/star_beta.png', :alt => 'β-test version'}
+            %img{:src => '/images/star_beta.png', :alt => 'βeta'}
       #menu
         %span.sections
           %a{:href => dashboard_path}~ t('dashboard.menu_name')
           %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
-        %form.semester{:action => root_path}
-          %label{:for => :semester_id}~ t('menu.semester') + ': '
-          %select{:id => :semester_id, :name => :semester_id}
-            = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
-          %input{:type => :submit, :value => t('menu.submit')}
         %span.language
           - I18n.available_locales.each do |locale|
             %a{:href => url_for(:locale => locale)}~ t('meta.name', :locale => locale)

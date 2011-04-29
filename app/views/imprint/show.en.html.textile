@@ -1,0 +1,27 @@
+h2. Imprint
+
+h3. Operator
+
+*Lilith* is operated by the "Free Software Lab":https://fslab.de/ of "Hochschule Bonn-Rhein-Sieg":http://www.hochschule-bonn-rhein-sieg.de/.
+
+Free Software Lab
+Hochschule Bonn-Rhein-Sieg
+Grantham-Allee 20
+53757 Sankt Augustin (Germany)
+
+%(name)Tel:% %(country_code)+49% %(area_code)2241% %(local_code)865% %(direct_code)- 464%
+%(name)Fax:% %(country_code)+49% %(area_code)2241% %(local_code)865% %(direct_code)- 609%
+
+Contact person: "Daniel Meißner":http://www.google.com/recaptcha/mailhide/d?k=01O3WAS6-mQKhrJjNuG3rzVg==&c=zdlvvp6VBpQ8htIwhSUj6o97OX9iJxFtJgXjs3jOrX_MpFG_Qn29N6z5Mnee8umQ
+
+h3. Software
+
+A roadmap, wiki, bug-tracker and Git-repository for the project is available through "Redmine":https://fslab.de/redmine/projects/lilith.
+
+*Lilith* is written in the "Ruby programming language":http://www.ruby-lang.org/ using the "Rails web framework":http://rubyonrails.org/. Lilith's user interface is completely designed with XHTML5.
+
+Copyright "Alexander E. Fischer":http://aef.name/, 2011
+
+Lilith is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+Lilith is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.

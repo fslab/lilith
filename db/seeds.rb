@@ -36,19 +36,19 @@ welcome_article.attributes = {
 }
 
 welcome_article.body_de = <<-TEXT
-*Lilith* trägt Studieninformationen aus verschiedensten öffentlichen Quellen zusammen und ermöglicht dir deinen persönlichen Stundenplan zusammenzustellen.
+*Lilith* trägt stündlich, automatisiert Studieninformationen aus verschiedenen öffentlichen Quellen zusammen und ermöglicht dir deinen persönlichen Stundenplan zusammenzustellen.
 
 Anschließend kann dieser mittels des iCalendar-Dateiformats in deine präferierte Kalender-Anwendung exportiert werden.
 
-p=. !images/start_de.png(Zum starten hier klicken!)!:de/schedules
+p=. !/images/start_de.png(Zum starten hier klicken!)!:/de/schedules
 TEXT
 
 welcome_article.body_en = <<-TEXT
-*Lilith* collects study information from different sources and allows you to create a personal schedule.
+*Lilith* automatically collects study information hourly from different sources and allows you to create a personal schedule.
 
 Afterwards this schedule can be exported to your favorite calendar application through the iCalendar file format.
 
-p=. !images/start_en.png(Click to start!)!:en/schedules
+p=. !/images/start_en.png(Click to start!)!:/en/schedules
 TEXT
 
 welcome_article.save!
@@ -57,30 +57,30 @@ welcome_article.save!
 beta_article = Article.find_or_create_by_id('2b2d137a-727f-11e0-b04f-002186a0cd2f')
 
 beta_article.attributes = {
-  :name_de => 'Warnung: Beta-Test-Version',
-  :name_en => 'Warning: Beta-test version',
+  :name_de => 'Warnung: βeta-Test-Version',
+  :name_en => 'Warning: βeta-test version',
   :sticky => true,
   :published => true
 }
 
 beta_article.body_de = <<-TEXT
-*Lilith* wird als Open-Source-Projekt von einem kleinen Studenten-Team im *Free Software Lab* entwickelt.
+Dies ist eine βeta-Version und es ist anzunehmen, dass sie noch größere Fehler enthält.
 
-Dies ist eine Test-Version und es ist anzunehmen, dass sie noch Fehler enthält.
+*Lilith* wird als Open-Source-Projekt von einem kleinen Studenten-Team im *Free Software Lab* entwickelt. Wir sind stets auf der Suche nach weiteren Mitstreitern.
 
-Solltest du Interesse haben dich unserem Entwicklerteam anzuschließen melde dich einfach! Wir haben auch Aufgaben für Einsteiger zu vergeben.
+Solltest du Interesse haben dich unserem Entwicklerteam anzuschließen melde dich einfach! Unsere weitreichenden Vorhaben umfassen Aufgaben in einem großen Spektrum von Schwierigkeitsgraden.
 
-Mehr Informationen zum Projekt *Lilith* erhälst du "hier":de/imprint .
+Kontaktdaten und mehr Informationen über das *Lilith*-Projekt findet ihr "hier":/de/imprint .
 TEXT
 
 beta_article.body_en = <<-TEXT
-*Lilith* is developed as an Open-source project by a small team of stundents in the *Free Software Lab*.
+This is a βeta version, it is expected to still contain some bigger errors.
 
-This is a test version, it is expected to still contain some bigger errors.
+*Lilith* is developed as an Open-source project by a small team of stundents in the *Free Software Lab*. We are constantly looking for more team members.
 
-Should you be interested to join our development team, just contact us! We have tasks for every grade of experienced developer.
+Should you be interested to join our development team, just contact us! Our many ideas for the future include tasks in a variety of difficulties.
 
-More information about the *Lilith* project can be seen "here":en/imprint .
+Contact data and more information about the *Lilith* project can be found "here":/en/imprint .
 TEXT
 
 beta_article.save!

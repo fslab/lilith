@@ -17,9 +17,6 @@ input[type=text], textarea {
 img {
   border: none; }
 
-.center {
-  text-align: center; }
-
 input[type=text]:focus, textarea:focus,
 input[type=text]:hover, textarea:hover {
   background-color: #d6eeff; }
@@ -99,7 +96,8 @@ input[type=text]:hover, textarea:hover {
   border-left: 1px solid black;
   padding: 8px 10px 5px 10px;
   text-align: right;
-  vertical-align: middle; }
+  vertical-align: middle;
+  height: 20px; }
   #menu form.semester {
     display: inline-block;
     margin: auto; }
@@ -107,6 +105,8 @@ input[type=text]:hover, textarea:hover {
     display: inline-block;
     margin: 0 40px 0 0;
     float: left; }
+    #menu span.sections a {
+      margin-right: 3px; }
   #menu span.language {
     display: inline-block;
     margin: 0 0 0 40px;
