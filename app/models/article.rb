@@ -61,6 +61,8 @@ class Article < ActiveRecord::Base
     end
   end
 
+  alias published published?
+
   protected
 
   # If published? is true, set the published_at timestamp if not already set,
