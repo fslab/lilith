@@ -21,5 +21,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # Controller responsible for imprint information
 class ImprintController < ApplicationController
   def show
+    @body_id = 'imprint'
   end
 end

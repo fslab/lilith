@@ -4,13 +4,17 @@ h3. Operator
 
 *Lilith* is operated by the "Free Software Lab":https://fslab.de/ of "Hochschule Bonn-Rhein-Sieg":http://www.hochschule-bonn-rhein-sieg.de/.
 
+<address>
 Free Software Lab
 Hochschule Bonn-Rhein-Sieg
 Grantham-Allee 20
 53757 Sankt Augustin (Germany)
+</address>
 
+<div class="telephone">
 %(name)Tel:% %(country_code)+49% %(area_code)2241% %(local_code)865% %(direct_code)- 464%
 %(name)Fax:% %(country_code)+49% %(area_code)2241% %(local_code)865% %(direct_code)- 609%
+</div>
 
 Contact person: "Daniel Meißner":http://www.google.com/recaptcha/mailhide/d?k=01O3WAS6-mQKhrJjNuG3rzVg==&c=zdlvvp6VBpQ8htIwhSUj6o97OX9iJxFtJgXjs3jOrX_MpFG_Qn29N6z5Mnee8umQ
 

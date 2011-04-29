@@ -44,7 +44,7 @@ p=. !/images/start_de.png(Zum starten hier klicken!)!:/de/schedules
 TEXT
 
 welcome_article.body_en = <<-TEXT
-*Lilith* automatically collects study information hourly from different sources and allows you to create a personal schedule.
+*Lilith* automatically collects study information from different sources hourly and allows you to create a personal schedule.
 
 Afterwards this schedule can be exported to your favorite calendar application through the iCalendar file format.
 
@@ -68,7 +68,7 @@ Dies ist eine βeta-Version und es ist anzunehmen, dass sie noch größere Fehle
 
 *Lilith* wird als Open-Source-Projekt von einem kleinen Studenten-Team im *Free Software Lab* entwickelt. Wir sind stets auf der Suche nach weiteren Mitstreitern.
 
-Solltest du Interesse haben dich unserem Entwicklerteam anzuschließen melde dich einfach! Unsere weitreichenden Vorhaben umfassen Aufgaben in einem großen Spektrum von Schwierigkeitsgraden.
+Solltest du Interesse haben dich unserem Entwicklerteam anzuschließen, melde dich einfach! Unsere weitreichenden Vorhaben umfassen Aufgaben in einem großen Spektrum von Schwierigkeitsgraden.
 
 Kontaktdaten und mehr Informationen über das *Lilith*-Projekt findet ihr "hier":/de/imprint .
 TEXT
@@ -76,7 +76,7 @@ TEXT
 beta_article.body_en = <<-TEXT
 This is a βeta version, it is expected to still contain some bigger errors.
 
-*Lilith* is developed as an Open-source project by a small team of stundents in the *Free Software Lab*. We are constantly looking for more team members.
+*Lilith* is developed as an open-source project by a small team of stundents in the *Free Software Lab*. We are constantly looking for more team members.
 
 Should you be interested to join our development team, just contact us! Our many ideas for the future include tasks in a variety of difficulties.
 
