@@ -1,5 +1,6 @@
-class ArticlesController < AdminController
+class ArticlesController < ApplicationController
 
+  before_filter :authenticate, :except => :show
   before_filter :find_article, :except => [:index, :create, :new]
 
   # List articles

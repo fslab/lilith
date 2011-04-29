@@ -1,5 +1,6 @@
-class PeopleController < AdminController
+class PeopleController < ApplicationController
 
+  before_filter :authenticate
   before_filter :find_person, :only => [:show, :delete, :destroy, :edit, :update]
 
 

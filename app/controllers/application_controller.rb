@@ -22,11 +22,21 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  USERNAME, PASSWORD = "admin", "098f6bcd4621d373cade4e832627b4f6"
+
   before_filter :set_locale
   before_filter :set_timezone
   after_filter :set_mime_type
 
   protected
+
+  def authenticate
+    if Rails.env == 'production'
+      authenticate_or_request_with_http_basic do |username, password|
+        username == USERNAME && Digest::MD5.hexdigest(password) == PASSWORD
+      end
+    end
+  end
 
   def set_locale
     unless params[:locale]
