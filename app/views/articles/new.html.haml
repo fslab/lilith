@@ -1,3 +1,5 @@
+- set_body_id(:articles)
+
 %h2~ t('article.headline.new')
 - if @article.errors.any?
   %ul
@@ -6,16 +8,6 @@
         = message  
 
 - form_for(@article) do |f|
-  %p
-    %label{:for => 'name'}~ t('article.title')
-    %br
-    = f.text_field :name
-  %p
-    %label{:for => 'abstract'}~ t('article.abstract')
-    %br
-    = f.text_area :abstract
-  %p
-    %label{:for => 'body'}~ t('article.body')
-    %br
-    = f.text_area :body
+  = render :partial => 'form', :locals => {:f => f}, :object => @article
+    
   = f.submit t('article.create')

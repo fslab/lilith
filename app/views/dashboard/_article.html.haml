@@ -1,0 +1,8 @@
+%li
+  %h3
+    %a{:href => article_path(article)}~ article.name
+  - if article.abstract.blank?
+    = textilize article.body
+  - else
+    = textilize article.abstract
+    %a{:href => article_path(article)}~ t('dashboard.read_full_version')

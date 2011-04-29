@@ -1,1 +1,11 @@
+- set_body_id :dashboard
+
 %h2 Dashboard
+
+%ol.sticky_articles
+  - @sticky_articles.each do |article|
+    = render :partial => 'dashboard/article', :locals => {:article => article}
+
+%ol.articles
+  - @articles.each do |article|
+    = render :partial => 'dashboard/article', :locals => {:article => article}

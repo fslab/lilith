@@ -163,3 +163,21 @@ html, body {
   text-align: right; }
   #schedule .controls select {
     width: 150px; }
+
+#articles input[type=text], #articles textarea {
+  width: 550px; }
+
+#dashboard ol {
+  list-style: none;
+  padding: 5px; }
+  #dashboard ol li {
+    padding: 5px;
+    border: 1px solid #000;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
+    #dashboard ol li h3 {
+      margin: 0; }
+      #dashboard ol li h3 a:link, #dashboard ol li h3 a:visited, #dashboard ol li h3 a:hover, #dashboard ol li h3 a:active {
+        color: #000; }
+#dashboard .sticky_articles li {
+  background-color: #9ed8ff; }

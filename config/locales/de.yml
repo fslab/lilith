@@ -87,6 +87,9 @@ de:
     text:
       delete: Person wirklich löschen?
 
+  dashboard:
+    read_full_version: Kompletten Artikel lesen...
+
   date:
     formats:
       default: "%Y-%m-%d"

@@ -1,3 +1,5 @@
+- set_body_id(:articles)
+
 %h2~ t('article.headline.edit')
 
 - if @article.errors.any?
@@ -7,29 +9,6 @@
         = message  
 
 - form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
-  %p
-    %label{:for => 'name'}~ t('article.title')
-    %br
-    = f.text_field :name
-  %p
-    %label{:for => 'abstract'}~ t('article.abstract')
-    %br
-    = f.text_area :abstract
-  %p
-    %label{:for => 'body'}~ t('article.body')
-    %br
-    = f.text_area :body
-    %br
-  %p
-    %label{:for => 'sticky'}~ t('article.sticky')
-    %br
-    = f.check_box(:sticky)
-  %p
-    %label{:for => 'published'}~ t('article.published_at')
-    %br
-    - if @article.published
-      %input{:type => 'checkbox', :name => 'article[published]', :value => '1', :checked => 'checked'}
-    - else
-      %input{:type => 'checkbox', :name => 'article[published]', :value => '1'}
-
+  = render :partial => 'form', :locals => {:f => f}, :object => @article
+  
   = f.submit t('article.edit')

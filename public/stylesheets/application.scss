@@ -241,3 +241,39 @@ html, body {
         }
     }
 }
+
+#articles {
+    input[type=text], textarea {
+        width: 550px;
+    }
+}
+
+#dashboard {
+    ol {
+        list-style: none;
+
+        padding: 5px;
+
+        li {
+
+            h3 {
+                a:link, a:visited, a:hover, a:active {
+                    color: #000;
+                }
+
+                margin: 0;
+            }
+
+            padding: 5px;
+            border: 1px solid #000;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    .sticky_articles {
+        li {
+            background-color: #9ed8ff;
+        }
+    }
+}

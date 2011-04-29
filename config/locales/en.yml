@@ -87,6 +87,9 @@ en:
     text:
       delete: Delete person?
 
+  dashboard:
+    read_full_version: Read the full article...
+
   date:
     formats:
       default: "%Y-%m-%d"
