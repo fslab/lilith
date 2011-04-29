@@ -148,9 +148,15 @@ input[type=text]:hover, textarea:hover {
   border-right: 1px solid black;
   border-bottom: 0px solid black;
   border-left: 1px solid black;
-  padding: 10px 20px 10px 20px;
+  padding: 10px;
   text-align: left; 
   vertical-align:middle;
+
+  > * {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   h1 {
     line-height: 0.5;
   }
@@ -275,6 +281,8 @@ input[type=text]:hover, textarea:hover {
     ol {
         list-style: none;
 
+        margin-left: 0;
+        margin-right: 0;
         padding: 5px;
 
         li {
@@ -282,6 +290,12 @@ input[type=text]:hover, textarea:hover {
             h3 {
                 a:link, a:visited, a:hover, a:active {
                     color: #000;
+                }
+
+                .type {
+                    font-size: 9pt;
+                    font-variant: small-caps;
+                    font-weight: normal;
                 }
 
                 display: inline-block;

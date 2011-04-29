@@ -116,9 +116,12 @@ input[type=text]:hover, textarea:hover {
   border-right: 1px solid black;
   border-bottom: 0px solid black;
   border-left: 1px solid black;
-  padding: 10px 20px 10px 20px;
+  padding: 10px;
   text-align: left;
   vertical-align: middle; }
+  #main > * {
+    margin-left: 10px;
+    margin-right: 10px; }
   #main h1 {
     line-height: 0.5; }
   #main h2 {
@@ -188,6 +191,8 @@ input[type=text]:hover, textarea:hover {
 
 #dashboard ol {
   list-style: none;
+  margin-left: 0;
+  margin-right: 0;
   padding: 5px; }
   #dashboard ol li {
     padding: 5px;
@@ -199,6 +204,10 @@ input[type=text]:hover, textarea:hover {
       margin: 0; }
       #dashboard ol li h3 a:link, #dashboard ol li h3 a:visited, #dashboard ol li h3 a:hover, #dashboard ol li h3 a:active {
         color: #000; }
+      #dashboard ol li h3 .type {
+        font-size: 9pt;
+        font-variant: small-caps;
+        font-weight: normal; }
     #dashboard ol li .published_at, #dashboard ol li .author {
       margin-left: 5px;
       float: right; }

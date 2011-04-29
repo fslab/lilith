@@ -91,6 +91,7 @@ en:
     heading: Dashboard
     read_full_version: Read the full article...
     by: by
+    sticky: Sticky
 
   date:
     formats:
