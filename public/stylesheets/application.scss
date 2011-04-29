@@ -9,6 +9,20 @@ html, body {
   }
 }
 
+input[type=text], textarea {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+input[type=text]:focus, textarea:focus,
+input[type=text]:hover, textarea:hover {
+    background-color: #d6eeff;
+}
+
 #ie_warning
 {
   width: 100%;
