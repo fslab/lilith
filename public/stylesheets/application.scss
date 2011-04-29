@@ -116,16 +116,25 @@ input[type=text]:hover, textarea:hover {
   border-right: 1px solid black;
   border-bottom: 0px solid black;
   border-left: 1px solid black;
-  padding: 5px 20px 5px 5px;
+  padding: 8px 10px 5px 10px;
   text-align: right; 
   vertical-align:middle;
 
-  form {
-    display: inline;
+  form.semester {
+    display: inline-block;
+    margin: auto;
+  }
+
+  span.sections {
+    display: inline-block;
+    margin: 0 50px 0 0;
+    float: left;
   }
 
   span.language {
-    margin-left: 25px;
+    display: inline-block;
+    margin: 0 0 0 50px;
+    float: right;
   }
 }
 

@@ -40,7 +40,10 @@
           - elsif Lilith::VERSION.include?('beta') or Lilith::VERSION.starts_with?('0.')
             %img{:src => '/images/star_beta.png', :alt => 'β-test version'}
       #menu
-        %form{:action => root_path}
+        %span.sections
+          %a{:href => dashboard_path} Home
+          %a{:href => new_semester_schedule_path(Semester.latest.token)} Schedules
+        %form.semester{:action => root_path}
           %label{:for => :semester_id}~ t('menu.semester') + ': '
           %select{:id => :semester_id, :name => :semester_id}
             = options_for_select Semester.all.map{|semester| [semester.name, semester.id]}, @semester.try(:id)
