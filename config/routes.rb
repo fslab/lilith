@@ -20,12 +20,13 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 Lilith::Application.routes.draw do
 
-  scope ':locale' do
+  scope '(:locale)' do
 
-    resources :semesters, :only => [:index] do
+    resources :semesters, :only => :index do
       resources :schedules, :only => [:show, :index, :new]
     end
 
+    resources :schedules, :only => :index
 
     resource :imprint, :only => :show, :controller => :imprint
     resource :dashboard, :only => :show, :controller => :dashboard
@@ -44,8 +45,6 @@ Lilith::Application.routes.draw do
 
     root :to => 'root#show'
   end
-  
-  root :to => 'root#show'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

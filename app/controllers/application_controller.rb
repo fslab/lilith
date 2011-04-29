@@ -29,7 +29,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_locale
-    I18n.locale = params[:locale]
+    unless params[:locale]
+      redirect_to :locale => I18n.default_locale
+    else
+      I18n.locale = params[:locale]
+    end
   end
 
   def set_timezone

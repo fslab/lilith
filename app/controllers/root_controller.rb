@@ -21,13 +21,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # Controller handling the root URL
 class RootController < ApplicationController
   def show
-#    if params[:semester_id]
-#      semester = Semester.find(params[:semester_id])
-#    else
-#      semester = Semester.latest
-#    end
-#
-#    redirect_to new_semester_schedule_path(semester.token)
     redirect_to dashboard_path
   end
 end

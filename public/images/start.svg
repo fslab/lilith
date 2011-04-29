@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47pre4 r22446"
+   sodipodi:docname="start.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3602">
+      <stop
+         style="stop-color:#ff9800;stop-opacity:1;"
+         offset="0"
+         id="stop3604" />
+      <stop
+         id="stop3614"
+         offset="0.78260869"
+         style="stop-color:#ffd400;stop-opacity:0.98039216;" />
+      <stop
+         style="stop-color:#ffffa3;stop-opacity:0.96470588;"
+         offset="1"
+         id="stop3606" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3602"
+       id="radialGradient3610"
+       cx="241.51401"
+       cy="329.35278"
+       fx="241.51401"
+       fy="329.35278"
+       r="195.21771"
+       gradientTransform="matrix(1,0,0,1.0034794,0,-1.1459595)"
+       gradientUnits="userSpaceOnUse" />
+    <inkscape:perspective
+       id="perspective2872"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3602-6"
+       id="radialGradient3610-0"
+       cx="241.51401"
+       cy="329.35278"
+       fx="241.51401"
+       fy="329.35278"
+       r="195.21771"
+       gradientTransform="matrix(1,0,0,1.0034794,0,-1.1459595)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3602-6">
+      <stop
+         style="stop-color:#ff9800;stop-opacity:1;"
+         offset="0"
+         id="stop3604-1" />
+      <stop
+         id="stop3614-5"
+         offset="0.78260869"
+         style="stop-color:#ffd400;stop-opacity:0.98039216;" />
+      <stop
+         style="stop-color:#ffffa3;stop-opacity:0.96470588;"
+         offset="1"
+         id="stop3606-9" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective2984"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3009"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3602-8"
+       id="radialGradient3610-08"
+       cx="241.51401"
+       cy="329.35278"
+       fx="241.51401"
+       fy="329.35278"
+       r="195.21771"
+       gradientTransform="matrix(1,0,0,1.0034794,0,-1.1459595)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient3602-8">
+      <stop
+         style="stop-color:#ff9800;stop-opacity:1;"
+         offset="0"
+         id="stop3604-5" />
+      <stop
+         id="stop3614-0"
+         offset="0.78260869"
+         style="stop-color:#ffd400;stop-opacity:0.98039216;" />
+      <stop
+         style="stop-color:#ffffa3;stop-opacity:0.96470588;"
+         offset="1"
+         id="stop3606-96" />
+    </linearGradient>
+    <radialGradient
+       r="195.21771"
+       fy="329.35278"
+       fx="241.51401"
+       cy="329.35278"
+       cx="241.51401"
+       gradientTransform="matrix(1,0,0,1.0034794,0,-1.1459595)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient3023"
+       xlink:href="#linearGradient3602-8"
+       inkscape:collect="always" />
+    <inkscape:perspective
+       id="perspective3062"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3087"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-120.71429"
+     inkscape:cy="508.57143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="828"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:url(#radialGradient3610);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2820"
+       sodipodi:sides="7"
+       sodipodi:cx="240"
+       sodipodi:cy="329.50504"
+       sodipodi:r1="191.28592"
+       sodipodi:r2="179.8279"
+       sodipodi:arg1="0.64499476"
+       sodipodi:arg2="1.0937938"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.1"
+       inkscape:randomized="0"
+       d="m 392.85714,444.50503 c -9.97933,13.26445 -130.87032,75.74176 -147.46289,76.20985 -16.59257,0.4681 -140.8136,-55.09432 -151.524868,-67.77506 C 83.158113,440.25908 49.148017,308.49657 52.383851,292.21585 55.619686,275.93513 137.43082,167.19238 152.17711,159.57139 c 14.74629,-7.62098 150.7732,-11.45846 165.92568,-4.68095 15.15249,6.77751 102.96414,110.735 107.11269,126.8074 4.14856,16.0724 -22.37902,149.54275 -32.35834,162.80719 z"
+       transform="matrix(1.8782177,0,0,0.87971294,-74.100668,-32.934214)"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_en.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:200px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="137.8894"
+       y="359.93207"
+       id="text2839"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_en.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="137.8894"
+         y="359.93207"
+         style="font-size:200px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972">Start!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="210.38504"
+       y="208.38893"
+       id="text2839-3"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_en.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="210.38504"
+         y="208.38893"
+         style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972-9">Click to</tspan></text>
+    <path
+       sodipodi:type="star"
+       style="fill:url(#radialGradient3023);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2820-3"
+       sodipodi:sides="7"
+       sodipodi:cx="240"
+       sodipodi:cy="329.50504"
+       sodipodi:r1="191.28592"
+       sodipodi:r2="179.8279"
+       sodipodi:arg1="0.64499476"
+       sodipodi:arg2="1.0937938"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.1"
+       inkscape:randomized="0"
+       d="m 392.85714,444.50503 c -9.97933,13.26445 -130.87032,75.74176 -147.46289,76.20985 -16.59257,0.4681 -140.8136,-55.09432 -151.524868,-67.77506 C 83.158113,440.25908 49.148017,308.49657 52.383851,292.21585 55.619686,275.93513 137.43082,167.19238 152.17711,159.57139 c 14.74629,-7.62098 150.7732,-11.45846 165.92568,-4.68095 15.15249,6.77751 102.96414,110.735 107.11269,126.8074 4.14856,16.0724 -22.37902,149.54275 -32.35834,162.80719 z"
+       transform="matrix(1.8782177,0,0,0.87971294,-77.29633,411.02173)"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_de.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:200px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="106.408"
+       y="729.888"
+       id="text2839-8"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_de.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="106.408"
+         y="729.888"
+         style="font-size:150px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972-5">Starten</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="196.04652"
+       y="621.20197"
+       id="text2839-3-6"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_de.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="196.04652"
+         y="621.20197"
+         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972-9-1">Zum</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:100px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="181.04115"
+       y="811.63928"
+       id="text2839-3-6-1"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_de.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="181.04115"
+         y="811.63928"
+         style="font-size:80px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972-9-1-5">hier klicken</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:200px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Gentium;-inkscape-font-specification:Gentium"
+       x="576.09937"
+       y="774.10327"
+       id="text2839-9"
+       inkscape:export-filename="/home/dimedo/projects/lilith/public/images/start_de.png"
+       inkscape:export-xdpi="17.51"
+       inkscape:export-ydpi="17.51"
+       sodipodi:linespacing="100%"><tspan
+         sodipodi:role="line"
+         x="576.09937"
+         y="774.10327"
+         style="font-size:200px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;font-family:Gentium;-inkscape-font-specification:Gentium"
+         id="tspan2972-8">!</tspan></text>
+  </g>
+</svg>

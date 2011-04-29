@@ -23,13 +23,17 @@ class SchedulesController < ApplicationController
   before_filter :set_semester
 
   def index
-    redirect_to semester_schedule_path(
-      @semester.token,
-      params[:schedule_id],
-      :format     => params[:format],
-      :course_ids => params[:course_ids],
-      :group_ids  => params[:group_ids]
-    )
+    if @semester
+      redirect_to semester_schedule_path(
+        @semester.token,
+        params[:schedule_id],
+        :format     => params[:format],
+        :course_ids => params[:course_ids],
+        :group_ids  => params[:group_ids]
+      )
+    else
+      redirect_to new_semester_schedule_path(Semester.latest.token)
+    end
   end
 
   def show
@@ -69,5 +73,7 @@ class SchedulesController < ApplicationController
 
   def set_semester
     @semester = Semester.find(params[:semester_id])
+  rescue
+    @semester = nil
   end
 end

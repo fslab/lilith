@@ -22,6 +22,7 @@
 %html{:xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => I18n.locale}
   %head
     %meta{:charset => 'utf-8'}
+    %base{:href => root_url}
     %title Lilith
     = stylesheet_link_tag('application')
   %body{:id => body_id}
@@ -41,8 +42,8 @@
             %img{:src => '/images/star_beta.png', :alt => 'β-test version'}
       #menu
         %span.sections
-          %a{:href => dashboard_path} Home
-          %a{:href => new_semester_schedule_path(Semester.latest.token)} Schedules
+          %a{:href => dashboard_path}~ t('dashboard.menu_name')
+          %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
         %form.semester{:action => root_path}
           %label{:for => :semester_id}~ t('menu.semester') + ': '
           %select{:id => :semester_id, :name => :semester_id}

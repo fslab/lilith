@@ -29,7 +29,7 @@ module Lilith::UUIDHelper
       protected
 
       def set_uuid
-        self.id = UUIDTools::UUID.timestamp_create.to_s
+        self.id = UUIDTools::UUID.timestamp_create.to_s unless self.id
       end
     end
   end

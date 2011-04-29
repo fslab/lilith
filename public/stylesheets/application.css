@@ -14,6 +14,12 @@ input[type=text], textarea {
   border-radius: 5px;
   padding: 2px; }
 
+img {
+  border: none; }
+
+.center {
+  text-align: center; }
+
 input[type=text]:focus, textarea:focus,
 input[type=text]:hover, textarea:hover {
   background-color: #d6eeff; }
@@ -99,11 +105,11 @@ input[type=text]:hover, textarea:hover {
     margin: auto; }
   #menu span.sections {
     display: inline-block;
-    margin: 0 50px 0 0;
+    margin: 0 40px 0 0;
     float: left; }
   #menu span.language {
     display: inline-block;
-    margin: 0 0 0 50px;
+    margin: 0 0 0 40px;
     float: right; }
 
 #main {
@@ -195,6 +201,7 @@ input[type=text]:hover, textarea:hover {
   margin-right: 0;
   padding: 5px; }
   #dashboard ol li {
+    margin-top: 5px;
     padding: 5px;
     border: 1px solid #000;
     -moz-border-radius: 5px;
@@ -205,11 +212,13 @@ input[type=text]:hover, textarea:hover {
       #dashboard ol li h3 a:link, #dashboard ol li h3 a:visited, #dashboard ol li h3 a:hover, #dashboard ol li h3 a:active {
         color: #000; }
       #dashboard ol li h3 .type {
+        display: inline-block;
+        padding: 1px;
+        border: #ff9900 solid 1px;
+        background-color: #f0db4c;
         font-size: 9pt;
         font-variant: small-caps;
         font-weight: normal; }
     #dashboard ol li .published_at, #dashboard ol li .author {
       margin-left: 5px;
       float: right; }
-#dashboard .sticky_articles li {
-  background-color: #9ed8ff; }
