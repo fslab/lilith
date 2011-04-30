@@ -1,7 +1,10 @@
-%h2
-  = @article.name
+- set_body_id (:articles)
+#show
+  %span.name
+    %h2
+      = @article.name
+  %span.published_at
+    = @article.published_at
 
-  = @article.published_at
-.body
-  = textilize @article.body
-
+  %span.body
+    = textilize @article.body

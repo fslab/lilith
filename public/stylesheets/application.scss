@@ -281,8 +281,50 @@ input[type=text]:hover, textarea:hover {
 }
 
 #articles {
-    input[type=text], textarea {
-        width: 550px;
+    #edit {
+        input[type=text], textarea {
+            width: 550px;
+        }
+    }
+
+    #index {
+        ol {
+            list-style: none;
+            margin-left: 0;
+            margin-right: 0;
+
+
+            li {
+
+
+                .published_at {
+                    float: right;
+                }
+
+                .options {
+                    margin-left: 5px;
+                    float: right;
+                }
+
+            }
+        }
+
+    }
+
+
+    #show {
+        .name {
+
+
+        }
+
+
+        .published_at {
+            float: right;
+    }
+
+
+
     }
 }
 

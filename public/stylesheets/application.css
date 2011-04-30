@@ -192,8 +192,19 @@ input[type=text]:hover, textarea:hover {
   #schedule .controls select {
     width: 150px; }
 
-#articles input[type=text], #articles textarea {
+#articles #edit input[type=text], #articles #edit textarea {
   width: 550px; }
+#articles #index ol {
+  list-style: none;
+  margin-left: 0;
+  margin-right: 0; }
+  #articles #index ol li .published_at {
+    float: right; }
+  #articles #index ol li .options {
+    margin-left: 5px;
+    float: right; }
+#articles #show .published_at {
+  float: right; }
 
 #dashboard ol {
   list-style: none;

@@ -52,6 +52,8 @@ en:
     body: Body
     sticky: sticky
     published_at: publish
+    published: publish
+    unpublished: unpublished
     headline:
       edit: edit article
       new: create new article

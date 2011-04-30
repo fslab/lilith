@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
 
   # List articles
   def index
+    @unpublished_articles = Article.unpublished
     @articles = Article.order('published_at ASC').all
   end
 

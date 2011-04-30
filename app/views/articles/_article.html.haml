@@ -1,10 +1,21 @@
-%li.article
-  %span.name~ article.name
-  %span.published_at~ article.published_at
-  .body~ article.body
-  
-  .options
-    %a{:href => article_path(article)}~ t('article.show')
+-#%li
+-#  %span.name~ article.name
+-#  - if article.published_at != nil
+-#
+-#  %span.published_at~ article.published_at
+-#  %span.options
+-#    %a{:href => article_path(article)}~ t('article.show')
+-#    %a{:href => edit_article_path(article)}~ t('article.edit')
+-#    %a{:href => delete_article_path(article)}~ t('article.delete')
+-#
+-#
+%li
+  - if article.sticky?
+    %span.type
+    %a{:href => article_path(article)}~ article.name
+  %span.options
     %a{:href => edit_article_path(article)}~ t('article.edit')
     %a{:href => delete_article_path(article)}~ t('article.delete')
-    
+  - if article.published_at?
+    %span.published_at
+      = localize article.published_at

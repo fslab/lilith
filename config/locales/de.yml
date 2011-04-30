@@ -52,6 +52,8 @@ de:
     body: Haupttext
     sticky: pinnen
     published_at: veröffentlichen
+    published: Veröffentlicht
+    unpublished: Unveröffentlicht
     headline:
       edit: Bearbeite Artikel
       new: Erstelle neuen Artikel

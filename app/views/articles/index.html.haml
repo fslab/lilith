@@ -1,6 +1,15 @@
-- set_body_id :article
-%h2~ t('article.heading')
-%a{:href => new_article_path}~ t('article.create')
-%ol
-  = render @articles
- 
+- set_body_id (:articles)
+#index
+  %h2~ t('article.heading')
+  %a{:href => new_article_path}~ t('article.create')
+  - if @unpublished_articles.count > 0
+    %ol.unpublished_articles
+      %h3~ t('article.unpublished')
+      - @unpublished_articles.each do |article|
+        = render :partial => 'articles/article', :locals => {:article => article}
+  %ol.articles
+    %h3~ t('article.published')
+    - @articles.each do |article|
+      = render :partial => 'articles/article', :locals => {:article => article}
+
+
