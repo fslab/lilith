@@ -30,3 +30,4 @@ nbproject
 
 # SASS
 public/stylesheets/.sass-cache/
+public/stylesheets/application.css

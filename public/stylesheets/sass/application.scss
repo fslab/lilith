@@ -386,12 +386,6 @@ input[type=text]:hover, textarea:hover {
             border-radius: 5px;
         }
     }
-
-    .sticky_articles {
-        li {
-            //background-color: #9ed8ff;
-        }
-    }
 }
 
 .article {
@@ -414,7 +408,7 @@ input[type=text]:hover, textarea:hover {
         margin: 0;
     }
 
-    .published_at, .author, .read_full_version {
+    .published_at, .author, .last_edited {
         margin-left: 5px;
         float: right;
     }
