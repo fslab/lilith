@@ -53,6 +53,10 @@ Lilith::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  # Administration login data for tests
+  config.admin_username = 'admin'
+  config.admin_password = 'admin'
+
 end
 
 Machinist.configure do |config|

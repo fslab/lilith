@@ -32,7 +32,7 @@ describe Aef::WeekDay do
 
         week_day.week.year.should  == today.year
         week_day.week.index.should == today.cweek
-        week_day.index.should      == today.wday
+        week_day.index.should      == ((today.wday - 1) % 7) + 1
       end
     end
   end

@@ -42,7 +42,7 @@ class Aef::WeekDay
   def self.today
     today = Date.today
     
-    new(today, today.wday)
+    new(today, ((today.wday - 1) % 7) + 1)
   end
 
   singleton_class.class_eval do
@@ -80,7 +80,7 @@ class Aef::WeekDay
       elsif object.respond_to?(:to_date)
         date = object.to_date
         @week  = Aef::Week.new(date)
-        @index = date.wday
+        @index = ((date.wday - 1) % 7) + 1
       else
         raise ArgumentError, 'A single argument must either respond to week and index or to to_date'
       end
@@ -126,7 +126,7 @@ class Aef::WeekDay
 
     days_to_add = 7 * week.index
     days_to_add -= 7 if date.cweek == 1
-    days_to_add -= date.wday
+    days_to_add -= ((date.wday - 1) % 7) + 1
     days_to_add += index
 
     date + days_to_add
