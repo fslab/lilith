@@ -73,6 +73,7 @@ de:
     read_full_version: Kompletten Artikel lesen...
     by: von
     last_edited: Zuletzt editiert
+    none_found: Keine Artikel gefunden
 
   person:
     name: Person

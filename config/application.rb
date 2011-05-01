@@ -64,5 +64,10 @@ module Lilith
     end
 
     config.active_record.schema_format = :sql
+
+    # Lilith administration password is required outside development mode
+    config.admin_username = nil
+    config.admin_password = nil
+    
   end
 end

@@ -22,8 +22,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  USERNAME, PASSWORD = "admin", "098f6bcd4621d373cade4e832627b4f6"
-
   before_filter :set_locale
   before_filter :set_timezone
   after_filter :set_mime_type
@@ -31,9 +29,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate
-    if Rails.env == 'production'
+    unless Rails.configuration.admin_username.blank? or
+           Rails.configuration.admin_password.blank?
       authenticate_or_request_with_http_basic do |username, password|
-        username == USERNAME && Digest::MD5.hexdigest(password) == PASSWORD
+        username == Rails.configuration.admin_username && password == Rails.configuration.admin_password
+      end
+    else
+      unless Rails.env == 'development'
+        raise 'admin_username and admin_password are required to be configured outside development mode'
       end
     end
   end

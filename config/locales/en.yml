@@ -72,6 +72,7 @@ en:
     read_full_version: Read the full article...
     by: by
     last_edited: Last edited
+    none_found: No articles found
 
   person:
     name: Person
