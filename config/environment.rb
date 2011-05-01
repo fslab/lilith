@@ -23,5 +23,7 @@ require File.expand_path('../application', __FILE__)
 
 Haml::Template.options[:format] = :xhtml
 
+Sass::Plugin.options[:template_location] = (Rails.root + 'app' + 'views').to_s
+
 # Initialize the rails application
 Lilith::Application.initialize!

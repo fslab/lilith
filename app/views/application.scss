@@ -1,8 +1,13 @@
+@import 'imprint/imprint';
+@import 'dashboard/dashboard';
+@import 'articles/articles';
+@import 'schedules/schedules';
+
 html, body {
   padding: 0;
   margin: 0;
   color: black;
-  background-image: url("../images/background.png");
+  background-image: url("/images/background.png");
 
   .clear {
     clear: both;
@@ -200,192 +205,6 @@ input[type=text]:hover, textarea:hover {
   a:hover {
     color: #fff;
   }
-}
-
-#imprint {
-    #main {
-        .telephone {
-            padding: 0;
-
-            li {
-                list-style: none;
-            }
-
-            .name {
-                display: inline-block;
-                width: 30px;
-            }
-
-            .country_code {
-                display: inline-block;
-                width: 30px;
-            }
-
-            .area_code {
-                display: inline-block;
-                width: 35px;
-            }
-
-            .local_code {
-                display: inline-block;
-                width: 25px;
-            }
-        }
-    }
-}
-
-#schedule {
-    ul {
-        padding: 0;
-
-        ul {
-            padding-left: 20px;
-        }
-
-        ul.events {
-            padding-left: 35px;
-        }
-
-        li {
-            list-style: none;
-        }
-    }
-
-    .navigation {
-
-        table {
-            border-spacing: 0;
-
-            tr:hover td {
-                background-color: #d8efff;
-            }
-
-            td.program {
-                padding-right: 20px;
-            }
-
-            td.units {
-                padding-right: 10px;
-            }
-        }
-    }
-
-    .controls {
-        float: right;
-        text-align: right;
-
-        select {
-            width: 150px;
-        }
-    }
-}
-
-#articles {
-
-    div.actions {
-        display: inline-block;
-        float: right;
-    }
-
-    input[type=text], textarea {
-        width: 550px;
-    }
-
-    table {
-        margin: 10px 0 0 0;
-        border: solid 1px #000;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-spacing: 0;
-        width: 100%;
-
-        .sticky {
-            width: 100px;
-        }
-
-        .dates {
-            width: 150px;
-        }
-
-        .actions {
-            width: 100px;
-        }
-
-        caption {
-            font-variant: small-caps;
-            margin-bottom: 5px;
-        }
-
-        thead {
-            background-color: #000;
-            color: #fff;
-
-            th {
-                text-align: center;
-            }
-        }
-
-        tbody {
-            td {
-                padding: 5px;
-            }
-
-            tr.even {
-                background-color: #dfdfdf;
-            }
-
-            tr:hover td {
-                background-color: #d6eeff;
-            }
-
-            tr:last-child td {
-                border-radius: 0 0 5px 5px;
-                -moz-border-radius: 0 0 5px 5px;
-            }
-
-            td.sticky {
-                text-align: center;
-            }
-
-            td.dates {
-                text-align: center;
-                span {
-                    display: block;
-                    float: none;
-                }
-            }
-
-            td.actions {
-                a {
-                    display: block;
-                    float: none;
-                }
-            }
-
-        }
-    }
-
-    .published_at {
-        float: right;
-    }
-
-}
-
-#dashboard {
-    ol {
-        list-style: none;
-
-        margin: 0;
-        padding: 0px;
-
-        li {
-            margin-top: 5px;
-            padding: 5px;
-            border: 1px solid #000;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-        }
-    }
 }
 
 .article {

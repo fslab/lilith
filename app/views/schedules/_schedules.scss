@@ -1,0 +1,45 @@
+#schedule {
+    ul {
+        padding: 0;
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul.events {
+            padding-left: 35px;
+        }
+
+        li {
+            list-style: none;
+        }
+    }
+
+    .navigation {
+
+        table {
+            border-spacing: 0;
+
+            tr:hover td {
+                background-color: #d8efff;
+            }
+
+            td.program {
+                padding-right: 20px;
+            }
+
+            td.units {
+                padding-right: 10px;
+            }
+        }
+    }
+
+    .controls {
+        float: right;
+        text-align: right;
+
+        select {
+            width: 150px;
+        }
+    }
+}
