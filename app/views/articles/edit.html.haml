@@ -1,14 +1,14 @@
 - set_body_id(:articles)
-#edit
-  %h2~ t('article.headline.edit')
 
-  - if @article.errors.any?
-    %ul
-      - @article.errors.each do |message|
-        %li
-          = message
+%h2~ t('article.headline.edit')
 
-  - form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
-    = render :partial => 'form', :locals => {:f => f}, :object => @article
+- if @article.errors.any?
+  %ul
+    - @article.errors.each do |message|
+      %li
+        = message
 
-    = f.submit t('article.edit')
+- form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
+  = render :partial => 'form', :locals => {:f => f}, :object => @article
+
+  = f.submit t('article.edit')

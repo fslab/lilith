@@ -1,21 +1,26 @@
--#%li
--#  %span.name~ article.name
--#  - if article.published_at != nil
--#
--#  %span.published_at~ article.published_at
--#  %span.options
--#    %a{:href => article_path(article)}~ t('article.show')
--#    %a{:href => edit_article_path(article)}~ t('article.edit')
--#    %a{:href => delete_article_path(article)}~ t('article.delete')
--#
--#
-%li
-  - if article.sticky?
-    %span.type
-    %a{:href => article_path(article)}~ article.name
-  %span.options
-    %a{:href => edit_article_path(article)}~ t('article.edit')
-    %a{:href => delete_article_path(article)}~ t('article.delete')
-  - if article.published_at?
+.article{:id => article.id}
+  %h3
+    - if article.sticky?
+      %span.type
+        = t('article.sticky')
+    %a{:href => article_path(article)}
+      = article.name.blank? ? t('global.translation_missing') : article.name
+  %span.author
+    = t('article.by')
+    %a{:href => 'http://www.google.com/recaptcha/mailhide/d?k=01NIhYKKhq41PU2LhdP69a4w==&c=tlHieYIbnEw2wBTwENVUqthDMWrjNuB8dnMLtOK7IYQ='} Lilith-Team
+  - if article.published?
     %span.published_at
       = localize article.published_at
+  - else
+    %span.created_at
+      = localize article.created_at
+  - if article.abstract.blank?
+    = textilize (article.body.blank? ? t('global.translation_missing') : article.body)
+  - else
+    = textilize article.abstract
+    %a.read_full_version{:href => article_path(article)}
+      = t('article.read_full_version')
+  - if (article.published_at and article.updated_at.delta(article.published_at) > 60) or article.updated_at.delta(article.created_at) > 60
+    %span.last_edited
+      = t('article.last_edited') + ': ' + localize(article.updated_at)
+  .clear

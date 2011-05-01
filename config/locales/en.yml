@@ -21,6 +21,7 @@ en:
   global:
     ie_warning: You are using a browser that sucks. Go and install a %{browser_link} browser.
     ie_warning_browser_link: real
+    translation_missing: Translation missing
   menu:
     submit: Switch
     semester: Semester
@@ -41,24 +42,36 @@ en:
     room: Room
 
   article:
-    name: Article
+    name: Name
     heading: Article
-    create: create article
+    create: Create article
     edit: edit
     show: show
     delete: delete
-    title: Title
     abstract: Abstract
     body: Body
-    sticky: sticky
-    published_at: publish
+    set_sticky: sticky
+    set_published: publish
     published: publish
     unpublished: unpublished
     headline:
-      edit: edit article
-      new: create new article
+      edit: Edit article
+      new: Create article
     text:
-      delete: Delete article?
+      delete: Really delete article?
+    sticky_yes: ✓
+    sticky_no: ''
+    sticky: Sticky
+    dates: Dates
+    published_at: Publishing date
+    published_at_short: P
+    created_at: Creation date
+    created_at_short: C
+    updated_at: Modification date
+    updated_at_short: M
+    read_full_version: Read the full article...
+    by: by
+    last_edited: Last edited
 
   person:
     name: Person
@@ -80,9 +93,6 @@ en:
   dashboard:
     heading: Dashboard
     menu_name: Dashboard
-    read_full_version: Read the full article...
-    by: by
-    sticky: Sticky
 
   date:
     formats:

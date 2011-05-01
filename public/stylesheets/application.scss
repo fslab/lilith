@@ -5,7 +5,17 @@ html, body {
   background-image: url("../images/background.png");
 
   .clear {
-    float: clear;
+    clear: both;
+  }
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold;
+  }
+
+  a:hover {
+    color: black;
   }
 }
 
@@ -58,16 +68,6 @@ input[type=text]:hover, textarea:hover {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-
-  a:link, a:visited, a:hover, a:active {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold;
-  }
-
-  a:hover {
-    color: black;
-  }
 }
 
 #header {
@@ -281,87 +281,104 @@ input[type=text]:hover, textarea:hover {
 }
 
 #articles {
-    #edit {
-        input[type=text], textarea {
-            width: 550px;
-        }
+
+    div.actions {
+        display: inline-block;
+        float: right;
     }
 
-    #index {
-        ol {
-            list-style: none;
-            margin-left: 0;
-            margin-right: 0;
+    input[type=text], textarea {
+        width: 550px;
+    }
 
+    table {
+        margin: 10px 0 0 0;
+        border: solid 1px #000;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-spacing: 0;
+        width: 100%;
 
-            li {
+        .sticky {
+            width: 100px;
+        }
 
+        .dates {
+            width: 150px;
+        }
 
-                .published_at {
-                    float: right;
-                }
+        .actions {
+            width: 100px;
+        }
 
-                .options {
-                    margin-left: 5px;
-                    float: right;
-                }
+        caption {
+            font-variant: small-caps;
+            margin-bottom: 5px;
+        }
 
+        thead {
+            background-color: #000;
+            color: #fff;
+
+            th {
+                text-align: center;
             }
         }
 
-    }
+        tbody {
+            td {
+                padding: 5px;
+            }
 
+            tr.even {
+                background-color: #dfdfdf;
+            }
 
-    #show {
-        .name {
+            tr:hover td {
+                background-color: #d6eeff;
+            }
 
+            tr:last-child td {
+                border-radius: 0 0 5px 5px;
+                -moz-border-radius: 0 0 5px 5px;
+            }
+
+            td.sticky {
+                text-align: center;
+            }
+
+            td.dates {
+                text-align: center;
+                span {
+                    display: block;
+                    float: none;
+                }
+            }
+
+            td.actions {
+                a {
+                    display: block;
+                    float: none;
+                }
+            }
 
         }
-
-
-        .published_at {
-            float: right;
     }
 
-
-
+    .published_at {
+        float: right;
     }
+
 }
 
 #dashboard {
     ol {
         list-style: none;
 
-        margin-left: 0;
-        margin-right: 0;
-        padding: 5px;
+        margin: 0;
+        padding: 0px;
 
         li {
-
-            h3 {
-                a:link, a:visited, a:hover, a:active {
-                    color: #000;
-                }
-
-                .type {
-                    display: inline-block;
-                    padding: 1px;
-                    border: #ff9900 solid 1px;
-                    background-color: #f0db4c;
-                    font-size: 9pt;
-                    font-variant: small-caps;
-                    font-weight: normal;
-                }
-
-                display: inline-block;
-                margin: 0;
-            }
-
-            .published_at, .author {
-                margin-left: 5px;
-                float: right;
-            }
-
             margin-top: 5px;
             padding: 5px;
             border: 1px solid #000;
@@ -375,4 +392,31 @@ input[type=text]:hover, textarea:hover {
             //background-color: #9ed8ff;
         }
     }
+}
+
+.article {
+    h3 {
+        a:link, a:visited, a:hover, a:active {
+            color: #000;
+        }
+
+        .type {
+            display: inline-block;
+            padding: 1px;
+            border: #ff9900 solid 1px;
+            background-color: #f0db4c;
+            font-size: 9pt;
+            font-variant: small-caps;
+            font-weight: normal;
+        }
+
+        display: inline-block;
+        margin: 0;
+    }
+
+    .published_at, .author, .read_full_version {
+        margin-left: 5px;
+        float: right;
+    }
+
 }

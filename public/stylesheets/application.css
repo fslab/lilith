@@ -4,7 +4,13 @@ html, body {
   color: black;
   background-image: url("../images/background.png"); }
   html .clear, body .clear {
-    float: clear; }
+    clear: both; }
+  html a:link, html a:visited, html a:hover, html a:active, body a:link, body a:visited, body a:hover, body a:active {
+    text-decoration: none;
+    color: #0099FF;
+    font-weight: bold; }
+  html a:hover, body a:hover {
+    color: black; }
 
 input[type=text], textarea {
   background-color: #fff;
@@ -46,12 +52,6 @@ input[type=text]:hover, textarea:hover {
   text-align: center;
   margin-left: auto;
   margin-right: auto; }
-  #container a:link, #container a:visited, #container a:hover, #container a:active {
-    text-decoration: none;
-    color: #0099FF;
-    font-weight: bold; }
-  #container a:hover {
-    color: black; }
 
 #header {
   -moz-border-radius: 5px 5px 0px 0px;
@@ -192,44 +192,78 @@ input[type=text]:hover, textarea:hover {
   #schedule .controls select {
     width: 150px; }
 
-#articles #edit input[type=text], #articles #edit textarea {
+#articles div.actions {
+  display: inline-block;
+  float: right; }
+#articles input[type=text], #articles textarea {
   width: 550px; }
-#articles #index ol {
-  list-style: none;
-  margin-left: 0;
-  margin-right: 0; }
-  #articles #index ol li .published_at {
-    float: right; }
-  #articles #index ol li .options {
-    margin-left: 5px;
-    float: right; }
-#articles #show .published_at {
+#articles table {
+  margin: 10px 0 0 0;
+  border: solid 1px #000;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-spacing: 0;
+  width: 100%; }
+  #articles table .sticky {
+    width: 100px; }
+  #articles table .dates {
+    width: 150px; }
+  #articles table .actions {
+    width: 100px; }
+  #articles table caption {
+    font-variant: small-caps;
+    margin-bottom: 5px; }
+  #articles table thead {
+    background-color: #000;
+    color: #fff; }
+    #articles table thead th {
+      text-align: center; }
+  #articles table tbody td {
+    padding: 5px; }
+  #articles table tbody tr.even {
+    background-color: #dfdfdf; }
+  #articles table tbody tr:hover td {
+    background-color: #d6eeff; }
+  #articles table tbody tr:last-child td {
+    border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px; }
+  #articles table tbody td.sticky {
+    text-align: center; }
+  #articles table tbody td.dates {
+    text-align: center; }
+    #articles table tbody td.dates span {
+      display: block;
+      float: none; }
+  #articles table tbody td.actions a {
+    display: block;
+    float: none; }
+#articles .published_at {
   float: right; }
 
 #dashboard ol {
   list-style: none;
-  margin-left: 0;
-  margin-right: 0;
-  padding: 5px; }
+  margin: 0;
+  padding: 0px; }
   #dashboard ol li {
     margin-top: 5px;
     padding: 5px;
     border: 1px solid #000;
     -moz-border-radius: 5px;
     border-radius: 5px; }
-    #dashboard ol li h3 {
-      display: inline-block;
-      margin: 0; }
-      #dashboard ol li h3 a:link, #dashboard ol li h3 a:visited, #dashboard ol li h3 a:hover, #dashboard ol li h3 a:active {
-        color: #000; }
-      #dashboard ol li h3 .type {
-        display: inline-block;
-        padding: 1px;
-        border: #ff9900 solid 1px;
-        background-color: #f0db4c;
-        font-size: 9pt;
-        font-variant: small-caps;
-        font-weight: normal; }
-    #dashboard ol li .published_at, #dashboard ol li .author {
-      margin-left: 5px;
-      float: right; }
+
+.article h3 {
+  display: inline-block;
+  margin: 0; }
+  .article h3 a:link, .article h3 a:visited, .article h3 a:hover, .article h3 a:active {
+    color: #000; }
+  .article h3 .type {
+    display: inline-block;
+    padding: 1px;
+    border: #ff9900 solid 1px;
+    background-color: #f0db4c;
+    font-size: 9pt;
+    font-variant: small-caps;
+    font-weight: normal; }
+.article .published_at, .article .author, .article .read_full_version {
+  margin-left: 5px;
+  float: right; }

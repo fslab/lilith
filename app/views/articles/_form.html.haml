@@ -16,9 +16,9 @@
   = f.text_area :body_en, :class => :en
 
 %p
-  %label{:for => 'sticky'}~ t('article.sticky') + ':'
+  %label{:for => 'sticky'}~ t('article.set_sticky') + ':'
   = f.check_box(:sticky)
-  %label{:for => 'published'}~ t('article.published_at') + ':'
+  %label{:for => 'published'}~ t('article.set_published') + ':'
   - if @article.published?
     %input{:type => 'checkbox', :name => 'article[published]', :value => '1', :checked => 'checked'}
   - else

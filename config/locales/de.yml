@@ -21,6 +21,7 @@ de:
   global:
     ie_warning: Ihr Browser verdient seinen Namen nicht. Installieren Sie einen %{browser_link} Browser.
     ie_warning_browser_link: richtigen
+    translation_missing: Keine Übersetzung vorhanden
   menu:
     submit: Wechseln
     semester: Semester
@@ -43,22 +44,35 @@ de:
   article:
     name: Artikel
     heading: Artikel
-    create: erstelle Artikel
+    create: Artikel erstellen
     edit: bearbeiten
     show: anschauen
     delete: löschen
     title: Titel
     abstract: Zusammenfassung
     body: Haupttext
-    sticky: pinnen
-    published_at: veröffentlichen
+    set_sticky: pinnen
+    set_published: veröffentlichen
     published: Veröffentlicht
     unpublished: Unveröffentlicht
     headline:
-      edit: Bearbeite Artikel
-      new: Erstelle neuen Artikel
+      edit: Artikel bearbeiten
+      new: Artikel erstellen
     text:
       delete: Artikel wirklich löschen?
+    sticky_yes: ✓
+    sticky_no: ''
+    sticky: Angepinnt
+    dates: Daten
+    published_at: Veröffentlichungsdatum
+    published_at_short: V
+    created_at: Erstelldatum
+    created_at_short: E
+    updated_at: Änderungsdatum
+    updated_at_short: Ä
+    read_full_version: Kompletten Artikel lesen...
+    by: von
+    last_edited: Zuletzt editiert
 
   person:
     name: Person
@@ -80,9 +94,6 @@ de:
   dashboard:
     heading: Übersicht
     menu_name: Übersicht
-    read_full_version: Kompletten Artikel lesen...
-    by: von
-    sticky: Angepinnt
 
   date:
     formats:

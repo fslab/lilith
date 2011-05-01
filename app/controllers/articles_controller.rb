@@ -5,8 +5,11 @@ class ArticlesController < ApplicationController
 
   # List articles
   def index
-    @unpublished_articles = Article.unpublished
-    @articles = Article.order('published_at ASC').all
+    @unpublished_sticky_articles = Article.unpublished.sticky
+    @unpublished_non_sticky_articles = Article.unpublished.non_sticky
+
+    @published_sticky_articles = Article.published.sticky
+    @published_non_sticky_articles = Article.published.non_sticky
   end
 
   # Display an article
