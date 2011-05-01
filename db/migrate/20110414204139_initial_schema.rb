@@ -133,6 +133,25 @@ class InitialSchema < ActiveRecord::Migration
 
     add_index :category_event_associations, :category_id
     add_index :category_event_associations, :event_id
+
+    create_table :articles, :id => false do |t|
+      t.column   :id, Lilith.db_primary_key_type(:for_migration)
+      t.datetime :published_at
+      t.boolean  :sticky, :default => false
+      t.timestamps
+    end
+
+    create_table:article_translations, :id => false do |t|
+      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :article_id, Lilith.db_reference_type
+      t.string :locale
+      t.string :name
+      t.text   :abstract
+      t.text   :body
+      t.timestamps
+    end
+
+    add_index :article_translations, [:article_id, :locale], :unique => true
   end
 
   def self.down
