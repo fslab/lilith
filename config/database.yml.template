@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
-## PostgreSQL
+## PostgreSQL (preferred)
 
 development: &DEFAULT
   adapter: postgresql
