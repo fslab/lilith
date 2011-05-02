@@ -17,19 +17,19 @@
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 - set_body_id :schedule
-%h2~ t('schedules.schedule_composition')
+%h2= t('schedules.schedule_composition')
 
 %form{:action => semester_schedules_path(@semester.token)}
-  %h3~ t('schedules.navigation')
+  %h3= t('schedules.navigation')
 
   .controls
     %p
-      %label{:for => 'schedule_id'}~ t('schedules.actuality') + ': '
+      %label{:for => 'schedule_id'}= t('schedules.actuality') + ': '
       %select{:id => 'schedule_id', :name => 'schedule_id'}
         = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}, @schedules.first.id
     %p
-      %label{:for => 'format'}~ t('schedules.format') + ': '
-      %select{:id => 'format', :name => 'format'}
+      %label{:for => 'format'}= t('schedules.format') + ': '
+      %select{:id => 'format', :name => 'f'}
         %option{:value => 'ics'} iCalendar
         %option{:value => 'xml'} XML
     = submit_tag t('schedules.generate'), :name => nil
@@ -40,12 +40,12 @@
       %tbody
         - @study_units.group_by(&:program).each do |program, study_units|
           %tr
-            %td.program~ program
+            %td.program= program
             %td.units
               - study_units.each do |study_unit|
-                %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}~ study_unit.position
+                %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
 
   -# Generate sections
   .study_units
     - @study_units.each do |study_unit|
-      = render study_unit
+      = render :partial => 'study_unit', :locals => {:study_unit => study_unit}

@@ -33,4 +33,10 @@ module Lilith::UUIDHelper
       end
     end
   end
+
+  def self.to_uuid(uuid)
+    UUIDTools::UUID.parse(uuid)
+  rescue ArgumentError
+    UUIDTools::UUID.parse_hexdigest(uuid)
+  end
 end
