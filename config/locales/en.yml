@@ -53,7 +53,7 @@ en:
     body: Body
     set_sticky: sticky
     set_published: publish
-    published: publish
+    published: published
     unpublished: unpublished
     headline:
       edit: Edit article
