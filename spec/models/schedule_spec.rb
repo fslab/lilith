@@ -28,4 +28,24 @@ describe Schedule do
   it { should belong_to(:semester) }
 
   it { should have_many(:events) }
+
+  context "default order" do
+    it "should be ordered by updated_at in a descending way" do
+      latest_schedule = described_class.make!(:updated_at => Time.new(2011, 5, 2, 3, 45))
+      older_schedule = described_class.make!(:updated_at => Time.new(2011, 5, 1, 12))
+
+      schedules = described_class.all
+      schedules.first.should == latest_schedule
+      schedules.last.should == older_schedule
+    end
+  end
+
+  context ".latest" do
+    it "should always return the latest schedule" do
+      latest_schedule = described_class.make!(:updated_at => Time.new(2011, 5, 2, 3, 45))
+      older_schedule = described_class.make!(:updated_at => Time.new(2011, 5, 1, 12))
+
+      described_class.latest.should == latest_schedule
+    end
+  end
 end

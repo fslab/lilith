@@ -24,4 +24,12 @@ class Schedule < ActiveRecord::Base
 
   belongs_to :semester
   has_many :events, :dependent => :destroy
+
+  # By default, schedules are ordered by updated_at in a descending way
+  default_scope order('updated_at DESC')
+
+  # Returns the latest schedule
+  def self.latest
+    first
+  end
 end

@@ -27,9 +27,12 @@ class SchedulesController < ApplicationController
       redirect_to semester_schedule_path(
         @semester.token,
         params[:schedule_id],
-        :format     => params[:format],
+        :format     => params[:format] || params[:f],
         :course_ids => params[:course_ids],
-        :group_ids  => params[:group_ids]
+        :group_ids  => params[:group_ids],
+        # Short versions for params above (because of URL length limits)
+        :c          => params[:c], # Group
+        :g          => params[:g]  # Course
       )
     else
       redirect_to new_semester_schedule_path(Semester.latest.token)
@@ -37,13 +40,21 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    @schedule = Schedule.find(params[:id])
+    # Merge params given as short versions into the regular params
+    course_ids = uuid_set(params[:course_ids]) + uuid_set(params[:c])
+    group_ids  = uuid_set(params[:group_ids]) + uuid_set(params[:g])
+
+    if params[:id] == 'latest'
+      @schedule = Schedule.latest
+    else
+      @schedule = Schedule.find(params[:id])
+    end
 
     @events = Set.new
 
     elements = Set.new
-    elements += Group.find_all_by_id(params[:group_ids])
-    elements += Course.find_all_by_id(params[:course_ids])
+    elements += Group.where(:id => group_ids.map(&:to_s))
+    elements += Course.where(:id => course_ids.map(&:to_s))
 
     elements.each do |element|
       @events += element.events.exclusive(@schedule)
@@ -52,7 +63,7 @@ class SchedulesController < ApplicationController
     respond_to do |format|
       format.ics do
         calendar = RiCal::Component::Calendar.new
-        calendar.prodid = '-//de.fslab/NONSGML Lilith/EN'
+        calendar.prodid = "-//fslab.de/NONSGML Lilith #{Lilith::VERSION}/EN"
 
         @events.each do |event|
           calendar.add_subcomponent(event.to_ical)
@@ -75,5 +86,10 @@ class SchedulesController < ApplicationController
     @semester = Semester.find(params[:semester_id])
   rescue
     @semester = nil
+  end
+
+  def uuid_set(set)
+    set = set || Set.new
+    set.map{|element| Lilith::UUIDHelper.to_uuid(element) }.to_set
   end
 end

@@ -40,6 +40,7 @@ de:
     groups: Gruppen
     lecturers: Dozenten
     room: Raum
+    latest: Aktuellster
 
   article:
     name: Artikel
