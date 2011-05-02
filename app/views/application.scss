@@ -133,72 +133,77 @@ input[type=text]:hover, textarea:hover {
 }
 
 #menu {
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
-  background-color: #DFDFDF;
-  margin-top: 0em;
-  border: 1px solid black;
-  border-top: 0px solid black;
-  border-right: 1px solid black;
-  border-bottom: 0px solid black;
-  border-left: 1px solid black;
-  padding: 8px 10px 5px 10px;
-  text-align: right; 
-  vertical-align:middle;
-  height: 20px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    background-color: #DFDFDF;
+    margin-top: 0em;
+    border: 1px solid black;
+    border-top: 0px solid black;
+    border-right: 1px solid black;
+    border-bottom: 0px solid black;
+    border-left: 1px solid black;
+    padding: 8px 10px 5px 10px;
+    text-align: right;
+    vertical-align:middle;
+    height: 20px;
 
-  form.semester {
-    display: inline-block;
-    margin: auto;
-  }
+    ul {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
 
-  span.sections {
-    display: inline-block;
-    margin: 0 40px 0 0;
-    float: left;
-
-    a {
-        margin-right: 3px;
+        li {
+            display: inline-block;
+        }
     }
-  }
 
-  span.language {
-    display: inline-block;
-    margin: 0 0 0 40px;
-    float: right;
-  }
+    .sections {
+        float: left;
+
+        li {
+            padding-right: 3px;
+        }
+    }
+
+    .language {
+        float: right;
+
+        li {
+            padding-left: 3px;
+        }
+    }
 }
 
 #main {
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
-  background-color: white;
-  margin-top: 0em;
-  border: 1px solid black;
-  border-top: 0px solid black;
-  border-right: 1px solid black;
-  border-bottom: 0px solid black;
-  border-left: 1px solid black;
-  padding: 10px;
-  text-align: left; 
-  vertical-align:middle;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    background-color: white;
+    margin-top: 0em;
+    border: 1px solid black;
+    border-top: 0px solid black;
+    border-right: 1px solid black;
+    border-bottom: 0px solid black;
+    border-left: 1px solid black;
+    padding: 10px;
+    text-align: left;
+    vertical-align:middle;
 
-  > * {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+    > * {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 
-  h1 {
-    line-height: 0.5;
-  }
-  h2 {
-    line-height: 0.5;
-  }
+    h1 {
+        line-height: 0.5;
+    }
 
-  #error {
+    h2 {
+        line-height: 0.5;
+    }
+
+    #error {
         background-color: #ff1f1f;
-  }
-
+    }
 }
 
 #footer {

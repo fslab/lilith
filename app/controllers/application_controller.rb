@@ -47,6 +47,8 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = params[:locale]
     end
+
+    response.headers['Content-Language'] = I18n.locale.to_s
   end
 
   def set_timezone
