@@ -26,7 +26,8 @@
     %p
       %label{:for => 'schedule_id'}= t('schedules.actuality') + ': '
       %select{:id => 'schedule_id', :name => 'schedule_id'}
-        = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}, @schedules.first.id
+        %option{:value => 'latest', :selected => 'selected'}= t('schedules.latest')
+        = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}
     %p
       %label{:for => 'format'}= t('schedules.format') + ': '
       %select{:id => 'format', :name => 'f'}

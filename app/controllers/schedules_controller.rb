@@ -44,7 +44,11 @@ class SchedulesController < ApplicationController
     course_ids = uuid_set(params[:course_ids]) + uuid_set(params[:c])
     group_ids  = uuid_set(params[:group_ids]) + uuid_set(params[:g])
 
-    @schedule = Schedule.find(params[:id])
+    if params[:id] == 'latest'
+      @schedule = Schedule.latest
+    else
+      @schedule = Schedule.find(params[:id])
+    end
 
     @events = Set.new
 
