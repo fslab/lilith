@@ -41,6 +41,7 @@ en:
     lecturers: Lecturers
     room: Room
     latest: Latest
+    group_free: Group-free
 
   article:
     name: Name

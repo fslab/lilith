@@ -16,7 +16,7 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-- set_body_id :schedule
+- set_body_id :schedules
 %h2= t('schedules.schedule_composition')
 
 %form{:action => semester_schedules_path(@semester.token)}
@@ -50,3 +50,23 @@
   .study_units
     - @study_units.each do |study_unit|
       = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
+
+:javascript
+  $('#schedules #main').addClass('enhanced');
+  
+  $('#schedules .study_unit').each(function() {
+    // Add elements for groupless selection and to display selection
+    $(this).find('.groups').prepend('<li class="all"><span class="name">#{t('schedules.group_free')}</span></li>');
+    $(this).find('.groups li').append('<span class="tick">☐</span>');
+
+    // Selection toggle
+    $(this).find('.groups li').click(function() {
+      if ($(this).hasClass('selected')) {
+        $(this).find('.tick').text('☐');
+        $(this).removeClass('selected');
+      } else {
+        $(this).addClass('selected');
+        $(this).find('.tick').text('☑');
+      }
+    });
+  });
