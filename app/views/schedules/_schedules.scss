@@ -15,6 +15,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 #schedules {
+    #main {
+        padding-bottom: 30px;
+    }
+
     .navigation {
 
         table {
@@ -47,7 +51,7 @@
         margin-top: 20px;
 
         input {
-            width: 90%;
+            width: 80%;
         }
     }
 

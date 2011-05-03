@@ -22,6 +22,7 @@ de:
     ie_warning: Ihr Browser verdient seinen Namen nicht. Installieren Sie einen %{browser_link} Browser.
     ie_warning_browser_link: richtigen
     translation_missing: Keine Übersetzung vorhanden
+    java_script_features: 'Info: Lilith funktioniert auch ohne JavaScript. Einige erweiterte Funktionalitäten setzen jedoch JavaScript vorraus.'
   menu:
     submit: Wechseln
     semester: Semester

@@ -50,6 +50,10 @@
     .filters
       %label{:for => 'course_filter'}= t('schedules.filter') + ':'
       %input{:type => 'text', :id => 'course_filter'}
+      %img{:src => '/images/spinner.gif', :alt => 'Loading...', :class => 'spinner', :style => 'display: none;'}
+
+  %noscript
+    %p= t('global.java_script_features')
 
   -# Generate sections
   .study_units
@@ -57,12 +61,11 @@
       = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
 
 :javascript
+  // Add course filter bar
   $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
 
-  // Selection toggle
-  var groups = $('#schedules .study_unit .groups');
-
-  groups.children('li').click(function() {
+  // Course selection toggle
+  $('#schedules .study_unit .groups').children('li').click(function(event) {
     var list_item = $(this);
 
     while (!list_item.is('li')) {
@@ -78,16 +81,50 @@
       list_item.addClass('selected');
       check_box.attr('checked', 'checked');
     }
+
+    event.stopPropagation();
   });
 
-  $('#schedules #course_filter').keyup(function() {
-    var pattern = '.*' + $('#course_filter').val() + '.*';
 
-    $('#schedules .courses > li').each(function() {
-      if ($(this).find('h4').text().match(pattern)) {
-        $(this).show();
-      } else {
+  // Hide all courses which do not match the given regular expression
+  // If all courses are hidden in a study unit, the whole unit becomes hidden
+  var course_filter_action = function() {
+
+    var pattern = new RegExp($('#course_filter').val(), 'i');
+
+    $('#schedules .study_unit').each(function() {
+      var shown_count = 0;
+
+      $(this).find('.courses > li').each(function() {
+        if ($(this).find('h4').text().match(pattern)) {
+          $(this).show();
+          shown_count += 1;
+        } else {
+          $(this).hide();
+        }
+      });
+
+      if (shown_count == 0) {
         $(this).hide();
+      } else {
+        $(this).show();
       }
     });
+
+    $('#schedules .spinner').hide();
+  };
+
+  // Amount of milliseconds for the finish-typing-timeout
+  var course_filter_timeout = 500;
+
+  // When a key is released, a timeout for filtering is activated
+  $('#schedules #course_filter').keyup(function() {
+    course_filter_timer = setTimeout(course_filter_action, course_filter_timeout);
+    $('#schedules .spinner').show();
+  });
+
+  // When a key is pressed, a running timeout for filtering gets stopped
+  $('#schedules #course_filter').keydown(function() {
+    clearTimeout(course_filter_timer);
+    $('#schedules .spinner').hide();
   });

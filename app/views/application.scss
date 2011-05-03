@@ -25,6 +25,7 @@ html, body {
   margin: 0;
   color: black;
   background-image: url("/images/background.png");
+  background-attachment: fixed;
 
   .clear {
     clear: both;
@@ -52,6 +53,10 @@ input[type=text], textarea {
 
 img {
     border: none;
+}
+
+noscript {
+    color: #f00;
 }
 
 input[type=text]:focus, textarea:focus,
