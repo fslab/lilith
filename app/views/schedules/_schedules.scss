@@ -14,21 +14,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-#schedule {
-    ul {
-        padding: 0;
-
-        ul {
-            padding-left: 20px;
-        }
-
-        ul.events {
-            padding-left: 35px;
-        }
-
-        li {
-            list-style: none;
-        }
+#schedules {
+    #main {
+        padding-bottom: 30px;
     }
 
     .navigation {
@@ -58,4 +46,91 @@
             width: 150px;
         }
     }
+
+    .filters {
+        margin-top: 20px;
+
+        input {
+            width: 80%;
+        }
+    }
+
+    .study_unit {
+
+        margin-top: 20px;
+
+        .back_to_top {
+            display: inline-block;
+            float: right;
+        }
+
+        h3 {
+           margin: 0;
+           display: inline-block;
+           float: left;
+        }
+        
+    }
+
+    ul.courses {
+        padding: 0;
+
+        li {
+            list-style: none;
+            font-size: 11pt;
+            margin-top: 10px;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            text-align: center;
+        }
+
+        > li {
+
+            background-color: #0099FF;
+            color: #fff;
+            padding-top: 3px;
+
+            h4 {
+                margin: 0;
+            }
+
+            ul.groups {
+
+                width: 100%;
+                padding: 0;
+                display: inline-table;
+                border-spacing: 5px;
+
+                li {
+                    border: 2px solid #fff;
+                    background-color: #fff;
+                    color: #000;
+                    padding: 3px;
+                    display: table-cell;
+
+                    label {
+                        display: block;
+                    }
+
+                    input {
+                        margin-top: 5px;
+                    }
+
+                }
+
+                li:hover {
+                    background-color: #d6eeff;
+                    border-color: #d6eeff;
+                }
+
+                li.selected {
+                    background-color: #fccb03;
+                }
+
+            }
+
+        }
+
+    }
+
 }

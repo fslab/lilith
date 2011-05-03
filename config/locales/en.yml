@@ -22,6 +22,7 @@ en:
     ie_warning: You are using a browser that sucks. Go and install a %{browser_link} browser.
     ie_warning_browser_link: real
     translation_missing: Translation missing
+    java_script_features: 'Notice: Lilith works fine without JavaScript. There are however some extended features which depend on JavaScript.'
   menu:
     submit: Switch
     semester: Semester
@@ -41,6 +42,7 @@ en:
     lecturers: Lecturers
     room: Room
     latest: Latest
+    group_free: Group-free
 
   article:
     name: Name
@@ -53,7 +55,7 @@ en:
     body: Body
     set_sticky: sticky
     set_published: publish
-    published: publish
+    published: published
     unpublished: unpublished
     headline:
       edit: Edit article
