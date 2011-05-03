@@ -56,7 +56,7 @@
   
   $('#schedules .study_unit').each(function() {
     // Add elements for groupless selection and to display selection
-    $(this).find('.groups').prepend('<li class="all"><span class="name">#{t('schedules.group_free')}</span></li>');
+    $(this).find('.groups').prepend('<li class="group_free"><span class="name">#{t('schedules.group_free')}</span></li>');
     $(this).find('.groups li').append('<span class="tick">☐</span>');
 
     // Selection toggle
@@ -64,9 +64,23 @@
       if ($(this).hasClass('selected')) {
         $(this).find('.tick').text('☐');
         $(this).removeClass('selected');
+
+        // Find checkbox and change it
+        if ($(this).hasClass('group_free')) {
+          $(this).parent().parent().find('> input').removeAttr('checked');
+        } else {
+          $(this).find('input').removeAttr('checked');
+        }
       } else {
         $(this).addClass('selected');
         $(this).find('.tick').text('☑');
+
+        // Find checkbox and change it
+        if ($(this).hasClass('group_free')) {
+          $(this).parent().parent().find('> input').attr('checked', 'checked');
+        } else {
+          $(this).find('input').attr('checked', 'checked');
+        }
       }
     });
   });
