@@ -273,3 +273,8 @@ en:
 
       full_messages:
         format: "%{attribute}%{message}"
+
+  feeds:
+    header: Articles Feeds
+    complete: All articles
+    reduced: Last ten articles

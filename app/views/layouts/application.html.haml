@@ -24,6 +24,8 @@
     %meta{:charset => 'utf-8'}
     %title Lilith
     = stylesheet_link_tag('application')
+    = auto_discovery_link_tag :atom, complete_path, :title => 'Lilith - plan your schedule, really'
+
   %body{:id => body_id}
     - if request.headers['User-Agent'].include?('MSIE')
       #ie_warning

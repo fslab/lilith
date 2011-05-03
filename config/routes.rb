@@ -21,7 +21,6 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 Lilith::Application.routes.draw do
 
   scope '(:locale)', :constraints => {:locale => /de|en/} do
-
     resources :semesters, :only => :index do
       resources :schedules, :only => [:show, :index, :new]
     end
@@ -31,6 +30,8 @@ Lilith::Application.routes.draw do
     resource :imprint, :only => :show, :controller => :imprint
     resource :dashboard, :only => :show, :controller => :dashboard
 
+    resource :feeds, :only => :show, :controller => :feed
+
     resources :people do
       member do
         get :delete
@@ -38,10 +39,17 @@ Lilith::Application.routes.draw do
     end
 
     resources :articles do
+
       member do
         get :delete
       end
+
     end
+
+
+    # match '/feed' => 'feed#feed', :as => :feed, :action => :show
+    match '/feeds/reduced' => 'feed#reduced', :as => :reduced, :defaults => { :format => 'atom' }
+    match '/feeds/complete' => 'feed#complete', :as => :complete, :defaults => { :format => 'atom' }
 
     root :to => 'root#show'
   end
