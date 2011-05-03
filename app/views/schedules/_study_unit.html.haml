@@ -23,11 +23,14 @@
   %ul.courses
     - study_unit.courses.order('name ASC').each do |course|
       %li
-        %input{:type => :checkbox, :name => 'c[]', :value => course.id.gsub(/-/, '') }
-        %span.name= course.name
+        %h4= course.name
         %ul.groups
+          %li
+            %label{:for => course.id}= t('schedules.group_free')
+            %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
           - course.groups.order('name ASC').each do |group|
             %li
-              %input{:type => :checkbox, :name => 'g[]', :value => group.id.gsub(/-/, '') }
-              %span.group= t('schedules.group')
-              %span.name= group.name
+              %label{:for => group.id}
+                %span.group_prefix= t('schedules.group')
+                = group.name
+              %input{:type => :checkbox, :id => group.id, :name => 'g[]', :value => group.id.gsub(/-/, '') }

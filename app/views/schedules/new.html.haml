@@ -52,35 +52,25 @@
       = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
 
 :javascript
-  $('#schedules #main').addClass('enhanced');
-  
-  $('#schedules .study_unit').each(function() {
-    // Add elements for groupless selection and to display selection
-    $(this).find('.groups').prepend('<li class="group_free"><span class="name">#{t('schedules.group_free')}</span></li>');
-    $(this).find('.groups li').append('<span class="tick">☐</span>');
+  // Selection toggle
+  var groups = $('#schedules .study_unit .groups');
+  groups.find('li, input').click(function() {
+    var list_item;
+    var check_box;
 
-    // Selection toggle
-    $(this).find('.groups li').click(function() {
-      if ($(this).hasClass('selected')) {
-        $(this).find('.tick').text('☐');
-        $(this).removeClass('selected');
-
-        // Find checkbox and change it
-        if ($(this).hasClass('group_free')) {
-          $(this).parent().parent().find('> input').removeAttr('checked');
-        } else {
-          $(this).find('input').removeAttr('checked');
-        }
-      } else {
-        $(this).addClass('selected');
-        $(this).find('.tick').text('☑');
-
-        // Find checkbox and change it
-        if ($(this).hasClass('group_free')) {
-          $(this).parent().parent().find('> input').attr('checked', 'checked');
-        } else {
-          $(this).find('input').attr('checked', 'checked');
-        }
-      }
-    });
+    if ($(this).is('input')) {
+      check_box = $(this);
+      list_item = check_box.parent;
+    } else if($(this).is('li')) {
+      list_item = $(this);
+      check_box = list_item.find('input');
+    }
+    
+    if (list_item.hasClass('selected') || check_box.attr('checked') == 'checked') {
+      list_item.removeClass('selected');
+      check_box.removeAttr('checked');
+    } else {
+      list_item.addClass('selected');
+      check_box.attr('checked', 'checked');
+    }
   });
