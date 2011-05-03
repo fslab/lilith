@@ -54,23 +54,27 @@
 :javascript
   // Selection toggle
   var groups = $('#schedules .study_unit .groups');
-  groups.find('li, input').click(function() {
-    var list_item;
-    var check_box;
 
-    if ($(this).is('input')) {
-      check_box = $(this);
-      list_item = check_box.parent;
-    } else if($(this).is('li')) {
-      list_item = $(this);
-      check_box = list_item.find('input');
-    }
-    
-    if (list_item.hasClass('selected') || check_box.attr('checked') == 'checked') {
+  groups.find('li').click(function() {
+    var list_item = $(this);
+    var check_box = list_item.find('input');
+
+    if (list_item.hasClass('selected') && check_box.attr('checked') == 'checked') {
       list_item.removeClass('selected');
       check_box.removeAttr('checked');
     } else {
       list_item.addClass('selected');
       check_box.attr('checked', 'checked');
+    }
+  });
+
+  groups.find('input').click(function() {
+    var check_box = $(this);
+    var list_item = check_box.parent;
+
+    if (list_item.hasClass('selected') && check_box.attr('checked') == 'checked') {
+      list_item.removeClass('selected');
+    } else {
+      list_item.addClass('selected');
     }
   });
