@@ -32,6 +32,5 @@
           - course.groups.order('name ASC').each do |group|
             %li
               %label{:for => group.id}
-                %span.group_prefix= t('schedules.group')
-                = group.name
+                %abbr{:title => "#{t('schedules.group')} #{group.name}"}= group.name
               %input{:type => :checkbox, :id => group.id, :name => 'g[]', :value => group.id.gsub(/-/, '') }

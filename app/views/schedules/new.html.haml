@@ -62,11 +62,16 @@
   // Selection toggle
   var groups = $('#schedules .study_unit .groups');
 
-  groups.find('li').click(function() {
+  groups.children('li').click(function() {
     var list_item = $(this);
-    var check_box = list_item.find('input');
 
-    if (list_item.hasClass('selected') && check_box.attr('checked') == 'checked') {
+    while (!list_item.is('li')) {
+      list_item = list_item.parent();
+    }
+
+    var check_box = list_item.children('input');
+
+    if (list_item.is('.selected') || check_box.is(':checked')) {
       list_item.removeClass('selected');
       check_box.removeAttr('checked');
     } else {
@@ -74,19 +79,6 @@
       check_box.attr('checked', 'checked');
     }
   });
-
-  groups.find('input').click(function() {
-    var check_box = $(this);
-    var list_item = check_box.parent;
-
-    if (list_item.hasClass('selected') && check_box.attr('checked') == 'checked') {
-      list_item.removeClass('selected');
-    } else {
-      list_item.addClass('selected');
-    }
-  });
-
-  $('#schedules .filters').show();
 
   $('#schedules #course_filter').keyup(function() {
     var pattern = '.*' + $('#course_filter').val() + '.*';
