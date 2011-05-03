@@ -43,6 +43,31 @@
         }
     }
 
+    .filters {
+        margin-top: 20px;
+
+        input {
+            width: 90%;
+        }
+    }
+
+    .study_unit {
+
+        margin-top: 20px;
+
+        .back_to_top {
+            display: inline-block;
+            float: right;
+        }
+
+        h3 {
+           margin: 0;
+           display: inline-block;
+           float: left;
+        }
+        
+    }
+
     ul.courses {
         padding: 0;
 
@@ -73,7 +98,7 @@
                 border-spacing: 5px;
 
                 li {
-                    border: 1px solid #fff;
+                    border: 2px solid #fff;
                     background-color: #fff;
                     color: #000;
                     padding: 3px;
@@ -91,6 +116,7 @@
 
                 li:hover {
                     background-color: #d6eeff;
+                    border-color: #d6eeff;
                 }
 
                 li.selected {

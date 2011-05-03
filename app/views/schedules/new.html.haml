@@ -46,12 +46,19 @@
               - study_units.each do |study_unit|
                 %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
 
+  - content_for(:filter) do # Inserted through JavaScript
+    .filters
+      %label{:for => 'course_filter'}= t('schedules.filter') + ':'
+      %input{:type => 'text', :id => 'course_filter'}
+
   -# Generate sections
   .study_units
     - @study_units.each do |study_unit|
       = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
 
 :javascript
+  $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
+
   // Selection toggle
   var groups = $('#schedules .study_unit .groups');
 
@@ -77,4 +84,18 @@
     } else {
       list_item.addClass('selected');
     }
+  });
+
+  $('#schedules .filters').show();
+
+  $('#schedules #course_filter').keyup(function() {
+    var pattern = '.*' + $('#course_filter').val() + '.*';
+
+    $('#schedules .courses > li').each(function() {
+      if ($(this).find('h4').text().match(pattern)) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
   });

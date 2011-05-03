@@ -19,7 +19,8 @@
 .study_unit{:id => study_unit.id}
   %h3
     %a{:id => study_unit.name.gsub(/ /, '+')}~ study_unit.name
-  %a{:href => "##{body_id}"}~ "⇧ #{t('schedules.back_to_top')}"
+  %a{:href => "##{body_id}", :class => 'back_to_top'}~ "⇧ #{t('schedules.back_to_top')}"
+  .clear
   %ul.courses
     - study_unit.courses.order('name ASC').each do |course|
       %li
