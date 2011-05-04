@@ -23,6 +23,7 @@
   %head
     %meta{:charset => 'utf-8'}
     %title Lilith
+    = auto_discovery_link_tag :atom, complete_path, :title => 'Lilith - plan your schedule, really'
     = stylesheet_link_tag('application')
     = javascript_include_tag(:defaults)
   %body{:id => body_id}
