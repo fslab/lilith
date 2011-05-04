@@ -1,5 +1,5 @@
 atom_feed(:language => I18n.locale) do |feed|
-  feed.title('Lilith - plan your schedule, really')
+  feed.title("#{Rails.configuration.application_name} - #{Rails.configuration.application_slogan}")
   feed.updated(@feed_reduced.first.published_at)
 
   @feed_reduced.each do |article|

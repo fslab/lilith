@@ -68,6 +68,10 @@ module Lilith
     # Lilith administration password is required outside development mode
     config.admin_username = nil
     config.admin_password = nil
+
+    # set the application name and slogan
+    config.application_name = 'Lilith'
+    config.application_slogan = 'plan your schedule, really'
     
   end
 end

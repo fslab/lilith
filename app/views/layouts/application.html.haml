@@ -23,7 +23,7 @@
   %head
     %meta{:charset => 'utf-8'}
     %title Lilith
-    = auto_discovery_link_tag :atom, complete_path, :title => 'Lilith - plan your schedule, really'
+    = auto_discovery_link_tag :atom, complete_path, :title => "#{Rails.configuration.application_name} - #{Rails.configuration.application_slogan}"
     = stylesheet_link_tag('application')
     = javascript_include_tag(:defaults)
   %body{:id => body_id}
@@ -34,9 +34,9 @@
     #container
       #header
         %a{:href => root_path}
-          %h1 Lilith
+          %h1= Rails.configuration.application_name
           / Vater drückte sie stets fester als die brave Stiefschwester.
-        %span.tagline{:lang => 'en', 'xml:lang' => 'en'} plan your schedule, really
+        %span.tagline{:lang => 'en', 'xml:lang' => 'en'}= Rails.configuration.application_slogan
         #special_version_sign
           - if Lilith::VERSION.include?('alpha')
             %img{:src => '/images/star_alpha.png', :alt => 'αlpha'}
