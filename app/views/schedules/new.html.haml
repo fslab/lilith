@@ -65,26 +65,26 @@
   $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
 
   // Course selection toggle
-  $('#schedules .study_unit .groups').children('li').click(function(event) {
+  $('#schedules .groups li').click(function(event) {
     var list_item = $(this);
+    var check_box = list_item.find('input[type=checkbox]');
 
-    while (!list_item.is('li')) {
-      list_item = list_item.parent();
-    }
-
-    var check_box = list_item.children('input');
-
-    if (list_item.is('.selected') || check_box.is(':checked')) {
+    if (list_item.is('.selected')) {
       list_item.removeClass('selected');
-      check_box.removeAttr('checked');
+
+      if (!$(event.target).is('input[checkbox]')) {
+          check_box.attr('checked', false);
+      }
     } else {
       list_item.addClass('selected');
-      check_box.attr('checked', 'checked');
+
+      if (!$(event.target).is('input[checkbox]')) {
+          check_box.attr('checked', true);
+      }
     }
 
-    event.stopPropagation();
+    event.stopImmediatePropagation();
   });
-
 
   // Hide all courses which do not match the given regular expression
   // If all courses are hidden in a study unit, the whole unit becomes hidden
