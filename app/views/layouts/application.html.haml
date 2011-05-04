@@ -23,7 +23,8 @@
   %head
     %meta{:charset => 'utf-8'}
     %title Lilith
-    = auto_discovery_link_tag :atom, complete_path, :title => "#{Rails.configuration.application_name} - #{Rails.configuration.application_slogan}"
+    = auto_discovery_link_tag(:atom, "/#{I18n.locale}/articles.atom", :title => "#{Rails.configuration.application_name} - #{t('article.all')}")
+    = auto_discovery_link_tag(:atom, "/#{I18n.locale}/articles/latest.atom", :title => "#{Rails.configuration.application_name} - #{t('article.latest')}")
     = stylesheet_link_tag('application')
     = javascript_include_tag(:defaults)
   %body{:id => body_id}
@@ -52,6 +53,7 @@
           - I18n.available_locales.each do |locale|
             %li
               %a{:href => url_for(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
+
       #main
         = yield
       #footer

@@ -30,8 +30,6 @@ Lilith::Application.routes.draw do
     resource :imprint, :only => :show, :controller => :imprint
     resource :dashboard, :only => :show, :controller => :dashboard
 
-    resource :feeds, :only => :show, :controller => :feed
-
     resources :people do
       member do
         get :delete
@@ -39,17 +37,14 @@ Lilith::Application.routes.draw do
     end
 
     resources :articles do
+      collection do
+        get 'latest', :defaults => { :format => 'atom'}, :only => :index
+      end
 
       member do
         get :delete
       end
-
     end
-
-
-    # match '/feed' => 'feed#feed', :as => :feed, :action => :show
-    match '/feeds/reduced' => 'feed#reduced', :as => :reduced, :defaults => { :format => 'atom' }
-    match '/feeds/complete' => 'feed#complete', :as => :complete, :defaults => { :format => 'atom' }
 
     root :to => 'root#show'
   end
