@@ -119,13 +119,17 @@
 
                     }
 
-                    :hover, input:hover, span:hover {
+                    :hover {
                         background-color: #d6eeff;
                         border-color: #d6eeff;
                     }
 
-                    .selected, .selected input, .selected span {
+                    .selected {
                         background-color: #fccb03;
+                    }
+
+                    :hover *, .selected * {
+                        background: none;
                     }
 
                 }

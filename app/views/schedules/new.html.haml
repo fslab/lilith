@@ -52,8 +52,9 @@
       %input{:type => 'text', :id => 'course_filter'}
       %img{:src => '/images/spinner.gif', :alt => 'Loading...', :class => 'spinner', :style => 'display: none;'}
 
-  %noscript
-    %p= t('global.java_script_features')
+  %p
+    %noscript
+      = t('global.java_script_features')
 
   -# Generate sections
   .study_units
