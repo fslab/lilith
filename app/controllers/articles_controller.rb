@@ -22,7 +22,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class ArticlesController < ApplicationController
 
   before_filter :authenticate, :except => :show
-  before_filter :find_article, :except => [:index, :create, :new]
+  before_filter :find_article, :except => [:index, :create, :new, :latest]
 
   # List articles
   def index
@@ -31,6 +31,22 @@ class ArticlesController < ApplicationController
 
     @published_sticky_articles = Article.published.sticky
     @published_non_sticky_articles = Article.published.non_sticky
+
+    @all_articles = Article.published
+
+    respond_to do |format|
+      format.html
+      format.atom
+    end
+  end
+
+  # Atom Feed latest ten articles
+  def latest
+    @latest_articles = Article.published.limit(10)
+
+    respond_to do |format|
+      format.atom
+    end
   end
 
   # Display an article
