@@ -64,6 +64,8 @@
   // Add course filter bar
   $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
 
+  var course_filter_timer;
+
   $(function() {
     // Course selection toggle
     $('#schedules .groups label').click(function() {
