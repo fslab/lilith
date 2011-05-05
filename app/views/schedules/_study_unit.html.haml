@@ -27,10 +27,13 @@
         %h4= course.name
         %ul.groups
           %li
-            %label{:for => course.id}= t('schedules.group_free')
-            %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
+            %label{:for => course.id}
+              %span.title
+                = t('schedules.group_free')
+              %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
           - course.groups.order('name ASC').each do |group|
             %li
               %label{:for => group.id}
-                %abbr{:title => "#{t('schedules.group')} #{group.name}"}= group.name
-              %input{:type => :checkbox, :id => group.id, :name => 'g[]', :value => group.id.gsub(/-/, '') }
+                %span.title
+                  %abbr{:title => "#{t('schedules.group')} #{group.name}"}= group.name
+                %input{:type => :checkbox, :id => group.id, :name => 'g[]', :value => group.id.gsub(/-/, '') }
