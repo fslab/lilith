@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
       quality_table.sort!{|a,b| a[:quality] <=> b[:quality] }
 
       # Determine the highest quality
-      highest_quality = quality_table.last[:quality]
+      highest_quality = quality_table.last.try(:[], :quality)
 
       # Select all entries which have the highest quality
       winners = quality_table.select{|element| element[:quality] == highest_quality}
@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
     {:locale => I18n.locale}
   end
 
-  # Determines Internet media type the response MIME-type
+  # Determines the Internet media type/MIME-type for the response
   def set_mime_type
     if response.content_type == 'text/html' and
        not request.headers['User-Agent'].include?('MSIE')
