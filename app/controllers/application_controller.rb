@@ -28,6 +28,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # Authenticates an administrator by configured credentials
+  # Outside of development environment, this will raise an exception if no credentials are configured
   def authenticate
     unless Rails.configuration.admin_username.blank? or
            Rails.configuration.admin_password.blank?
@@ -41,9 +43,40 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Determines the response locale for the request
   def set_locale
     unless params[:locale]
-      redirect_to :locale => I18n.default_locale
+      # If no locale is given via URL, it is determined through HTTP Accept-Language and I18n.default_locale
+      quality_table = []
+
+      # Generate a table which maps each available locale with a quality, locales can possibly be included multiple times
+      I18n.available_locales.map{|locale| [locale, Rack::Acceptable::LanguageTag.parse(locale.to_s)] }.each do |locale, language_tag|
+        Rack::Acceptable::Request.new(request.env).acceptable_language_ranges.each do |language_range, quality|
+          if language_tag.matched_by_extended_range?(language_range)
+            quality_table << {
+              :locale => locale,
+              :quality => quality
+            }
+          end
+        end
+      end
+
+      # Sort the table so that the last element is the one with the highest quality
+      quality_table.sort!{|a,b| a[:quality] <=> b[:quality] }
+
+      # Determine the highest quality
+      highest_quality = quality_table.last[:quality]
+
+      # Select all entries which have the highest quality
+      winners = quality_table.select{|element| element[:quality] == highest_quality}
+
+      # If the default locale is included or if no winners are found, choose the default locale,
+      # otherwise choose the first winner in winners
+      if winners.find{|element| element[:locale] == I18n.default_locale} or winners.empty?
+        redirect_to :locale => I18n.default_locale
+      else
+        redirect_to :locale => winners.first[:locale]
+      end
     else
       I18n.locale = params[:locale]
     end
@@ -51,14 +84,17 @@ class ApplicationController < ActionController::Base
     response.headers['Content-Language'] = I18n.locale.to_s
   end
 
+  # Sets the timezone for the dates in the response
   def set_timezone
     Time.zone = 'Berlin'
   end
 
+  # Sets default options which will be part of every URL unless overridden
   def default_url_options(options = {})
     {:locale => I18n.locale}
   end
 
+  # Determines Internet media type the response MIME-type
   def set_mime_type
     if response.content_type == 'text/html' and
        not request.headers['User-Agent'].include?('MSIE')
