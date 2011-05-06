@@ -29,8 +29,10 @@ class Group < ActiveRecord::Base
            :dependent => :destroy
   has_many :events, :through => :event_associations do
     # All events, compatible interface for Course#events#exclusive
-    def exclusive(schedule)
-      self.where(:schedule_id => schedule).all
+    def exclusive(schedule = nil)
+      params = {}
+      params[:schedule_id] = schedule if schedule
+      self.where(params).all
     end
   end
 end

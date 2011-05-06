@@ -26,11 +26,12 @@
       %li
         %h4= course.name
         %ul.groups
-          %li
-            %label{:for => course.id}
-              %span.title
-                = t('schedules.group_free')
-              %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
+          - if course.events.exclusive.count > 0
+            %li
+              %label{:for => course.id}
+                %span.title
+                  = t('schedules.group_free')
+                %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
           - course.groups.order('name ASC').each do |group|
             %li
               %label{:for => group.id}
