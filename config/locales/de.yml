@@ -43,6 +43,7 @@ de:
     room: Raum
     latest: Aktuellster
     group_free: Gruppenfrei
+    filter_clear: Löschen
 
   article:
     name: Artikel

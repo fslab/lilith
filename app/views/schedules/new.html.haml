@@ -49,8 +49,10 @@
   - content_for(:filter) do # Inserted through JavaScript
     .filters
       %label{:for => 'course_filter'}= t('schedules.filter') + ':'
-      %input{:type => 'text', :id => 'course_filter'}
-      %img{:src => '/images/spinner.gif', :alt => 'Loading...', :class => 'spinner', :style => 'display: none;'}
+      .value
+        %img.spinner{:src => '/images/spinner.gif', :alt => 'Loading...', :style => 'vidddsibility: hidden;'}
+        %input#course_filter{:type => 'text'}
+        %img#course_filter_clear{:src => '/images/icons/cross.png', :alt => 'Clear'}
 
   %p
     %noscript
@@ -66,6 +68,7 @@
   $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
 
   var course_filter_timer;
+  var course_filter_value = '';
 
   $(function() {
     // Course selection toggle
@@ -105,7 +108,15 @@
         }
       });
 
-      $('#schedules .spinner').hide();
+      course_filter_value = $('#course_filter').val();
+
+      if ($('#course_filter').val() != '') {
+        $('#schedules #course_filter_clear').css('visibility', 'visible');
+      } else {
+        $('#schedules #course_filter_clear').css('visibility', 'hidden');
+      }
+
+      $('#schedules .spinner').css('visibility', 'hidden');
     };
 
     // Amount of milliseconds for the finish-typing-timeout
@@ -113,13 +124,21 @@
 
     // When a key is released, a timeout for filtering is activated
     $('#schedules #course_filter').keyup(function() {
-      course_filter_timer = setTimeout(course_filter_action, course_filter_timeout);
-      $('#schedules .spinner').show();
+      if (course_filter_value != $('#course_filter').val()) {
+        course_filter_timer = setTimeout(course_filter_action, course_filter_timeout);
+        $('#schedules .spinner').css('visibility', 'visible');
+      }
     });
 
     // When a key is pressed, a running timeout for filtering gets stopped
     $('#schedules #course_filter').keydown(function() {
       clearTimeout(course_filter_timer);
-      $('#schedules .spinner').hide();
+      $('#schedules .spinner').css('visibility', 'hidden');
+    });
+
+    $('#schedules #course_filter_clear').click(function() {
+      $(this).css('visibility', 'hidden');
+      $('#schedules #course_filter').val('');
+      course_filter_action();
     });
   });

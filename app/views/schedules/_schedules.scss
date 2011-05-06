@@ -67,10 +67,51 @@
 
     .filters {
         margin-top: 20px;
+        margin-bottom: 5px;
 
-        input {
-            width: 80%;
+        label {
+            margin-bottom: 3px;
         }
+
+        .value {
+            border: 1px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+
+            * {
+                background: none;
+            }
+
+            img {
+                display: inline-block;
+                padding: 2px 0;
+                height: 16px;
+                width: 16px;
+            }
+
+            .spinner {
+                float: left;
+                visibility: hidden;
+                margin-left: 2px;
+            }
+
+            #course_filter_clear {
+                float: right;
+                visibility: hidden;
+                margin-right: 2px;
+            }
+
+            input[type=text] {
+                border: none;
+                width: 515px;
+                text-align: center;
+            }
+        }
+
+        .value:hover {
+            background-color: #d6eeff;
+        }
+
     }
 
     .study_unit {
