@@ -23,8 +23,8 @@
   %head
     %meta{:charset => 'utf-8'}
     %title Lilith
-    = auto_discovery_link_tag(:atom, "/#{I18n.locale}/articles.atom", :title => "#{Rails.configuration.application_name} - #{t('article.all')}")
-    = auto_discovery_link_tag(:atom, "/#{I18n.locale}/articles/latest.atom", :title => "#{Rails.configuration.application_name} - #{t('article.latest')}")
+    = auto_discovery_link_tag(:atom, articles_path(:format => :atom), :title => "#{Rails.configuration.application_name} - #{t('article.all')}")
+    = auto_discovery_link_tag(:atom, latest_articles_path(:format => :atom), :title => "#{Rails.configuration.application_name} - #{t('article.latest')}")
     = stylesheet_link_tag('application')
     = javascript_include_tag(:defaults)
   %body{:id => body_id}
