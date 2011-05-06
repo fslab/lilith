@@ -24,15 +24,33 @@
         table {
             border-spacing: 0;
 
+            a {
+                margin-left: 5px;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                padding: 0 10px 0 10px;
+                background-color: #09f;
+                color: white;
+            }
+
+            a:hover {
+                background-color: black;
+            }
+
             tr:hover td {
                 background-color: #d8efff;
             }
 
             td.program {
+                border-radius: 5px 0 0 5px;
+                -moz-border-radius: 5px 0 0 5px;
                 padding-right: 20px;
+                padding-left: 10px;
             }
 
             td.units {
+                border-radius: 0 5px 5px 0;
+                -moz-border-radius: 0 5px 5px 0;
                 padding-right: 10px;
             }
         }
@@ -86,7 +104,7 @@
 
         > li {
 
-            background-color: #0099FF;
+            background-color: #09f;
             color: #fff;
             padding-top: 3px;
 
