@@ -44,6 +44,8 @@ de:
     latest: Aktuellster
     group_free: Gruppenfrei
     filter_clear: Löschen
+    inline: Öffnen
+    attachment: Downloaden
 
   article:
     name: Artikel

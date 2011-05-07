@@ -44,6 +44,8 @@ en:
     latest: Latest
     group_free: Group-free
     filter_clear: Clear
+    inline: Open
+    attachment: Download
 
   article:
     name: Name

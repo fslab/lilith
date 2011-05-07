@@ -33,6 +33,11 @@
       %select{:id => 'format', :name => 'f'}
         %option{:value => 'ics'} iCalendar
         %option{:value => 'xml'} XML
+    %p
+      %label{:for => 'disposition_inline'}= t('schedules.inline') + ':'
+      %input{:id => 'disposition_inline',     :name => 'd', :type => 'radio', :value => 'inline', :checked => 'checked'}
+      %label{:for => 'disposition_attachment'}= t('schedules.attachment') + ':'
+      %input{:id => 'disposition_attachment', :name => 'd', :type => 'radio', :value => 'attachment'}
     = submit_tag t('schedules.generate'), :name => nil
 
   -# Generate navigation index
@@ -50,7 +55,7 @@
     .filters
       %label{:for => 'course_filter'}= t('schedules.filter') + ':'
       .value
-        %img.spinner{:src => '/images/spinner.gif', :alt => 'Loading...', :style => 'vidddsibility: hidden;'}
+        %img.spinner{:src => '/images/spinner.gif', :alt => 'Loading...'}
         %input#course_filter{:type => 'text'}
         %img#course_filter_clear{:src => '/images/icons/cross.png', :alt => 'Clear'}
 

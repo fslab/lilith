@@ -59,6 +59,11 @@
     .controls {
         float: right;
         text-align: right;
+        margin-bottom: 20px;
+
+        p {
+            margin-top: 0;
+        }
 
         select {
             width: 150px;

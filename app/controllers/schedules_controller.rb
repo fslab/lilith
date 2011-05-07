@@ -27,9 +27,10 @@ class SchedulesController < ApplicationController
       redirect_to semester_schedule_path(
         @semester.token,
         params[:schedule_id],
-        :format     => params[:format] || params[:f],
-        :course_ids => params[:course_ids],
-        :group_ids  => params[:group_ids],
+        :format      => params[:format]      || params[:f],
+        :disposition => params[:disposition] || params[:d],
+        :course_ids  => params[:course_ids],
+        :group_ids   => params[:group_ids],
         # Short versions for params above (because of URL length limits)
         :c          => params[:c], # Group
         :g          => params[:g]  # Course
@@ -43,6 +44,8 @@ class SchedulesController < ApplicationController
     # Merge params given as short versions into the regular params
     course_ids = uuid_set(params[:course_ids]) + uuid_set(params[:c])
     group_ids  = uuid_set(params[:group_ids]) + uuid_set(params[:g])
+
+    disposition = params[:disposition] || params[:d]
 
     if params[:id] == 'latest'
       @schedule = Schedule.latest
@@ -60,6 +63,9 @@ class SchedulesController < ApplicationController
       @events += element.events.exclusive(@schedule)
     end
 
+    base_name   = "#{@schedule.updated_at.iso8601}_lilith"
+    disposition_type = disposition == 'attachment' ? :attachment : :inline
+
     respond_to do |format|
       format.ics do
         calendar = RiCal::Component::Calendar.new
@@ -69,9 +75,13 @@ class SchedulesController < ApplicationController
           calendar.add_subcomponent(event.to_ical)
         end
 
+        set_disposition(disposition_type, base_name + '.ics')
         render :text => calendar
       end
-      format.xml { render :xml => @events.to_a }
+      format.xml do
+        set_disposition(disposition_type, base_name + '.xml')
+        render :xml => @events.to_a
+      end
     end
   end
 
@@ -91,5 +101,9 @@ class SchedulesController < ApplicationController
   def uuid_set(set)
     set = set || Set.new
     set.map{|element| Lilith::UUIDHelper.to_uuid(element) }.to_set
+  end
+
+  def set_disposition(type, filename)
+    response.headers['Content-Disposition'] = %{#{type}; filename="#{filename}"}
   end
 end
