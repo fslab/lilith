@@ -95,28 +95,20 @@ module Lilith
     end
   end
 
-  class ErbBinding < OpenStruct
-    def get_binding
-      binding
-    end
-  end
-
   def generate_release_articles
     changelog_file = Rails.root + 'changelog.yml'
 
     unless changelog = YAML.load(changelog_file.open)
-      STDERR.puts "Changelog is invalid (#{changelog_file})"
-      exit false
+      raise "Changelog is invalid (#{changelog_file})"
     end
 
     if not releases = changelog.try(:[], 'releases') or releases.empty?
-      STDERR.puts "No releases specified in changelog (#{changelog_file})"
-      exit false
+      Rails.logger.warn "No releases specified in changelog (#{changelog_file})"
     end
 
     releases.each do |release|
       unless version = release['version']
-        STDERR.puts "Skipping release without version"
+        Rails.logger.warn "Skipping release without version"
         next
       end
 

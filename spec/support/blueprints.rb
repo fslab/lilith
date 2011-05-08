@@ -79,3 +79,10 @@ Article.blueprint do
   name { 'Test Article' }
   body { 'This is a test body'}
 end
+
+Article::Release.blueprint do
+  name { 'Test Article' }
+  body { 'This is a test body'}
+  version { '1.0.0' }
+end
+
