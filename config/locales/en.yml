@@ -81,6 +81,7 @@ en:
     none_found: No articles found
     all: All articles
     latest: Last ten articles
+    release_name: 'New release: %VERSION%'
 
   person:
     name: Person

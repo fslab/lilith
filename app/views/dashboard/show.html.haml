@@ -23,9 +23,9 @@
 %ol.sticky_articles
   - @sticky_articles.each do |article|
     %li
-      = render :partial => 'articles/article', :locals => {:article => article}
+      = render :partial => 'articles/article', :locals => {:article => article, :full => false}
 
 %ol.articles
   - @articles.each do |article|
     %li
-      = render :partial => 'articles/article', :locals => {:article => article}
+      = render :partial => 'articles/article', :locals => {:article => article, :full => false}

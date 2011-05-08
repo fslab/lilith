@@ -82,6 +82,7 @@ de:
     none_found: Keine Artikel gefunden
     all: Alle Artikel
     latest: Die letzten 10 Artikel
+    release_name: 'Neue Version: %VERSION%'
 
   person:
     name: Person

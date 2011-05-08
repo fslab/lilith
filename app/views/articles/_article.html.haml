@@ -32,12 +32,15 @@
   - else
     %span.created_at
       = localize article.created_at
-  - if article.abstract.blank?
+  - if full
     = textilize (article.body.blank? ? t('global.translation_missing') : article.body)
   - else
-    = textilize article.abstract
-    %a.read_full_version{:href => article_path(article)}
-      = t('article.read_full_version')
+    - if article.abstract.blank?
+      = textilize (article.body.blank? ? t('global.translation_missing') : article.body)
+    - else
+      = textilize article.abstract
+      %a.read_full_version{:href => article_path(article)}
+        = t('article.read_full_version')
   - if (article.published_at and article.updated_at.delta(article.published_at) > 60) or article.updated_at.delta(article.created_at) > 60
     %span.last_edited
       = t('article.last_edited') + ': ' + localize(article.updated_at)
