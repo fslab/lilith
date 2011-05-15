@@ -15,6 +15,17 @@ class Holidays
       @name = name.freeze
     end
 
+    def ==(other)
+      @date == other.to_date
+    end
+
+    def <=>(other)
+      @date <=> other.to_date
+    end
+    def eql?(other)
+      self == other and other.is_a?(self.class)
+    end
+
     alias old_respond_to? respond_to?
 
     def respond_to?(name, include_private = false)
@@ -28,6 +39,8 @@ class Holidays
     end
   end
 
+  include Enumerable
+
   def self.for(year)
     @holidays_by_year ||= {}
     @holidays_by_year[year.to_i] ||= new(year.to_i)
@@ -36,7 +49,15 @@ class Holidays
   attr_reader :year, :holidays
   def initialize(year)
     @year = year.to_i
-    @holidays = (fixed_holidays + variable_holidays).freeze
+    @holidays = (fixed_holidays + variable_holidays).sort.freeze
+  end
+
+  def each(&block)
+    holidays.each(&block)
+  end
+
+  def last
+    holidays.last
   end
 
   def fixed_holidays
@@ -66,7 +87,11 @@ class Holidays
     ]
   end
 
-  def find(name)
-    holidays.find{|holiday| holiday.name == name.to_s }
+  def find(name = nil, &block)
+    if name.is_a?(String)
+      holidays.find{|holiday| holiday.name == name.to_s }
+    else
+      holidays.find(&block)
+    end
   end
 end
