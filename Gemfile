@@ -39,6 +39,7 @@ gem 'whenever', '~> 0.6.7'
 gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
 gem 'globalize3', '~> 0.1.0.beta'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
+gem 'date_easter', '~> 0.0.1'
 
 group :development do
   gem 'wirble', '~> 0.1.3'

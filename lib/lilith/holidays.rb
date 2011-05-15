@@ -15,6 +15,12 @@ class Holidays
       @name = name.freeze
     end
 
+    alias old_respond_to? respond_to?
+
+    def respond_to?(name, include_private = false)
+      old_respond_to?(name, include_private) or @date.respond_to?(name, include_private)
+    end
+
     protected
 
     def method_missing(name, *arguments)
@@ -45,14 +51,15 @@ class Holidays
   end
 
   def calculate_easter
-    Holiday.new(@year, 4, 24, 'Ostern')
+    Date.easter(@year)
   end
 
   def variable_holidays
     easter = calculate_easter
     [
-      Holiday.new(easter - 2, 'Karfreitag'),
-      Holiday.new(easter + 1, 'Ostermontag'),
+      Holiday.new(easter - 2,  'Karfreitag'),
+      Holiday.new(easter,      'Ostersonntag'),
+      Holiday.new(easter + 1,  'Ostermontag'),
       Holiday.new(easter + 39, 'Christi Himmelfahrt'),
       Holiday.new(easter + 50, 'Pfingstmontag'),
       Holiday.new(easter + 60, 'Fronleichnam')

@@ -39,6 +39,7 @@ GEM
     cover_me (1.0.0.rc6)
       configatron
       hashie
+    date_easter (0.0.1)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -112,6 +113,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.7)
   amatch (~> 0.2.5)
   cover_me (~> 1.0.0.rc6)
+  date_easter (~> 0.0.1)
   globalize3 (~> 0.1.0.beta)
   haml (~> 3.0.25)
   machinist (~> 2.0.0.beta2)
