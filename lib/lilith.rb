@@ -78,7 +78,7 @@ module Lilith
       'uuid'
     when 'sqlite3'
       'text'
-    when 'mysql'
+    when 'mysql', 'mysql2'
       'char(36)'
     end
   end
@@ -90,7 +90,7 @@ module Lilith
       'uuid PRIMARY KEY'
     when 'sqlite3'
       'text PRIMARY KEY'
-    when 'mysql'
+    when 'mysql', 'mysql2'
       'char(36) PRIMARY KEY'
     end
   end
