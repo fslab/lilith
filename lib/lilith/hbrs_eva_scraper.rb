@@ -118,12 +118,21 @@ class Lilith::HbrsEvaScraper
           raw_events.each do |raw_event|
 
             event = scrape_event(course, schedule, raw_event)
+            
+            if raw_event[:groups]
+              scrape_groups(raw_event[:groups]).each do |group|
+                event.group_associations.find_or_create_by_group_id(group)
+              end
+            end
+
+            scrape_categories(raw_event[:categories]).each do |category|
+              event.category_associations.find_or_create_by_category_id(category)
+            end
 
             scrape_week_associations(event, raw_event[:recurrence])
-            scrape_group_associations(event, raw_event[:groups]) if raw_event[:groups]
             scrape_lecturer_associations(event, raw_event[:lecturers])
-            scrape_category_associations(event, raw_event[:categories])
 
+            # TODO: Put Event duplicate detection and merging here
           end
         end
       end
@@ -375,6 +384,38 @@ class Lilith::HbrsEvaScraper
     event
   end
 
+  # Parses a raw groups string and finds or creates contained groups and
+  # returns them as an Array
+  def scrape_groups(raw_groups)
+    group_names = []
+
+    self.class.parse_range(raw_groups).map do |token|
+      if token.is_a?(Range)
+        range = (token.min..token.max).to_a
+        raise Error 'Empty group range, possible parsing error' if range.empty?
+        group_names += range
+      else
+        group_names << token
+      end
+    end
+
+    group_names.map do |group_name|
+      Group.find_or_create_by_name(group_name)
+    end
+  end
+
+  # Parses a raw categories string and finds or creates contained categories
+  # and returns them as an Array
+  def scrape_categories(raw_categories)
+    if raw_categories == 'Projekt'
+      []
+    else
+      raw_categories.gsub(/[\/,]/, '').chars.map do |category_symbol|
+        Category.find_or_create_by_eva_id(category_symbol.strip.upcase)
+      end
+    end
+  end
+
   # Parses a raw recurrence string and sets week associations and recurrence
   # attribute for the given event
   def scrape_week_associations(event, raw_recurrence)
@@ -384,7 +425,7 @@ class Lilith::HbrsEvaScraper
 
     if recurrence == 'uKW' or recurrence == 'gKW'
       event.recurrence = recurrence
-      
+
       filtered_weeks = filtered_weeks.select(&:odd?) if recurrence == 'uKW'
       filtered_weeks = filtered_weeks.select(&:even?) if recurrence == 'gKW'
     end
@@ -398,30 +439,6 @@ class Lilith::HbrsEvaScraper
     end
   end
 
-  # Parses a raw groups string and sets group associations for the given event
-  def scrape_group_associations(event, raw_groups)
-    groups = []
-
-    self.class.parse_range(raw_groups).map do |token|
-      if token.is_a?(Range)
-        range = (token.min..token.max).to_a
-        raise Error 'Empty group range, possible parsing error' if range.empty?
-        groups += range
-      else
-        groups << token
-      end
-    end
-
-    group_associations = Set.new
-
-    groups.each do |group|
-      group_associations << event.group_associations.find_or_create_by_group_id(
-        event.course.groups.find_or_create_by_name(group)
-      )
-    end
-
-    group_associations
-  end
 
   # Parses a raw lecturers string and sets lecturer associations for the given event
   def scrape_lecturer_associations(event, raw_lecturers)
@@ -442,22 +459,6 @@ class Lilith::HbrsEvaScraper
     end
 
     lecturer_associations
-  end
-
-  # Parses a raw categories string and sets category associations for the
-  # given event
-  def scrape_category_associations(event, raw_categories)
-    category_associations = Set.new
-
-    unless raw_categories == 'Projekt'
-      raw_categories.gsub(/[\/,]/, '').chars.each do |symbol|
-        category_associations << event.category_associations.find_or_create_by_category_id(
-          Category.find_or_create_by_eva_id(symbol.strip.upcase)
-        )
-      end
-    end
-
-    category_associations
   end
 
 end

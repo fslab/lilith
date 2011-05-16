@@ -360,45 +360,73 @@ describe Lilith::HbrsEvaScraper do
     end
   end
 
-  context "#scrape_group_associations" do
-    before(:each) do
-      @event = Event.make!
-    end
-
+  context "#scrape_groups" do
     it "should be able to scrape '3'" do
-      @scraper.scrape_group_associations(@event, '3')
+      result = @scraper.scrape_groups('3')
 
-      @event.groups.map(&:name).to_set.should == %w{3}.to_set
+      result.map(&:name).to_set.should == %w{3}.to_set
     end
 
     it "should be able to scrape ' 3 '" do
-      @scraper.scrape_group_associations(@event, ' 3 ')
+      result = @scraper.scrape_groups(' 3 ')
 
-      @event.groups.map(&:name).to_set.should == %w{3}.to_set
+      result.map(&:name).to_set.should == %w{3}.to_set
     end
 
     it "should be able to scrape '3+TZ'" do
-      @scraper.scrape_group_associations(@event, '3+TZ')
+      result = @scraper.scrape_groups('3+TZ')
 
-      @event.groups.map(&:name).to_set.should == %w{3 TZ}.to_set
+      result.map(&:name).to_set.should == %w{3 TZ}.to_set
     end
 
     it "should be able to scrape '1-3+TZ'" do
-      @scraper.scrape_group_associations(@event, '1-3+TZ')
+      result = @scraper.scrape_groups('1-3+TZ')
 
-      @event.groups.map(&:name).to_set.should == %w{1 2 3 TZ}.to_set
+      result.map(&:name).to_set.should == %w{1 2 3 TZ}.to_set
     end
 
     it "should be able to scrape '4-7'" do
-      @scraper.scrape_group_associations(@event, '4-7')
+      result = @scraper.scrape_groups('4-7')
 
-      @event.groups.map(&:name).to_set.should == %w{4 5 6 7}.to_set
+      result.map(&:name).to_set.should == %w{4 5 6 7}.to_set
     end
 
     it "should be able to scrape '3+4'" do
-      @scraper.scrape_group_associations(@event, '3+4')
+      result = @scraper.scrape_groups('3+4')
 
-      @event.groups.map(&:name).to_set.should == %w{3 4}.to_set
+      result.map(&:name).to_set.should == %w{3 4}.to_set
+    end
+  end
+
+  context "#scrape_categories" do
+    it "should be able to scrape 'V'" do
+      result = @scraper.scrape_categories('V')
+
+      result.map(&:eva_id).to_set.should == %w{V}.to_set
+    end
+
+    it "should be able to scrape 'Ü'" do
+      result = @scraper.scrape_categories('Ü')
+
+      result.map(&:eva_id).to_set.should == %w{Ü}.to_set
+    end
+
+    it "should be able to scrape 'VÜP'" do
+      result = @scraper.scrape_categories('VÜP')
+
+      result.map(&:eva_id).to_set.should == %w{V Ü P}.to_set
+    end
+
+    it "should be able to scrape 'Ü/P'" do
+      result = @scraper.scrape_categories('Ü/P')
+
+      result.map(&:eva_id).to_set.should == %w{Ü P}.to_set
+    end
+
+    it "should not scrape 'Projekt'" do
+      result = @scraper.scrape_categories('Projekt')
+
+      result.map(&:eva_id).to_set.should == [].to_set
     end
   end
 
@@ -429,42 +457,6 @@ describe Lilith::HbrsEvaScraper do
       @scraper.scrape_lecturer_associations(@event, 'Plan,K., Richards')
 
       @event.lecturers.map(&:eva_id).to_set.should == %w{Plan,K. Richards}.to_set
-    end
-  end
-
-  context "#scrape_category_associations" do
-    before(:each) do
-      @event = Event.make!
-    end
-
-    it "should be able to scrape 'V'" do
-      @scraper.scrape_category_associations(@event, 'V')
-
-      @event.categories.map(&:eva_id).to_set.should == %w{V}.to_set
-    end
-
-    it "should be able to scrape 'Ü'" do
-      @scraper.scrape_category_associations(@event, 'Ü')
-
-      @event.categories.map(&:eva_id).to_set.should == %w{Ü}.to_set
-    end
-
-    it "should be able to scrape 'VÜP'" do
-      @scraper.scrape_category_associations(@event, 'VÜP')
-
-      @event.categories.map(&:eva_id).to_set.should == %w{V Ü P}.to_set
-    end
-
-    it "should be able to scrape 'Ü/P'" do
-      @scraper.scrape_category_associations(@event, 'Ü/P')
-
-      @event.categories.map(&:eva_id).to_set.should == %w{Ü P}.to_set
-    end
-
-    it "should not scrape 'Projekt'" do
-      @scraper.scrape_category_associations(@event, 'Projekt')
-
-      @event.categories.map(&:eva_id).to_set.should == [].to_set
     end
   end
 
