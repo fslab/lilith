@@ -30,4 +30,23 @@ describe Group do
 
   it { should have_many(:event_associations) }
   it { should have_many(:events) }
+
+  context "before destroy" do
+    it "should destroy all its event associations" do
+      group = described_class.make!
+
+      event_associations = [
+        EventGroupAssociation.make!(:group_id => group),
+        EventGroupAssociation.make!(:group_id => group)
+      ]
+
+      group.destroy
+
+      event_associations.each do |association|
+        lambda {
+          EventGroupAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end

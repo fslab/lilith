@@ -40,6 +40,25 @@ describe Schedule do
     end
   end
 
+  context "before destroy" do
+    it "should destroy all its events" do
+      schedule = described_class.make!
+
+      events = [
+        Event.make!(:schedule_id => schedule),
+        Event.make!(:schedule_id => schedule)
+      ]
+
+      schedule.destroy
+
+      events.each do |event|
+        lambda {
+          Event.find(event.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   context ".latest" do
     it "should always return the latest schedule" do
       latest_schedule = described_class.make!(:updated_at => Time.new(2011, 5, 2, 3, 45))

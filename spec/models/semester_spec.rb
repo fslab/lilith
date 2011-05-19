@@ -30,6 +30,42 @@ describe Semester do
   it { should have_many(:study_units) }
   it { should have_many(:schedules) }
 
+  context "before destroy" do
+    it "should destroy all its schedules" do
+      semester = described_class.make!
+
+      schedules = [
+        Schedule.make!(:semester_id => semester),
+        Schedule.make!(:semester_id => semester)
+      ]
+
+      semester.destroy
+
+      schedules.each do |schedule|
+        lambda {
+          Schedule.find(schedule.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "should destroy all its study units" do
+      semester = described_class.make!
+
+      study_units = [
+        StudyUnit.make!(:semester_id => semester),
+        StudyUnit.make!(:semester_id => semester)
+      ]
+
+      semester.destroy
+
+      study_units.each do |study_unit|
+        lambda {
+          StudyUnit.find(study_unit.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   context ".find" do
     it "should find a semester by its UUID" do
       semester = Semester.make!
