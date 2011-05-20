@@ -43,7 +43,7 @@ describe Event do
 
 
   context "#occurences" do
-    it "should report all occurences as week day objects" do
+    it "should report all occurrences as week day objects" do
       start_week_day = Aef::WeekDay.new(2011, 14, :wednesday)
 
       event = Event.make!(
@@ -60,7 +60,7 @@ describe Event do
       semester.end_week = Aef::Week.new(2011, 25)
       semester.save!
 
-      event.occurences.should == [
+      event.occurrences.should == [
         Aef::WeekDay.new(2011, 14, start_week_day.to_sym),
         Aef::WeekDay.new(2011, 15, start_week_day.to_sym),
         Aef::WeekDay.new(2011, 16, start_week_day.to_sym),
@@ -68,6 +68,31 @@ describe Event do
         Aef::WeekDay.new(2011, 18, start_week_day.to_sym),
         Aef::WeekDay.new(2011, 19, start_week_day.to_sym)
       ]
+    end
+
+    it "should correctly remove holidays" do
+      start_week_day = Aef::WeekDay.new(2011, 16, :monday)
+
+      event = Event.make!(
+        :first_start => "#{start_week_day.to_date} 15:00",
+        :first_end   => "#{start_week_day.to_date} 16:30"
+      )
+
+      (16..19).each do |week_index|
+        event.weeks.create!(:year => 2011, :index => week_index)
+      end
+
+      semester = event.course.study_unit.semester
+      semester.start_week = Aef::Week.new(2011, 12)
+      semester.end_week = Aef::Week.new(2011, 25)
+      semester.save!
+
+       event.occurrences.should == [
+        Aef::WeekDay.new(2011, 16, start_week_day.to_sym),
+        Aef::WeekDay.new(2011, 18, start_week_day.to_sym),
+        Aef::WeekDay.new(2011, 19, start_week_day.to_sym)
+      ]
+
     end
   end
 

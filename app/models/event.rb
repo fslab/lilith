@@ -45,13 +45,17 @@ class Event < ActiveRecord::Base
            :dependent => :destroy
   has_many :weeks, :through => :week_associations
 
-  # Returns all occurences of this event as Aef::WeekDay objects
-  def occurences
-    occurence_weeks = weeks.map(&:to_week)
+  # Returns all occurrences of this event as Aef::WeekDay objects
+  def occurrences
+    occurrence_weeks = weeks.map(&:to_week)
 
     first_week_day = Aef::WeekDay.new(first_start)
-    
-    occurence_weeks.map!{|week| week.day(first_week_day.index) }
+
+    holidays  = Lilith::HolidayList.for(occurrences.first.week.year)
+    holidays += Lilith::HolidayList.for(occurrences.last.week.year)
+
+    occurrence_week_days = occurrence_weeks.map!{|week| week.day(first_week_day.index) }
+    occurrence_week_days.reject{|week_day| holidays.any?{|holiday| holiday == week_day } }
   end
 
   # Returns all exceptions of this event as Aef::WeekDay objects
