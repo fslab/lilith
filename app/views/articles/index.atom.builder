@@ -1,6 +1,6 @@
 atom_feed(:language => I18n.locale, :link => dashboard_path) do |feed|
   feed.title("#{Rails.configuration.application_name} - #{Rails.configuration.application_slogan}")
-  feed.updated(@latest_articles.first.published_at)
+  feed.updated(@all_articles.first.published_at)
 
 
   @all_articles.each do |article|
