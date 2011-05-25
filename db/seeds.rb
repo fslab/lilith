@@ -86,7 +86,14 @@ TEXT
 beta_article.save!
 
 
-Category.create!(:eva_id => 'V', :name => 'Vorlesung')
-Category.create!(:eva_id => 'Ü', :name => 'Übung')
-Category.create!(:eva_id => 'P', :name => 'Praktikum')
-Category.create!(:eva_id => 'S', :name => 'Seminar')
+lecture = Category.find_or_create_by_eva_id('V')
+lecture.update_attributes(:name => 'Vorlesung')
+
+exercise = Category.find_or_create_by_eva_id('Ü')
+exercise.update_attributes(:name => 'Übung')
+
+practical_training = Category.find_or_create_by_eva_id('P')
+practical_training.update_attributes(:name => 'Praktikum')
+
+seminar = Category.find_or_create_by_eva_id('S')
+seminar.update_attributes(:name => 'Seminar')
