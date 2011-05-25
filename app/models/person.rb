@@ -27,6 +27,17 @@ class Person < ActiveRecord::Base
            :dependent => :destroy
   has_many :events, :through => :event_associations
 
+  # default order for people
+  default_scope order('eva_id DESC, forename DESC, surname DESC')
+
+  def self.matched
+    where('eva_id = surname')
+  end
+
+  def self.matchless
+    where('surname IS NULL')
+  end
+
   # The full name of the person if available, otherwise the eva_id
   def name
     if surname

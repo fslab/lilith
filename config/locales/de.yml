@@ -85,8 +85,8 @@ de:
     release_name: 'Neue Version: %VERSION%'
 
   person:
-    name: Person
-    heading: Person
+    name: Personen
+    heading: Personen
     create: erstelle Person
     edit: bearbeiten
     show: anschauen
@@ -95,6 +95,10 @@ de:
     forename: Vorname
     surename: Nachname
     middlename: Mittelname
+    eva_id: EVA-ID
+    matchless: Nachname passt nicht zur eva-id
+    matched:  Nachname ist gleich der eva-id
+    no_people: Keine Personen gefunden.
     headline:
       edit: Bearbeite Person
       new: Erstelle eine neue Person
