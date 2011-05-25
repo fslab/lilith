@@ -1,0 +1,50 @@
+#session_new, #session_delete {
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    input[type=text], input[type=password] {
+        padding: 10px 0;
+        width: 100%;
+        font-size: 14pt;
+        text-align: center;
+    }
+
+    p.submit {
+        margin-top: 25px;
+        text-align: center;
+
+        input {
+            padding: 5px 25px;
+        }
+    }
+
+    span.question {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .errors {
+        p {
+            font-weight: bold;
+        }
+
+        color: red;
+    }
+}
+
+#session_delete {
+    p.submit input[type=submit] {
+        width: 100px;
+    }
+
+    form {
+        display: inline-block;
+    }
+}

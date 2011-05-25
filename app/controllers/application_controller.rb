@@ -22,11 +22,21 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  helper_method :current_user
+
   before_filter :set_locale
   before_filter :set_timezone
   after_filter :set_mime_type
 
   protected
+
+  def current_user_session
+    @current_user_session ||= User::Session.find
+  end
+
+  def current_user
+    @current_user ||= current_user_session.try(:record)
+  end
 
   # Authenticates an administrator by configured credentials
   # Outside of development environment, this will raise an exception if no credentials are configured

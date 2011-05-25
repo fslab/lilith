@@ -40,6 +40,9 @@ gem 'globalize3', '~> 0.1.0.beta'
 gem 'jquery-rails', '~> 0.2.7'
 gem 'acceptable', '~> 0.2.3', :require => 'rack/acceptable'
 gem 'foreigner', '~> 0.9.2'
+gem 'authlogic', '~> 3.0.3'
+gem 'activeldap3', '~> 1.2.3', :require => 'active_ldap'
+gem 'net-ldap', '~> 0.2.2'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 
 group :development do

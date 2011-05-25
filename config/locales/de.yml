@@ -28,7 +28,23 @@ de:
     semester: Semester
   imprint: # Imprint translation is done through different textile templates
     name: Impressum
- 
+
+  session:
+    new:
+      menu_name: Einloggen
+      heading: Einloggen
+      submit: Einloggen
+      login: Benutzername
+      password: Passwort
+      errors: Bitte korrigieren Sie folgende Probleme bei Ihrer Eingabe
+    delete:
+      menu_name: Ausloggen
+      heading: Ausloggen
+      question: Wollen Sie sich wirklich ausloggen?
+      submit: Ja
+      cancel: Nein
+    logged_in_as: Eingeloggt als
+
   schedules:
     menu_name: Stundenplan
     schedule_composition: Stundenplan zusammenstellen
@@ -104,6 +120,20 @@ de:
   dashboard:
     heading: Übersicht
     menu_name: Übersicht
+
+  authlogic:
+    error_messages:
+      login_blank: muss ausgefüllt werden
+      login_not_found: ist nicht korrekt
+      login_invalid: darf nur aus Buchstaben, Zahlen, Leerzeichen und den Sonderzeichen .-_@ bestehen.
+      consecutive_failed_logins_limit_exceeded: Gesperrt nach zu vielen Fehlversuchen.
+      email_invalid: muss eine E-Mail-Adresse sein
+      password_blank: muss ausgefüllt werden
+      password_invalid: ist nicht korrekt
+      not_active: Ihr Account ist nicht freigeschaltet
+      not_confirmed: Ihr Account wurde noch nicht bestätigt
+      not_approved: Ihr Account wurde noch nicht geprüft
+      no_authentication_details: Sie haben keinerlei Account-Daten angegeben
 
   date:
     formats:

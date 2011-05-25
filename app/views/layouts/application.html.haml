@@ -49,6 +49,12 @@
             %a{:href => dashboard_path}~ t('dashboard.menu_name')
           %li
             %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
+        %span
+          - if current_user
+            = t('session.logged_in_as') + ": #{current_user.name}"
+            %a{:href => delete_session_path}= t('session.delete.menu_name')
+          - else
+            %a{:href => new_session_path}= t('session.new.menu_name')
         %ul.language
           - I18n.available_locales.each do |locale|
             %li

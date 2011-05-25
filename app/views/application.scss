@@ -16,6 +16,7 @@
  * along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
  */
 @import 'imprint/imprint';
+@import 'session/session';
 @import 'dashboard/dashboard';
 @import 'articles/articles';
 @import 'schedules/schedules';
@@ -42,13 +43,27 @@ html, body {
   }
 }
 
-input[type=text], textarea {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 2px;
+input[type=text], input[type=password], textarea {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px;
+
+    &:hover, &:focus {
+        background-color: #d6eeff;
+    }
+}
+
+div.field_with_errors {
+    input[type=text], input[type=password], textarea {
+        background-color: #fbb;
+
+        &:hover {
+            background-color: #faa;
+        }
+    }
 }
 
 img {
@@ -57,11 +72,6 @@ img {
 
 noscript {
     color: #f00;
-}
-
-input[type=text]:focus, textarea:focus,
-input[type=text]:hover, textarea:hover {
-    background-color: #d6eeff;
 }
 
 #ie_warning

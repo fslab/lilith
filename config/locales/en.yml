@@ -29,6 +29,22 @@ en:
   imprint: # Imprint translation is done through different textile templates
     name: Imprint
 
+  session:
+    new:
+      menu_name: Login
+      heading: Login
+      submit: Login
+      login: User-name
+      password: Password
+      errors: Please correct the following problems with your input
+    delete:
+      menu_name: Logout
+      heading: Logout
+      question: Do you really want to log out?
+      submit: 'Yes'
+      cancel: 'No'
+    logged_in_as: Logged in as 
+
   schedules:
     menu_name: Schedule
     schedule_composition: Schedule composition
