@@ -100,16 +100,20 @@ en:
     release_name: 'New release: %VERSION%'
 
   person:
-    name: Person
-    heading: Person
+    name: People
+    heading: People
     create: create person
     edit: edit
     show: show
     delete: delete
-    title: title
-    forename: forename
-    surename: surname
-    middlename: middlename
+    title: Title
+    forename: Forename
+    surename: Surname
+    middlename: Middlename
+    eva_id: EVA-ID
+    matchless: eva-id does not match with surname
+    matched:  eva-id matched with surname
+    no_people: No people found. Start the scraper.
     headline:
       edit: edit person
       new: create person

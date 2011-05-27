@@ -28,6 +28,9 @@ class PeopleController < ApplicationController
   def index
 
     @people = Person.order('surname DESC').all
+
+    @people_matched = Person.matched
+    @people_matchless = Person.matchless
   end
 
   def show
