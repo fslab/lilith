@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.string :login
       t.string :persistence_token
     end
