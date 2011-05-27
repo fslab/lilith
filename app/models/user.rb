@@ -2,6 +2,14 @@
 class User < ActiveRecord::Base
   include Lilith::UUIDHelper
 
+  has_many :role_associations, :class_name => 'User::RoleAssociation'
+  has_many :roles, :class_name => 'User::Role', :through => :role_associations
+
+  validates :login, :uniqueness => true
+
+  # Default order
+  default_scope order('login ASC')
+
   # Let users authenticate
   acts_as_authentic do |config|
     config.validate_password_field = false
@@ -10,12 +18,19 @@ class User < ActiveRecord::Base
   # Either finds a returning user from local database or looks up LDAP if he
   # exists. If he exists, a record is generated in the local database
   def self.find_or_create_from_ldap(login)
-    find_by_login(login) || create_from_ldap_if_valid(login)
+    user = find_by_login(login) || create_from_ldap_if_valid(login)
+
+    user.update_attributes!(:name => user.ldap_entry.try(:display_name)) if user
+
+    user
   end
 
   # Create a User record in database if he exists in LDAP
   def self.create_from_ldap_if_valid(login)
-    create(:login => login) if LdapUser.find(login)
+    if ldap_entry = LdapUser.find(login)
+      user = create(:login => login)
+      user.ldap_entry = ldap_entry
+    end
   rescue ActiveLdap::EntryNotFound
     nil
   end
@@ -25,9 +40,8 @@ class User < ActiveRecord::Base
     @ldap_entry ||= LdapUser.find(login)
   end
 
-  # The user's full name
-  def name
-    ldap_entry.try(:display_name) || login
+  def ldap_entry=(ldap_entry)
+    @ldap_entry = ldap_entry
   end
 
   protected

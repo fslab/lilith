@@ -97,3 +97,17 @@ practical_training.update_attributes(:name => 'Praktikum')
 
 seminar = Category.find_or_create_by_eva_id('S')
 seminar.update_attributes(:name => 'Seminar')
+
+dmeiss2s = User.create(
+  :login => 'dmeiss2s',
+  :name  => 'Daniel Meißner'
+)
+
+afisc12s = User.create(
+  :login => 'afisc12s',
+  :name  => 'Alexander Emmerich Fischer'
+)
+
+[dmeiss2s, afisc12s].each do |user|
+  user.roles << User::Role::ADMIN unless user.roles.include?(User::Role::ADMIN)
+end

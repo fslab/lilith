@@ -84,7 +84,7 @@ module Lilith
   end
 
   # Returns the correct type for primary key database columns
-  def db_primary_key_type(mode = nil)
+  def db_primary_key_type
     case Rails.configuration.database_configuration[Rails.env]['adapter']
     when 'postgresql'
       'uuid PRIMARY KEY'
