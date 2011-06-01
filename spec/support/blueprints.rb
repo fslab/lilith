@@ -111,3 +111,10 @@ Article::Release.blueprint do
   version { '1.0.0' }
 end
 
+User.blueprint do
+  login { "user_#{sn}" }
+end
+
+User::Role.blueprint do
+  name { "Role #{sn}" }
+end

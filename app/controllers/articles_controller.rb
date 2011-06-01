@@ -20,10 +20,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Manages lifecycle of Article models
 class ArticlesController < ApplicationController
-
-  before_filter :authenticate, :except => :show
   before_filter :find_article, :except => [:index, :create, :new, :latest]
-
+  
   # List articles
   def index
     @unpublished_sticky_articles = Article.unpublished.sticky
@@ -35,7 +33,9 @@ class ArticlesController < ApplicationController
     @all_articles = Article.published
 
     respond_to do |format|
-      format.html
+      format.html do
+        authorize!(:manage, Article) # Needed as long as there is not admin view
+      end
       format.atom
     end
   end
@@ -51,16 +51,17 @@ class ArticlesController < ApplicationController
 
   # Display an article
   def show
-        
   end
 
   # Mask for article modification
   def edit
-  
+    authorize!(:manage, @article)
   end
 
   # Execute an article update
   def update
+    authorize!(:manage, @article)
+
     params[:article][:published] = params[:article][:published] ? true : false
 
     if @article.update_attributes(params[:article])
@@ -72,22 +73,28 @@ class ArticlesController < ApplicationController
 
   # Mask for article deletion
   def delete
-
+    authorize!(:manage, @article)
   end
 
   # Execute an article deletion
   def destroy
+    authorize!(:manage, @article)
+
     @article.destroy
     redirect_to articles_path
   end
 
   # Mask for article creation
   def new
+    authorize!(:manage, Article)
+
     @article = Article.new
   end
 
   # Execute an article creation
   def create
+    authorize!(:manage, Article)
+    
     params[:article][:published] = params[:article][:published] ? true : false
 
     @article = Article.new(params[:article])

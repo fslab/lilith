@@ -38,21 +38,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user_session.try(:record)
   end
 
-  # Authenticates an administrator by configured credentials
-  # Outside of development environment, this will raise an exception if no credentials are configured
-  def authenticate
-    unless Rails.configuration.admin_username.blank? or
-           Rails.configuration.admin_password.blank?
-      authenticate_or_request_with_http_basic do |username, password|
-        username == Rails.configuration.admin_username && password == Rails.configuration.admin_password
-      end
-    else
-      unless Rails.env == 'development'
-        raise 'admin_username and admin_password are required to be configured outside development mode'
-      end
-    end
-  end
-
   # Determines the response locale for the request
   def set_locale
     unless params[:locale]

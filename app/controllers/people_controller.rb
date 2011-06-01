@@ -21,11 +21,12 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # Manages lifecycle of Person models
 class PeopleController < ApplicationController
 
-  before_filter :authenticate
+  before_filter :authorize_write
   before_filter :find_person, :only => [:show, :delete, :destroy, :edit, :update]
 
 
   def index
+
     @people = Person.order('surname DESC').all
 
     @people_matched = Person.matched
@@ -66,6 +67,10 @@ class PeopleController < ApplicationController
 
   def find_person
     @person = Person.find(params[:id])
+  end
+
+  def authorize_write
+    authorize!(:write, Person)
   end
 
 end

@@ -43,6 +43,7 @@ gem 'foreigner', '~> 0.9.2'
 gem 'authlogic', '~> 3.0.3'
 gem 'activeldap3', '~> 1.2.3', :require => 'active_ldap'
 gem 'net-ldap', '~> 0.2.2'
+gem 'cancan', '~> 1.6.5'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 
 group :development do
