@@ -108,7 +108,7 @@ class Lilith::HbrsEvaScraper
         logger.debug "Scraped Person: #{person.inspect}"
       end
 
-      schedule = semester.schedules.create!
+      schedule_state = semester.schedule_states.create!
 
       scrape_study_units(semester).each do |study_unit|
         logger.debug "Scraped StudyUnit: #{study_unit.inspect}"
@@ -117,7 +117,7 @@ class Lilith::HbrsEvaScraper
 
           raw_events.each do |raw_event|
 
-            event = scrape_event(course, schedule, raw_event)
+            event = scrape_event(course, schedule_state, raw_event)
             
             if raw_event[:groups]
               scrape_groups(raw_event[:groups]).each do |group|
@@ -361,15 +361,15 @@ class Lilith::HbrsEvaScraper
     scraped_courses
   end
 
-  # Parses raw data values and builds an event object belonging to course and schedule
+  # Parses raw data values and builds an event object belonging to course and schedule state
   #
   # Attention: raw_data gets modified!
-  def scrape_event(course, schedule, raw_data)
+  def scrape_event(course, schedule_state, raw_data)
     unless raw_data.keys.to_set.superset?([:start_time, :end_time, :period, :room].to_set)
       raise ArgumentError, 'Raw data values do not match requirements' + " #{raw_data.inspect}"
     end
 
-    event = schedule.events.new
+    event = schedule_state.events.new
     event.course = course
     event.room   = raw_data[:room]
 

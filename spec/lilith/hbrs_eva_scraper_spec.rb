@@ -325,7 +325,7 @@ describe Lilith::HbrsEvaScraper do
   context "#scrape_event" do
     it "should build an event from raw data" do
       course   = Course.make!
-      schedule = course.study_unit.semester.schedules.create!
+      schedule_state = course.study_unit.semester.schedule_states.create!
 
       raw_data = {
           :start_time => '16:00',
@@ -334,7 +334,7 @@ describe Lilith::HbrsEvaScraper do
           :room       => 'C181',
       }
 
-      event = @scraper.scrape_event(course, schedule, raw_data)
+      event = @scraper.scrape_event(course, schedule_state, raw_data)
 
       event.should be_persisted
       event.first_start.should == Time.new(2011, 3, 21, 16)
@@ -345,7 +345,7 @@ describe Lilith::HbrsEvaScraper do
 
     it "should add extracted recurrence to the raw data" do
       course   = Course.make!
-      schedule = course.study_unit.semester.schedules.create!
+      schedule_state = course.study_unit.semester.schedule_states.create!
 
       raw_data = {
         :start_time => '16:00',
@@ -355,7 +355,7 @@ describe Lilith::HbrsEvaScraper do
       }
 
       lambda {
-        @scraper.scrape_event(course, schedule, raw_data)
+        @scraper.scrape_event(course, schedule_state, raw_data)
       }.should change{ raw_data[:recurrence] }.from(nil).to('KW 12-25')
     end
   end

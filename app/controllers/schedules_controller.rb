@@ -48,9 +48,9 @@ class SchedulesController < ApplicationController
     disposition = params[:disposition] || params[:d]
 
     if params[:id] == 'latest'
-      @schedule = Schedule.latest
+      @schedule = ScheduleState.latest
     else
-      @schedule = Schedule.find(params[:id])
+      @schedule = ScheduleState.find(params[:id])
     end
 
     @events = Set.new

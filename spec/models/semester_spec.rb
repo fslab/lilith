@@ -28,22 +28,22 @@ describe Semester do
   it_should_behave_like "a timestamped model"
   
   it { should have_many(:study_units) }
-  it { should have_many(:schedules) }
+  it { should have_many(:schedule_states) }
 
   context "before destroy" do
     it "should destroy all its schedules" do
       semester = described_class.make!
 
-      schedules = [
-        Schedule.make!(:semester_id => semester),
-        Schedule.make!(:semester_id => semester)
+      schedule_states = [
+        ScheduleState.make!(:semester_id => semester),
+        ScheduleState.make!(:semester_id => semester)
       ]
 
       semester.destroy
 
-      schedules.each do |schedule|
+      schedule_states.each do |schedule|
         lambda {
-          Schedule.find(schedule.id)
+          ScheduleState.find(schedule.id)
         }.should raise_error(ActiveRecord::RecordNotFound)
       end
     end

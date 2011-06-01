@@ -70,16 +70,16 @@ describe Course do
 
   context "#exclusive_events" do
     it "should only deliver events which aren't associated with a group" do
-      schedule = Schedule.make!
+      schedule_state = ScheduleState.make!
       group  = Group.make!
       course = group.course
 
-      lone_event  = Event.make!(:course => course, :schedule => schedule)
-      group_event = Event.make!(:course => course, :schedule => schedule)
+      lone_event  = Event.make!(:course_id => course, :schedule_state_id => schedule_state)
+      group_event = Event.make!(:course_id => course, :schedule_state_id => schedule_state)
 
       group_event.group_associations.create!(:group_id => group)
 
-      result = course.events.exclusive(schedule)
+      result = course.events.exclusive(schedule_state)
       result.should include(lone_event)
       result.should_not include(group_event)
     end

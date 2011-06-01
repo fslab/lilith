@@ -43,7 +43,7 @@ Person.blueprint do
   eva_id     { 'ravenhurst' }
 end
 
-Schedule.blueprint do
+ScheduleState.blueprint do
   created_at { Date.parse('2011-03-02') }
 end
 
@@ -64,10 +64,10 @@ Group.blueprint do
 end
 
 Event.blueprint do
-  schedule_id { Schedule.make! }
-  course_id   { Course.make! }
-  first_start { Date.parse('2011-05-23 17:00')}
-  first_end   { Date.parse('2011-05-23 17:45')}
+  schedule_state_id { ScheduleState.make! }
+  course_id         { Course.make! }
+  first_start       { Date.parse('2011-05-23 17:00')}
+  first_end         { Date.parse('2011-05-23 17:45')}
 end
 
 Week.blueprint do
@@ -117,4 +117,14 @@ end
 
 User::Role.blueprint do
   name { "Role #{sn}" }
+end
+
+Schedule.blueprint do
+  user_id { User.make! }
+  name    { "schedule_#{sn}"}
+end
+
+Schedule::CourseAssociation.blueprint do
+  schedule_id { Schedule.make!.id }
+  course_id   { Course.make!.id }
 end

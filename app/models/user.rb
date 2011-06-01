@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   has_many :role_associations, :class_name => 'User::RoleAssociation'
   has_many :roles, :class_name => 'User::Role', :through => :role_associations
+  has_many :schedules
+  has_one :default_schedule, :class_name => 'Schedule'
 
   validates :login, :uniqueness => true
 

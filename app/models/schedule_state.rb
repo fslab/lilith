@@ -18,21 +18,18 @@ You should have received a copy of the GNU General Public License
 along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
-# One partition of the participants of a course
-class Group < ActiveRecord::Base
+# Collection of scheduled events of a semester at a specific point in time
+class ScheduleState < ActiveRecord::Base
   include Lilith::UUIDHelper
 
-  belongs_to :course
+  belongs_to :semester
+  has_many :events, :dependent => :destroy
 
-  has_many :event_associations,
-           :class_name => 'EventGroupAssociation',
-           :dependent => :destroy
-  has_many :events, :through => :event_associations do
-    # All events, compatible interface for Course#events#exclusive
-    def exclusive(schedule_state = nil)
-      params = {}
-      params[:schedule_state_id] = schedule_state if schedule_state
-      self.where(params).all
-    end
+  # By default, schedules are ordered by updated_at in a descending way
+  default_scope order('updated_at DESC')
+
+  # Returns the latest schedule
+  def self.latest
+    first
   end
 end

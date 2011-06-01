@@ -22,6 +22,8 @@ require 'spec_helper'
 
 describe Event do
   it { should have_db_column(:id) }
+  it { should have_db_column(:course_id) }
+  it { should have_db_column(:schedule_state_id) }
   it { should have_db_column(:first_start).of_type(:datetime) }
   it { should have_db_column(:first_end).of_type(:datetime) }
   it { should have_db_column(:recurrence).of_type(:string) }
@@ -30,7 +32,7 @@ describe Event do
   it_should_behave_like "a timestamped model"
 
   it { should belong_to(:course) }
-  it { should belong_to(:schedule) }
+  it { should belong_to(:schedule_state) }
 
   it { should have_many(:group_associations) }
   it { should have_many(:groups) }

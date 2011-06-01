@@ -23,7 +23,7 @@ class Semester < ActiveRecord::Base
   include Lilith::UUIDHelper
   
   has_many :study_units, :dependent => :destroy
-  has_many :schedules, :dependent => :destroy
+  has_many :schedule_states, :dependent => :destroy
 
   # Finds a Semester by either be it's UUID or the token
   def self.find(*args)

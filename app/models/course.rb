@@ -26,9 +26,9 @@ class Course < ActiveRecord::Base
   
   has_many :events, :dependent => :destroy do
     # All events which do not also belong to a group
-    def exclusive(schedule = nil)
+    def exclusive(schedule_state = nil)
       params = {}
-      params[:schedule_id] = schedule if schedule
+      params[:schedule_state_id] = schedule_state if schedule_state
       self.where(params) - self.where(params).joins(:group_associations)
     end
   end
