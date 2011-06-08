@@ -22,7 +22,7 @@ class InitialSchema < ActiveRecord::Migration
 
   def self.up
     create_table :people, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.string :title
       t.string :forename
       t.string :middlename
@@ -33,21 +33,21 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :weeks, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.integer :year
       t.integer :index
       t.timestamps
     end
 
     create_table :categories, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.string :name
       t.string :eva_id
       t.timestamps
     end
 
     create_table :semesters, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.integer :start_year
       t.string  :season
       t.string  :start_week
@@ -56,13 +56,13 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :schedules, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :semester_id, Lilith.db_reference_type
       t.timestamps
     end
 
     create_table :study_units, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :semester_id, Lilith.db_reference_type
       t.string  :program
       t.integer :position
@@ -71,7 +71,7 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :courses, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :study_unit_id, Lilith.db_reference_type
       t.string :name
       t.string :profile_url
@@ -79,7 +79,7 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :events, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :course_id, Lilith.db_reference_type
       t.column :schedule_id, Lilith.db_reference_type
       t.datetime :first_start
@@ -91,21 +91,21 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :groups, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :course_id, Lilith.db_reference_type
       t.string :name
       t.timestamps
     end
 
     create_table :event_group_associations, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :event_id, Lilith.db_reference_type
       t.column :group_id, Lilith.db_reference_type
       t.timestamps
     end
 
     create_table :event_lecturer_associations, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :event_id, Lilith.db_reference_type
       t.column :lecturer_id, Lilith.db_reference_type
       t.timestamps
@@ -115,7 +115,7 @@ class InitialSchema < ActiveRecord::Migration
     add_index :event_lecturer_associations, :lecturer_id
 
     create_table :event_week_associations, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :event_id, Lilith.db_reference_type
       t.column :week_id, Lilith.db_reference_type
       t.timestamps
@@ -125,7 +125,7 @@ class InitialSchema < ActiveRecord::Migration
     add_index :event_week_associations, :week_id
 
     create_table :category_event_associations, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :category_id, Lilith.db_reference_type
       t.column :event_id, Lilith.db_reference_type
       t.timestamps
@@ -135,14 +135,14 @@ class InitialSchema < ActiveRecord::Migration
     add_index :category_event_associations, :event_id
 
     create_table :articles, :id => false do |t|
-      t.column   :id, Lilith.db_primary_key_type(:for_migration)
+      t.column   :id, Lilith.db_primary_key_type
       t.datetime :published_at
       t.boolean  :sticky, :default => false
       t.timestamps
     end
 
     create_table:article_translations, :id => false do |t|
-      t.column :id, Lilith.db_primary_key_type(:for_migration)
+      t.column :id, Lilith.db_primary_key_type
       t.column :article_id, Lilith.db_reference_type
       t.string :locale
       t.string :name
