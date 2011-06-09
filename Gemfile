@@ -45,6 +45,7 @@ gem 'activeldap3', '~> 1.2.3', :require => 'active_ldap'
 gem 'net-ldap', '~> 0.2.2'
 gem 'cancan', '~> 1.6.5'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
+gem "kaminari", "~> 0.12.4"
 
 group :development do
   gem 'wirble', '~> 0.1.3'
