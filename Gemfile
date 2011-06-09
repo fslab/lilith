@@ -29,6 +29,7 @@ gem 'pg', '~> 0.10.1' # PostgreSQL is the recommended database system
 #gem 'sqlite3', '~> 1.3.3'
 #gem 'mysql2', '~> 0.2.7'
 
+gem 'rake', '~> 0.8.7'
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
 gem 'ri_cal', '~> 0.8.8'
