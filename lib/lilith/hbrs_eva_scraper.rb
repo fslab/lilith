@@ -118,9 +118,9 @@ class Lilith::HbrsEvaScraper
           raw_events.each do |raw_event|
 
             event = scrape_event(course, schedule_state, raw_event)
-            
+
             if raw_event[:groups]
-              scrape_groups(raw_event[:groups]).each do |group|
+              scrape_groups(course, raw_event[:groups]).each do |group|
                 event.group_associations.find_or_create_by_group_id(group)
               end
             end
@@ -386,7 +386,7 @@ class Lilith::HbrsEvaScraper
 
   # Parses a raw groups string and finds or creates contained groups and
   # returns them as an Array
-  def scrape_groups(raw_groups)
+  def scrape_groups(course, raw_groups)
     group_names = []
 
     self.class.parse_range(raw_groups).map do |token|
@@ -400,7 +400,7 @@ class Lilith::HbrsEvaScraper
     end
 
     group_names.map do |group_name|
-      Group.find_or_create_by_name(group_name)
+      Group.find_or_create_by_name_and_course_id(group_name, course)
     end
   end
 
