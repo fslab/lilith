@@ -8,15 +8,47 @@ class Lilith::HolidayList
     @holidays_by_year[year.to_i] ||= new(year.to_i)
   end
 
-  attr_reader :year, :holidays
-
-  def initialize(year)
-    @year = year.to_i
-    @holidays = (fixed_holidays + variable_holidays).sort.freeze
+  def initialize(*arguments)
+    if arguments.length == 1
+      year = arguments.first
+      @year = year.to_i
+      @holidays = (fixed_holidays + variable_holidays).sort.freeze
+    else
+      @holiday_lists = arguments.to_a.sort.freeze
+    end
   end
+
+  def year
+    if @holiday_lists
+      @holiday_lists.map(&:year).uniq
+    else
+      @year
+    end
+  end
+
+  def holidays
+    if @holiday_lists
+      holidays = []
+      @holiday_lists.each do |holiday_list|
+        holidays += holiday_list.holidays
+      end
+      holidays.uniq.freeze
+    else
+      @holidays
+    end
+  end
+
 
   def each(&block)
     holidays.each(&block)
+  end
+  
+  def <=>(other)
+    @year <=> other.year
+  end
+
+  def +(other)
+    self.class.new(self, other)
   end
 
   def last

@@ -3,6 +3,17 @@ require 'lilith'
 require 'lilith/holiday_list'
 
 describe Lilith::HolidayList do
+  context "#+" do
+    it "should return a proxy combining both operands" do
+      holidays_2011 = described_class.new(2011)
+      holidays_2012 = described_class.new(2012)
+      result = holidays_2011 + holidays_2012
+      result.should be_a(described_class)
+      result.year.should == [2011, 2012]
+      result.holidays.should == holidays_2011.holidays + holidays_2012.holidays
+      
+    end
+  end
   context "in 2012" do
     before(:each) do
       @year = 2012

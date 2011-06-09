@@ -51,8 +51,8 @@ class Event < ActiveRecord::Base
 
     first_week_day = Aef::WeekDay.new(first_start)
 
-    holidays  = Lilith::HolidayList.for(occurrences.first.week.year)
-    holidays += Lilith::HolidayList.for(occurrences.last.week.year)
+    holidays  = Lilith::HolidayList.for(weeks.first.year)
+    holidays += Lilith::HolidayList.for(weeks.last.year)
 
     occurrence_week_days = occurrence_weeks.map!{|week| week.day(first_week_day.index) }
     occurrence_week_days.reject{|week_day| holidays.any?{|holiday| holiday == week_day } }
