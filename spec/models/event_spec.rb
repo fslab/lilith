@@ -22,6 +22,8 @@ require 'spec_helper'
 
 describe Event do
   it { should have_db_column(:id) }
+  it { should have_db_column(:course_id) }
+  it { should have_db_column(:schedule_state_id) }
   it { should have_db_column(:first_start).of_type(:datetime) }
   it { should have_db_column(:first_end).of_type(:datetime) }
   it { should have_db_column(:recurrence).of_type(:string) }
@@ -30,7 +32,7 @@ describe Event do
   it_should_behave_like "a timestamped model"
 
   it { should belong_to(:course) }
-  it { should belong_to(:schedule) }
+  it { should belong_to(:schedule_state) }
 
   it { should have_many(:group_associations) }
   it { should have_many(:groups) }
@@ -41,6 +43,75 @@ describe Event do
   it { should have_many(:week_associations) }
   it { should have_many(:weeks) }
 
+  context "before destroy" do
+    it "should destroy all its group associations" do
+      event = described_class.make!
+
+      group_associations = [
+        EventGroupAssociation.make!(:event_id => event),
+        EventGroupAssociation.make!(:event_id => event)
+      ]
+
+      event.destroy
+
+      group_associations.each do |association|
+        lambda {
+          EventGroupAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "should destroy all its category associations" do
+      event = described_class.make!
+
+      category_associations = [
+        CategoryEventAssociation.make!(:event_id => event),
+        CategoryEventAssociation.make!(:event_id => event)
+      ]
+
+      event.destroy
+
+      category_associations.each do |association|
+        lambda {
+          CategoryEventAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "should destroy all its lecturer associations" do
+      event = described_class.make!
+
+      lecturer_associations = [
+        EventLecturerAssociation.make!(:event_id => event),
+        EventLecturerAssociation.make!(:event_id => event)
+      ]
+
+      event.destroy
+
+      lecturer_associations.each do |association|
+        lambda {
+          EventGroupAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "should destroy all its week associations" do
+      event = described_class.make!
+
+      week_associations = [
+        EventWeekAssociation.make!(:event_id => event),
+        EventWeekAssociation.make!(:event_id => event)
+      ]
+
+      event.destroy
+
+      week_associations.each do |association|
+        lambda {
+          EventWeekAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 
   context "#occurences" do
     it "should report all occurrences as week day objects" do

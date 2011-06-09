@@ -1,0 +1,39 @@
+%h2 Schedule
+
+%p
+  %form
+    %label{:for => :ics_url} iCalendar:
+    - if @schedule.persisted?
+      %input{:id => :ics_url, :type => :text, :readonly => :readonly, :value => schedule_url(:format => :ics, :id => @schedule)}
+    - else
+      %input{:id => :ics_url, :type => :text, :readonly => :readonly, :value => current_url(:format => :ics, :user_id => nil)}
+    %ul
+      - if @schedule.persisted? and @schedule.name
+        %li
+          %a{:href => user_schedule_path(@schedule.user.login, @schedule.name, :format => :ics, :disposition => :inline)} Open
+        %li
+          %a{:href => user_schedule_path(@schedule.user.login, @schedule.name, :format => :ics, :disposition => :attachment)} Download
+      - else
+        %li
+          %a{:href => current_path(:format => :ics, :disposition => :inline)} Open
+        %li
+          %a{:href => current_path(:format => :ics, :disposition => :attachment)} Download
+
+%p
+  %form
+    %label{:for => :xml_url} XML:
+    - if @schedule.persisted?
+      %input{:id => :xml_url, :type => :text, :readonly => :readonly, :value => schedule_url(:format => :xml, :id => @schedule)}
+    - else
+      %input{:id => :ics_url, :type => :text, :readonly => :readonly, :value => current_url(:format => :xml, :user_id => nil)}
+    %ul
+      - if @schedule.persisted? and @schedule.name
+        %li
+          %a{:href => user_schedule_path(@schedule.user.login, @schedule.name, :format => :xml, :disposition => :inline)} Open
+        %li
+          %a{:href => user_schedule_path(@schedule.user.login, @schedule.name, :format => :xml, :disposition => :attachment)} Download
+      - else
+        %li
+          %a{:href => current_path(:format => :xml, :disposition => :inline)} Open
+        %li
+          %a{:href => current_path(:format => :xml, :disposition => :attachment)} Download

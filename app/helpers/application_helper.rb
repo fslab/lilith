@@ -29,6 +29,13 @@ module ApplicationHelper
   
   def textilize(input)
     RedCloth.new(input.to_s).to_html.html_safe
-  
+  end
+
+  def current_url(new_params = {})
+    url_for(params.merge(new_params).merge(:only_path => false))
+  end
+
+  def current_path(new_params = {})
+    url_for(params.merge(new_params).merge(:only_path => true))
   end
 end

@@ -29,4 +29,23 @@ describe Category do
 
   it { should have_many(:events) }
   it { should have_many(:event_associations) }
+
+  context "before destroy" do
+    it "should destroy all its event associations" do
+      category = described_class.make!
+
+      event_associations = [
+        CategoryEventAssociation.make!(:category_id => category),
+        CategoryEventAssociation.make!(:category_id => category)
+      ]
+
+      category.destroy
+
+      event_associations.each do |association|
+        lambda {
+          CategoryEventAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end

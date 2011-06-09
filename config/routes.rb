@@ -21,12 +21,17 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 Lilith::Application.routes.draw do
 
   scope '(:locale)', :constraints => {:locale => /de|en/} do
-
-    resources :semesters, :only => :index do
-      resources :schedules, :only => [:show, :index, :new]
+    resource :session, :controller => :session, :except => [:edit, :update] do
+      get :delete
     end
 
-    resources :schedules, :only => :index
+    scope '(:semester)' do
+      resources :schedules, :only => [:show, :index, :new, :create]
+    end
+
+    resources :users, :only => :show do
+      resources :schedules, :only => [:index, :show]
+    end
 
     resource :imprint, :only => :show, :controller => :imprint
     resource :dashboard, :only => :show, :controller => :dashboard
@@ -38,6 +43,10 @@ Lilith::Application.routes.draw do
     end
 
     resources :articles do
+      collection do
+        get 'latest', :defaults => { :format => 'atom'}, :only => :index
+      end
+
       member do
         get :delete
       end

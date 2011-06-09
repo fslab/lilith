@@ -31,4 +31,23 @@ describe StudyUnit do
   it { should belong_to(:semester) }
 
   it { should have_many(:courses) }
+
+  context "before destroy" do
+    it "should destroy all its courses" do
+      study_unit = described_class.make!
+
+      courses = [
+        Course.make!(:study_unit_id => study_unit),
+        Course.make!(:study_unit_id => study_unit)
+      ]
+
+      study_unit.destroy
+
+      courses.each do |course|
+        lambda {
+          Course.find(course.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end

@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
   include Lilith::UUIDHelper
 
   belongs_to :course
-  belongs_to :schedule
+  belongs_to :schedule_state
 
   has_many :lecturer_associations,
            :class_name => 'EventLecturerAssociation',

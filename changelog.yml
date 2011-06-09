@@ -1,0 +1,14 @@
+---
+project: Lilith
+releases:
+- version: 0.1.0
+  time: 2011-05-01 17:58:55 +02:00
+  features:
+  - de: Erstveröffentlichung
+    en: Initial release
+  url: https://www.fslab.de/redmine/projects/lilith/versions/1
+- version: 0.1.1
+  time: 2011-05-01 19:14:10 +02:00
+  bugs:
+  - de: URLs die auf fslab.de zeigten auf www.fslab.de korrigiert um TLS-Warnungen zu vermeiden
+    en: Corrected URL to fslab.de to point to www.fslab.de to silence TLS warnings

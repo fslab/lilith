@@ -14,48 +14,229 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-#schedule {
-    ul {
-        padding: 0;
-
-        ul {
-            padding-left: 20px;
-        }
-
-        ul.events {
-            padding-left: 35px;
-        }
-
-        li {
-            list-style: none;
-        }
+#schedules {
+    #main {
+        padding-bottom: 30px;
     }
 
-    .navigation {
-
-        table {
-            border-spacing: 0;
-
-            tr:hover td {
-                background-color: #d8efff;
-            }
-
-            td.program {
-                padding-right: 20px;
-            }
-
-            td.units {
-                padding-right: 10px;
-            }
-        }
+    div.field_with_errors {
+        display: inline-block;
     }
 
     .controls {
-        float: right;
-        text-align: right;
+        &.reduced {
+            .options {
+                padding-top: 40px;
 
-        select {
-            width: 150px;
+                input[type = submit] {
+                    width: 200px;
+                }
+            }
         }
+
+        .navigation {
+            display: inline-block;
+            float: right;
+
+            table {
+                border-spacing: 0;
+
+                caption {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+
+                a {
+                    margin-left: 5px;
+                    border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    padding: 0 10px 0 10px;
+                    background-color: #09f;
+                    color: white;
+                }
+
+                a:hover {
+                    background-color: black;
+                }
+
+                tr:hover td {
+                    background-color: #d8efff;
+                }
+
+                td.program {
+                    border-radius: 5px 0 0 5px;
+                    -moz-border-radius: 5px 0 0 5px;
+                    padding-right: 20px;
+                    padding-left: 10px;
+                }
+
+                td.units {
+                    border-radius: 0 5px 5px 0;
+                    -moz-border-radius: 0 5px 5px 0;
+                    padding-right: 10px;
+                }
+            }
+        }
+
+        .options {
+            display: inline-block;
+            text-align: right;
+
+            select {
+                text-align: center;
+            }
+
+            select, input[type = 'text'], textarea {
+                width: 200px;
+            }
+
+            input[type = submit] {
+                width: 170px;
+                margin-left: 10px;
+
+                &.standalone {
+                    width: 200px;
+                }
+            }
+
+            p {
+                margin-top: 0;
+            }
+        }
+
     }
+
+    .filters {
+        margin-bottom: 5px;
+
+        label {
+            margin-bottom: 3px;
+        }
+
+        .value {
+            border: 1px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+
+            * {
+                background: none;
+            }
+
+            img {
+                display: inline-block;
+                padding: 2px 0;
+                height: 16px;
+                width: 16px;
+            }
+
+            .spinner {
+                float: left;
+                visibility: hidden;
+                margin-left: 2px;
+            }
+
+            #course_filter_clear {
+                float: right;
+                visibility: hidden;
+                margin-right: 2px;
+            }
+
+            input[type=text] {
+                border: none;
+                width: 515px;
+                text-align: center;
+            }
+        }
+
+        .value:hover {
+            background-color: #d6eeff;
+        }
+
+    }
+
+    .study_unit {
+
+        margin-top: 20px;
+
+        .back_to_top {
+            display: inline-block;
+            float: right;
+        }
+
+        h3 {
+           margin: 0;
+           display: inline-block;
+           float: left;
+        }
+        
+    }
+
+    ul.courses {
+        padding: 0;
+
+        li {
+            list-style: none;
+            font-size: 11pt;
+            margin-top: 10px;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            text-align: center;
+        }
+
+        > li {
+
+            background-color: #09f;
+            color: #fff;
+            padding-top: 3px;
+
+            h4 {
+                margin: 0;
+            }
+
+            ul.groups {
+
+                width: 100%;
+                padding: 0;
+                display: inline-table;
+                border-spacing: 5px;
+
+                li {
+                    display: table-cell;
+
+                    label {
+                        display: block;
+                        border: 2px solid #fff;
+                        border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        background-color: #fff;
+                        color: #000;
+
+                        .title {
+                            display: block;
+                            margin-bottom: 5px;
+                        }
+
+                    }
+
+                    :hover {
+                        background-color: #d6eeff;
+                        border-color: #d6eeff;
+                    }
+
+                    .selected {
+                        background-color: #fccb03;
+                    }
+
+                    :hover *, .selected * {
+                        background: none;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

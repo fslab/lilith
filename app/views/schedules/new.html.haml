@@ -16,37 +16,136 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-- set_body_id :schedule
+- set_body_id :schedules
 %h2= t('schedules.schedule_composition')
 
-%form{:action => semester_schedules_path(@semester.token)}
-  %h3= t('schedules.navigation')
+- form_for(@schedule) do |f|
+  .controls{:class => current_user ? nil : :reduced}
+    .options
+      %p
+        %label{:for => 'fixed_schedule_state_id'}= t('schedules.actuality') + ':'
+        = f.select :fixed_schedule_state_id, options_for_select([[t('schedules.latest'), 'latest']] + @schedule_states.map{|schedule| [l(schedule.created_at), schedule.id]})
+      - if current_user
+        %p
+          %label{:for => :name}= t('schedules.name') + ':'
+          = f.text_field :name
+        %p
+          %label{:for => :description}= t('schedules.description') + ':'
+          = f.text_area :description, :rows => nil, :cols => nil
+        %p
+          %label{:for => :public}= t('schedules.public') + ':'
+          = f.check_box :public
+          = f.submit t('schedules.generate'), :name => nil
+      - else
+        = f.submit t('schedules.generate'), :name => nil
 
-  .controls
-    %p
-      %label{:for => 'schedule_id'}= t('schedules.actuality') + ': '
-      %select{:id => 'schedule_id', :name => 'schedule_id'}
-        %option{:value => 'latest', :selected => 'selected'}= t('schedules.latest')
-        = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}
-    %p
-      %label{:for => 'format'}= t('schedules.format') + ': '
-      %select{:id => 'format', :name => 'f'}
-        %option{:value => 'ics'} iCalendar
-        %option{:value => 'xml'} XML
-    = submit_tag t('schedules.generate'), :name => nil
+    -# Generate navigation index
+    .navigation
+      %table
+        %caption= t('schedules.navigation')
+        %tbody
+          - @study_units.group_by(&:program).each do |program, study_units|
+            %tr
+              %td.program= program
+              %td.units
+                - study_units.each do |study_unit|
+                  %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
 
-  -# Generate navigation index
-  .navigation
-    %table
-      %tbody
-        - @study_units.group_by(&:program).each do |program, study_units|
-          %tr
-            %td.program= program
-            %td.units
-              - study_units.each do |study_unit|
-                %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
+    .clear
+
+  - content_for(:filter) do # Inserted through JavaScript
+    .filters
+      %label{:for => 'course_filter'}= t('schedules.filter') + ':'
+      .value
+        %img.spinner{:src => '/images/spinner.gif', :alt => 'Loading...'}
+        %input#course_filter{:type => 'text'}
+        %img#course_filter_clear{:src => '/images/icons/cross.png', :alt => 'Clear'}
+
+  %p
+    %noscript
+      = t('global.java_script_features')
 
   -# Generate sections
   .study_units
     - @study_units.each do |study_unit|
-      = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
+      = render :partial => 'study_unit', :locals => {:study_unit => study_unit, :f => f}
+
+:javascript
+  // Add course filter bar
+  $('#schedules .controls').append("#{escape_javascript yield(:filter)}");
+
+  var course_filter_timer;
+  var course_filter_value = '';
+
+  $(function() {
+    // Course selection toggle
+    $('#schedules .groups label').click(function() {
+      var label = $(this);
+      var check_box = label.children('input[type=checkbox]');
+
+      if (check_box.is(':checked')) {
+        label.addClass('selected');
+      } else {
+        label.removeClass('selected');
+      }
+    });
+
+    // Hide all courses which do not match the given regular expression
+    // If all courses are hidden in a study unit, the whole unit becomes hidden
+    var course_filter_action = function() {
+
+      var pattern = new RegExp($('#course_filter').val(), 'i');
+
+      $('#schedules .study_unit').each(function() {
+        var shown_count = 0;
+
+        $(this).find('.courses > li').each(function() {
+          if ($(this).find('h4').text().match(pattern)) {
+            $(this).show();
+            shown_count += 1;
+          } else {
+            $(this).hide();
+          }
+        });
+
+        if (shown_count == 0) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+
+      course_filter_value = $('#course_filter').val();
+
+      if ($('#course_filter').val() != '') {
+        $('#schedules #course_filter_clear').css('visibility', 'visible');
+      } else {
+        $('#schedules #course_filter_clear').css('visibility', 'hidden');
+      }
+
+      $('#schedules .spinner').css('visibility', 'hidden');
+    };
+
+    // Amount of milliseconds for the finish-typing-timeout
+    var course_filter_timeout = 500;
+
+    // When a key is released, a timeout for filtering is activated
+    $('#schedules #course_filter').keyup(function() {
+      if (course_filter_value != $('#course_filter').val()) {
+        course_filter_timer = setTimeout(course_filter_action, course_filter_timeout);
+        $('#schedules .spinner').css('visibility', 'visible');
+      }
+    });
+
+    // When a key is pressed, a running timeout for filtering gets stopped
+    $('#schedules #course_filter').keydown(function() {
+      clearTimeout(course_filter_timer);
+      $('#schedules .spinner').css('visibility', 'hidden');
+    });
+
+    $('#schedules #course_filter_clear').click(function() {
+      $(this).css('visibility', 'hidden');
+      $('#schedules #course_filter').val('');
+      course_filter_action();
+    });
+  });

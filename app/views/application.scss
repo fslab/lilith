@@ -16,15 +16,18 @@
  * along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
  */
 @import 'imprint/imprint';
+@import 'session/session';
 @import 'dashboard/dashboard';
 @import 'articles/articles';
 @import 'schedules/schedules';
+@import 'people/people';
 
 html, body {
   padding: 0;
   margin: 0;
   color: black;
   background-image: url("/images/background.png");
+  background-attachment: fixed;
 
   .clear {
     clear: both;
@@ -41,22 +44,35 @@ html, body {
   }
 }
 
-input[type=text], textarea {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 2px;
+input[type=text], input[type=password], textarea {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px;
+
+    &:hover, &:focus {
+        background-color: #d6eeff;
+    }
+}
+
+div.field_with_errors {
+    input[type=text], input[type=password], textarea {
+        background-color: #fbb;
+
+        &:hover {
+            background-color: #faa;
+        }
+    }
 }
 
 img {
     border: none;
 }
 
-input[type=text]:focus, textarea:focus,
-input[type=text]:hover, textarea:hover {
-    background-color: #d6eeff;
+noscript {
+    color: #f00;
 }
 
 #ie_warning
@@ -67,6 +83,30 @@ input[type=text]:hover, textarea:hover {
   color: white;
   position: fixed;
   z-index: 1000;
+  top: 0px;
+  padding-top: 2px;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: solid 1px black;
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: underline;
+    color: white;
+  }
+
+  a:hover {
+    color: black;
+  }
+}
+
+#notification
+{
+  width: 100%;
+  height: 24px;
+  background-color: #fccb03;
+  color: black;
+  position: fixed;
+  z-index: 1001;
   top: 0px;
   padding-top: 2px;
   overflow: hidden;
@@ -203,6 +243,14 @@ input[type=text]:hover, textarea:hover {
 
     #error {
         background-color: #ff1f1f;
+    }
+
+    .errors {
+        p {
+            font-weight: bold;
+        }
+
+        color: red;
     }
 }
 

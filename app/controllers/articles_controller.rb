@@ -20,10 +20,8 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Manages lifecycle of Article models
 class ArticlesController < ApplicationController
-
-  before_filter :authenticate, :except => :show
-  before_filter :find_article, :except => [:index, :create, :new]
-
+  before_filter :find_article, :except => [:index, :create, :new, :latest]
+  
   # List articles
   def index
     @unpublished_sticky_articles = Article.unpublished.sticky
@@ -31,20 +29,39 @@ class ArticlesController < ApplicationController
 
     @published_sticky_articles = Article.published.sticky
     @published_non_sticky_articles = Article.published.non_sticky
+
+    @all_articles = Article.published
+
+    respond_to do |format|
+      format.html do
+        authorize!(:manage, Article) # Needed as long as there is not admin view
+      end
+      format.atom
+    end
+  end
+
+  # Atom Feed latest ten articles
+  def latest
+    @latest_articles = Article.published.limit(10)
+
+    respond_to do |format|
+      format.atom
+    end
   end
 
   # Display an article
   def show
-        
   end
 
   # Mask for article modification
   def edit
-  
+    authorize!(:manage, @article)
   end
 
   # Execute an article update
   def update
+    authorize!(:manage, @article)
+
     params[:article][:published] = params[:article][:published] ? true : false
 
     if @article.update_attributes(params[:article])
@@ -56,22 +73,28 @@ class ArticlesController < ApplicationController
 
   # Mask for article deletion
   def delete
-
+    authorize!(:manage, @article)
   end
 
   # Execute an article deletion
   def destroy
+    authorize!(:manage, @article)
+
     @article.destroy
     redirect_to articles_path
   end
 
   # Mask for article creation
   def new
+    authorize!(:manage, Article)
+
     @article = Article.new
   end
 
   # Execute an article creation
   def create
+    authorize!(:manage, Article)
+    
     params[:article][:published] = params[:article][:published] ? true : false
 
     @article = Article.new(params[:article])

@@ -19,16 +19,15 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 source 'http://rubygems.org'
-source 'http://gemcutter.org'
 
-gem 'rails', '3.0.6'
+gem 'rails', '3.0.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', '~> 0.10.1' # PostgreSQL is the recommended database system
 #gem 'sqlite3', '~> 1.3.3'
-#gem 'mysql', '~> 2.8.1'
+#gem 'mysql2', '~> 0.2.7'
 
 gem 'haml', '~> 3.0.25'
 gem 'mechanize', '~> 1.0.0'
@@ -38,8 +37,16 @@ gem 'uuidtools', '~> 2.1.2'
 gem 'whenever', '~> 0.6.7'
 gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
 gem 'globalize3', '~> 0.1.0.beta'
+gem 'jquery-rails', '~> 0.2.7'
+gem 'acceptable', '~> 0.2.3', :require => 'rack/acceptable'
+gem 'foreigner', '~> 0.9.2'
+gem 'authlogic', '~> 3.0.3'
+gem 'activeldap3', '~> 1.2.3', :require => 'active_ldap'
+gem 'net-ldap', '~> 0.2.2'
+gem 'cancan', '~> 1.6.5'
 gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
 gem 'date_easter', '~> 0.0.1'
+gem "kaminari", "~> 0.12.4"
 
 group :development do
   gem 'wirble', '~> 0.1.3'

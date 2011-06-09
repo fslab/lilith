@@ -43,31 +43,31 @@ Person.blueprint do
   eva_id     { 'ravenhurst' }
 end
 
-Schedule.blueprint do
+ScheduleState.blueprint do
   created_at { Date.parse('2011-03-02') }
 end
 
 StudyUnit.blueprint do
-  semester { Semester.make! }
-  program  { 'Master OTU' }
-  position { 2 }
+  semester_id { Semester.make! }
+  program     { 'Master OTU' }
+  position    { 2 }
 end
 
 Course.blueprint do
-  study_unit { StudyUnit.make! }
-  name       { 'Humanoide Metaphysik I' }
+  study_unit_id { StudyUnit.make! }
+  name          { 'Humanoide Metaphysik I' }
 end
 
 Group.blueprint do
-  course { Course.make! }
-  name   { 3 }
+  course_id { Course.make! }
+  name      { 3 }
 end
 
 Event.blueprint do
-  schedule    { Schedule.make! }
-  course      { Course.make! }
-  first_start { Date.parse('2011-05-23 17:00')}
-  first_end   { Date.parse('2011-05-23 17:45')}
+  schedule_state_id { ScheduleState.make! }
+  course_id         { Course.make! }
+  first_start       { Date.parse('2011-05-23 17:00')}
+  first_end         { Date.parse('2011-05-23 17:45')}
 end
 
 Week.blueprint do
@@ -75,7 +75,61 @@ Week.blueprint do
   year  { 2011 }
 end
 
+Category.blueprint do
+  name   { 'Test' }
+  eva_id { 'T'}
+end
+
+EventGroupAssociation.blueprint do
+  event_id { Event.make! }
+  group_id { Group.make! }
+end
+
+CategoryEventAssociation.blueprint do
+  category_id { Category.make! }
+  event_id    { Event.make! }
+end
+
+EventLecturerAssociation.blueprint do
+  event_id    { Event.make! }
+  lecturer_id { Person.make! }
+end
+
+EventWeekAssociation.blueprint do
+  event_id { Event.make! }
+  week_id  { Week.make! }
+end
+
 Article.blueprint do
   name { 'Test Article' }
   body { 'This is a test body'}
+end
+
+Article::Release.blueprint do
+  name    { 'Test Article' }
+  body    { 'This is a test body'}
+  version { '1.0.0' }
+end
+
+User.blueprint do
+  login { "user_#{sn}" }
+end
+
+User::Role.blueprint do
+  name { "Role #{sn}" }
+end
+
+Schedule.blueprint do
+  user_id { User.make! }
+  name    { "schedule_#{sn}"}
+end
+
+Schedule::CourseAssociation.blueprint do
+  schedule_id { Schedule.make!.id }
+  course_id   { Course.make!.id }
+end
+
+Schedule::GroupAssociation.blueprint do
+  schedule_id { Schedule.make!.id }
+  group_id    { Group.make!.id }
 end

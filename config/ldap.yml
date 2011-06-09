@@ -1,0 +1,10 @@
+development: &DEFAULT
+  host: addressbook.inf.h-brs.de
+  base: dc=fb02,dc=FH-Bonn-Rhein-Sieg,dc=DE
+  method: tls
+
+test:
+  <<: *DEFAULT
+
+production:
+  <<: *DEFAULT

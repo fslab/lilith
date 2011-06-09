@@ -1,0 +1,10 @@
+- set_body_id(:session_delete)
+
+%p.submit
+  %span.question
+    = t('session.delete.question')
+  %form{:action => session_path, :method => 'POST'}
+    %input{:type => 'hidden', :name => '_method', :value => 'DELETE'}
+    %input{:type => 'submit', :value => t('session.delete.submit')}
+  %form{:action => root_path, :method => 'GET'}
+    %input{:type => 'submit', :value => t('session.delete.cancel')}

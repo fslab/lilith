@@ -16,7 +16,45 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-- set_body_id :person
-%h2 Persons
-%ol
-  = render @people
+- set_body_id :people
+%h2= t('person.heading')
+- if @people_matchless
+  %table.matchless
+    %caption= t('person.matchless')
+    %thead
+      %tr
+        %th.title= t('person.title')
+        %th.forename= t('person.forename')
+        %th.middlename= t('person.middlename')
+        %th.surname= t('person.surname')
+        %th.eva_id= t('person.eva_id')
+        %th.actions= t('person.actions')
+
+    %tbody.matchless
+      - @people_matchless.each do |person|
+        = render :partial => 'people/person_for_table', :locals => {:person => person, :alternation_class => cycle('odd', 'even', :name => :matchless)}
+      %tr
+        %td.count{:colspan => 6}= @people_matchless.count
+
+%table.matched
+  %caption= t('person.matched')
+  %thead
+    %tr
+      %th.forename= t('person.forename')
+      %th.middlename= t('person.middlename')
+      %th.surname= t('person.surname')
+      %th.title= t('person.title')
+      %th.eva_id= t('person.eva_id')
+      %th.actions= t('person.actions')
+
+  %tbody.matched
+    - if @people_matched
+      - @people_matched.each do |person|
+        = render :partial => 'people/person_for_table', :locals => {:person => person, :alternation_class => cycle('odd', 'even', :name => :matched)}
+      %tr
+        %td.count{:colspan => 6}= @people_matched.count
+    - else
+      %tr
+        %td{:colspan => 6}= t('person.no_people')
+
+

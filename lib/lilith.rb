@@ -25,7 +25,7 @@ module Lilith
   # The versioning tries to follow semantic versioning
   #
   # See http://semver.org/
-  VERSION = '0.1.1'
+  VERSION = '0.2.0alpha'
 
   module_function
 
@@ -78,20 +78,82 @@ module Lilith
       'uuid'
     when 'sqlite3'
       'text'
-    when 'mysql'
+    when 'mysql', 'mysql2'
       'char(36)'
     end
   end
 
   # Returns the correct type for primary key database columns
-  def db_primary_key_type(mode = nil)
+  def db_primary_key_type
     case Rails.configuration.database_configuration[Rails.env]['adapter']
     when 'postgresql'
       'uuid PRIMARY KEY'
     when 'sqlite3'
       'text PRIMARY KEY'
-    when 'mysql'
+    when 'mysql', 'mysql2'
       'char(36) PRIMARY KEY'
+    end
+  end
+
+  def generate_release_articles
+    changelog_file = Rails.root + 'changelog.yml'
+
+    unless changelog = YAML.load(changelog_file.open)
+      raise "Changelog is invalid (#{changelog_file})"
+    end
+
+    if not releases = changelog.try(:[], 'releases') or releases.empty?
+      Rails.logger.warn "No releases specified in changelog (#{changelog_file})"
+    end
+
+    releases.each do |release|
+      unless version = release['version']
+        Rails.logger.warn "Skipping release without version"
+        next
+      end
+
+      time = release['time'] || Time.now
+
+      article = Article::Release.find_by_version(version)
+
+      unless article
+        article = Article::Release.new(
+          :version => version,
+          :created_at => time,
+          :updated_at => time,
+          :published_at => time
+        )
+      end
+
+      I18n.available_locales.each do |locale|
+        template_file = Rails.root + 'app' + 'views' + 'articles' + "release.#{locale}.textile.erb"
+        template = template_file.read
+
+        article.write_attribute(:name, I18n.t('article.release_name', :locale => locale).gsub(/%VERSION%/, version), :locale => locale)
+
+        params = OpenStruct.new(
+          :version  => version,
+          :features => release['features'].try(:map, &lambda {|feature| feature[locale.to_s] }) || [],
+          :bugs     => release['bugs'].try(:map, &lambda {|feature| feature[locale.to_s] }) || [],
+          :url      => release['url'],
+          :abstract => true
+        )
+
+        def params.get_binding
+          binding
+        end
+
+        abstract_content = ERB.new(template).result(params.get_binding)
+
+        params.abstract = false
+
+        body_content = ERB.new(template).result(params.get_binding)
+
+        article.write_attribute(:abstract, abstract_content, :locale => locale)
+        article.write_attribute(:body,     body_content,     :locale => locale)
+      end
+
+      article.save!
     end
   end
 end

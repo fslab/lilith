@@ -1,0 +1,26 @@
+*Lilith* Version <%= version %> wurde veröffentlicht.
+<% unless abstract %>
+
+<%# Feature section %>
+<% unless features.empty? %>
+Die neue Version enthält folgende neue Funktionen:
+
+<% features.each do |feature| %>
+* <%= feature %>
+<% end %>
+<% end %>
+
+<%# Bug section %>
+<% unless bugs.empty? %>
+Die folgenden Fehler wurden behoben:
+
+<% bugs.each do |bugs| %>
+* <%= bugs %>
+<% end %>
+<% end %>
+
+<%# Link section %>
+<% if url %>
+Mehr Informationen gibt es "hier":<%= url %>.
+<% end %>
+<% end %>

@@ -19,14 +19,30 @@
 .study_unit{:id => study_unit.id}
   %h3
     %a{:id => study_unit.name.gsub(/ /, '+')}~ study_unit.name
-  %a{:href => "##{body_id}"}~ "⇧ #{t('schedules.back_to_top')}"
+  %a{:href => "##{body_id}", :class => 'back_to_top'}~ "⇧ #{t('schedules.back_to_top')}"
+  .clear
   %ul.courses
     - study_unit.courses.order('name ASC').each do |course|
       %li
-        %input{:type => :checkbox, :name => 'c[]', :value => course.id.gsub(/-/, '') }
-        = course.name
+        %h4= course.name
         %ul.groups
+          - if course.events.exclusive.count > 0
+            %li
+              %label{:for => course.id}
+                %span.title
+                  = t('schedules.group_free')
+                %input{:id => course.id,
+                       :type => :checkbox,
+                       :name => 'schedule[course_ids][]',
+                       :value => course.id,
+                       :checked => @schedule.courses.include?(course) ? 'checked' : nil}
           - course.groups.order('name ASC').each do |group|
             %li
-              %input{:type => :checkbox, :name => 'g[]', :value => group.id.gsub(/-/, '') }
-              = "#{t('schedules.group')} #{group.name}"
+              %label{:for => group.id}
+                %span.title
+                  %abbr{:title => "#{t('schedules.group')} #{group.name}"}= group.name
+                %input{:id => group.id,
+                       :type => :checkbox,
+                       :name => 'schedule[group_ids][]',
+                       :value => group.id,
+                       :checked => @schedule.groups.include?(group) ? 'checked' : nil}

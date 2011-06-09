@@ -20,12 +20,9 @@
 
 %h2~ t('dashboard.heading')
 
-%ol.sticky_articles
-  - @sticky_articles.each do |article|
-    %li
-      = render :partial => 'articles/article', :locals => {:article => article}
-
 %ol.articles
-  - @articles.each do |article|
+  - @all_published_articles.each do |article|
     %li
-      = render :partial => 'articles/article', :locals => {:article => article}
+      = render :partial => 'articles/article', :locals => {:article => article, :full => false}
+
+= paginate @all_published_articles

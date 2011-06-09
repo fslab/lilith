@@ -19,12 +19,14 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 =end
 
 # Displays collected information
+
+require 'kaminari'
+
 class DashboardController < ApplicationController
 
   def show
-    @sticky_articles = Article.published.sticky.limit(10)
-
-    @articles = Article.published.non_sticky.limit(10)
+    # TODO: Pagination should be optimised, that only the next ten articles be loaded from the database.
+    @all_published_articles = Kaminari.paginate_array(Article.published.sticky + Article.published.non_sticky).page params[:page]
   end
 
 end

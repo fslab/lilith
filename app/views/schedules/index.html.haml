@@ -1,0 +1,6 @@
+%h2= t('schedules.public_schedules_of') + " #{@user.name}"
+
+%ol
+  - @schedules.each do |schedule|
+    %li
+      %a{:href => user_schedule_path(@user.login, schedule.name)}= schedule.name

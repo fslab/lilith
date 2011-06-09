@@ -32,18 +32,54 @@ describe Course do
   it { should have_many(:events) }
   it { should have_many(:groups) }
 
+  context "before destroy" do
+    it "should destroy all its events" do
+      course = described_class.make!
+
+      events = [
+        Event.make!(:course_id => course),
+        Event.make!(:course_id => course)
+      ]
+
+      course.destroy
+
+      events.each do |event|
+        lambda {
+          Event.find(event.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    it "should destroy all its groups" do
+      course = described_class.make!
+
+      groups = [
+        Group.make!(:course_id => course),
+        Group.make!(:course_id => course)
+      ]
+
+      course.destroy
+
+      groups.each do |event|
+        lambda {
+          Group.find(event.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   context "#exclusive_events" do
     it "should only deliver events which aren't associated with a group" do
-      schedule = Schedule.make!
+      schedule_state = ScheduleState.make!
       group  = Group.make!
       course = group.course
 
-      lone_event  = Event.make!(:course => course, :schedule => schedule)
-      group_event = Event.make!(:course => course, :schedule => schedule)
+      lone_event  = Event.make!(:course_id => course, :schedule_state_id => schedule_state)
+      group_event = Event.make!(:course_id => course, :schedule_state_id => schedule_state)
 
       group_event.group_associations.create!(:group_id => group)
 
-      result = course.events.exclusive(schedule)
+      result = course.events.exclusive(schedule_state)
       result.should include(lone_event)
       result.should_not include(group_event)
     end

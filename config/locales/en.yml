@@ -22,15 +22,35 @@ en:
     ie_warning: You are using a browser that sucks. Go and install a %{browser_link} browser.
     ie_warning_browser_link: real
     translation_missing: Translation missing
+    java_script_features: 'Notice: Lilith works fine without JavaScript. There are however some extended features which depend on JavaScript.'
   menu:
     submit: Switch
     semester: Semester
   imprint: # Imprint translation is done through different textile templates
     name: Imprint
 
+  session:
+    new:
+      menu_name: Login
+      heading: Login
+      submit: Login
+      login: User-name
+      password: Password
+      errors: Please correct the following problems with your input
+    delete:
+      menu_name: Logout
+      heading: Logout
+      question: Do you really want to log out?
+      submit: 'Yes'
+      cancel: 'No'
+    logged_in_as: Logged in as 
+
   schedules:
     menu_name: Schedule
     schedule_composition: Schedule composition
+    name: Name
+    description: Description
+    public: Public
     actuality: Actuality
     format: Format
     generate: Generate schedule
@@ -40,7 +60,12 @@ en:
     groups: Groups
     lecturers: Lecturers
     room: Room
-    latest: Latest
+    latest: Always latest
+    group_free: Group-free
+    filter_clear: Clear
+    inline: Open
+    attachment: Download
+    public_schedules_of: Public schedules of
 
   article:
     name: Name
@@ -53,7 +78,7 @@ en:
     body: Body
     set_sticky: sticky
     set_published: publish
-    published: publish
+    published: published
     unpublished: unpublished
     headline:
       edit: Edit article
@@ -74,18 +99,32 @@ en:
     by: by
     last_edited: Last edited
     none_found: No articles found
+    all: All articles
+    latest: Last ten articles
+    release_name: 'New release: %VERSION%'
 
+  views:
+    pagination:
+      previous: "Prev page"
+      next: "Next page"
+      last: "Last page"
+      first: "First page"
+      truncate: "..."
   person:
-    name: Person
-    heading: Person
+    name: People
+    heading: People
     create: create person
     edit: edit
     show: show
     delete: delete
-    title: title
-    forename: forename
-    surename: surname
-    middlename: middlename
+    title: Title
+    forename: Forename
+    surename: Surname
+    middlename: Middlename
+    eva_id: EVA-ID
+    matchless: eva-id does not match with surname
+    matched:  eva-id matched with surname
+    no_people: No people found. Start the scraper.
     headline:
       edit: edit person
       new: create person
@@ -95,6 +134,10 @@ en:
   dashboard:
     heading: Dashboard
     menu_name: Dashboard
+
+  users:
+    heading: Profile of
+    public_schedules: Public schedules
 
   date:
     formats:
@@ -273,3 +316,8 @@ en:
 
       full_messages:
         format: "%{attribute}%{message}"
+
+  feeds:
+    header: Articles Feeds
+    complete: All articles
+    reduced: Last ten articles

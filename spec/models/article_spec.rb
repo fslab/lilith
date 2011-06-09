@@ -22,7 +22,9 @@ require 'spec_helper'
 
 describe Article do
   it { should have_db_column(:id) }
+  it { should have_db_column(:sticky).of_type(:boolean) }
   it { should have_db_column(:published_at).of_type(:datetime) }
+  it { should have_db_column(:type).of_type(:string) }
 
   it_should_behave_like "a timestamped model"
 

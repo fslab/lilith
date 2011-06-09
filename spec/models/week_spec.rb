@@ -28,6 +28,25 @@ describe Week do
   it { should have_many(:event_associations) }
   it { should have_many(:events) }
 
+  context "before destroy" do
+    it "should destroy all its event associations" do
+      week = described_class.make!
+
+      event_associations = [
+        EventWeekAssociation.make!(:week_id => week),
+        EventWeekAssociation.make!(:week_id => week)
+      ]
+
+      week.destroy
+
+      event_associations.each do |association|
+        lambda {
+          EventWeekAssociation.find(association.id)
+        }.should raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
   context "#to_week" do
     it "should return the corresponding Aef::Week object" do
       week = described_class.make(:year => 2011, :index => 25).to_week
