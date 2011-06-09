@@ -60,11 +60,9 @@ class Event < ActiveRecord::Base
 
   # Returns all exceptions of this event as Aef::WeekDay objects
   def exceptions
-    exception_weeks = course.study_unit.semester.weeks - weeks.map(&:to_week)
-
     first_week_day = Aef::WeekDay.new(first_start)
 
-    exception_weeks.map!{|week| week.day(first_week_day.index) }
+    course.study_unit.semester.weeks.map{|week| week.day(first_week_day.index) } - occurrences
   end
 
   # Generates an iCalendar event
