@@ -99,6 +99,13 @@ en:
     latest: Last ten articles
     release_name: 'New release: %VERSION%'
 
+  views:
+    pagination:
+      previous: "Prev page"
+      next: "Next page"
+      last: "Last page"
+      first: "First page"
+      truncate: "..."
   person:
     name: People
     heading: People

@@ -100,6 +100,14 @@ de:
     latest: Die letzten 10 Artikel
     release_name: 'Neue Version: %VERSION%'
 
+  views:
+    pagination:
+      previous: "Vorherige Seite"
+      next: "Nächste Seite"
+      last: "Letzte Seite"
+      first: "Erste Seite"
+      truncate: "..."
+
   person:
     name: Personen
     heading: Personen
