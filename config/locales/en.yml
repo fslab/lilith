@@ -48,6 +48,9 @@ en:
   schedules:
     menu_name: Schedule
     schedule_composition: Schedule composition
+    name: Name
+    description: Description
+    public: Public
     actuality: Actuality
     format: Format
     generate: Generate schedule
@@ -57,11 +60,12 @@ en:
     groups: Groups
     lecturers: Lecturers
     room: Room
-    latest: Latest
+    latest: Always latest
     group_free: Group-free
     filter_clear: Clear
     inline: Open
     attachment: Download
+    public_schedules_of: Public schedules of
 
   article:
     name: Name
@@ -130,6 +134,10 @@ en:
   dashboard:
     heading: Dashboard
     menu_name: Dashboard
+
+  users:
+    heading: Profile of
+    public_schedules: Public schedules
 
   date:
     formats:

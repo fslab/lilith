@@ -19,37 +19,39 @@
 - set_body_id :schedules
 %h2= t('schedules.schedule_composition')
 
-%form{:action => semester_schedules_path(@semester.token)}
-  %h3= t('schedules.navigation')
+- form_for(@schedule) do |f|
+  .controls{:class => current_user ? nil : :reduced}
+    .options
+      %p
+        %label{:for => 'fixed_schedule_state_id'}= t('schedules.actuality') + ':'
+        = f.select :fixed_schedule_state_id, options_for_select([[t('schedules.latest'), 'latest']] + @schedule_states.map{|schedule| [l(schedule.created_at), schedule.id]})
+      - if current_user
+        %p
+          %label{:for => :name}= t('schedules.name') + ':'
+          = f.text_field :name
+        %p
+          %label{:for => :description}= t('schedules.description') + ':'
+          = f.text_area :description, :rows => nil, :cols => nil
+        %p
+          %label{:for => :public}= t('schedules.public') + ':'
+          = f.check_box :public
+          = f.submit t('schedules.generate'), :name => nil
+      - else
+        = f.submit t('schedules.generate'), :name => nil
 
-  .controls
-    %p
-      %label{:for => 'schedule_id'}= t('schedules.actuality') + ': '
-      %select{:id => 'schedule_id', :name => 'schedule_id'}
-        %option{:value => 'latest', :selected => 'selected'}= t('schedules.latest')
-        = options_for_select @schedules.map{|schedule| [l(schedule.created_at), schedule.id]}
-    %p
-      %label{:for => 'format'}= t('schedules.format') + ': '
-      %select{:id => 'format', :name => 'f'}
-        %option{:value => 'ics'} iCalendar
-        %option{:value => 'xml'} XML
-    %p
-      %label{:for => 'disposition_inline'}= t('schedules.inline') + ':'
-      %input{:id => 'disposition_inline',     :name => 'd', :type => 'radio', :value => 'inline', :checked => 'checked'}
-      %label{:for => 'disposition_attachment'}= t('schedules.attachment') + ':'
-      %input{:id => 'disposition_attachment', :name => 'd', :type => 'radio', :value => 'attachment'}
-    = submit_tag t('schedules.generate'), :name => nil
+    -# Generate navigation index
+    .navigation
+      %table
+        %caption= t('schedules.navigation')
+        %tbody
+          - @study_units.group_by(&:program).each do |program, study_units|
+            %tr
+              %td.program= program
+              %td.units
+                - study_units.each do |study_unit|
+                  %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
 
-  -# Generate navigation index
-  .navigation
-    %table
-      %tbody
-        - @study_units.group_by(&:program).each do |program, study_units|
-          %tr
-            %td.program= program
-            %td.units
-              - study_units.each do |study_unit|
-                %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
+    .clear
 
   - content_for(:filter) do # Inserted through JavaScript
     .filters
@@ -66,11 +68,11 @@
   -# Generate sections
   .study_units
     - @study_units.each do |study_unit|
-      = render :partial => 'study_unit', :locals => {:study_unit => study_unit}
+      = render :partial => 'study_unit', :locals => {:study_unit => study_unit, :f => f}
 
 :javascript
   // Add course filter bar
-  $('#schedules .navigation').append("#{escape_javascript yield(:filter)}");
+  $('#schedules .controls').append("#{escape_javascript yield(:filter)}");
 
   var course_filter_timer;
   var course_filter_value = '';

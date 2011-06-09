@@ -1,4 +1,4 @@
-# encoding: UTF-8
+u# encoding: UTF-8
 =begin
 Copyright Alexander E. Fischer <aef@raxys.net>, 2011
 

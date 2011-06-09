@@ -32,17 +32,9 @@ class RenameSchedulesToScheduleStatesAndCreateSchedulesAndCourseAssociations < A
 
     add_foreign_key :schedule_course_associations, :schedules, :dependent => :restrict
     add_foreign_key :schedule_course_associations, :courses, :dependent => :restrict
-
-    add_column :users, :default_schedule_id, Lilith.db_reference_type
-
-    add_foreign_key :users, :schedules, :column => :default_schedule_id, :dependent => :restrict
   end
 
   def self.down
-    remove_foreign_key :users, :column => :default_schedule_id
-
-    remove_column :users, :default_schedule_id
-
     remove_foreign_key :schedule_course_associations, :courses
     remove_foreign_key :schedule_course_associations, :schedules
 

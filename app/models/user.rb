@@ -2,11 +2,15 @@
 class User < ActiveRecord::Base
   include Lilith::UUIDHelper
 
-  has_many :role_associations, :class_name => 'User::RoleAssociation'
-  has_many :roles, :class_name => 'User::Role', :through => :role_associations
-  has_many :schedules
-  has_one :default_schedule, :class_name => 'Schedule'
-
+  has_many :role_associations,
+           :class_name => 'User::RoleAssociation',
+           :dependent => :destroy
+  has_many :roles,
+           :class_name => 'User::Role',
+           :through => :role_associations
+  has_many :schedules,
+           :dependent => :destroy
+  
   validates :login, :uniqueness => true
 
   # Default order

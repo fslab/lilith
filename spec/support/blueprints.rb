@@ -128,3 +128,8 @@ Schedule::CourseAssociation.blueprint do
   schedule_id { Schedule.make!.id }
   course_id   { Course.make!.id }
 end
+
+Schedule::GroupAssociation.blueprint do
+  schedule_id { Schedule.make!.id }
+  group_id    { Group.make!.id }
+end

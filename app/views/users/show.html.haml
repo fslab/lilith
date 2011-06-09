@@ -1,0 +1,5 @@
+%h2= t('users.heading') + " #{@user.name}"
+
+%ul
+  %li
+    %a{:href => user_schedules_path(@user.login)}= t('users.public_schedules')

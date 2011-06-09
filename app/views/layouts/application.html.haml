@@ -32,6 +32,9 @@
       #ie_warning
         - browser_urls = ['http://mozilla.com/', 'http://www.google.com/chrome', 'http://www.opera.com/']
         = (t('global.ie_warning', :browser_link => link_to(t('global.ie_warning_browser_link'), browser_urls.shuffle.first))).html_safe
+    - if flash[:notify]
+      #notification
+        = flash[:notify]
     #container
       #header
         %a{:href => root_path}
@@ -46,9 +49,9 @@
       #menu
         %ul.sections
           %li
-            %a{:href => dashboard_path}~ t('dashboard.menu_name')
+            %a{:href => dashboard_path}= t('dashboard.menu_name')
           %li
-            %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
+            %a{:href => new_schedule_path}= t('schedules.menu_name')
         %span
           - if current_user
             = t('session.logged_in_as') + ": #{current_user.name}"
@@ -58,7 +61,7 @@
         %ul.language
           - I18n.available_locales.each do |locale|
             %li
-              %a{:href => url_for(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
+              %a{:href => current_path(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
 
       #main
         = yield

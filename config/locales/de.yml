@@ -48,6 +48,9 @@ de:
   schedules:
     menu_name: Stundenplan
     schedule_composition: Stundenplan zusammenstellen
+    name: Name
+    description: Beschreibung
+    public: Öffentlich
     actuality: Stand
     format: Format
     generate: Stundenplan generieren
@@ -57,11 +60,12 @@ de:
     groups: Gruppen
     lecturers: Dozenten
     room: Raum
-    latest: Aktuellster
-    group_free: Gruppenfrei
+    latest: Immer Aktuellster
+    group_free: Gruppenlos
     filter_clear: Löschen
     inline: Öffnen
     attachment: Downloaden
+    public_schedules_of: Öffentliche Stundenpläne von
 
   article:
     name: Artikel
@@ -132,6 +136,10 @@ de:
   dashboard:
     heading: Übersicht
     menu_name: Übersicht
+
+  users:
+    heading: Profil von
+    public_schedules: Öffentliche Stundenpläne
 
   authlogic:
     error_messages:

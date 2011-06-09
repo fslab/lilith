@@ -20,89 +20,187 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Controller responsible for custom schedule generation
 class SchedulesController < ApplicationController
-  before_filter :set_semester
-
+  before_filter :find_schedule, :except => [:index, :new, :create, :show]
+  before_filter :find_user, :only => [:show, :index]
+  
   def index
-    if @semester
-      redirect_to semester_schedule_path(
-        @semester.token,
-        params[:schedule_id],
-        :format      => params[:format]      || params[:f],
-        :disposition => params[:disposition] || params[:d],
-        :course_ids  => params[:course_ids],
-        :group_ids   => params[:group_ids],
-        # Short versions for params above (because of URL length limits)
-        :c          => params[:c], # Group
-        :g          => params[:g]  # Course
-      )
+    if current_user
+      if current_user == @user
+        @schedules = @user.schedules.permanent
+        @temporary_schedules = @user.schedules.temporary
+      else
+        @schedules = @user.schedules.permanent.public
+      end
     else
-      redirect_to new_semester_schedule_path(Semester.latest.token)
+      redirect_to new_schedule_path
     end
   end
 
   def show
-    # Merge params given as short versions into the regular params
-    course_ids = uuid_set(params[:course_ids]) + uuid_set(params[:c])
-    group_ids  = uuid_set(params[:group_ids]) + uuid_set(params[:g])
+    if params[:id] == 'unsaved'
+      @schedule = Schedule.new
+      
+      decompressed_params = decompress_params(params)
 
-    disposition = params[:disposition] || params[:d]
+      fixed_schedule_state_id = decompressed_params[:fixed_schedule_state_id]
 
-    if params[:id] == 'latest'
-      @schedule = ScheduleState.latest
+      if fixed_schedule_state_id and fixed_schedule_state_id != 'latest'
+        @schedule.fixed_schedule_state = ScheduleState.find(params[:fixed_schedule_state_id])
+      end
+      
+      @schedule.courses = Course.find(decompressed_params[:course_ids].to_a)
+      @schedule.groups  = Course.find(decompressed_params[:group_ids].to_a)
+      @schedule.updated_at = Time.now
     else
-      @schedule = ScheduleState.find(params[:id])
+      begin
+        uuid = UUIDTools::UUID.parse(params[:id])
+        @schedule = Schedule.find(uuid.to_s)
+      rescue ArgumentError
+        @schedule = Schedule.find_by_user_id_and_name(@user, params[:id])
+      end
     end
 
-    @events = Set.new
-
-    elements = Set.new
-    elements += Group.where(:id => group_ids.map(&:to_s))
-    elements += Course.where(:id => course_ids.map(&:to_s))
-
-    elements.each do |element|
-      @events += element.events.exclusive(@schedule)
-    end
-
+    disposition = (params[:disposition] || params[:d]) == 'attachment' ? :attachment : :inline
     base_name   = "#{@schedule.updated_at.iso8601}_lilith"
-    disposition_type = disposition == 'attachment' ? :attachment : :inline
 
     respond_to do |format|
+      format.html
       format.ics do
-        calendar = RiCal::Component::Calendar.new
-        calendar.prodid = "-//fslab.de/NONSGML Lilith #{Lilith::VERSION}/EN"
-
-        @events.each do |event|
-          calendar.add_subcomponent(event.to_ical)
-        end
-
-        set_disposition(disposition_type, base_name + '.ics')
-        render :text => calendar
+        set_disposition(disposition, base_name + '.ics')
+        render :text => @schedule.to_ical
       end
       format.xml do
-        set_disposition(disposition_type, base_name + '.xml')
-        render :xml => @events.to_a
+        set_disposition(disposition, base_name + '.xml')
+        render :xml => @schedule.events.to_a
       end
     end
   end
 
   def new
-    @schedules   = @semester.schedules.order('created_at DESC')
+    @semester = Semester.latest
+    @schedule_states = @semester.schedule_states.order('created_at DESC')
     @study_units = @semester.study_units.order('program ASC, position ASC')
+
+    @schedule = Schedule.new
+  end
+
+  def create
+    @semester = Semester.latest
+    @schedule_states = @semester.schedule_states.order('created_at DESC')
+    @study_units = @semester.study_units.order('program ASC, position ASC')
+
+    if current_user
+      ActiveRecord::Base.transaction do
+        params[:schedule][:name]        = nil if params[:schedule][:name].blank?
+        params[:schedule][:description] = nil if params[:schedule][:description].blank?
+
+        if params[:schedule][:fixed_schedule_state_id] == 'latest'
+          params[:schedule][:fixed_schedule_state_id] = nil
+        end
+
+        # Create a new one
+        @schedule = current_user.schedules.create(params[:schedule])
+
+        # Delete enough temporary schedules to make place for a new one
+        while current_user.schedules.temporary.count > 5
+          current_user.schedules.temporary.last.destroy
+        end
+
+        # Build associations
+        @schedule.courses += Course.find(params[:schedule][:course_ids] || [])
+        @schedule.groups  += Group.find(params[:schedule][:group_ids] || [])
+      end
+
+      if @schedule.valid?
+        if @schedule.name.nil?
+          redirect_to schedule_path(:id => @schedule)
+        else
+          redirect_to user_schedule_path(@schedule.user.login, @schedule.name)
+        end
+      else
+        render :action => :new
+      end
+    else
+      redirect_to schedule_path({:id => 'unsaved'}.merge(compress_params(params)))
+    end
+  end
+
+  def edit
+    raise NotImplementedError
+  end
+
+  def destroy
+    raise NotImplementedError
   end
 
   protected
 
-  def set_semester
-    @semester = Semester.find(params[:semester_id])
-  rescue
-    @semester = nil
+  def find_schedule
+    @schedule = current_user.schedules.find(params[:id])
   end
 
-  def uuid_set(set)
-    set = set || Set.new
-    set.map{|element| Lilith::UUIDHelper.to_uuid(element) }.to_set
+  # Finds a user either by UUID or by its login
+  def find_user
+    if params[:user_id]
+      uuid = UUIDTools::UUID.parse(params[:user_id])
+      @user = User.find(uuid.to_s)
+    end
+  rescue ArgumentError
+    @user = User.find_by_login(params[:user_id])
   end
 
+  # Heavily shorten the params to support setups with limited maximum URL lengths
+  # Also stores an element count to verify full URL transmission for error detection
+  def compress_params(uncompressed_params)
+    elements = {
+      :c => (uncompressed_params[:schedule][:course_ids] || []).to_set,
+      :g => (uncompressed_params[:schedule][:group_ids] || []).to_set
+    }
+
+    element_count = 0
+
+    elements.each do |key, value|
+      element_count += value.length
+      
+      elements[key] = value.map{|element| UUIDTools::UUID.parse(element).hexdigest }.join('|')
+    end
+
+    elements.merge(
+      :s => uncompressed_params[:schedule][:fixed_schedule_state_id],
+      :d => uncompressed_params[:schedule][:disposition],
+      :e => element_count
+    )
+  end
+
+  # Recovers the original params from a compressed ones
+  # The element count is checked to match the encoded one to detect errors
+  def decompress_params(compressed_params)
+    elements = {
+      :course_ids => compressed_params[:c].try(:split, '|').try(:to_set) || Set.new,
+      :group_ids  => compressed_params[:g].try(:split, '|').try(:to_set) || Set.new
+    }
+
+    element_count = 0
+
+    elements.each do |key, value|
+      value.map!{|element| UUIDTools::UUID.parse_hexdigest(element).to_s }
+
+      element_count += value.length
+    end
+
+    if element_count != expected_count = compressed_params[:e].to_i
+      raise "Params were corrupted. Expected #{expected_count}, got #{element_count}"
+    end
+
+    {
+      :fixed_schedule_state_id => compressed_params[:s],
+      :disposition => compressed_params[:d]
+    }.merge(elements)
+  end
+
+  # Allows to set the Content-Disposition header to allow
+  # users to decide wheter they want to open a file in
+  # their browser or download it
   def set_disposition(type, filename)
     response.headers['Content-Disposition'] = %{#{type}; filename="#{filename}"}
   end

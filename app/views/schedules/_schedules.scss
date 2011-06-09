@@ -19,59 +19,94 @@
         padding-bottom: 30px;
     }
 
-    .navigation {
-
-        table {
-            border-spacing: 0;
-
-            a {
-                margin-left: 5px;
-                border-radius: 5px;
-                -moz-border-radius: 5px;
-                padding: 0 10px 0 10px;
-                background-color: #09f;
-                color: white;
-            }
-
-            a:hover {
-                background-color: black;
-            }
-
-            tr:hover td {
-                background-color: #d8efff;
-            }
-
-            td.program {
-                border-radius: 5px 0 0 5px;
-                -moz-border-radius: 5px 0 0 5px;
-                padding-right: 20px;
-                padding-left: 10px;
-            }
-
-            td.units {
-                border-radius: 0 5px 5px 0;
-                -moz-border-radius: 0 5px 5px 0;
-                padding-right: 10px;
-            }
-        }
+    div.field_with_errors {
+        display: inline-block;
     }
 
     .controls {
-        float: right;
-        text-align: right;
-        margin-bottom: 20px;
+        &.reduced {
+            .options {
+                padding-top: 40px;
 
-        p {
-            margin-top: 0;
+                input[type = submit] {
+                    width: 200px;
+                }
+            }
         }
 
-        select {
-            width: 150px;
+        .navigation {
+            display: inline-block;
+            float: right;
+
+            table {
+                border-spacing: 0;
+
+                caption {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+
+                a {
+                    margin-left: 5px;
+                    border-radius: 5px;
+                    -moz-border-radius: 5px;
+                    padding: 0 10px 0 10px;
+                    background-color: #09f;
+                    color: white;
+                }
+
+                a:hover {
+                    background-color: black;
+                }
+
+                tr:hover td {
+                    background-color: #d8efff;
+                }
+
+                td.program {
+                    border-radius: 5px 0 0 5px;
+                    -moz-border-radius: 5px 0 0 5px;
+                    padding-right: 20px;
+                    padding-left: 10px;
+                }
+
+                td.units {
+                    border-radius: 0 5px 5px 0;
+                    -moz-border-radius: 0 5px 5px 0;
+                    padding-right: 10px;
+                }
+            }
         }
+
+        .options {
+            display: inline-block;
+            text-align: right;
+
+            select {
+                text-align: center;
+            }
+
+            select, input[type = 'text'], textarea {
+                width: 200px;
+            }
+
+            input[type = submit] {
+                width: 170px;
+                margin-left: 10px;
+
+                &.standalone {
+                    width: 200px;
+                }
+            }
+
+            p {
+                margin-top: 0;
+            }
+        }
+
     }
 
     .filters {
-        margin-top: 20px;
         margin-bottom: 5px;
 
         label {

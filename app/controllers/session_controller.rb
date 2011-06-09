@@ -1,4 +1,10 @@
 class SessionController < ApplicationController
+  # TODO: Handle LDAP connection error
+  rescue_from(ActiveLdap::ConnectionError) do
+    flash[:notify] = 'Connection to LDAP is currently unavailable'
+    redirect_to new_session_path
+  end
+
   def show
     redirect_to new_session_path
   end

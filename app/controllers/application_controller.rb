@@ -28,6 +28,17 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   after_filter :set_mime_type
 
+  # TODO: Handle authorization errors
+  rescue_from(CanCan::AccessDenied) do
+    unless current_user
+      flash[:error] = t('global.permission_denied_login')
+      redirect_to new_session_path
+    else
+      flash[:error] = t('global.permission_denied')
+      redirect_to root_path
+    end
+  end
+
   protected
 
   def current_user_session

@@ -28,6 +28,7 @@ describe ScheduleState do
   it { should belong_to(:semester) }
 
   it { should have_many(:events) }
+  it { should have_many(:schedules) }
 
   context "default order" do
     it "should be ordered by updated_at in a descending way" do

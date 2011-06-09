@@ -31,10 +31,18 @@
               %label{:for => course.id}
                 %span.title
                   = t('schedules.group_free')
-                %input{:type => :checkbox, :id => course.id, :name => 'c[]', :value => course.id.gsub(/-/, '') }
+                %input{:id => course.id,
+                       :type => :checkbox,
+                       :name => 'schedule[course_ids][]',
+                       :value => course.id,
+                       :checked => @schedule.courses.include?(course) ? 'checked' : nil}
           - course.groups.order('name ASC').each do |group|
             %li
               %label{:for => group.id}
                 %span.title
                   %abbr{:title => "#{t('schedules.group')} #{group.name}"}= group.name
-                %input{:type => :checkbox, :id => group.id, :name => 'g[]', :value => group.id.gsub(/-/, '') }
+                %input{:id => group.id,
+                       :type => :checkbox,
+                       :name => 'schedule[group_ids][]',
+                       :value => group.id,
+                       :checked => @schedule.groups.include?(group) ? 'checked' : nil}

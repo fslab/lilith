@@ -24,6 +24,7 @@ class ScheduleState < ActiveRecord::Base
 
   belongs_to :semester
   has_many :events, :dependent => :destroy
+  has_many :schedules, :foreign_key => :fixed_schedule_state_id, :dependent => :destroy
 
   # By default, schedules are ordered by updated_at in a descending way
   default_scope order('updated_at DESC')
