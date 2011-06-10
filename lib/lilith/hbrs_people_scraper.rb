@@ -104,14 +104,17 @@ class Lilith::HbrsPeopleScraper
   end
   
   def people_urls
-    links = Array.new
-
+    links = []
     page = @agent.get("http://www.inf.fh-bonn-rhein-sieg.de/personen.html")
-    
+
     page.search("//*[@id='inhaltBreit']/p[2]/a").each do |link|
-      links << "https://www.inf.h-bonn-rhein-sieg.de" + link['href']
+      if link['href'].include? "http\:\/\/"
+        links << link['href']
+      else
+        links << "http://inf.h-brs.de" + link['href']
+      end
     end
-    
+
     links
   end
 end
