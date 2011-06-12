@@ -196,6 +196,13 @@ noscript {
         }
     }
 
+    .current_user {
+        margin-right: 5px;
+        display: inline-block;
+        padding: 6px 0px 0px;
+        font-weight: normal;
+    }
+
     #language, #login {
         float: right;
         border: none;
