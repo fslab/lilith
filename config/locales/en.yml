@@ -19,6 +19,8 @@ en:
   meta:
     name: English
   global:
+    main_menu: Menu
+    language_menu: Language
     ie_warning: You are using a browser that sucks. Go and install a %{browser_link} browser.
     ie_warning_browser_link: real
     translation_missing: Translation missing

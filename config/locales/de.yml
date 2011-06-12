@@ -19,6 +19,8 @@ de:
   meta:
     name: Deutsch
   global:
+    main_menu: Menü
+    language_menu: Sprache
     ie_warning: Ihr Browser verdient seinen Namen nicht. Installieren Sie einen %{browser_link} Browser.
     ie_warning_browser_link: richtigen
     translation_missing: Keine Übersetzung vorhanden

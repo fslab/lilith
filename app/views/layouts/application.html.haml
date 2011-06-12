@@ -1,4 +1,4 @@
--# encoding: UTF-8
+﻿-# encoding: UTF-8
 !!! XML
 !!! 5
 /
@@ -43,23 +43,27 @@
             %img{:src => '/images/star_alpha.png', :alt => 'αlpha'}
           - elsif Lilith::VERSION.include?('beta') or Lilith::VERSION.starts_with?('0.')
             %img{:src => '/images/star_beta.png', :alt => 'βeta'}
-      #menu
-        %ul.sections
+      #menubar
+        %ul.sections.menu
           %li
-            %a{:href => dashboard_path}~ t('dashboard.menu_name')
-          %li
-            %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
-        %span
-          - if current_user
-            = t('session.logged_in_as') + ": #{current_user.name}"
-            %a{:href => delete_session_path}= t('session.delete.menu_name')
-          - else
-            %a{:href => new_session_path}= t('session.new.menu_name')
-        %ul.language
-          - I18n.available_locales.each do |locale|
-            %li
-              %a{:href => url_for(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
-
+            = t('global.main_menu')
+            %ul
+              %li
+                %a{:href => dashboard_path}~ t('dashboard.menu_name')
+              %li
+                %a{:href => new_semester_schedule_path(Semester.latest.token)}~ t('schedules.menu_name')
+          %li#language
+            = t('global.language_menu')
+            %ul
+              - I18n.available_locales.each do |locale|
+                %li
+                  %a{:href => url_for(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
+          %li#login
+            - if current_user
+              = t('session.logged_in_as') + ": #{current_user.name}"
+              %a{:href => delete_session_path}= t('session.delete.menu_name')
+            - else
+              %a{:href => new_session_path}= t('session.new.menu_name')
       #main
         = yield
       #footer
