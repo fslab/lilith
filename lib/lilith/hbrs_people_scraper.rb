@@ -47,60 +47,65 @@ class Lilith::HbrsPeopleScraper
   end
 
   def scrape_people
-    all_people = Person.all
-    modified_people = []
-    
+
     @urls.each do |page|
 
       page = @agent.get(page)
-      page.search("//div[@id = 'inhalt']/p/*").each do |link|
-        next if link.text == '« Zurück' or
-                link.text == 'E-Mail' or
-                /^E-Mail/ =~ link.text or
-                /^Öffnungszeiten/ =~ link.text or
-                /^Raum/ =~ link.text or
-                /^writeEmail/ =~ link.text
+      page.search("//div[@id = 'inhalt']/p/*[1]").each do |first_paragraph_subnode|
+        if %w{strong a}.include?(first_paragraph_subnode.name)
+          label = first_paragraph_subnode.search('.//text()').text
+          url   = first_paragraph_subnode.attr('href') || first_paragraph_subnode.search('.//a').first.try(:attr, 'href')
 
-        parser = Lilith::HumanNameParser.new(link.text)
-        person_info = parser.parse
+          next if label == '« Zurück' or
+                  label == 'E-Mail' or
+                  /^E-Mail/ =~ label or
+                  /^Öffnungszeiten/ =~ label or
+                  /^Raum/ =~ label or
+                  /^writeEmail/ =~ label
 
-        if person_info[:surname]
+          person_info = Lilith::HumanNameParser.new(label).parse
 
-          if link['href']
-            if link['href'].include? "http\:\/\/"
-              person_info[:website] = link['href']
-            elsif link['href'].include? "\.html"
-              person_info[:website] = "http://www.inf.h-bonn-rhein-sieg.de" + link['href']
+          if person_info[:surname]
+
+            if url
+              if url.include? "http\:\/\/"
+                person_info[:website] = url
+              elsif url.include? "\.html"
+                person_info[:website] = "http://www.inf.h-bonn-rhein-sieg.de" + url
+              end
             end
-          end
 
-          matches = {}
 
-          remaining_people = all_people.dup
-
-          while person = remaining_people.pop
-            string_comparator = Amatch::Sellers.new(person_info[:surname])
-            matches[string_comparator.match(person.eva_id)] = person
-          end
-
-          if exact_match = matches[0.0]
-            exact_match.title       = person_info[:title]
-            exact_match.forename    = person_info[:forename]
-            exact_match.middlename  = person_info[:middlename]
-            exact_match.surname     = person_info[:surname]
-            exact_match.profile_url = person_info[:website]
-            exact_match.save!
-            modified_people << exact_match
-          else
-            puts "Surname: #{person_info[:surname]}"
-            matches.sort.each do |score, person|
-              puts "  #{score} - #{person.eva_id}"
+            if mapping = PeopleScraperMapping.find_by_surname(person_info[:surname])
+              unless mapping.reject?
+                person = Person.find_or_create_by_eva_id(mapping.eva_id)
+              end
+            else
+              unless person = Person.find_by_eva_id(person_info[:surname])
+                person = Person.new
+              end
             end
+
+            if person
+              person.title = person_info[:title]
+              person.forename = person_info[:forname]
+              person.middlename = person_info[:middlename]
+              person.surname = person_info[:surname]
+              person.profile_url = person_info[:website]
+              person.save!
+            end
+
           end
+
+          puts "Surname: #{person_info[:surname]}"
+          puts "Forename: #{person_info[:forename]}"
+          puts "URL: #{person_info[:website]}"
+          puts
+
         end
       end
     end
-    modified_people
+    true
   end
   
   def people_urls
