@@ -99,30 +99,6 @@ noscript {
   }
 }
 
-#notification
-{
-  width: 100%;
-  height: 24px;
-  background-color: #fccb03;
-  color: black;
-  position: fixed;
-  z-index: 1001;
-  top: 0px;
-  padding-top: 2px;
-  overflow: hidden;
-  text-align: center;
-  border-bottom: solid 1px black;
-
-  a:link, a:visited, a:hover, a:active {
-    text-decoration: underline;
-    color: white;
-  }
-
-  a:hover {
-    color: black;
-  }
-}
-
 #container {
   padding-top: 35px;
   padding-bottom: 5px;
@@ -181,7 +157,7 @@ noscript {
     border: 1px solid black;
     border-top: 0px solid black;
     border-right: 1px solid black;
-    border-bottom: 0px solid black;
+    border-bottom: 1px solid white;
     border-left: 1px solid black;
     padding: 0px 10px 0px 10px;
     text-align: right;
@@ -196,37 +172,30 @@ noscript {
         }
     }
 
-    .current_user {
-        margin-right: 5px;
-        display: inline-block;
-        padding: 6px 0px 0px;
-        font-weight: normal;
-    }
-
     #language, #login {
         float: right;
         border: none;
-        li {
-            padding-left: 3px;
-        }
+        margin-left: 3px;
     }
     
     .menu {
       position: relative;
       top: 0px;
       left: 0px;
-      height: 28px;
+      height: 29px;
       width: 100%;
+      list-style-type: none;
       display: block;
       margin: 0px;
       padding: 0px;
       
       a {
-        display: block;
+        display: inline-block;
         height: 100%;
       }
       
       li {
+        display: block;
         color: #0099FF;
         width: 110px;
         height: 22px;
@@ -276,13 +245,16 @@ noscript {
       ul {
         position: relative;
         margin: 0px;
-        padding: 0px;
-        top: 8px;
+        padding: 1px 0px;
+        top: 7px;
         left: -1px;
         list-style-type: none;
+        display: block;
+        height: 100%;
+        width: 100%;
         
         li {
-          padding: 2px 0px 0px;
+          padding: 2px 0px 0px 0px;
           height: 18px;
           border: 1px solid #fff;
           background-color: #DFDFDF;  
@@ -333,14 +305,6 @@ noscript {
 
     #error {
         background-color: #ff1f1f;
-    }
-
-    .errors {
-        p {
-            font-weight: bold;
-        }
-
-        color: red;
     }
 }
 
@@ -393,3 +357,4 @@ noscript {
     }
 
 }
+
