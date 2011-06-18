@@ -26,11 +26,11 @@ Lilith::Application.routes.draw do
     end
 
     scope '(:semester)' do
-      resources :schedules, :only => [:show, :index, :new, :create]
+      resources :schedules
     end
 
     resources :users, :only => :show do
-      resources :schedules, :only => [:index, :show]
+      resources :schedules
     end
 
     resource :imprint, :only => :show, :controller => :imprint

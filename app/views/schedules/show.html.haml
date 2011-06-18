@@ -1,4 +1,14 @@
-%h2 Schedule
+- if current_user
+  - if @schedule.persisted?
+    %h2= t('schedules.persisted_schedule')
+    - form_for(@schedule, :method => :put)
+      = render 'meta_form', :locals => {:f => f}
+  - else
+    %h2= t('schedules.temporary_schedule')
+    - form_for(@schedule, :method => :post)
+      = render 'meta_form', :locals => {:f => f}
+- else
+  %h2= t('schedules.temporary_schedule')
 
 %p
   %form

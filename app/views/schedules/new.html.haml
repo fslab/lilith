@@ -25,18 +25,6 @@
       %p
         %label{:for => 'fixed_schedule_state_id'}= t('schedules.actuality') + ':'
         = f.select :fixed_schedule_state_id, options_for_select([[t('schedules.latest'), 'latest']] + @schedule_states.map{|schedule| [l(schedule.created_at), schedule.id]})
-      - if current_user
-        %p
-          %label{:for => :name}= t('schedules.name') + ':'
-          = f.text_field :name
-        %p
-          %label{:for => :description}= t('schedules.description') + ':'
-          = f.text_area :description, :rows => nil, :cols => nil
-        %p
-          %label{:for => :public}= t('schedules.public') + ':'
-          = f.check_box :public
-          = f.submit t('schedules.generate'), :name => nil
-      - else
         = f.submit t('schedules.generate'), :name => nil
 
     -# Generate navigation index

@@ -20,46 +20,22 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Controller responsible for custom schedule generation
 class SchedulesController < ApplicationController
-  before_filter :find_schedule, :except => [:index, :new, :create, :show]
-  before_filter :find_user, :only => [:show, :index]
+  before_filter :build_or_find_schedule, :except => [:index, :new, :create, :destroy]
+  before_filter :find_schedule, :only => [:destroy]
+  before_filter :find_user
   
   def index
-    if current_user
-      if current_user == @user
-        @schedules = @user.schedules.permanent
-        @temporary_schedules = @user.schedules.temporary
-      else
-        @schedules = @user.schedules.permanent.public
-      end
+    if not @user
+      redirect_to :new_schedule_path
+    elsif current_user == @user
+      @schedules = @user.schedules.permanent
+      @temporary_schedules = @user.schedules.temporary
     else
-      redirect_to new_schedule_path
+      @schedules = @user.schedules.permanent.public
     end
   end
 
   def show
-    if params[:id] == 'unsaved'
-      @schedule = Schedule.new
-      
-      decompressed_params = decompress_params(params)
-
-      fixed_schedule_state_id = decompressed_params[:fixed_schedule_state_id]
-
-      if fixed_schedule_state_id and fixed_schedule_state_id != 'latest'
-        @schedule.fixed_schedule_state = ScheduleState.find(params[:fixed_schedule_state_id])
-      end
-      
-      @schedule.courses = Course.find(decompressed_params[:course_ids].to_a)
-      @schedule.groups  = Course.find(decompressed_params[:group_ids].to_a)
-      @schedule.updated_at = Time.now
-    else
-      begin
-        uuid = UUIDTools::UUID.parse(params[:id])
-        @schedule = Schedule.find(uuid.to_s)
-      rescue ArgumentError
-        @schedule = Schedule.find_by_user_id_and_name(@user, params[:id])
-      end
-    end
-
     disposition = (params[:disposition] || params[:d]) == 'attachment' ? :attachment : :inline
     base_name   = "#{@schedule.updated_at.iso8601}_lilith"
 
@@ -101,32 +77,23 @@ class SchedulesController < ApplicationController
         # Create a new one
         @schedule = current_user.schedules.create(params[:schedule])
 
-        # Delete enough temporary schedules to make place for a new one
-        while current_user.schedules.temporary.count > 5
-          current_user.schedules.temporary.last.destroy
-        end
-
         # Build associations
         @schedule.courses += Course.find(params[:schedule][:course_ids] || [])
         @schedule.groups  += Group.find(params[:schedule][:group_ids] || [])
       end
 
       if @schedule.valid?
-        if @schedule.name.nil?
-          redirect_to schedule_path(:id => @schedule)
-        else
-          redirect_to user_schedule_path(@schedule.user.login, @schedule.name)
-        end
+        redirect_to schedule_path(@schedule)
       else
         render :action => :new
       end
     else
-      redirect_to schedule_path({:id => 'unsaved'}.merge(compress_params(params)))
+      redirect_to schedule_path(compress_params(params).merge(:id => 'unsaved'))
     end
   end
 
   def edit
-    raise NotImplementedError
+
   end
 
   def destroy
@@ -135,8 +102,31 @@ class SchedulesController < ApplicationController
 
   protected
 
+  def build_or_find_schedule
+    if params[:id] == 'unsaved'
+      @schedule = Schedule.new
+
+      decompressed_params = decompress_params(params)
+
+      fixed_schedule_state_id = decompressed_params[:fixed_schedule_state_id]
+
+      if fixed_schedule_state_id and fixed_schedule_state_id != 'latest'
+        @schedule.fixed_schedule_state = ScheduleState.find(params[:fixed_schedule_state_id])
+      end
+      
+      @schedule.courses = Course.find(decompressed_params[:course_ids].to_a)
+      @schedule.groups  = Course.find(decompressed_params[:group_ids].to_a)
+      @schedule.updated_at = Time.now
+    else
+      find_schedule
+    end
+  end
+
   def find_schedule
-    @schedule = current_user.schedules.find(params[:id])
+    uuid = UUIDTools::UUID.parse(params[:id])
+    @schedule = Schedule.find(uuid.to_s)
+  rescue ArgumentError
+    @schedule = @user.schedule.find_by_name(params[:id]) if @user
   end
 
   # Finds a user either by UUID or by its login

@@ -12,6 +12,8 @@ class Schedule < ActiveRecord::Base
   validates :name, :uniqueness => {:scope => :user_id, :allow_nil => true},
                    :format => /[a-z_-]+/, :allow_nil => true
 
+  attr_accessible :name, :description, :public, :fixed_schedule_state_id
+
   default_scope order('user_id DESC, name ASC, updated_at DESC')
 
   # Only permanent schedules
