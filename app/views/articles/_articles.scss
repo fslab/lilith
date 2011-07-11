@@ -27,10 +27,6 @@
 
     table {
         margin: 10px 0 0 0;
-        border: solid 1px #000;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-spacing: 0;
         width: 100%;
 
         .sticky {
@@ -45,38 +41,7 @@
             width: 100px;
         }
 
-        caption {
-            font-variant: small-caps;
-            margin-bottom: 5px;
-        }
-
-        thead {
-            background-color: #000;
-            color: #fff;
-
-            th {
-                text-align: center;
-            }
-        }
-
         tbody {
-            td {
-                padding: 5px;
-            }
-
-            tr.even {
-                background-color: #dfdfdf;
-            }
-
-            tr:hover td {
-                background-color: #d6eeff;
-            }
-
-            tr:last-child td {
-                border-radius: 0 0 5px 5px;
-                -moz-border-radius: 0 0 5px 5px;
-            }
-
             td.sticky {
                 text-align: center;
             }

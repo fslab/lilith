@@ -69,8 +69,7 @@ de:
     attachment: Downloaden
     not_available: Nicht verfügbar
     schedules_of: Stundenpläne von
-    public_schedules: Öffentliche Stundenpläne
-    private_schedules: Private Stundenpläne
+    saved_schedules: Gespeicherte Stundenpläne
     temporary_schedules: Letzte Stundenpläne
     unsaved_schedule: Ungespeicherter Stundenplan
     temporary_schedule: Stundenplan
@@ -78,6 +77,15 @@ de:
     update: Aktualisieren
     save: Speichern
     new: Neuen Stundenplan zusammenstellen...
+    public_yes: ✓
+    public_no: ''
+    date: Datum
+    save_schedule: Stundenplan speichern
+    rename_schedule: Stundenplan umbenennen
+    output: Ausgabe
+    ical: iCalendar
+    xml: XML
+    permalink: Permalink
 
   article:
     name: Artikel

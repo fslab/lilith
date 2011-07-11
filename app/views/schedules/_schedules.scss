@@ -19,6 +19,59 @@
         padding-bottom: 30px;
     }
 
+    form.new_schedule {
+        margin-bottom: 15px;
+        margin-top: 25px;
+    }
+
+    table.saved_schedules {
+        width: 330px;
+        display: inline-table;
+        float: left;
+
+        td.public {
+            text-align: center;
+        }
+    }
+
+    table.temporary_schedules {
+        width: 200px;
+        display: inline-table;
+        float: left;
+
+        td.date {
+            text-align: center;
+        }
+    }
+
+    form {
+        #schedule_name {
+            width: 100%;
+        }
+
+        #schedule_description {
+            width: 100%;
+        }
+
+        #schedule_submit {
+            display: inline-block;
+            float: right;
+        }
+
+        #ics_url {
+            width: 100%;
+        }
+
+        #xml_url {
+            width: 100%;
+        }
+
+        p.public {
+            margin: 0;
+            display: inline-block;
+        }
+    }
+
     div.field_with_errors {
         display: inline-block;
     }

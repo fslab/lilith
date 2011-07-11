@@ -1,30 +1,43 @@
+- set_body_id :schedules
 %h2= t('schedules.schedules_of') + " #{@user.name}"
 
-%a{:href => new_user_schedule_path(@user.name)}= t('schedules.new')
+%form.new_schedule{:action => new_user_schedule_path(@user.login), :method => 'GET'}
+  %input{:type => 'submit', :value => t('schedules.new')}
 
-%h3= t('schedules.public_schedules') + ':'
-%ul.public
-  - if @schedules.blank?
-    %li
-      = t('schedules.not_available')
-  - @schedules.each do |schedule|
-    %li
-      %a{:href => schedule_path(schedule)}= schedule.name
+%table{:class => 'saved_schedules default_table'}
+  %caption= t('schedules.saved_schedules')
+  %thead
+    %tr
+      %th.name= t('schedules.name')
+      %th.public= t('schedules.public')
+  %tbody
+    - if @schedules.blank?
+      %tr{:class => cycle('odd', 'even', :name => :saved_schedules)}
+        %td{:colspan => 2}= t('schedules.not_available')
+    - else
+      - @schedules.each do |schedule|
+        %tr{:class => cycle('odd', 'even', :name => :saved_schedules)}
+          %td.name
+            %a{:href => schedule_path(schedule)}= schedule.name
+          %td.public
+            - if schedule.public?
+              = t('schedules.public_yes')
+            - else
+              = t('schedules.public_no')
 
-%h3= t('schedules.private_schedules') + ':'
-%ul.private
-  - if @private_schedules.blank?
-    %li
-      = t('schedules.not_available')
-  - @private_schedules.each do |schedule|
-    %li
-      %a{:href => schedule_path(schedule)}= schedule.name
+%table{:class => 'temporary_schedules default_table'}
+  %caption= t('schedules.temporary_schedules')
+  %thead
+    %tr
+      %th.date= t('schedules.date')
+  %tbody
+    - if @temporary_schedules.blank?
+      %tr{:class => cycle('odd', 'even', :name => :temporary_schedules)}
+        %td{:colspan => 1}= t('schedules.not_available')
+    - else
+      - @temporary_schedules.each do |schedule|
+        %tr{:class => cycle('odd', 'even', :name => :temporary_schedules)}
+          %td.date
+            %a{:href => schedule_path(schedule)}= localize(schedule.updated_at)
 
-%h3= t('schedules.temporary_schedules') + ':'
-%ul.temporary
-  - if @temporary_schedules.blank?
-    %li
-      = t('schedules.not_available')
-  - @temporary_schedules.each do |schedule|
-    %li
-      %a{:href => schedule_path(schedule)}= localize(schedule.updated_at)
+.clear

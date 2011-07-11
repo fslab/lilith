@@ -27,13 +27,12 @@ class SchedulesController < ApplicationController
   def index
     if not @user
       if current_user
-        redirect_to user_schedules_path(:user_id => current_user.name)
+        redirect_to user_schedules_path(:user_id => current_user.login)
       else
         redirect_to new_schedule_path
       end
     elsif current_user == @user
-      @schedules = @user.schedules.permanent.public
-      @private_schedules = @user.schedules.permanent.private
+      @schedules = @user.schedules.permanent
       @temporary_schedules = @user.schedules.temporary
     else
       @schedules = @user.schedules.permanent.public

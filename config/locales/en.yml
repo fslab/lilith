@@ -69,8 +69,7 @@ en:
     attachment: Download
     not_available: Not available
     schedules_of: Schedules of
-    public_schedules: Public schedules
-    private_schedules: Private schedules
+    schedules: Saved schedules
     temporary_schedules: Temporary schedules
     unsaved_schedule: Unsaved schedule
     temporary_schedule: Schedule
@@ -78,6 +77,15 @@ en:
     update: Update
     save: Save
     new: Create a new schedule...
+    public_yes: ✓
+    public_no: ''
+    date: Date
+    save_schedule: Save schedule
+    rename_schedule: Rename schedule
+    output: Output
+    ical: iCalendar
+    xml: XML
+    permalink: Permalink
 
   article:
     name: Name

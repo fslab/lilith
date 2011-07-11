@@ -22,7 +22,7 @@
 .actions
   = button_to t('article.create'), new_article_path, :method => :get
 
-%table.unpublished
+%table{:class => 'unpublished default_table'}
   %caption= t('article.unpublished')
   %thead
     %tr
@@ -41,7 +41,7 @@
       - @unpublished_non_sticky_articles.each do |article|
         = render :partial => 'articles/article_for_table', :locals => {:article => article, :alternation_class => cycle('odd', 'even', :name => :unpublished)}
 
-%table.published
+%table{:class => 'published default_table'}
   %caption= t('article.published')
   %thead
     %tr
