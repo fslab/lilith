@@ -42,6 +42,16 @@ class Schedule < ActiveRecord::Base
     fixed_schedule_state || ScheduleState.latest
   end
 
+  # Tells if the schedule is temporary, which is the case if it has no name
+  def temporary?
+    @name.nil?
+  end
+
+  # Tells if the schedule is permanent, which is the case if it has a name
+  def permanent?
+    !temporary?
+  end
+
   # Accumulates a set of events from all associated event sources
   def events
     events = Set.new

@@ -48,7 +48,7 @@ en:
     logged_in_as: Logged in as 
 
   schedules:
-    menu_name: Schedule
+    menu_name: Schedules
     schedule_composition: Schedule composition
     name: Name
     description: Description
@@ -67,7 +67,17 @@ en:
     filter_clear: Clear
     inline: Open
     attachment: Download
-    public_schedules_of: Public schedules of
+    not_available: Not available
+    schedules_of: Schedules of
+    public_schedules: Public schedules
+    private_schedules: Private schedules
+    temporary_schedules: Temporary schedules
+    unsaved_schedule: Unsaved schedule
+    temporary_schedule: Schedule
+    permanent_schedule: Saved schedule
+    update: Update
+    save: Save
+    new: Create a new schedule...
 
   article:
     name: Name

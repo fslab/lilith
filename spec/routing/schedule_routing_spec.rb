@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "routing for Schedules" do
-  include SchedulesHelper
+  include SchedulesRouteHelper
 
   context "schedules resource" do
     context "index action" do
@@ -350,6 +350,34 @@ describe "routing for Schedules" do
         get(schedule_path(schedule, :locale => :de)).should route_to(
           :controller => 'schedules', :action => 'show', :user_id => schedule.user.login, :id => schedule.name, :locale => 'de')
       end
+
+      it "should use an unchanged user login if routed via users nested schedules" do
+        schedule = Schedule.make!(:name => 'my_schedule')
+        schedule.user.login = 'some_other_login'
+
+        get(schedule_path(schedule)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login_was, :id => schedule.name)
+
+        get(schedule_path(schedule, :locale => :en)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login_was, :id => schedule.name, :locale => 'en')
+
+        get(schedule_path(schedule, :locale => :de)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login_was, :id => schedule.name, :locale => 'de')
+      end
+
+      it "should use an unchanged schedule name if routed via users nested schedules" do
+        schedule = Schedule.make!(:name => 'my_schedule')
+        schedule.name = 'changed_name'
+
+        get(schedule_path(schedule)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login, :id => schedule.name_was)
+
+        get(schedule_path(schedule, :locale => :en)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login, :id => schedule.name_was, :locale => 'en')
+
+        get(schedule_path(schedule, :locale => :de)).should route_to(
+          :controller => 'schedules', :action => 'show', :user_id => schedule.user.login, :id => schedule.name_was, :locale => 'de')
+      end
     end
 
     context "edit action" do
@@ -377,6 +405,34 @@ describe "routing for Schedules" do
 
         get(edit_schedule_path(schedule, :locale => :de)).should route_to(
           :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login, :id => schedule.name, :locale => 'de')
+      end
+
+      it "should use an unchanged user login if routed via users nested schedules" do
+        schedule = Schedule.make!(:name => 'my_schedule')
+        schedule.user.login = 'some_other_login'
+
+        get(edit_schedule_path(schedule)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login_was, :id => schedule.name)
+
+        get(edit_schedule_path(schedule, :locale => :en)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login_was, :id => schedule.name, :locale => 'en')
+
+        get(edit_schedule_path(schedule, :locale => :de)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login_was, :id => schedule.name, :locale => 'de')
+      end
+
+      it "should use an unchanged schedule name if routed via users nested schedules" do
+        schedule = Schedule.make!(:name => 'my_schedule')
+        schedule.name = 'changed_name'
+
+        get(edit_schedule_path(schedule)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login, :id => schedule.name_was)
+
+        get(edit_schedule_path(schedule, :locale => :en)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login, :id => schedule.name_was, :locale => 'en')
+
+        get(edit_schedule_path(schedule, :locale => :de)).should route_to(
+          :controller => 'schedules', :action => 'edit', :user_id => schedule.user.login, :id => schedule.name_was, :locale => 'de')
       end
     end
   end

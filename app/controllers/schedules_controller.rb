@@ -20,15 +20,20 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Controller responsible for custom schedule generation
 class SchedulesController < ApplicationController
+  before_filter :find_user
   before_filter :build_or_find_schedule, :except => [:index, :new, :create, :destroy]
   before_filter :find_schedule, :only => [:destroy]
-  before_filter :find_user
   
   def index
     if not @user
-      redirect_to :new_schedule_path
+      if current_user
+        redirect_to user_schedules_path(:user_id => current_user.name)
+      else
+        redirect_to new_schedule_path
+      end
     elsif current_user == @user
-      @schedules = @user.schedules.permanent
+      @schedules = @user.schedules.permanent.public
+      @private_schedules = @user.schedules.permanent.private
       @temporary_schedules = @user.schedules.temporary
     else
       @schedules = @user.schedules.permanent.public
@@ -37,7 +42,10 @@ class SchedulesController < ApplicationController
 
   def show
     disposition = (params[:disposition] || params[:d]) == 'attachment' ? :attachment : :inline
-    base_name   = "#{@schedule.updated_at.iso8601}_lilith"
+    
+    base_name  = [@schedule.updated_at.iso8601, 'lilith']
+    base_name += [@user.login, @schedule.name] if @schedule.permanent?
+    base_name  = base_name.join('_')
 
     respond_to do |format|
       format.html
@@ -93,15 +101,31 @@ class SchedulesController < ApplicationController
   end
 
   def edit
+    render :action => :new
+  end
 
+  def update
+    show_path = schedule_path(@schedule)
+
+    if @schedule.update_attributes(params[:schedule])
+      redirect_to schedule_path(@schedule)
+    else
+      if params[:source_action] == 'show'
+        render :action => :show
+      else
+        render :action => :new
+      end
+    end
   end
 
   def destroy
-    raise NotImplementedError
+    @schedule.destroy
   end
 
   protected
 
+  # If the given id is 'unsaved' build a non-persisted schedule from the given
+  # params, otherwise load matching id from DB
   def build_or_find_schedule
     if params[:id] == 'unsaved'
       @schedule = Schedule.new
@@ -115,18 +139,19 @@ class SchedulesController < ApplicationController
       end
       
       @schedule.courses = Course.find(decompressed_params[:course_ids].to_a)
-      @schedule.groups  = Course.find(decompressed_params[:group_ids].to_a)
+      @schedule.groups  = Group.find(decompressed_params[:group_ids].to_a)
       @schedule.updated_at = Time.now
     else
       find_schedule
     end
   end
 
+  # Finds a schedule by UUID or by user login and schedule name
   def find_schedule
     uuid = UUIDTools::UUID.parse(params[:id])
     @schedule = Schedule.find(uuid.to_s)
   rescue ArgumentError
-    @schedule = @user.schedule.find_by_name(params[:id]) if @user
+    @schedule = @user.schedules.find_by_name(params[:id]) if @user
   end
 
   # Finds a user either by UUID or by its login

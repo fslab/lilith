@@ -48,7 +48,7 @@ de:
     logged_in_as: Eingeloggt als
 
   schedules:
-    menu_name: Stundenplan
+    menu_name: Stundenpläne
     schedule_composition: Stundenplan zusammenstellen
     name: Name
     description: Beschreibung
@@ -67,7 +67,17 @@ de:
     filter_clear: Löschen
     inline: Öffnen
     attachment: Downloaden
-    public_schedules_of: Öffentliche Stundenpläne von
+    not_available: Nicht verfügbar
+    schedules_of: Stundenpläne von
+    public_schedules: Öffentliche Stundenpläne
+    private_schedules: Private Stundenpläne
+    temporary_schedules: Letzte Stundenpläne
+    unsaved_schedule: Ungespeicherter Stundenplan
+    temporary_schedule: Stundenplan
+    permanent_schedule: Gespeicherter Stundenplan
+    update: Aktualisieren
+    save: Speichern
+    new: Neuen Stundenplan zusammenstellen...
 
   article:
     name: Artikel

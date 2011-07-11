@@ -52,9 +52,9 @@
             = t('global.main_menu')
             %ul
               %li
-                %a{:href => dashboard_path}~ t('dashboard.menu_name')
+                %a{:href => dashboard_path}= t('dashboard.menu_name')
               %li
-                %a{:href => new_schedule_path}~ t('schedules.menu_name')
+                %a{:href => schedules_path}= t('schedules.menu_name')
           %span{:class => :current_user}
             - if current_user
               = t('session.logged_in_as') + ':'

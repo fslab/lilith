@@ -1,6 +1,30 @@
-%h2= t('schedules.public_schedules_of') + " #{@user.name}"
+%h2= t('schedules.schedules_of') + " #{@user.name}"
 
-%ol
+%a{:href => new_user_schedule_path(@user.name)}= t('schedules.new')
+
+%h3= t('schedules.public_schedules') + ':'
+%ul.public
+  - if @schedules.blank?
+    %li
+      = t('schedules.not_available')
   - @schedules.each do |schedule|
     %li
-      %a{:href => user_schedule_path(@user.login, schedule.name)}= schedule.name
+      %a{:href => schedule_path(schedule)}= schedule.name
+
+%h3= t('schedules.private_schedules') + ':'
+%ul.private
+  - if @private_schedules.blank?
+    %li
+      = t('schedules.not_available')
+  - @private_schedules.each do |schedule|
+    %li
+      %a{:href => schedule_path(schedule)}= schedule.name
+
+%h3= t('schedules.temporary_schedules') + ':'
+%ul.temporary
+  - if @temporary_schedules.blank?
+    %li
+      = t('schedules.not_available')
+  - @temporary_schedules.each do |schedule|
+    %li
+      %a{:href => schedule_path(schedule)}= localize(schedule.updated_at)

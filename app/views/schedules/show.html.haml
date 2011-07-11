@@ -1,14 +1,28 @@
-- if current_user
-  - if @schedule.persisted?
-    %h2= t('schedules.persisted_schedule')
-    - form_for(@schedule, :method => :put)
-      = render 'meta_form', :locals => {:f => f}
-  - else
+- if @schedule.persisted?
+  - if @schedule.temporary?
     %h2= t('schedules.temporary_schedule')
-    - form_for(@schedule, :method => :post)
-      = render 'meta_form', :locals => {:f => f}
+  - else
+    %h2= t('schedules.permanent_schedule')
+
+  - if current_user
+    - form_for(@schedule, :method => :put) do |f|
+      %input{:name => 'source_action', :type => 'hidden', :value => params[:source_action] || 'show'}
+      %p
+        %label{:for => :name}= t('schedules.name') + ':'
+        = f.text_field :name
+      %p
+        %label{:for => :description}= t('schedules.description') + ':'
+        = f.text_area :description, :rows => nil, :cols => nil
+      %p
+        %label{:for => :public}= t('schedules.public') + ':'
+        = f.check_box :public
+
+      - if @schedule.temporary?
+        = f.submit t('schedules.save'), :name => nil
+      - else
+        = f.submit t('schedules.update'), :name => nil
 - else
-  %h2= t('schedules.temporary_schedule')
+  %h2= t('schedules.unsaved_schedule')
 
 %p
   %form
@@ -47,3 +61,4 @@
           %a{:href => current_path(:format => :xml, :disposition => :inline)} Open
         %li
           %a{:href => current_path(:format => :xml, :disposition => :attachment)} Download
+          

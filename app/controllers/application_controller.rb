@@ -28,6 +28,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   after_filter :set_mime_type
 
+  include SchedulesRouteHelper
+
   # TODO: Handle authorization errors
   rescue_from(CanCan::AccessDenied) do
     unless current_user
