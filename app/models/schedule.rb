@@ -4,15 +4,17 @@ class Schedule < ActiveRecord::Base
   belongs_to :user
   belongs_to :fixed_schedule_state, :class_name => 'ScheduleState'
 
-  has_many :course_associations, :class_name => 'Schedule::CourseAssociation'
+  has_many :course_associations, :class_name => 'Schedule::CourseAssociation', :dependent => :destroy
   has_many :courses, :through => :course_associations
-  has_many :group_associations, :class_name => 'Schedule::GroupAssociation'
+  has_many :group_associations, :class_name => 'Schedule::GroupAssociation', :dependent => :destroy
   has_many :groups, :through => :group_associations
 
   validates :name, :uniqueness => {:scope => :user_id, :allow_nil => true},
                    :format => /[a-z_-]+/, :allow_nil => true
 
   attr_accessible :name, :description, :public, :fixed_schedule_state_id
+
+  after_create :purge_temporaries
 
   default_scope order('user_id DESC, name ASC, updated_at DESC')
 
@@ -73,5 +75,13 @@ class Schedule < ActiveRecord::Base
     end
 
     calendar
+  end
+
+  protected
+
+  def purge_temporaries
+    user.schedules.temporary.offset(5).each do |schedule|
+      schedule.destroy
+    end
   end
 end
