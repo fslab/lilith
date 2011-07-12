@@ -56,7 +56,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 1.0.0.beta2'
   gem 'machinist', '~> 2.0.0.beta2'
-  gem 'cover_me', '~> 1.0.0.rc6', :platforms => :ruby_19
+  gem 'cover_me', '~> 1.1.1', :platforms => :mri_19
 end
 
 # Use unicorn as the web server

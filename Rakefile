@@ -22,6 +22,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+load 'lib/tasks/cover_me.rake'
 require 'rake'
 
 Lilith::Application.load_tasks

@@ -40,9 +40,9 @@ GEM
       activerecord (>= 3.0.7)
     builder (2.1.2)
     cancan (1.6.5)
-    configatron (2.8.0)
+    configatron (2.8.2)
       yamler (>= 0.1.0)
-    cover_me (1.0.0)
+    cover_me (1.1.1)
       configatron
       hashie
     date_easter (0.0.1)
@@ -129,7 +129,7 @@ DEPENDENCIES
   amatch (~> 0.2.5)
   authlogic (~> 3.0.3)
   cancan (~> 1.6.5)
-  cover_me (~> 1.0.0.rc6)
+  cover_me (~> 1.1.1)
   date_easter (~> 0.0.1)
   foreigner (~> 0.9.2)
   globalize3 (~> 0.1.0.beta)
