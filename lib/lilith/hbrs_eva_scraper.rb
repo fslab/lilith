@@ -167,7 +167,7 @@ class Lilith::HbrsEvaScraper
       @week_numbers
     else
       logger.debug "Fetching week numbers"
-      @week_numbers = menu_page.search("select[@name = 'weeks']/option").first['value'].split(/;/)
+      @week_numbers = menu_page.search("select[@name = 'weeks']/option").first['value'].sub(/54/, '2').sub(/55/, '3').sub(/56/, '4').split(/;/)
 
       raise Error, 'No week numbers found' if @week_numbers.empty?
     end
