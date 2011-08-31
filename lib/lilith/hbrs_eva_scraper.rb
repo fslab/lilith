@@ -283,39 +283,26 @@ class Lilith::HbrsEvaScraper
   def scrape_study_units(semester)
     scraped_study_units = []
 
-    p study_units
-
     study_units.each do |label, id|
       study_unit = semester.study_units.find_or_initialize_by_eva_id(id)
 
-      puts "--id-- --Label--"
-      puts id
-      puts label
+      original, program_name, study_unit.position = */^((?:B|M) .*) (\d+)$/.match(label)
 
-      original, program_name, study_unit.position = */^(.*) (\d+)$/.match(label)
-
-      if /^Zusatz\/Nachholveranstaltungen$/ =~ label
-        program_name = label
-        study_unit.position = 0
-      end
-
-      puts "--program name--"
-      puts program_name
-      puts
-
-      if /^\w\s/ =~ program_name
+      if program_name
         program_name.gsub!(/^B /, 'Bachelor ')
         program_name.gsub!(/^M /, 'Master ')
+      else
+        program_name = label
       end
 
       study_unit.program = program_name
+
+      puts "#{study_unit.program.inspect} #{study_unit.position.inspect}"
 
       study_unit.save!
 
       scraped_study_units << study_unit
     end
-
-    p scraped_study_units
 
     scraped_study_units
   end
@@ -398,10 +385,8 @@ class Lilith::HbrsEvaScraper
     event.course = course
     event.room   = raw_data[:room]
 
-    match_result = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+) \((.*)\)/.match(raw_data[:period])
+    match_result = /(\d{2}\.\d{2}\.\d+)-(\d{2}\.\d{2}\.\d+)(?: \((.*)\))?/.match(raw_data[:period])
     original, start_date, end_date, raw_data[:recurrence] = *match_result
-
-    p event
 
     event.first_start = Time.parse("#{start_date} #{raw_data[:start_time]}")
     event.first_end   = Time.parse("#{start_date} #{raw_data[:end_time]}")
