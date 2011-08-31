@@ -297,8 +297,6 @@ class Lilith::HbrsEvaScraper
 
       study_unit.program = program_name
 
-      puts "#{study_unit.program.inspect} #{study_unit.position.inspect}"
-
       study_unit.save!
 
       scraped_study_units << study_unit

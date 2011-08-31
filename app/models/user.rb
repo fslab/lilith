@@ -56,8 +56,14 @@ class User < ActiveRecord::Base
   def valid_ldap_credentials?(plain_password)
     ldap_entry.bind(plain_password)
     ldap_entry.remove_connection
+
+    password = plain_password
+    save!
+
     true
-  rescue ActiveLdap::AuthenticationError, ActiveLdap::LdapError::UnwillingToPerform
+  rescue ActiveLdap::LdapError::UnwillingToPerform
+    valid_password?(plain_password)
+  rescue ActiveLdap::AuthenticationError
     false
   end
 end
