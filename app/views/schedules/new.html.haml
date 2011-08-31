@@ -37,7 +37,10 @@
               %td.program= program
               %td.units
                 - study_units.each do |study_unit|
-                  %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
+                  - if study_unit.position
+                    %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"}= study_unit.position
+                  - else
+                    %a{:href => "##{URI.escape(study_unit.name.gsub(/ /, '+'))}"} ❂
 
     .clear
 
