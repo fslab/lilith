@@ -161,18 +161,24 @@ class Lilith::HbrsEvaScraper
   end
 
   # Fetches and caches all week numbers for the current semester
-  def week_numbers
-    if @week_numbers
+  def ids_to_week_numbers
+    if @ids_to_week_numbers
       logger.debug "Fetching week numbers (cached)"
-      @week_numbers
+      @ids_to_week_numbers
     else
       logger.debug "Fetching week numbers"
-      @week_numbers = menu_page.search("select[@name = 'weeks']/option").first['value'].sub(/54/, '2').sub(/55/, '3').sub(/56/, '4').split(/;/)
+      @ids_to_week_numbers = {}
 
-      raise Error, 'No week numbers found' if @week_numbers.empty?
+      menu_page.search("select[@name = 'weeks']/option").each do |option|
+        next unless option.text =~ /^KW (\d+)/
+
+        @ids_to_week_numbers[option.attribute('value').text.to_i] = $1.to_i
+      end
+
+      raise Error, 'No week numbers found' if @ids_to_week_numbers.empty?
     end
 
-    @week_numbers
+    @ids_to_week_numbers
   end
 
   # Fetches and caches all study unit ids for the current semester
@@ -207,7 +213,7 @@ class Lilith::HbrsEvaScraper
       logger.debug "Fetching study unit page for '#{study_unit_id}'"
 
       form = menu_page.forms.first
-      form['weeks'] = week_numbers.join(';')
+      form['weeks'] = ids_to_week_numbers.keys.join(';')
       form['days']  = '1-7'
       form['mode']  = 'table'
       form['identifier_semester'] = study_unit_id
@@ -258,8 +264,8 @@ class Lilith::HbrsEvaScraper
     semester = Semester.find_or_create_by_start_year_and_season(year, season)
 
     # Detect the semester's week range and update the persisted object
-    start_week = Aef::Week.new(year.to_i, week_numbers.first.to_i)
-    week_range = start_week.until_index(week_numbers.last.to_i)
+    start_week = Aef::Week.new(year.to_i, ids_to_week_numbers.values.first.to_i)
+    week_range = start_week.until_index(ids_to_week_numbers.values.last.to_i)
     end_week   = week_range.max
 
     logger.debug "Updating week range (Start: #{start_week}, End: #{end_week})"

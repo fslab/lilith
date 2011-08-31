@@ -52,7 +52,7 @@ describe Lilith::HbrsEvaScraper do
 
   context "#week_numbers" do
     it "should contain all current week numbers" do
-      @scraper.week_numbers.should == (12..25).map(&:to_s)
+      @scraper.ids_to_week_numbers.values.should == (12..25).map(&:to_s)
     end
   end
 
