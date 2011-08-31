@@ -86,6 +86,31 @@ TEXT
 beta_article.save!
 
 
+ws11_compatibility = Article.find_or_create_by_id('94da3bb2-d419-11e0-b18b-001f160e032b')
+
+ws11_compatibility.attributes = {
+  :name_de => 'WS11 Kompatibilität ist in Arbeit',
+  :name_en => 'WS11 compatibility in process',
+  :sticky => false,
+  :published => true
+}
+
+ws11_compatibility.body_de = <<-TEXT
+Lilith funktioniert aktuell *noch* nicht mit dem WS11 "Stundenplan":https://eva2.inf.h-brs.de/stundenplan/.
+
+Wir arbeiten an einer Lösung. Wenn du die Problembeseitigung beschleunigen möchtest, nimm mit uns "Kontakt":https://lilith.fslab.de/de/imprint auf.
+TEXT
+
+
+ws11_compatibility.body_en = <<-TEXT
+Lilith is *currently* not working with the WS11 "timetable":https://eva2.inf.h-brs.de/stundenplan/.
+
+Stay tuned. We are working on a solution. If you want to accelerate the debugging process, just "contact":https://lilith.fslab.de/en/imprint us.
+TEXT
+
+ws11_compatibility.save!
+
+
 lecture = Category.find_or_create_by_eva_id('V')
 lecture.update_attributes(:name => 'Vorlesung')
 
