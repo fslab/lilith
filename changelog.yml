@@ -12,3 +12,37 @@ releases:
   bugs:
   - de: URLs die auf fslab.de zeigten auf www.fslab.de korrigiert um TLS-Warnungen zu vermeiden
     en: Corrected URL to fslab.de to point to www.fslab.de to silence TLS warnings
+- version: 0.2.0
+  time: 2011-09-07 19:49:51 +0200
+  features:
+  - de: Generierung von Stundenpläne für das WS11/12.
+    en: WS11/12 ready.
+  - de: Optimierung der Bedienoberfläche für die Erstellung von Stundenpläne mit JavaScript.
+    en: Refined the schedule generation user interface with JavaScript.
+  - de: Hauptmenü neu umgesetzt mit HTML und CSS.
+    en: Reimplemented main menu with plain HTML and CSS.
+  - de: Das Abonnieren von Neuigkeiten ist nun auch über einem Atom Feed möglich.
+    en: Atom feed for news articles.
+  - de: LDAP-Anmeldung zum dauerhaften Speichern und Veröffentlichen von generierten Stundenplänen.
+    en: LDAP-Authentication implemented. Generated schedules can be saved and shared.
+  - de: Statischer Administrator Zugang wurde gegen LDAP Benutzergruppen ersetzt.
+    en: Replaced static admin authentication with user roles.
+  - de: Generierte Stundenpläne können jetzt umbenannt, gespeichert und mit anderen geteilt werden.
+    en: Schedules can be renamed, stored and shared.
+  - de: Lehrveranstaltungen an NRW Feiertagen werden automatisch bei der Generierung der Stundenpläne entfernt.
+    en: NRW Holidays would be automatically removed from schedule.
+  - de: Foreign key constraints zum Datenbank Layout hinzugefügt.
+    en: Added foreign key constraints to database tables.
+  - de: Die Nummerierung der News Articel wurde angepasst.
+    en: Corrected numbering of news articles.
+  - de: Neues Changelog System, damit automatisch erstellte Changelog Artikel generiert werden können.
+    en: New change log generation system. Change logs will be automaticly generated.
+  - de: Seitennummerierung für Newsartikel.
+    en: Basic pagination of news articles.
+  - de: Stundenpläne können nun auch direkt als Datei heruntergeladen werden.
+    en: Added additional formats to force real byte stream download of schedules.
+  - de: Ausführungen von allgemeinen Lilith Aufgaben vereinfacht.
+    en: Rake tasks generated to make general lilith task execution much easier.
+  url: https://projects.fslab.de/redmine/projects/lilith/versions/2
+
+
