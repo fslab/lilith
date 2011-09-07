@@ -111,6 +111,38 @@ TEXT
 ws11_compatibility.save!
 
 
+ws11_compatibility_ready = Article.find_or_create_by_id('70ba0c28-d804-11e0-9ea8-001f160e032b')
+
+ws11_compatibility_ready.attributes = {
+  :name_de => 'WS11/12 Semester Stundenpläne',
+  :name_en => 'WS11/12 schedule creation',
+  :sticky => true,
+  :published => true
+}
+
+ws11_compatibility_ready.body_de = <<-TEXT
+Einige Änderungen waren notwendig, damit *Lilith* mit dem Stundenplan für das Winter Semester 2011/2012 der Hochschule Bonn-Rhein-Sieg funktioniert.
+
+Darüber hinaus wurde *Lilith* natürlich auch in anderen Richtungen weiterentwickelt. So haben wir weitere Funktionalitäten hinzugefügt, die Bedienung verbessert und die Unterstützung von weiteren offenen Standards voran getrieben.
+Sämtliche Neuerungen könnt ihr dem Changelog entnehmen.
+
+Sollten dir Fehler auffallen, "teile":https://lilith.fslab.de/de/imprint sie uns doch bitte mit oder "behebe":https://projects.fslab.de/redmine/projects/lilith sie direkt selbst.
+TEXT
+
+
+ws11_compatibility_ready.body_en = <<-TEXT
+A lot of changes were necessary that *Lilith* works with winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
+
+Some additional changes were made, so that *Lilith* has a greater functionality, is easier to use and supports more open standards than the older versions.
+All changes are documented in the change log.
+
+If you have any problems, please "report":https://lilith.fslab.de/en/imprint or "fix":https://projects.fslab.de/redmine/projects/lilith it.
+TEXT
+
+ws11_compatibility_ready.save!
+
+
+
 lecture = Category.find_or_create_by_eva_id('V')
 lecture.update_attributes(:name => 'Vorlesung')
 
