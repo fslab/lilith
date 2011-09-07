@@ -37,8 +37,8 @@
         = flash[:notify]
     #container
       #header
-        %a{:href => root_path}
-          %h1= Rails.configuration.application_name
+        %h1
+          %a{:href => root_path}= Rails.configuration.application_name
           / Vater drückte sie stets fester als die brave Stiefschwester.
         %span.tagline{:lang => 'en', 'xml:lang' => 'en'}= Rails.configuration.application_slogan
         #special_version_sign
@@ -70,8 +70,13 @@
               %a{:href => delete_session_path}= t('session.delete.menu_name')
             - else
               %a{:href => new_session_path}= t('session.new.menu_name')
-      #main
-        = yield
+      #mainwrapper
+        #left
+          Left
+        #right
+          Right
+        #main
+          = yield
       #footer
         Version:
         %a{:href => 'http://semver.org/'}
