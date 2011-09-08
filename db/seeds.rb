@@ -76,7 +76,7 @@ TEXT
 beta_article.body_en = <<-TEXT
 This is a βeta version, it is expected to still contain some bigger errors.
 
-*Lilith* is developed as an open-source project by a small team of stundents in the *Free Software Lab*. We are constantly looking for more team members.
+*Lilith* is developed as an open-source project by a small team of students in the *Free Software Lab*. We are constantly looking for more team members.
 
 Should you be interested to join our development team, just contact us! Our many ideas for the future include tasks in a variety of difficulties.
 
@@ -121,7 +121,7 @@ ws11_compatibility_ready.attributes = {
 }
 
 ws11_compatibility_ready.body_de = <<-TEXT
-Einige Änderungen waren notwendig, damit *Lilith* mit dem Stundenplan für das Winter Semester 2011/2012 der Hochschule Bonn-Rhein-Sieg funktioniert.
+Einige Änderungen waren notwendig, damit *Lilith* mit dem Stundenplan für das kommende Wintersemester 2011/2012 der Hochschule Bonn-Rhein-Sieg funktioniert.
 
 Darüber hinaus wurde *Lilith* natürlich auch in anderen Richtungen weiterentwickelt. So haben wir weitere Funktionalitäten hinzugefügt, die Bedienung verbessert und die Unterstützung von weiteren offenen Standards voran getrieben.
 Sämtliche Neuerungen könnt ihr dem Changelog entnehmen.
@@ -131,7 +131,7 @@ TEXT
 
 
 ws11_compatibility_ready.body_en = <<-TEXT
-A lot of changes were necessary to make *Lilith* usable for winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
+A lot of changes were necessary to make *Lilith* usable for the upcoming winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
 
 Also, many additional changes were made, so that *Lilith* has a greater functionality, is easier to use and supports more open standards than the older versions.
 All changes are documented in the change log.
