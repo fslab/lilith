@@ -131,12 +131,12 @@ TEXT
 
 
 ws11_compatibility_ready.body_en = <<-TEXT
-A lot of changes were necessary that *Lilith* works with winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
+A lot of changes were necessary to make *Lilith* usable for winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
 
-Some additional changes were made, so that *Lilith* has a greater functionality, is easier to use and supports more open standards than the older versions.
+Also, many additional changes were made, so that *Lilith* has a greater functionality, is easier to use and supports more open standards than the older versions.
 All changes are documented in the change log.
 
-If you have any problems, please "report":https://lilith.fslab.de/en/imprint or "fix":https://projects.fslab.de/redmine/projects/lilith it.
+If you find any problems, please "report":https://lilith.fslab.de/en/imprint them to us or even better, "fix":https://projects.fslab.de/redmine/projects/lilith them.
 TEXT
 
 ws11_compatibility_ready.save!
