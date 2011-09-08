@@ -279,6 +279,10 @@ table.default_table {
         list-style-type: none;
         text-align: center;
 
+        a {
+          padding-top: 0px;
+        }
+
         ul {  display: none; }
         
         &:hover {
