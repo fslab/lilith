@@ -40,10 +40,12 @@ class SchedulesController < ApplicationController
   end
 
   def show
+    authorize! :read, @schedule
+
     disposition = (params[:disposition] || params[:d]) == 'attachment' ? :attachment : :inline
     
     base_name  = [@schedule.updated_at.iso8601, 'lilith']
-    base_name += [@user.login, @schedule.name] if @schedule.permanent?
+    base_name += [@schedule.user.login, @schedule.name] if @schedule.permanent?
     base_name  = base_name.join('_')
 
     respond_to do |format|
@@ -99,11 +101,14 @@ class SchedulesController < ApplicationController
     end
   end
 
-  def edit
-    render :action => :new
-  end
+# TODO: Not yet implemented
+#  def edit
+#    render :action => :new
+#  end
 
   def update
+    authorize! :update, @schedule
+
     show_path = schedule_path(@schedule)
 
     if @schedule.update_attributes(params[:schedule])
@@ -118,7 +123,11 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @schedule
+
     @schedule.destroy
+
+    redirect_to user_schedules_path(@schedule.user.login)
   end
 
   protected

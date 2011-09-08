@@ -24,10 +24,38 @@
         margin-top: 25px;
     }
 
+    .delete_button {
+        margin-top: 15px;
+
+        h3, form {
+            display: inline;
+        }
+
+        input {
+            display: inline-block;
+            float: right;
+            color: red;
+        }
+
+    }
+
+    table.public_schedules {
+        width: 550px;
+    }
+
     table.saved_schedules {
         width: 330px;
+    }
+
+    table.public_schedules, table.saved_schedules {
         display: inline-table;
         float: left;
+
+        td.name {
+            a {
+                display: block;
+            }
+        }
 
         td.public {
             text-align: center;

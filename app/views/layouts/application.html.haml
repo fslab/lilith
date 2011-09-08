@@ -64,7 +64,7 @@
             %ul
               - I18n.available_locales.each do |locale|
                 %li
-                  %a{:href => url_for(:locale => locale), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
+                  %a{:href => url_for(params.merge(:locale => locale)), :lang => locale, 'xml:lang' => locale}~ t('meta.name', :locale => locale)
           %li#login
             - if current_user
               %a{:href => delete_session_path}= t('session.delete.menu_name')

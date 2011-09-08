@@ -31,6 +31,11 @@ class Ability
       can :manage, :all
     else
       can :read, Article
+
+      can :read, Schedule, :public => true
+      can :read, Schedule, :user_id => user.id
+      can :update, Schedule, :user_id => user.id
+      can :destroy, Schedule, :user_id => user.id
     end
   end
 end
