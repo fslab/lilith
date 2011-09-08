@@ -131,7 +131,7 @@ TEXT
 
 
 ws11_compatibility_ready.body_en = <<-TEXT
-A lot of changes were necessary to make *Lilith* usable for the upcoming winter semester 2011/2012 Bonn-Rhine-Sieg University of Applied Sciences.
+A lot of changes were necessary to make *Lilith* usable for the upcoming winter semester 2011/2012 at Bonn-Rhine-Sieg University of Applied Sciences.
 
 Also, many additional changes were made, so that *Lilith* has a greater functionality, is easier to use and supports more open standards than the older versions.
 All changes are documented in the change log.
