@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
     if ldap_entry = LdapUser.find(login)
       user = create(:login => login)
       user.ldap_entry = ldap_entry
+      user
     end
   rescue ActiveLdap::EntryNotFound
     nil
