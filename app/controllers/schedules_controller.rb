@@ -45,7 +45,7 @@ class SchedulesController < ApplicationController
     disposition = (params[:disposition] || params[:d]) == 'attachment' ? :attachment : :inline
     
     base_name  = [@schedule.updated_at.iso8601, 'lilith']
-    base_name += [@user.login, @schedule.name] if @schedule.permanent?
+    base_name += [@schedule.user.login, @schedule.name] if @schedule.permanent?
     base_name  = base_name.join('_')
 
     respond_to do |format|
