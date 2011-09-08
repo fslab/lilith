@@ -6,6 +6,7 @@
     %h2= t('schedules.permanent_schedule')
 
   - if current_user
+  
     - if @schedule.temporary?
       %h3= t('schedules.save_schedule') + ':'
     - else
@@ -27,6 +28,15 @@
         = f.submit t('schedules.save'), :name => nil
       - else
         = f.submit t('schedules.update'), :name => nil
+
+    .clear
+
+    - if @schedule.permanent?
+      .delete_button
+        %h3= t('schedules.delete_schedule') + ':'
+        %form{:method => 'POST', :action => user_schedule_path(@schedule.user.login, @schedule)}
+          %input{:type => 'hidden', :name => '_method', :value => 'delete'}
+          %input{:type => 'submit', :value => t('schedules.delete')}
 - else
   %h2= t('schedules.unsaved_schedule')
 
