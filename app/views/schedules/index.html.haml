@@ -1,43 +1,70 @@
 - set_body_id :schedules
 %h2= t('schedules.schedules_of') + " #{@user.name}"
 
-%form.new_schedule{:action => new_user_schedule_path(@user.login), :method => 'GET'}
-  %input{:type => 'submit', :value => t('schedules.new')}
+- if current_user != @user
+  %table{:class => 'public_schedules default_table'}
+    %caption= t('schedules.public_schedules')
+    %thead
+      %tr
+        %th.name= t('schedules.name')
+    %tbody
+      - if @schedules.blank?
+        %tr{:class => cycle('odd', 'even', :name => :public_schedules)}
+          %td{:colspan => 1}= t('schedules.not_available')
+      - else
+        - @schedules.each do |schedule|
+          %tr{:class => cycle('odd', 'even', :name => :public_schedules)}
+            %td.name
+              %a{:href => schedule_path(schedule)}= schedule.name
+              %span.description
+                - if schedule.description.blank?
+                  = t('schedules.no_description')
+                - else
+                  = schedule.description
+- else
+  %form.new_schedule{:action => new_user_schedule_path(@user.login), :method => 'GET'}
+    %input{:type => 'submit', :value => t('schedules.new')}
 
-%table{:class => 'saved_schedules default_table'}
-  %caption= t('schedules.saved_schedules')
-  %thead
-    %tr
-      %th.name= t('schedules.name')
-      %th.public= t('schedules.public')
-  %tbody
-    - if @schedules.blank?
-      %tr{:class => cycle('odd', 'even', :name => :saved_schedules)}
-        %td{:colspan => 2}= t('schedules.not_available')
-    - else
-      - @schedules.each do |schedule|
+  %table{:class => 'saved_schedules default_table'}
+    %caption= t('schedules.saved_schedules')
+    %thead
+      %tr
+        %th.name= t('schedules.name')
+        %th.public= t('schedules.public')
+    %tbody
+      - if @schedules.blank?
         %tr{:class => cycle('odd', 'even', :name => :saved_schedules)}
-          %td.name
-            %a{:href => schedule_path(schedule)}= schedule.name
-          %td.public
-            - if schedule.public?
-              = t('schedules.public_yes')
-            - else
-              = t('schedules.public_no')
+          %td{:colspan => 2}= t('schedules.not_available')
+      - else
+        - @schedules.each do |schedule|
+          %tr{:class => cycle('odd', 'even', :name => :saved_schedules)}
+            %td.name
+              %a{:href => schedule_path(schedule)}= schedule.name
+              %span.description
+                - if schedule.description.blank?
+                  = t('schedules.no_description')
+                - else
+                  = schedule.description
 
-%table{:class => 'temporary_schedules default_table'}
-  %caption= t('schedules.temporary_schedules')
-  %thead
-    %tr
-      %th.date= t('schedules.date')
-  %tbody
-    - if @temporary_schedules.blank?
-      %tr{:class => cycle('odd', 'even', :name => :temporary_schedules)}
-        %td{:colspan => 1}= t('schedules.not_available')
-    - else
-      - @temporary_schedules.each do |schedule|
+            %td.public
+              - if schedule.public?
+                = t('schedules.public_yes')
+              - else
+                = t('schedules.public_no')
+
+  %table{:class => 'temporary_schedules default_table'}
+    %caption= t('schedules.temporary_schedules')
+    %thead
+      %tr
+        %th.date= t('schedules.date')
+    %tbody
+      - if @temporary_schedules.blank?
         %tr{:class => cycle('odd', 'even', :name => :temporary_schedules)}
-          %td.date
-            %a{:href => schedule_path(schedule)}= localize(schedule.updated_at)
+          %td{:colspan => 1}= t('schedules.not_available')
+      - else
+        - @temporary_schedules.each do |schedule|
+          %tr{:class => cycle('odd', 'even', :name => :temporary_schedules)}
+            %td.date
+              %a{:href => schedule_path(schedule)}= localize(schedule.updated_at)
 
 .clear

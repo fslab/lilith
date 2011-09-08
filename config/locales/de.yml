@@ -86,6 +86,10 @@ de:
     ical: iCalendar
     xml: XML
     permalink: Permalink
+    no_description: Keine Beschreibung verfügbar
+    delete: Löschen
+    delete_schedule: Stundenplan löschen
+    public_schedules: Öffentliche Stundenpläne
 
   article:
     name: Artikel

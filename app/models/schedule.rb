@@ -46,7 +46,7 @@ class Schedule < ActiveRecord::Base
 
   # Tells if the schedule is temporary, which is the case if it has no name
   def temporary?
-    @name.nil?
+    name.nil?
   end
 
   # Tells if the schedule is permanent, which is the case if it has a name
