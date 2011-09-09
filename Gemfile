@@ -20,32 +20,39 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
+
+group :assets do
+  gem 'sass-rails', '~> 3.1.0'
+  gem 'coffee-rails', '~> 3.1.0'
+  gem 'uglifier', '~> 1.0.3'
+  gem 'therubyracer', '~> 0.9.4'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 0.10.1' # PostgreSQL is the recommended database system
+gem 'pg', '~> 0.11.0' # PostgreSQL is the recommended database system
 #gem 'sqlite3', '~> 1.3.3'
 #gem 'mysql2', '~> 0.2.7'
 
-gem 'rake', '~> 0.8.7'
-gem 'haml', '~> 3.0.25'
+gem 'rake', '~> 0.9.2'
+gem 'haml', '~> 3.1.2'
 gem 'mechanize', '~> 1.0.0'
 gem 'ri_cal', '~> 0.8.8'
 gem 'amatch', '~> 0.2.5'
 gem 'uuidtools', '~> 2.1.2'
 gem 'whenever', '~> 0.6.7'
-gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
-gem 'globalize3', '~> 0.1.0.beta'
-gem 'jquery-rails', '~> 0.2.7'
+gem 'RedCloth', '~> 4.2.8', :require => 'redcloth'
+gem 'globalize3', '~> 0.1.0'
+gem 'jquery-rails', '~> 1.0.13'
 gem 'acceptable', '~> 0.2.3', :require => 'rack/acceptable'
 gem 'foreigner', '~> 0.9.2'
 gem 'authlogic', '~> 3.0.3'
 gem 'activeldap3', '~> 1.2.3', :require => 'active_ldap'
 gem 'net-ldap', '~> 0.2.2'
 gem 'cancan', '~> 1.6.5'
-gem 'rspec-rails', '~> 2.6.0.rc2', :groups => [:development, :test]
+gem 'rspec-rails', '~> 2.6.1', :groups => [:development, :test]
 gem 'date_easter', '~> 0.0.1'
 gem "kaminari", "~> 0.12.4"
 
@@ -54,9 +61,9 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 1.0.0.beta2'
+  gem 'shoulda-matchers', '~> 1.0.0.beta3'
   gem 'machinist', '~> 2.0.0.beta2'
-  gem 'cover_me', '~> 1.1.1', :platforms => :mri_19
+  gem 'cover_me', '~> 1.1.2', :platforms => :mri_19
 end
 
 # Use unicorn as the web server

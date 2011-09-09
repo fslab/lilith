@@ -27,7 +27,11 @@ Lilith::Application.configure do
   # and recreated between test runs.  Don't rely on the data there!
   config.cache_classes = true
 
-  # Log error messages when you accidentally call methods on nil.
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
+
+  # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
 
   # Show full error reports and disable caching
@@ -53,8 +57,11 @@ Lilith::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-end
+  # Allow pass debug_assets=true as a query parameter to load pages with unpackaged assets
+  config.assets.allow_debugging = true
 
-Machinist.configure do |config|
-  config.cache_objects = false
+
+  Machinist.configure do |config|
+    config.cache_objects = false
+  end
 end

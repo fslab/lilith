@@ -12,7 +12,7 @@
     - else
       %h3= t('schedules.rename_schedule') + ':'
 
-    - form_for(@schedule, :method => :put) do |f|
+    = form_for(@schedule, :method => :put) do |f|
       %input{:name => 'source_action', :type => 'hidden', :value => params[:source_action] || 'show'}
       %p.name
         %label{:for => :name}= t('schedules.name') + ':'

@@ -120,7 +120,7 @@ User::Role.blueprint do
 end
 
 Schedule.blueprint do
-  user_id { User.make! }
+  user_id { User.make!.id }
   name    { "schedule_#{sn}"}
 end
 
