@@ -5,7 +5,7 @@
   - else
     %h2= t('schedules.permanent_schedule')
 
-  - if current_user
+  - if current_user and can? :update, @schedule
   
     - if @schedule.temporary?
       %h3= t('schedules.save_schedule') + ':'
