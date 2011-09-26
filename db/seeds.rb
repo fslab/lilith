@@ -40,7 +40,7 @@ welcome_article.body_de = <<-TEXT
 
 Anschließend kann dieser mittels des iCalendar-Dateiformats in deine präferierte Kalender-Anwendung exportiert werden.
 
-p=. !/images/start_de.png(Zum starten hier klicken!)!:/de/schedules
+p=. !#{ActionController::Base.new.view_context.asset_path('start_de.png')}(Zum starten hier klicken!)!:/de/schedules
 TEXT
 
 welcome_article.body_en = <<-TEXT
@@ -48,7 +48,7 @@ welcome_article.body_en = <<-TEXT
 
 Afterwards this schedule can be exported to your favorite calendar application through the iCalendar file format.
 
-p=. !/images/start_en.png(Click to start!)!:/en/schedules
+p=. !#{ActionController::Base.new.view_context.asset_path('start_en.png')}(Click to start!)!:/en/schedules
 TEXT
 
 welcome_article.save!

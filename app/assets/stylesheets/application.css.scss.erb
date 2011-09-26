@@ -1,3 +1,7 @@
+/*
+*= require_self
+*/
+
 /* Copyright Alexander E. Fischer <aef@raxys.net>, 2011
  *
  * This file is part of Lilith.
@@ -15,18 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
  */
-@import 'imprint/imprint';
-@import 'session/session';
-@import 'dashboard/dashboard';
-@import 'articles/articles';
-@import 'schedules/schedules';
-@import 'people/people';
 
 html, body {
   padding: 0;
   margin: 0;
   color: black;
-  background-image: url("/images/background.png");
+  background-image: url("<%= asset_path('background.png') %>");
   background-attachment: fixed;
 
   .clear {
@@ -204,7 +202,7 @@ table.default_table {
     color: #fff;
   }
 
-  a:hover { 
+  a:hover {
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -227,7 +225,7 @@ table.default_table {
     vertical-align:middle;
     height: 28px;
     border-bottom-width: 0px;
-    
+
     .sections {
         float: left;
 
@@ -235,7 +233,7 @@ table.default_table {
             padding-right: 3px;
         }
     }
-  
+
     .current_user {
       margin-right: 5px;
       display: inline-block;
@@ -248,7 +246,7 @@ table.default_table {
         border: none;
         margin-left: 3px;
     }
-    
+
     .menu {
       position: relative;
       top: 0px;
@@ -265,7 +263,7 @@ table.default_table {
         height: 100%;
         padding-top: 2px;
       }
-      
+
       li {
         display: block;
         color: #0099FF;
@@ -274,8 +272,8 @@ table.default_table {
         left: 0px;
         top: 0px;
         padding: 6px 0px 0px;
-        
-        float: left;    
+
+        float: left;
         list-style-type: none;
         text-align: center;
 
@@ -284,15 +282,15 @@ table.default_table {
         }
 
         ul {  display: none; }
-        
+
         &:hover {
           background-color: #DFDFDF + #101010;
           color: #000;
-          
+
           ul {
              display: block;
              padding-top: 0px; padding-bottom: 0px;
-          
+
             li {
               padding-top: 0px;
               border-width: 0px;
@@ -304,13 +302,13 @@ table.default_table {
               &:hover {
                 ul {
                   display: block;
-                
+
                   li {
                     ul {  display: none;  }
                     &:hover {
                       ul {
                         display: block;
-                      
+
                         li {
                           ul {  display: none;  }
                         }
@@ -323,7 +321,7 @@ table.default_table {
           }
         }
       }
-      
+
       ul {
         position: relative;
         margin: 0px;
@@ -334,17 +332,17 @@ table.default_table {
         display: block;
         height: 100%;
         width: 100%;
-        
+
         li {
           padding: 2px 0px 0px 0px;
           height: 18px;
           border: 1px solid #fff;
-          background-color: #DFDFDF;  
-          
+          background-color: #DFDFDF;
+
           ul {
             top: -21px;
-            left: 111px;  
-            
+            left: 111px;
+
             li {
               ul {
                 top: -18px;
@@ -354,7 +352,7 @@ table.default_table {
         }
       }
     }
-    
+
 
 }
 
@@ -447,3 +445,9 @@ table.default_table {
 
 }
 
+@import 'articles.css.scss';
+@import 'session.css.scss';
+@import 'dashboard.css.scss';
+@import 'articles.css.scss';
+@import 'schedules.css.scss';
+@import 'people.css.scss';

@@ -25,7 +25,7 @@ module Lilith
   # The versioning tries to follow semantic versioning
   #
   # See http://semver.org/
-  VERSION = '0.2.0alpha'
+  VERSION = '0.3.0alpha'
 
   module_function
 

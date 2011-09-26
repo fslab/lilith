@@ -52,7 +52,7 @@ describe Lilith::HbrsEvaScraper do
 
   context "#week_numbers" do
     it "should contain all current week numbers" do
-      @scraper.ids_to_week_numbers.values.should == (12..25).map(&:to_s)
+      @scraper.ids_to_week_numbers.values.should == (12..25).to_a
     end
   end
 
@@ -361,38 +361,42 @@ describe Lilith::HbrsEvaScraper do
   end
 
   context "#scrape_groups" do
+    before(:each) do
+      @course = Course.make!
+    end
+
     it "should be able to scrape '3'" do
-      result = @scraper.scrape_groups('3')
+      result = @scraper.scrape_groups(@course, '3')
 
       result.map(&:name).to_set.should == %w{3}.to_set
     end
 
     it "should be able to scrape ' 3 '" do
-      result = @scraper.scrape_groups(' 3 ')
+      result = @scraper.scrape_groups(@course, ' 3 ')
 
       result.map(&:name).to_set.should == %w{3}.to_set
     end
 
     it "should be able to scrape '3+TZ'" do
-      result = @scraper.scrape_groups('3+TZ')
+      result = @scraper.scrape_groups(@course, '3+TZ')
 
       result.map(&:name).to_set.should == %w{3 TZ}.to_set
     end
 
     it "should be able to scrape '1-3+TZ'" do
-      result = @scraper.scrape_groups('1-3+TZ')
+      result = @scraper.scrape_groups(@course, '1-3+TZ')
 
       result.map(&:name).to_set.should == %w{1 2 3 TZ}.to_set
     end
 
     it "should be able to scrape '4-7'" do
-      result = @scraper.scrape_groups('4-7')
+      result = @scraper.scrape_groups(@course, '4-7')
 
       result.map(&:name).to_set.should == %w{4 5 6 7}.to_set
     end
 
     it "should be able to scrape '3+4'" do
-      result = @scraper.scrape_groups('3+4')
+      result = @scraper.scrape_groups(@course, '3+4')
 
       result.map(&:name).to_set.should == %w{3 4}.to_set
     end
@@ -469,7 +473,7 @@ describe Lilith::HbrsEvaScraper do
         :end_week   => '2011-W25'
       )
 
-      @event = Event.make(:recurrence => nil)
+      @event = Event.make!(:recurrence => nil)
       study_unit = @event.course.study_unit
       study_unit.semester = semester
       study_unit.save!

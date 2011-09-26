@@ -1,13 +1,11 @@
 - set_body_id(:session_new)
-
 - unless @user_session.errors.blank?
   .errors
     %p= t('session.new.errors') + ':'
     %ul
       - @user_session.errors[:base].each do |message|
         %li= "#{message}"
-
-- form_for @user_session, :url => session_path do |f|
+= form_for @user_session, :url => session_path do |f|
   %p
     = f.label :login, t('session.new.login') + ':'
     = f.text_field :login
@@ -16,7 +14,6 @@
       %ul
         - @user_session.errors[:login].each do |message|
           %li= "#{message}"
-
   %p
     = f.label :password, t('session.new.password') + ':'
     = f.password_field :password
@@ -25,6 +22,5 @@
       %ul
         - @user_session.errors[:password].each do |message|
           %li= "#{message}"
-
   %p.submit
     = f.submit t('session.new.submit'), :name => nil

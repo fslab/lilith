@@ -18,8 +18,7 @@
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 - set_body_id :schedules
 %h2= t('schedules.schedule_composition')
-
-- form_for(@schedule) do |f|
+= form_for(@schedule) do |f|
   .controls{:class => current_user ? nil : :reduced}
     .options
       %p
