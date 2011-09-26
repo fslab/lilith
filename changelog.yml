@@ -44,5 +44,13 @@ releases:
   - de: Ausführungen von administrativen Lilith Aufgaben durch Rake-Tasks vereinfacht
     en: Rake tasks generated to make administrative Lilith task execution much easier
   url: https://projects.fslab.de/redmine/projects/lilith/versions/2
+- version: 0.3.0
+  time: 2011-09-26 03:49:45 +0200
+  features:
+  - de: Lilith auf Rails 3.1 portiert
+    en: Upgraded Lilith to Rails 3.1
+  - de: ldap-ruby wird nun für LDAP-Verbindungen benutzt
+    en: ldap-ruby is now used for LDAP connections
+  url: https://www.fslab.de/redmine/projects/lilith/versions/8
 
 

@@ -77,3 +77,5 @@ module Lilith
     config.application_slogan = 'plan your schedule, really'
   end
 end
+
+require 'active_ldap/railtie'
