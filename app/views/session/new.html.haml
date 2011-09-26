@@ -8,7 +8,7 @@
 = form_for @user_session, :url => session_path do |f|
   %p
     = f.label :login, t('session.new.login') + ':'
-    = f.text_field :login
+    = f.text_field :login, :autofocus => true
   - unless @user_session.errors[:login].blank?
     .errors
       %ul

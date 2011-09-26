@@ -327,6 +327,12 @@ en:
 
   activerecord:
     errors:
+      models:
+        schedule:
+          attributes:
+            name:
+              invalid: May not contain spaces
+
       template:
         header:
           one: "1 error prohibited this %{model} from being saved"

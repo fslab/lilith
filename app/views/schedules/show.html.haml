@@ -12,12 +12,17 @@
     - else
       %h3= t('schedules.rename_schedule') + ':'
 
-    = form_for(@schedule, :method => :put) do |f|
+    = form_for(@schedule.reload, :method => :put) do |f|
       %input{:name => 'source_action', :type => 'hidden', :value => params[:source_action] || 'show'}
       %p.name
         %label{:for => :name}= t('schedules.name') + ':'
         = f.text_field :name
-      %p.description
+        - unless @schedule.errors[:name].blank?
+          .errors
+            %ul
+              - @schedule.errors[:name].each do |message|
+                %li= "#{message}"
+        %p.description
         %label{:for => :description}= t('schedules.description') + ':'
         = f.text_area :description, :rows => nil, :cols => nil
       %p.public
