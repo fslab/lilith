@@ -353,6 +353,11 @@ de:
 
   activerecord:
     errors:
+      models:
+        schedule:
+          attributes:
+            name:
+              invalid: Darf keine Leerzeichen enthalten
       template:
         header:
           one: "Konnte %{model} nicht speichern: ein Fehler."

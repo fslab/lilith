@@ -52,7 +52,7 @@ describe Schedule do
       older_state  = ScheduleState.make!
       latest_state = ScheduleState.make!
 
-      schedule = described_class.make(:fixed_schedule_state_id => older_state)
+      schedule = described_class.make(:fixed_schedule_state_id => older_state.id)
       schedule.schedule_state.should == older_state
     end
   end

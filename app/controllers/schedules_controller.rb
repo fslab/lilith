@@ -111,7 +111,9 @@ class SchedulesController < ApplicationController
 
     show_path = schedule_path(@schedule)
 
-    if @schedule.update_attributes(params[:schedule])
+    @schedule.update_attributes(params[:schedule])
+
+    if @schedule.valid?
       redirect_to schedule_path(@schedule)
     else
       if params[:source_action] == 'show'

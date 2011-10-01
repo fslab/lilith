@@ -26,3 +26,9 @@
       = render :partial => 'articles/article', :locals => {:article => article, :full => false}
 
 = paginate @all_published_articles
+
+- content_for(:left) do
+  Left content
+
+- content_for(:right) do
+  Right content

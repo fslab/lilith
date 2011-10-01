@@ -18,8 +18,7 @@
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 - set_body_id :schedules
 %h2= t('schedules.schedule_composition')
-
-- form_for(@schedule) do |f|
+= form_for(@schedule) do |f|
   .controls{:class => current_user ? nil : :reduced}
     .options
       %p
@@ -48,9 +47,9 @@
     .filters
       %label{:for => 'course_filter'}= t('schedules.filter') + ':'
       .value
-        %img.spinner{:src => '/images/spinner.gif', :alt => 'Loading...'}
+        %img.spinner{:src => asset_path('spinner.gif'), :alt => 'Loading...'}
         %input#course_filter{:type => 'text'}
-        %img#course_filter_clear{:src => '/images/icons/cross.png', :alt => 'Clear'}
+        %img#course_filter_clear{:src => asset_path('icons/cross.png'), :alt => 'Clear'}
 
   %p
     %noscript

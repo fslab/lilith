@@ -1,7 +1,7 @@
 development: &DEFAULT
-  host: addressbook.inf.h-brs.de
+  host: addressbook.inf.fh-bonn-rhein-sieg.de
   base: dc=fb02,dc=FH-Bonn-Rhein-Sieg,dc=DE
-  method: tls
+  method: :tls
 
 test:
   <<: *DEFAULT

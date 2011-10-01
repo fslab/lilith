@@ -26,7 +26,7 @@
       %li
         = message
 
-- form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
+= form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
   = render :partial => 'form', :locals => {:f => f}, :object => @article
 
   = f.submit t('article.edit')
