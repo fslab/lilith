@@ -32,6 +32,9 @@ describe Course do
   it { should have_many(:events) }
   it { should have_many(:groups) }
 
+  it { should have_many(:schedule_associations) }
+  it { should have_many(:schedules) }
+
   context "before destroy" do
     it "should destroy all its events" do
       course = described_class.make!

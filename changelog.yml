@@ -59,6 +59,8 @@ releases:
     en: Fixed many small parsing problems through special case handling within the scraper
   - de: Schweren Fehler im Wochen-Range-Parser behoben der zu fehlerhaften oder fehlenden Event-Zeiträumen führte
     en: Solved a major week range parsing bug which caused wrong or missing event occurences
+  - de: Group- und Course-Assoziationen zu Schedules werden nun gelöscht, wenn entsprechende Groups oder Courses gelöscht werden
+    en: Group and Course associations with Schedules are now deleted when the Group or Course is deleted
   url: https://www.fslab.de/redmine/projects/lilith/versions/9
 
 

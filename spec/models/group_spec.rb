@@ -31,6 +31,9 @@ describe Group do
   it { should have_many(:event_associations) }
   it { should have_many(:events) }
 
+  it { should have_many(:schedule_associations) }
+  it { should have_many(:schedules) }
+
   context "before destroy" do
     it "should destroy all its event associations" do
       group = described_class.make!

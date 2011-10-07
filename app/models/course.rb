@@ -34,4 +34,7 @@ class Course < ActiveRecord::Base
   end
 
   has_many :groups, :dependent => :destroy
+
+  has_many :schedule_associations, class_name: 'Schedule::CourseAssociation', dependent: :destroy
+  has_many :schedules, through: :schedule_associations
 end
