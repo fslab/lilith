@@ -62,7 +62,13 @@ class Lilith::HbrsEvaScraper
 
       parse_range(week_range).each do |token|
         if token.is_a?(Range)
-          range = (token.min.to_i..token.max.to_i).to_a
+          range_begin, range_end = token.begin.to_i, token.end.to_i
+
+          if range_end >= range_begin
+            range = (range_begin..range_end).to_a
+          else
+            range = (range_begin..53).to_a + (1..range_end).to_a
+          end
           raise Error 'Empty week range, possible parsing error' if range.empty?
           week_numbers += range
         else
@@ -349,6 +355,37 @@ class Lilith::HbrsEvaScraper
         raw_data[:categories] = $4
       end
 
+      # Special case handling for "Einführung in die Programmierung BIS alle Gr., BCS (Gr 1,2, TZ 1) (VÜ)", BCS1/BIS1 in 2011 winter semester
+      if name == 'Einführung in die Programmierung BCS'
+        name = 'Einführung in die Programmierung'
+      end
+      if name == 'Einführung in die Programmierung BIS alle'
+        name = 'Einführung in die Programmierung'
+
+        if study_unit.program == 'Bachelor CS' and study_unit.position == 1
+          raw_data[:groups] = '1,2,TZ1'
+        else
+          raw_data[:groups] = '1,2,3'
+        end
+      end
+
+      # Special case handling for "Vertiefung BWL II Gr.? (Rheinbach, Raum B???)", BIS5 in 2011 winter semester
+      if raw_data[:groups] == 'B (Rheinbach, Raum B033)'
+        raw_data[:groups] = 'B'
+        raw_data[:room] = 'Rheinbach, B 033'
+      end
+
+      if raw_data[:groups] == 'A (Rheinbach, Raum B035)'
+        raw_data[:groups] = 'A'
+        raw_data[:room] = 'Rheinbach, B 035'
+      end
+
+      # Special case handling for "Business English Gr B Raum A 104", BCS1 in 2011 winter semester
+      if raw_data[:groups] == 'B Raum A 104'
+        raw_data[:groups] = 'B'
+        raw_data[:room]   = 'A 104'
+      end
+
       # Remove leading and trailing spaces and remove double spaces
       name.strip!
       name.gsub!(/  +/, ' ')
@@ -438,6 +475,11 @@ class Lilith::HbrsEvaScraper
 
       filtered_weeks = filtered_weeks.select(&:odd?) if recurrence == 'uKW'
       filtered_weeks = filtered_weeks.select(&:even?) if recurrence == 'gKW'
+
+      # Special case handling for "Algebraische und zahlenth. Grundlagen (V)", BCS5 on fridays in 2011 winter semester
+      if raw_recurrence == 'KW 40-51(ohne KW 45)'
+        filtered_weeks -= [Aef::Week.new(2011, 45)]
+      end
     end
 
     event.save!

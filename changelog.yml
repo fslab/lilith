@@ -52,5 +52,14 @@ releases:
   - de: ldap-ruby wird nun für LDAP-Verbindungen benutzt
     en: ldap-ruby is now used for LDAP connections
   url: https://www.fslab.de/redmine/projects/lilith/versions/8
+- version: 0.3.1
+  time: 2011-10-07 23:17:28 +0200
+  features:
+  - de: Viele kleinere Parsing-Probleme durch Sonderfallbehandlung im Scraper gelöst
+    en: Fixed many small parsing problems through special case handling within the scraper
+  - de: Schweren Fehler im Wochen-Range-Parser behoben der zu fehlerhaften oder fehlenden Event-Zeiträumen führte
+    en: Solved a major week range parsing bug which caused wrong or missing event occurences
+  url: https://www.fslab.de/redmine/projects/lilith/versions/9
+
 
 

@@ -750,5 +750,19 @@ describe Lilith::HbrsEvaScraper do
 
       described_class.parse_week_range(@semester, '13-25').should == expected_weeks
     end
+
+    it "should be able to parse '40-4'" do
+      expected_weeks = (Aef::Week.new(2011, 40)..Aef::Week.new(2012, 4)).to_a
+
+      semester = Semester.make(:start_week => '2011-W38', :end_week => '2012-W06')
+      described_class.parse_week_range(semester, '40-4').should == expected_weeks
+    end
+
+    it "should be able to parse '40-4' with smaller semester" do
+      expected_weeks = (Aef::Week.new(2011, 41)..Aef::Week.new(2012, 2)).to_a
+
+      semester = Semester.make(:start_week => '2011-W41', :end_week => '2012-W02')
+      described_class.parse_week_range(semester, '40-4').should == expected_weeks
+    end
   end
 end
