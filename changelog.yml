@@ -54,7 +54,7 @@ releases:
   url: https://www.fslab.de/redmine/projects/lilith/versions/8
 - version: 0.3.1
   time: 2011-10-07 23:17:28 +0200
-  features:
+  bugs:
   - de: Viele kleinere Parsing-Probleme durch Sonderfallbehandlung im Scraper gelöst
     en: Fixed many small parsing problems through special case handling within the scraper
   - de: Schweren Fehler im Wochen-Range-Parser behoben der zu fehlerhaften oder fehlenden Event-Zeiträumen führte
