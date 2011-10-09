@@ -1,0 +1,10 @@
+%h2= "#{t('courses.comments_for_course')} #{@course.name}"
+
+- if current_user
+  %a{:href => new_course_comment_path(@course)}= t('courses.new_comment')
+
+- @course.comments.each do |comment|
+  .comment
+    %h3= comment.name
+    %span.meta= "#{comment.created_at} #{t('courses.comment_by')} #{comment.author.login}"
+    = textilize comment.body

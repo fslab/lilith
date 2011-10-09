@@ -1,0 +1,14 @@
+- unless @comment.errors.empty?
+  %ul.errors
+    - @comment.errors.each do |field, message|
+      %li= "#{field}: #{message}"
+
+= form_for(@comment, :url => course_comments_path(@course)) do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :body
+    = f.text_area :body
+  %p
+    = f.submit t('courses.comment_submit'), :name => nil

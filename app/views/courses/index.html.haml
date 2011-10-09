@@ -1,0 +1,8 @@
+- @courses_by_study_units.each do |study_unit, courses|
+
+  %h2= "#{study_unit.program} #{study_unit.position}"
+
+  %ul.courses
+    - courses.each do |course|
+      %li
+        %a{:href => course_path(course)}= course.name

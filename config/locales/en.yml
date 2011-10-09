@@ -1,0 +1,7 @@
+en:
+  courses:
+    menu_name: Course list
+    comments_for_course: Comments for course
+    new_comment: Create comment
+    comment_submit: Create
+    comment_by: by
