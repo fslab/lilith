@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :current_user
+  helper_method :render_menu
 
   before_filter :set_locale
   before_filter :set_timezone
@@ -108,5 +109,15 @@ class ApplicationController < ActionController::Base
        not request.headers['User-Agent'].include?('MSIE')
         response.content_type = 'application/xhtml+xml'
     end
+  end
+
+  def render_menu
+    items = []
+
+    Lilith::NAVIGATION_PROCS.each do |proc|
+      instance_exec(items, &proc)
+    end
+
+    render_navigation :items => items
   end
 end
