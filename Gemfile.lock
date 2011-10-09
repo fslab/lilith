@@ -1,3 +1,8 @@
+PATH
+  remote: ../lilith_test
+  specs:
+    lilith_test (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -90,6 +95,9 @@ GEM
     mechanize (1.0.0)
       nokogiri (>= 1.2.1)
     mime-types (1.16)
+    mixable_engines (0.1.1)
+      activesupport (>= 3.0.0)
+      i18n
     multi_json (1.0.3)
     nokogiri (1.5.0)
     pg (0.11.0)
@@ -141,6 +149,8 @@ GEM
       railties (~> 3.1.0)
       sass (>= 3.1.4)
     shoulda-matchers (1.0.0.beta3)
+    simple-navigation (3.5.0)
+      activesupport (>= 2.3.2)
     sprockets (2.0.0)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -181,8 +191,10 @@ DEPENDENCIES
   haml (~> 3.1.2)
   jquery-rails (~> 1.0.13)
   kaminari (~> 0.12.4)
+  lilith_test!
   machinist (~> 2.0.0.beta2)
   mechanize (~> 1.0.0)
+  mixable_engines (~> 0.1.1)
   net-ldap (~> 0.2.2)
   nokogiri (~> 1.5.0)
   pg (~> 0.11.0)
@@ -193,6 +205,7 @@ DEPENDENCIES
   ruby-ldap (~> 0.9.11)
   sass-rails (~> 3.1.0)
   shoulda-matchers (~> 1.0.0.beta3)
+  simple-navigation (~> 3.5.0)
   therubyracer (~> 0.9.4)
   uglifier (~> 1.0.3)
   uuidtools (~> 2.1.2)
