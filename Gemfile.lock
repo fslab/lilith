@@ -1,8 +1,3 @@
-PATH
-  remote: ../lilith_test
-  specs:
-    lilith_test (0.0.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -191,7 +186,6 @@ DEPENDENCIES
   haml (~> 3.1.2)
   jquery-rails (~> 1.0.13)
   kaminari (~> 0.12.4)
-  lilith_test!
   machinist (~> 2.0.0.beta2)
   mechanize (~> 1.0.0)
   mixable_engines (~> 0.1.1)
