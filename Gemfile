@@ -75,5 +75,3 @@ group :test do
   gem 'machinist', '~> 2.0.0.beta2'
   gem 'cover_me', '~> 1.1.2', :platforms => :mri_19
 end
-
-gem 'lilith_test', :path => '../lilith_test'
