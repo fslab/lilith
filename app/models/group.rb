@@ -35,4 +35,7 @@ class Group < ActiveRecord::Base
       self.where(params).all
     end
   end
+
+  has_many :schedule_associations, class_name: 'Schedule::GroupAssociation', dependent: :destroy
+  has_many :schedules, through: :schedule_associations
 end
