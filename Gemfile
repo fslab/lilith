@@ -54,6 +54,8 @@ gem 'rspec-rails', '~> 2.6.1', :groups => [:development, :test]
 gem 'date_easter', '~> 0.0.1'
 gem 'kaminari', '~> 0.12.4'
 gem 'nokogiri', '~> 1.5.0'
+gem 'simple-navigation', '~> 3.5.0'
+gem 'mixable_engines', '~> 0.1.1'
 gem 'activeldap', '~> 3.1.0', :require => 'active_ldap'
 
 platforms :ruby do
@@ -73,3 +75,5 @@ group :test do
   gem 'machinist', '~> 2.0.0.beta2'
   gem 'cover_me', '~> 1.1.2', :platforms => :mri_19
 end
+
+gem 'lilith_test', :path => '../lilith_test'
