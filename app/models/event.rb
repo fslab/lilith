@@ -82,10 +82,16 @@ class Event < ActiveRecord::Base
     ical_event.description = description
 
     # If recurrence is needed, make event recurring each week and define exceptions
+    #
     # This is needed because Evolution 2.30.3 still has problems interpreting rdate recurrence
+    # 
+    # Although iCalendar chapter 4.3.10 "Recurrence Rule" states "The UNTIL rule part defines a date-time value which
+    # bounds the recurrence rule in an inclusive manner.", some programs interpret this in an exclusive manner (Sunbird,
+    # Terminplaner.Net). Therefore the day after the real until date is chosen, which should not cause problems in a
+    # weekly recurrence.
     if weeks.length > 1
       ical_event.exdates = exceptions.map(&:to_date)
-      ical_event.rrules = [{:freq => 'weekly', :until => self.until}]
+      ical_event.rrules = [{:freq => 'weekly', :until => self.until + 1}]
     end
     
     ical_event
