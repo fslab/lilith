@@ -24,7 +24,7 @@
       %li
         = message
 
-= form_for(@article) do |f|
-  = render :partial => 'form', :locals => {:f => f}, :object => @article
+= form_for(@article, as: :article) do |f|
+  = render partial: 'form', locals: {f: f}, object: @article
 
   = f.submit t('article.create')

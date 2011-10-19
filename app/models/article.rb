@@ -24,8 +24,6 @@ class Article < ActiveRecord::Base
 
   translates :name, :abstract, :body
 
-  attr_writer :published
-
   before_save :set_published_at
 
   validates :name, :presence => true
@@ -70,6 +68,10 @@ class Article < ActiveRecord::Base
         write_attribute(attribute, value, :locale => locale)
       end
     end
+  end
+
+  def published=(published)
+    @published = published == '0' ? false : !published.blank?
   end
 
   # Virtual attribute reflecting if the article is currently published

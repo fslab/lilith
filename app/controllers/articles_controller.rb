@@ -62,8 +62,6 @@ class ArticlesController < ApplicationController
   def update
     authorize!(:manage, @article)
 
-    params[:article][:published] = params[:article][:published] ? true : false
-
     if @article.update_attributes(params[:article])
       redirect_to articles_path
     else
@@ -95,10 +93,8 @@ class ArticlesController < ApplicationController
   def create
     authorize!(:manage, Article)
     
-    params[:article][:published] = params[:article][:published] ? true : false
-
     @article = Article.new(params[:article])
-    
+
     if @article.save
       redirect_to articles_path
     else
