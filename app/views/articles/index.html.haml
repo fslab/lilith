@@ -20,9 +20,9 @@
 %h2= t('article.heading')
 
 .actions
-  = button_to t('article.create'), new_article_path, :method => :get
+  = button_to t('article.create'), new_article_path, method: :get
 
-%table{:class => 'unpublished default_table'}
+%table.unpublished.default_table
   %caption= t('article.unpublished')
   %thead
     %tr
@@ -32,16 +32,16 @@
       %th.actions
   %tbody.sticky
     - @unpublished_sticky_articles.each do |article|
-      = render :partial => 'articles/article_for_table', :locals => {:article => article, :alternation_class => cycle('odd', 'even', :name => :unpublished)}
+      = render partial: 'articles/article_for_table', locals: {article: article, alternation_class: cycle('odd', 'even', name: :unpublished)}
   %tbody.non_sticky
     - if @unpublished_sticky_articles.empty? and @unpublished_non_sticky_articles.empty?
       %tr
-        %td{:colspan => 4}= t('article.none_found')
+        %td{colspan: 4}= t('article.none_found')
     - else
       - @unpublished_non_sticky_articles.each do |article|
-        = render :partial => 'articles/article_for_table', :locals => {:article => article, :alternation_class => cycle('odd', 'even', :name => :unpublished)}
+        = render partial: 'articles/article_for_table', locals: {article: article, alternation_class: cycle('odd', 'even', name: :unpublished)}
 
-%table{:class => 'published default_table'}
+%table.published.default_table
   %caption= t('article.published')
   %thead
     %tr
@@ -51,12 +51,12 @@
       %th.actions
   %tbody.sticky
     - @published_sticky_articles.each do |article|
-      = render :partial => 'articles/article_for_table', :locals => {:article => article, :alternation_class => cycle('odd', 'even', :name => :published)}
+      = render partial: 'articles/article_for_table', locals: {article: article, alternation_class: cycle('odd', 'even', name: :published)}
   %tbody.non_sticky
     - if @published_sticky_articles.empty? and @published_non_sticky_articles.empty?
       %tr
-        %td{:colspan => 4}= t('article.none_found')
+        %td{colspan: 4}= t('article.none_found')
     - else
       - @published_non_sticky_articles.each do |article|
-        = render :partial => 'articles/article_for_table', :locals => {:article => article, :alternation_class => cycle('odd', 'even', :name => :published)}
+        = render partial: 'articles/article_for_table', locals: {article: article, alternation_class: cycle('odd', 'even', name: :published)}
 

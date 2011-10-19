@@ -16,9 +16,9 @@
 -#
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
-%tr{:id => article.id, :class => alternation_class}
+%tr{id: article.id, class: alternation_class}
   %td.name
-    %a{:href => article_path(article)}= article.name
+    %a{href: article_path(article)}= article.name
   %td.sticky
     - if article.sticky?
       = t('article.sticky_yes')
@@ -27,14 +27,14 @@
   %td.dates
     - if article.published_at
       %span.published_at
-        %abbr{:title => t('article.published_at')}= t('article.published_at_short') + ':'
+        %abbr{title: t('article.published_at')}= t('article.published_at_short') + ':'
         = localize article.published_at
     %span.updated_at
-      %abbr{:title => t('article.updated_at')}= t('article.updated_at_short') + ':'
+      %abbr{title: t('article.updated_at')}= t('article.updated_at_short') + ':'
       = localize article.updated_at
     %span.created_at
-      %abbr{:title => t('article.created_at')}= t('article.created_at_short') + ':'
+      %abbr{title: t('article.created_at')}= t('article.created_at_short') + ':'
       = localize article.created_at
   %td.actions
-    %a{:href => edit_article_path(article)}= t('article.edit')
-    %a{:href => delete_article_path(article)}= t('article.delete')
+    %a{href: edit_article_path(article)}= t('article.edit')
+    %a{href: delete_article_path(article)}= t('article.delete')
