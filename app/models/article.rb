@@ -24,24 +24,22 @@ class Article < ActiveRecord::Base
 
   translates :name, :abstract, :body
 
-  attr_writer :published
-
   before_save :set_published_at
 
-  validates :name, :presence => true
-  validates :body, :presence => true
+  validates :name, presence: true
+  validates :body, presence: true
 
   # Default order for articles
   default_scope order('published_at DESC, updated_at DESC')
 
   # Selects only sticky articles
   def self.sticky
-    where(:sticky => true)
+    where(sticky: true)
   end
 
   # Selects only non-sticky articles
   def self.non_sticky
-    where(:sticky => false)
+    where(sticky: false)
   end
 
   # Selects only published articles
@@ -63,13 +61,17 @@ class Article < ActiveRecord::Base
   translated_attribute_names.each do |attribute|
     I18n.available_locales.each do |locale|
       define_method "#{attribute}_#{locale}" do
-        read_attribute(attribute, :locale => locale)
+        read_attribute(attribute, locale: locale)
       end
 
       define_method "#{attribute}_#{locale}=" do |value|
-        write_attribute(attribute, value, :locale => locale)
+        write_attribute(attribute, value, locale: locale)
       end
     end
+  end
+
+  def published=(published)
+    @published = published == '0' ? false : !published.blank?
   end
 
   # Virtual attribute reflecting if the article is currently published

@@ -17,27 +17,24 @@
 -# You should have received a copy of the GNU General Public License
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 %p
-  %label{:for => 'name_de'}~ t('article.title') + ' (' + t('meta.name', :locale => :de) + '):'
-  = f.text_field :name_de, :class => :de
-  %label{:for => 'name_en'}~ t('article.title') + ' (' + t('meta.name', :locale => :en) + '):'
-  = f.text_field :name_en, :class => :en
+  %label{for: 'name_de'}= t('article.title') + ' (' + t('meta.name', locale: :de) + '):'
+  = f.text_field :name_de, class: :de
+  %label{for: 'name_en'}= t('article.title') + ' (' + t('meta.name', locale: :en) + '):'
+  = f.text_field :name_en, class: :en
 
 %p
-  %label{:for => 'abstract_de'}~ t('article.abstract') + ' (' + t('meta.name', :locale => :de) + '):'
-  = f.text_area :abstract_de, :class => :de
-  %label{:for => 'abstract_en'}~ t('article.abstract') + ' (' + t('meta.name', :locale => :en) + '):'
-  = f.text_area :abstract_en, :class => :en
+  %label{for: 'abstract_de'}= t('article.abstract') + ' (' + t('meta.name', locale: :de) + '):'
+  = f.text_area :abstract_de, class: :de
+  %label{for: 'abstract_en'}= t('article.abstract') + ' (' + t('meta.name', locale: :en) + '):'
+  = f.text_area :abstract_en, class: :en
 %p
-  %label{:for => 'body_de'}~ t('article.body') + ' (' + t('meta.name', :locale => :de) + '):'
-  = f.text_area :body_de, :class => :de
-  %label{:for => 'body_en'}~ t('article.body') + ' (' + t('meta.name', :locale => :en) + '):'
-  = f.text_area :body_en, :class => :en
+  %label{for: 'body_de'}= t('article.body') + ' (' + t('meta.name', locale: :de) + '):'
+  = f.text_area :body_de, class: :de
+  %label{for: 'body_en'}= t('article.body') + ' (' + t('meta.name', locale: :en) + '):'
+  = f.text_area :body_en, class: :en
 
 %p
-  %label{:for => 'sticky'}~ t('article.set_sticky') + ':'
+  %label{for: 'sticky'}= t('article.set_sticky') + ':'
   = f.check_box(:sticky)
-  %label{:for => 'published'}~ t('article.set_published') + ':'
-  - if @article.published?
-    %input{:type => 'checkbox', :name => 'article[published]', :value => '1', :checked => 'checked'}
-  - else
-    %input{:type => 'checkbox', :name => 'article[published]', :value => '1'}
+  %label{for: 'published'}= t('article.set_published') + ':'
+  = f.check_box(:published)

@@ -20,7 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 # Manages lifecycle of Article models
 class ArticlesController < ApplicationController
-  before_filter :find_article, :except => [:index, :create, :new, :latest]
+  before_filter :find_article, except: [:index, :create, :new, :latest]
   
   # List articles
   def index
@@ -62,12 +62,10 @@ class ArticlesController < ApplicationController
   def update
     authorize!(:manage, @article)
 
-    params[:article][:published] = params[:article][:published] ? true : false
-
     if @article.update_attributes(params[:article])
       redirect_to articles_path
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end  
 
@@ -95,14 +93,12 @@ class ArticlesController < ApplicationController
   def create
     authorize!(:manage, Article)
     
-    params[:article][:published] = params[:article][:published] ? true : false
-
     @article = Article.new(params[:article])
-    
+
     if @article.save
       redirect_to articles_path
     else
-      render :action => 'new'    
+      render action: 'new'
     end
   end
 

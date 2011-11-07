@@ -10,7 +10,7 @@ class Schedule < ActiveRecord::Base
   has_many :groups, :through => :group_associations
 
   validates :name, :uniqueness => {:scope => :user_id, :allow_nil => true},
-                   :format => /^\S+$/, :allow_nil => true
+                   :format => /^[^\/\s]+$/, :allow_nil => true
 
   attr_accessible :name, :description, :public, :fixed_schedule_state_id
 

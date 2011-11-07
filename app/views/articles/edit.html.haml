@@ -18,7 +18,7 @@
 -# along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 - set_body_id(:articles)
 
-%h2~ t('article.headline.edit')
+%h2= t('article.headline.edit')
 
 - if @article.errors.any?
   %ul
@@ -26,7 +26,7 @@
       %li
         = message
 
-= form_for(@article, :url => article_path(@article), :method => 'PUT') do |f|
-  = render :partial => 'form', :locals => {:f => f}, :object => @article
+= form_for(@article, as: :article, url: article_path(@article), method: 'PUT') do |f|
+  = render partial: 'form', locals: {f: f}, object: @article
 
   = f.submit t('article.edit')
