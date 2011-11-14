@@ -20,7 +20,7 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.1'
 
 group :assets do
   gem 'sass-rails', '~> 3.1.0'
@@ -43,7 +43,7 @@ gem 'ri_cal', '~> 0.8.8'
 gem 'amatch', '~> 0.2.5'
 gem 'uuidtools', '~> 2.1.2'
 gem 'whenever', '~> 0.6.7'
-gem 'RedCloth', '= 4.2.7', :require => 'redcloth'
+gem 'RedCloth', '= 4.2.8', :require => 'redcloth'
 gem 'globalize3', '~> 0.1.0'
 gem 'jquery-rails', '~> 1.0.13'
 gem 'acceptable', '~> 0.2.3', :require => 'rack/acceptable'
@@ -73,5 +73,5 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 1.0.0.beta3'
   gem 'machinist', '~> 2.0.0.beta2'
-  gem 'cover_me', '~> 1.1.2', :platforms => :mri_19
+#  gem 'cover_me', '~> 1.2.0', :platforms => :mri_19
 end
