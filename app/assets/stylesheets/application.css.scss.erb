@@ -20,6 +20,13 @@
  * along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$light_blue: #0099ff;
+
+@mixin rounded_corners($radius) {
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -33,7 +40,7 @@ html, body {
 
   a:link, a:visited, a:hover, a:active {
     text-decoration: none;
-    color: #0099FF;
+    color: $light_blue;
     font-weight: bold;
   }
 
@@ -43,11 +50,10 @@ html, body {
 }
 
 input[type=text], input[type=password], textarea {
+    @include rounded_corners(5px);
     background-color: #fff;
     color: #000;
     border: 1px solid #000;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     padding: 2px;
 
     &:hover, &:focus {
@@ -75,8 +81,7 @@ noscript {
 
 table.default_table {
     border: solid 1px #000;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
+    @include rounded_corners(5px);
     border-spacing: 0;
 
     caption {
@@ -266,7 +271,7 @@ table.default_table {
 
       li {
         display: block;
-        color: #0099FF;
+        color: $light_blue;
         width: 110px;
         height: 23px;
         left: 0px;
