@@ -69,7 +69,25 @@ releases:
     en: Fixed incompatibility with applications which interpret iCalendar UNTIL exclusively by mistake
   - de: Schrägstriche sind in Stundenplan-Namen nun verboten
     en: Slashes are now forbidden in schedule names
-  url: https://www.fslab.de/redmine/projects/lilith/versions/8
+- version: 0.3.3
+  time: 2011-11-14 06:38:45 +0100
+  features:
+  - de: Verifiziert dass Lilith auf Ruby 1.9.3 lauffähig ist
+    en: Verified that Lilith runs fine on Ruby 1.9.3
+  - de: An einigen Stellen auf SCSS-Variablen und -Mixins umgestellt
+    en: Converted to using SCSS variables and mixins in some places
+  bugs:
+  - de: Sticky-Option für Artikel sollte wieder in allen Fällen korrekt funktionieren
+    en: Sticky option for articles should again work correctly in all cases
+  - de: Beschreibungen für Lilith-Tasks hinzugefügt, so dass diese in rake -T aufgelistet werden
+    en: Added descriptions for Lilith tasks, to make them show up in rake -T
+  - de: Abhängigkeit zu cover_me entfernt um Tests zu stabilisieren
+    en: Removed dependency to cover_me to make tests more stable
+  - de: Upgrade auf RedCloth 4.2.8 um Fehler bei neueren GCC-Versionen zu vermeiden
+    en: Upgrade to RedCloth 4.2.8 to avoid errors with newer versions of GCC
+  - de: Upgrade auf Rails 3.1.1
+    en: Upgrade to Rails 3.1.1
+  url: https://www.fslab.de/redmine/projects/lilith/versions/11
 
 
 

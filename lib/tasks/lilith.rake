@@ -23,18 +23,22 @@ along with Lilith.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace :lilith do
 
+  desc "Scrapes the Eva system and saves acquired data into the database"
   task :scrape_eva => :environment do
     Lilith.scrape_eva
   end
 
+  desc "Scrapes the public university website and saves the acquired people records to the database"
   task :scrape_people => :environment do
     Lilith.scrape_people
   end
 
+  desc "Build news articles from the changelog.yml"
   task :release_articles => :environment do
     Lilith.generate_release_articles
   end
 
+  desc "Execute all tasks in namespace lilith in sequentially"
   task :all_tasks => [:scrape_eva, :scrape_people, :release_articles] do
     # execute all Lilith tasks
   end
