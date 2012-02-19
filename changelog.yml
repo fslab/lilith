@@ -88,6 +88,12 @@ releases:
   - de: Upgrade auf Rails 3.1.1
     en: Upgrade to Rails 3.1.1
   url: https://www.fslab.de/redmine/projects/lilith/versions/11
-
-
-
+- version: 0.4.0
+  time: 
+  features:
+  - de: 
+    en: 
+  bugs:
+  - de: 
+    en: 
+  url: https://www.fslab.de/redmine/projects/lilith/versions/11
