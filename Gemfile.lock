@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.8)
+    RedCloth (4.2.9)
     aaronh-chronic (0.3.9)
     acceptable (0.2.3)
       rack (>= 1.0.0)
@@ -140,6 +140,10 @@ GEM
     shoulda-matchers (1.0.0.beta3)
     simple-navigation (3.5.0)
       activesupport (>= 2.3.2)
+    simplecov (0.5.4)
+      multi_json (~> 1.0.3)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -165,7 +169,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (= 4.2.8)
+  RedCloth (= 4.2.9)
   acceptable (~> 0.2.3)
   activeldap (~> 3.1.0)
   amatch (~> 0.2.5)
@@ -192,6 +196,7 @@ DEPENDENCIES
   sass-rails (~> 3.1.0)
   shoulda-matchers (~> 1.0.0.beta3)
   simple-navigation (~> 3.5.0)
+  simplecov (~> 0.5.4)
   therubyracer (~> 0.9.4)
   uglifier (~> 1.0.3)
   uuidtools (~> 2.1.2)
