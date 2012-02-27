@@ -115,7 +115,7 @@ describe Event do
 
   context "#occurences" do
     it "should report all occurrences as week day objects" do
-      start_week_day = Aef::WeekDay.new(2011, 14, :wednesday)
+      start_week_day = Aef::Weekling::WeekDay.new(2011, 14, :wednesday)
 
       event = Event.make!(
         :first_start => "#{start_week_day.to_date} 15:00",
@@ -127,22 +127,22 @@ describe Event do
       end
 
       semester = event.course.study_unit.semester
-      semester.start_week = Aef::Week.new(2011, 12)
-      semester.end_week = Aef::Week.new(2011, 25)
+      semester.start_week = Aef::Weekling::Week.new(2011, 12)
+      semester.end_week = Aef::Weekling::Week.new(2011, 25)
       semester.save!
 
       event.occurrences.should == [
-        Aef::WeekDay.new(2011, 14, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 15, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 16, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 17, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 18, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 19, start_week_day.to_sym)
+        Aef::Weekling::WeekDay.new(2011, 14, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 15, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 16, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 17, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 18, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 19, start_week_day.to_sym)
       ]
     end
 
     it "should correctly remove holidays" do
-      start_week_day = Aef::WeekDay.new(2011, 16, :monday)
+      start_week_day = Aef::Weekling::WeekDay.new(2011, 16, :monday)
 
       event = Event.make!(
         :first_start => "#{start_week_day.to_date} 15:00",
@@ -154,15 +154,15 @@ describe Event do
       end
 
       semester = event.course.study_unit.semester
-      semester.start_week = Aef::Week.new(2011, 12)
-      semester.end_week = Aef::Week.new(2011, 25)
+      semester.start_week = Aef::Weekling::Week.new(2011, 12)
+      semester.end_week = Aef::Weekling::Week.new(2011, 25)
       semester.save!
 
       #Holiday would occur in week 17
       event.occurrences.should == [
-        Aef::WeekDay.new(2011, 16, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 18, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 19, start_week_day.to_sym)
+        Aef::Weekling::WeekDay.new(2011, 16, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 18, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 19, start_week_day.to_sym)
       ]
 
     end
@@ -170,7 +170,7 @@ describe Event do
 
   context "#exceptions" do
     it "should report all exceptions as week day objects" do
-      start_week_day = Aef::WeekDay.new(2011, 14, :wednesday)
+      start_week_day = Aef::Weekling::WeekDay.new(2011, 14, :wednesday)
 
       event = Event.make!(
         :first_start => "#{start_week_day.to_date} 15:00",
@@ -182,24 +182,24 @@ describe Event do
       end
 
       semester = event.course.study_unit.semester
-      semester.start_week = Aef::Week.new(2011, 12)
-      semester.end_week = Aef::Week.new(2011, 25)
+      semester.start_week = Aef::Weekling::Week.new(2011, 12)
+      semester.end_week = Aef::Weekling::Week.new(2011, 25)
       semester.save!
 
       event.exceptions.should == [
-        Aef::WeekDay.new(2011, 12, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 13, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 20, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 21, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 22, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 23, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 24, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 25, start_week_day.to_sym)
+        Aef::Weekling::WeekDay.new(2011, 12, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 13, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 20, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 21, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 22, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 23, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 24, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 25, start_week_day.to_sym)
       ]
     end
 
     it "should correctly add holidays to the exceptions" do
-      start_week_day = Aef::WeekDay.new(2011, 16, :monday)
+      start_week_day = Aef::Weekling::WeekDay.new(2011, 16, :monday)
 
       event = Event.make!(
         :first_start => "#{start_week_day.to_date} 15:00",
@@ -211,22 +211,22 @@ describe Event do
       end
 
       semester = event.course.study_unit.semester
-      semester.start_week = Aef::Week.new(2011, 12)
-      semester.end_week = Aef::Week.new(2011, 25)
+      semester.start_week = Aef::Weekling::Week.new(2011, 12)
+      semester.end_week = Aef::Weekling::Week.new(2011, 25)
       semester.save!
 
       event.exceptions.should == [
-        Aef::WeekDay.new(2011, 12, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 13, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 14, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 15, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 17, start_week_day.to_sym), #Holiday.
-        Aef::WeekDay.new(2011, 20, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 21, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 22, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 23, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 24, start_week_day.to_sym),
-        Aef::WeekDay.new(2011, 25, start_week_day.to_sym)
+        Aef::Weekling::WeekDay.new(2011, 12, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 13, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 14, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 15, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 17, start_week_day.to_sym), #Holiday.
+        Aef::Weekling::WeekDay.new(2011, 20, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 21, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 22, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 23, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 24, start_week_day.to_sym),
+        Aef::Weekling::WeekDay.new(2011, 25, start_week_day.to_sym)
       ]
     end
   end

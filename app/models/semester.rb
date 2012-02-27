@@ -72,24 +72,24 @@ class Semester < ActiveRecord::Base
     end
   end
 
-  # Sets start week either by String or Aef::Week
+  # Sets start week either by String or Aef::Weekling::Week
   def start_week=(start_week)
     write_attribute(:start_week, start_week.to_s)
   end
 
-  # Returns the start week as Aef::Week
+  # Returns the start week as Aef::Weekling::Week
   def start_week
-    Aef::Week.parse(read_attribute(:start_week))
+    Aef::Weekling::Week.parse(read_attribute(:start_week))
   end
 
-  # Sets end week either by String or Aef::Week
+  # Sets end week either by String or Aef::Weekling::Week
   def end_week=(end_week)
     write_attribute(:end_week, end_week.to_s)
   end
 
-  # Returns the end week as Aef::Week
+  # Returns the end week as Aef::Weekling::Week
   def end_week
-    Aef::Week.parse(read_attribute(:end_week))
+    Aef::Weekling::Week.parse(read_attribute(:end_week))
   end
 
   # Returns the range between start week and end week

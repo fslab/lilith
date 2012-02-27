@@ -57,6 +57,7 @@ gem 'nokogiri', '~> 1.5.0'
 gem 'simple-navigation', '~> 3.5.0'
 gem 'mixable_engines', '~> 0.1.1'
 gem 'activeldap', '~> 3.1.0', :require => 'active_ldap'
+gem 'weekling', '~> 1.0.0', require: 'weekling/bare' # FIXME: Disable bare mode when Lilith is completely namespaced
 
 platforms :ruby do
   gem 'ruby-ldap', '~> 0.9.11'

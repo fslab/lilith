@@ -270,7 +270,7 @@ class Lilith::HbrsEvaScraper
     semester = Semester.find_or_create_by_start_year_and_season(year, season)
 
     # Detect the semester's week range and update the persisted object
-    start_week = Aef::Week.new(year.to_i, ids_to_week_numbers.values.first.to_i)
+    start_week = Aef::Weekling::Week.new(year.to_i, ids_to_week_numbers.values.first.to_i)
     week_range = start_week.until_index(ids_to_week_numbers.values.last.to_i)
     end_week   = week_range.max
 
@@ -478,7 +478,7 @@ class Lilith::HbrsEvaScraper
 
       # Special case handling for "Algebraische und zahlenth. Grundlagen (V)", BCS5 on fridays in 2011 winter semester
       if raw_recurrence == 'KW 40-51(ohne KW 45)'
-        filtered_weeks -= [Aef::Week.new(2011, 45)]
+        filtered_weeks -= [Aef::Weekling::Week.new(2011, 45)]
       end
     end
 
@@ -486,7 +486,7 @@ class Lilith::HbrsEvaScraper
 
     filtered_weeks.each do |week|
       event.week_associations.create!(
-        :week_id => ::Week.find_or_create_by_year_and_index(week.year, week.index)
+        :week_id => Week.find_or_create_by_year_and_index(week.year.to_i, week.index)
       )
     end
   end

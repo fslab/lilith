@@ -194,8 +194,8 @@ describe Lilith::HbrsEvaScraper do
     it "should correctly set the week range" do
       semester = @scraper.scrape_semester
       semester.should be_persisted
-      semester.start_week.should == Aef::Week.new(2011, 12)
-      semester.end_week.should   == Aef::Week.new(2011, 25)
+      semester.start_week.should == Aef::Weekling::Week.new(2011, 12)
+      semester.end_week.should   == Aef::Weekling::Week.new(2011, 25)
     end
   end
 
@@ -482,7 +482,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 12-25'" do
       @scraper.scrape_week_associations(@event, 'KW 12-25')
 
-      expected_weeks = (Aef::Week.new(2011, 12) .. Aef::Week.new(2011, 25)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 12) .. Aef::Weekling::Week.new(2011, 25)).to_a
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -491,7 +491,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 13-25'" do
       @scraper.scrape_week_associations(@event, 'KW 13-25')
 
-      expected_weeks = (Aef::Week.new(2011, 13) .. Aef::Week.new(2011, 25)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 13) .. Aef::Weekling::Week.new(2011, 25)).to_a
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -500,7 +500,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 12-24'" do
       @scraper.scrape_week_associations(@event, 'KW 12-24')
 
-      expected_weeks = (Aef::Week.new(2011, 12) .. Aef::Week.new(2011, 24)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 12) .. Aef::Weekling::Week.new(2011, 24)).to_a
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -509,7 +509,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 20-25'" do
       @scraper.scrape_week_associations(@event, 'KW 20-25')
 
-      expected_weeks = (Aef::Week.new(2011, 20) .. Aef::Week.new(2011, 25)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 20) .. Aef::Weekling::Week.new(2011, 25)).to_a
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -518,7 +518,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 13-18'" do
       @scraper.scrape_week_associations(@event, 'KW 13-18')
 
-      expected_weeks = (Aef::Week.new(2011, 13) .. Aef::Week.new(2011, 18)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 13) .. Aef::Weekling::Week.new(2011, 18)).to_a
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -527,7 +527,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 12,13,15,17,19,21,23'" do
       @scraper.scrape_week_associations(@event, 'KW 12,13,15,17,19,21,23')
 
-      expected_weeks = [12, 13, 15, 17, 19, 21, 23].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [12, 13, 15, 17, 19, 21, 23].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -536,7 +536,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 14,15,17,18'" do
       @scraper.scrape_week_associations(@event, 'KW 14,15,17,18')
 
-      expected_weeks = [14, 15, 17, 18].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [14, 15, 17, 18].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -547,7 +547,7 @@ describe Lilith::HbrsEvaScraper do
       
       @scraper.scrape_week_associations(@event, 'KW 13,9,21')
 
-      expected_weeks = [9, 13, 21].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [9, 13, 21].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -556,7 +556,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'KW 16'" do
       @scraper.scrape_week_associations(@event, 'KW 16')
 
-      expected_weeks = [Aef::Week.new(2011, 16)]
+      expected_weeks = [Aef::Weekling::Week.new(2011, 16)]
 
       @event.recurrence.should be_nil
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -565,7 +565,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'uKW'" do
       @scraper.scrape_week_associations(@event, 'uKW')
 
-      expected_weeks = [13, 15, 17, 19, 21, 23, 25].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [13, 15, 17, 19, 21, 23, 25].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should == 'uKW'
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -574,7 +574,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'uKW ab KW 15'" do
       @scraper.scrape_week_associations(@event, 'uKW ab KW 15')
 
-      expected_weeks = [15, 17, 19, 21, 23, 25].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [15, 17, 19, 21, 23, 25].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should == 'uKW'
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -584,7 +584,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'gKW'" do
       @scraper.scrape_week_associations(@event, 'gKW')
 
-      expected_weeks = [12, 14, 16, 18, 20, 22, 24].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [12, 14, 16, 18, 20, 22, 24].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should == 'gKW'
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -593,7 +593,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to scrape 'gKW ab KW 14'" do
       @scraper.scrape_week_associations(@event, 'gKW ab KW 14')
 
-      expected_weeks = [14, 16, 18, 20, 22, 24].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [14, 16, 18, 20, 22, 24].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       @event.recurrence.should == 'gKW'
       @event.weeks.map(&:to_week).should == expected_weeks
@@ -642,7 +642,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse '13+14'" do
       semester = Semester.make(:start_week => '2011-W10', :end_week => '2011-W24')
 
-      expected_weeks = [13, 14].map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = [13, 14].map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(semester, '13+14').should == expected_weeks
     end
@@ -650,19 +650,19 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse '13 + 14 '" do
       semester = Semester.make(:start_week => '2011-W10', :end_week => '2011-W24')
 
-      expected_weeks = [13, 14].map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = [13, 14].map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(semester, '13 + 14 ').should == expected_weeks
     end
 
     it "should be able to parse '12-25'" do
-      expected_weeks = (12..25).map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = (12..25).map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(@semester, '12-25').should == expected_weeks
     end
 
     it "should be able to parse ' 12 - 25'" do
-      expected_weeks = (12..25).map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = (12..25).map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(@semester, ' 12 - 25').should == expected_weeks
     end
@@ -670,7 +670,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse '12,14,15,17'" do
       semester = Semester.make(:start_week => '2011-W10', :end_week => '2011-W24')
 
-      expected_weeks = [12, 14, 15, 17].map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = [12, 14, 15, 17].map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(semester, '12,14,15,17').should == expected_weeks
     end
@@ -678,7 +678,7 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse '12, 14,15 , 17'" do
       semester = Semester.make(:start_week => '2011-W10', :end_week => '2011-W24')
       
-      expected_weeks = [12, 14, 15, 17].map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = [12, 14, 15, 17].map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(semester, '12, 14,15 , 17').should == expected_weeks
     end
@@ -687,8 +687,8 @@ describe Lilith::HbrsEvaScraper do
       semester = Semester.make(:start_week => '2011-W44', :end_week => '2012-W06')
 
       expected_weeks = []
-      expected_weeks += [49, 50, 51].map{|index| Aef::Week.new(2011, index)}
-      expected_weeks += [1, 3].map{|index| Aef::Week.new(2012, index)}
+      expected_weeks += [49, 50, 51].map{|index| Aef::Weekling::Week.new(2011, index)}
+      expected_weeks += [1, 3].map{|index| Aef::Weekling::Week.new(2012, index)}
 
       described_class.parse_week_range(semester, '49-51,1+3').should == expected_weeks
     end
@@ -696,13 +696,13 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse 'ab KW 15'" do
       semester = Semester.make(:start_week => '2011-W12', :end_week => '2011-W25')
 
-      expected_weeks = (15..25).map{|index| Aef::Week.new(2011, index)}
+      expected_weeks = (15..25).map{|index| Aef::Weekling::Week.new(2011, index)}
 
       described_class.parse_week_range(semester, 'ab KW 15').should == expected_weeks
     end
 
     it "should be able to parse '16'" do
-      expected_weeks = [Aef::Week.new(2011, 16)]
+      expected_weeks = [Aef::Weekling::Week.new(2011, 16)]
 
       described_class.parse_week_range(@semester, '16').should == expected_weeks
     end
@@ -710,56 +710,56 @@ describe Lilith::HbrsEvaScraper do
     it "should be able to parse '13,9,21'" do
       pending("Disabled because parser won't handle this. Fix this in upstream data source.")
       
-      expected_weeks = [13, 9, 21].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [13, 9, 21].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '13,9,21').should == expected_weeks
     end
 
     it "should be able to parse '14,15,17,18'" do
-      expected_weeks = [14, 15, 17, 18].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [14, 15, 17, 18].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '14,15,17,18').should == expected_weeks
     end
 
     it "should be able to parse '12,13,15,17,19,21,23'" do
-      expected_weeks = [12, 13, 15, 17, 19, 21, 23].map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = [12, 13, 15, 17, 19, 21, 23].map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '12,13,15,17,19,21,23').should == expected_weeks
     end
 
     it "should be able to parse '13-18'" do
-      expected_weeks = (13..18).map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = (13..18).map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '13-18').should == expected_weeks
     end
 
     it "should be able to parse '20-25'" do
-      expected_weeks = (20..25).map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = (20..25).map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '20-25').should == expected_weeks
     end
 
     it "should be able to parse '12-24'" do
-      expected_weeks = (12..24).map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = (12..24).map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '12-24').should == expected_weeks
     end
 
     it "should be able to parse '13-25'" do
-      expected_weeks = (13..25).map{|index| Aef::Week.new(2011, index) }
+      expected_weeks = (13..25).map{|index| Aef::Weekling::Week.new(2011, index) }
 
       described_class.parse_week_range(@semester, '13-25').should == expected_weeks
     end
 
     it "should be able to parse '40-4'" do
-      expected_weeks = (Aef::Week.new(2011, 40)..Aef::Week.new(2012, 4)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 40)..Aef::Weekling::Week.new(2012, 4)).to_a
 
       semester = Semester.make(:start_week => '2011-W38', :end_week => '2012-W06')
       described_class.parse_week_range(semester, '40-4').should == expected_weeks
     end
 
     it "should be able to parse '40-4' with smaller semester" do
-      expected_weeks = (Aef::Week.new(2011, 41)..Aef::Week.new(2012, 2)).to_a
+      expected_weeks = (Aef::Weekling::Week.new(2011, 41)..Aef::Weekling::Week.new(2012, 2)).to_a
 
       semester = Semester.make(:start_week => '2011-W41', :end_week => '2012-W02')
       described_class.parse_week_range(semester, '40-4').should == expected_weeks

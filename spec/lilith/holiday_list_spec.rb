@@ -73,7 +73,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostersonntag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostersonntag')
-      Aef::WeekDay.new(holiday).should be_sunday
+      Aef::Weekling::WeekDay.new(holiday).should be_sunday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 8
@@ -83,7 +83,7 @@ describe Lilith::HolidayList do
     it "should correctly find Karfreitag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Karfreitag')
-      Aef::WeekDay.new(holiday).should be_friday
+      Aef::Weekling::WeekDay.new(holiday).should be_friday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 6
@@ -93,7 +93,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostermontag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostermontag')
-      Aef::WeekDay.new(holiday).should be_monday
+      Aef::Weekling::WeekDay.new(holiday).should be_monday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 9
@@ -135,7 +135,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostersonntag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostersonntag')
-      Aef::WeekDay.new(holiday).should be_sunday
+      Aef::Weekling::WeekDay.new(holiday).should be_sunday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 20
@@ -145,7 +145,7 @@ describe Lilith::HolidayList do
     it "should correctly find Karfreitag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Karfreitag')
-      Aef::WeekDay.new(holiday).should be_friday
+      Aef::Weekling::WeekDay.new(holiday).should be_friday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 18
@@ -155,7 +155,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostermontag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostermontag')
-      Aef::WeekDay.new(holiday).should be_monday
+      Aef::Weekling::WeekDay.new(holiday).should be_monday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 21
@@ -197,7 +197,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostersonntag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostersonntag')
-      Aef::WeekDay.new(holiday).should be_sunday
+      Aef::Weekling::WeekDay.new(holiday).should be_sunday
       holiday.year.should == @year
       holiday.month.should == 3
       holiday.day.should == 31
@@ -207,7 +207,7 @@ describe Lilith::HolidayList do
     it "should correctly find Karfreitag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Karfreitag')
-      Aef::WeekDay.new(holiday).should be_friday
+      Aef::Weekling::WeekDay.new(holiday).should be_friday
       holiday.year.should == @year
       holiday.month.should == 3
       holiday.day.should == 29
@@ -217,7 +217,7 @@ describe Lilith::HolidayList do
     it "should correctly find Ostermontag for #{@year}"  do
       holidays = described_class.new(@year)
       holiday = holidays.find('Ostermontag')
-      Aef::WeekDay.new(holiday).should be_monday
+      Aef::Weekling::WeekDay.new(holiday).should be_monday
       holiday.year.should == @year
       holiday.month.should == 4
       holiday.day.should == 1

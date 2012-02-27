@@ -28,6 +28,6 @@ class Week < ActiveRecord::Base
   has_many :events, :through => :event_associations
 
   def to_week
-    Aef::Week.new(year, index)
+    Aef::Weekling::Week.new(year, index)
   end
 end

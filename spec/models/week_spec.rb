@@ -48,9 +48,9 @@ describe Week do
   end
 
   context "#to_week" do
-    it "should return the corresponding Aef::Week object" do
+    it "should return the corresponding Aef::Weekling::Week object" do
       week = described_class.make(:year => 2011, :index => 25).to_week
-      week.should == Aef::Week.new(2011, 25)
+      week.should == Aef::Weekling::Week.new(2011, 25)
     end
   end
 end

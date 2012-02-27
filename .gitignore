@@ -15,11 +15,11 @@ doc/app
 log
 tmp
 .bundle
+.rbx
 
 # Testing and coverage
 .rspec
 coverage
-coverage.data
 
 # Backup files (mostly Dia)
 doc/plan/*\~
